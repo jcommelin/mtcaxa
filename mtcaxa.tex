@@ -1,0 +1,960 @@
+\documentclass[10pt,twoside,leqno]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[full]{textcomp}
+
+\usepackage{csquotes}
+\usepackage[english]{babel}
+
+% \usepackage[urw-garamond,expert,
+% uppercase=upright,greeklowercase=upright]{mathdesign}
+% \usepackage[osf,swashQ]{garamondx}
+% \def\kappa{\varkappa}
+\usepackage{mathtools}
+\mathtoolsset{mathic} % Italic correction before mathmode, works with ~'s.
+% \def\mathds{\mathbb}
+
+\usepackage{cfr-lm}
+\usepackage{dsfont}  % disable this when loading mathdesign
+
+\usepackage{microtype}
+\linespread{1.25}  % = 1.500 * fontheight
+% \linespread{1.388} % = 1.666 * fontheight
+\usepackage[
+% paper=b5paper,
+nohead,nomarginpar,
+% bindingoffset=.3cm,
+paper=a4paper,
+]{geometry}
+
+% \raggedbottom
+
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[LE,RO]{\thepage/\pageref{LastPage}}
+
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{tabu}
+
+\usepackage[inline]{enumitem}
+\setlist{noitemsep,nosep,listparindent=\parindent}
+\setlist[itemize]{label=\guillemotright}
+\setlist[enumerate,1]{ref=\thesubsection.\arabic*}
+\setlist[enumerate,2]{label=\alph*.,ref=\theenumi.\alph*}
+% \setlist[enumerate*]{label=(\textit{\roman*}\thinspace)}
+
+\usepackage{cjhebrew}
+
+\usepackage[backend=biber,doi=false,url=false,isbn=false,%
+sorting=nyt,safeinputenc]{biblatex}
+\bibliography{\jobname.bib}
+\defbibheading{bibliography}[\bibname]{\sectionstar{#1}}
+
+%%% SECTION HEADINGS
+\usepackage{ifthen}
+\makeatletter
+\renewcommand{\part}[1]{%
+ \cleardoublepage%
+ \vbox{\null\vskip90pt%
+ \normalfont\fontsize{20pt}{30pt}\selectfont%
+ \baselineskip=30pt%
+ \scshape\noindent\textls*{#1}\par}%
+ \addcontentsline{toc}{part}{#1}%
+ \@afterindentfalse%
+ \@afterheading%
+}
+\renewcommand{\section}[1]{%
+ \refstepcounter{section}%
+ \bigskip\penalty-250
+ \vbox{\normalfont\fontsize{12pt}{15pt}\selectfont%
+  \centering\scshape\noindent\textls*{\thesection\quad#1}%
+  \par}
+ \nobreak
+ \addcontentsline{toc}{section}{\protect\numberline{\thesection} #1}%
+ \@afterindentfalse%
+ \@afterheading%
+} 
+\newcommand{\sectionstar}[1]{%
+ \bigskip\penalty-250
+ \vbox{\normalfont\fontsize{12pt}{15pt}\selectfont%
+  \centering\scshape\noindent\textls*{#1}%
+  \par}
+ \nobreak\vskip15pt
+ \@afterindentfalse%
+ \@afterheading%
+} 
+\renewcommand{\paragraph}[1]{\par\bigskip\refstepcounter{subsection}%
+ {\normalfont\normalsize\scshape\noindent\thesubsection%
+ \ifthenelse{\equal{#1}{}}%
+ {}%
+ {\ \textls{#1.}}%
+ \ ---}%
+}
+\newcommand{\readme}{\par\vskip\baselineskip%
+ {\normalfont\normalsize\scshape\noindent%
+  \textls{Readme.}\ ---}
+}
+\renewcommand\tableofcontents{%
+ \sectionstar{\contentsname}%
+ \@starttoc{toc}%
+}
+\renewcommand*\l@part[2]{%
+ \addvspace{15pt \@plus\p@}%
+ \noindent{\leavevmode%
+  \scshape\textls{#1\qquad#2}%
+ }\par\nobreak%
+}
+\renewcommand*\l@section[2]{%
+ \setlength\@tempdima{\parindent}%
+ \noindent
+ {\leavevmode%
+  \hskip\parindent#1\qquad#2%
+ }\par\nobreak%
+}
+\makeatother
+
+%%% MATH PACKAGES
+\usepackage{amsmath,amssymb}  % disable when using mathdesign
+\usepackage{mathrsfs}         % disable when using mathdesign
+\usepackage{mathabx}
+\usepackage[all]{xy}
+
+\usepackage[thmmarks,amsmath]{ntheorem}
+\usepackage{thmtools}
+
+\numberwithin{equation}{subsection}
+
+\declaretheoremstyle[headformat=swapnumber,headpunct={.\ ---},%
+headfont=\normalfont\scshape\lsstyle,bodyfont=\itshape,%
+spaceabove=0pt,spacebelow=0pt,%
+preheadhook={\bigskip}]{theorem}
+\declaretheorem[style=theorem,sibling=subsection]{theorem}
+\declaretheorem[style=theorem,sibling=subsection]{proposition}
+\declaretheorem[style=theorem,sibling=subsection]{lemma}
+\declaretheorem[style=theorem,sibling=subsection]{corollary}
+\declaretheorem[style=theorem,sibling=subsection]{conjecture}
+
+\declaretheoremstyle[headformat=swapnumber,headpunct={.\ ---},%
+headfont=\normalfont\scshape\lsstyle,bodyfont=\normalfont,%
+spaceabove=0pt,spacebelow=0pt,%
+preheadhook={\bigskip}]{definition}
+\declaretheorem[style=definition,sibling=subsection]{definition}
+\declaretheorem[style=definition,sibling=subsection]{exercise}
+\declaretheorem[style=definition,sibling=subsection]{example}
+\declaretheorem[style=definition,sibling=subsection]{remark}
+\declaretheorem[style=definition,sibling=subsection]{construction}
+
+\declaretheoremstyle[headpunct={\!.},headfont=\itshape,bodyfont=\normalfont,%
+qed=\ensuremath{\square},spaceabove=0pt,spacebelow=0pt]{proof}
+\declaretheoremstyle[headpunct={\!.},headfont=\itshape,bodyfont=\normalfont,%
+qed=\ensuremath{\square},spaceabove=0pt,spacebelow=0pt]{nonumberproof}
+\declaretheorem[style=proof,numbered=no]{proof}
+
+\declaretheoremstyle[headformat=swapnumber,headpunct={.\ ---},%
+headfont=\itshape,bodyfont=\normalfont,qed=\ensuremath{\square},%
+spaceabove=0pt,spacebelow=0pt,%
+preheadhook={\bigskip}]{nproof}
+\declaretheorem[style=nproof,sibling=subsection,name=Proof]{nproof}
+
+\usepackage{cleveref}
+\crefname{condition}{condition}{conditions}
+\crefname{conjecture}{conjecture}{conjectures}
+\crefname{construction}{construction}{constructions}
+\crefname{corollary}{corollary}{corollaries}
+\crefname{diagram}{diagram}{diagrams}
+\crefformat{subsection}{\S#2#1#3}
+\crefformat{enumi}{\S#2#1#3}
+\crefformat{nproof}{\S#2#1#3}
+\creflabelformat{equation}{#2#1#3}
+
+%%% MATH MACROS
+\newcommand{\id}{\textnormal{id}}
+
+\newcommand{\into}{\hookrightarrow}
+\newcommand{\onto}{\twoheadrightarrow}
+\newcommand{\longto}{\longrightarrow}
+\newcommand{\longinto}{\lhook\joinrel\longrightarrow}
+
+\renewcommand{\Im}{\textnormal{Im}}
+
+\newcommand{\Hom}{\textnormal{Hom}}
+\newcommand{\End}{\textnormal{End}}
+\newcommand{\Isom}{\textnormal{Isom}}
+\newcommand{\Inn}{\textnormal{Inn}}
+\newcommand{\Aut}{\textnormal{Aut}}
+\newcommand{\Out}{\textnormal{Out}}
+\newcommand{\iHom}{\underline{\Hom}}
+\newcommand{\iEnd}{\underline{\End}}
+\newcommand{\iIsom}{\underline{\Isom}}
+\newcommand{\iInn}{\underline{\Inn}}
+\newcommand{\iAut}{\underline{\Aut}}
+\newcommand{\iOut}{\underline{\Out}}
+
+\newcommand{\Mat}{\textnormal{Mat}}
+\newcommand{\Sym}{\textnormal{Sym}}
+
+\newcommand{\Fil}{\textnormal{Fil}}
+
+\newcommand{\dual}[1]{\check{#1}}
+
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\QQl}{\QQ_{\ell}}
+\newcommand{\QQlbar}{\bar{\QQ}_{\ell}}
+\newcommand{\QQp}{\QQ_{p}}
+\newcommand{\QQpbar}{\bar{\QQ}_{p}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\HQ}{\mathbb{H}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\FFp}{\FF_{p}}
+\newcommand{\FFq}{\FF_{q}}
+\newcommand{\FFqbar}{\bar{\FF}_{q}}
+\newcommand{\Adele}{\mathbb{A}}
+\newcommand{\fin}{\textnormal{f}}
+
+\newcommand{\primes}{\mathscr{L}}
+
+\newcommand{\Spec}{\textnormal{Spec}}
+
+\newcommand{\DelS}{\mathbb{S}}
+\newcommand{\Sh}{\textnormal{Sh}}
+\newcommand{\mSh}{\mathscr{S}}
+\newcommand{\DD}{\mathbb{D}}
+\newcommand{\mcG}{\mathcal{G}}
+\newcommand{\Kmpt}{\mathcal{K}}
+\newcommand{\Sds}{\mathfrak{H}^{\pm}}
+\newcommand{\AV}{\mathscr{A}}
+\newcommand{\Ag}{\AV_{g}}
+
+\newcommand{\Gal}{\textnormal{Gal}}
+
+% \newcommand{\HH}{\textnormal{H}}
+% \newcommand{\Hhom}{\HH_{\textnormal{hom}}}
+\newcommand{\HdR}{\HH_{\dR}}
+% \newcommand{\Hl}{\HH_{\ell}}
+% \newcommand{\Hp}{\HH_{p}}
+% \newcommand{\Hlambda}{\HH_{\lambda}}
+% \newcommand{\HB}{\HH_{\textnormal{B}}}
+% \newcommand{\Hsigma}{\HH_{\sigma}}
+
+% \newcommand{\GG}{\textnormal{G}}
+% \newcommand{\Gl}{\GG_{\ell}}
+% \newcommand{\Glc}{\Gl^{\circ}}
+% \newcommand{\GB}{\GG_{\textnormal{B}}}
+% \newcommand{\Gsigma}{\GG_{\sigma}}
+% \newcommand{\Gmot}[1]{\GG_{\textnormal{mot},#1}}
+% \newcommand{\Gmots}{\Gmot{\sigma}}
+% \newcommand{\Gmotl}{\Gmot{\ell}}
+% \newcommand{\GmotB}{\Gmot{\textnormal{B}}}
+% \newcommand{\Gp}{\GG_{p}}
+
+% \newcommand{\Zl}{\textnormal{Z}_{\ell}}
+% \newcommand{\Zlc}{\Zl^{\circ}}
+% \newcommand{\ZB}{\textnormal{Z}_{\textnormal{B}}}
+% \newcommand{\Zsigma}{\textnormal{Z}_{\sigma}}
+% \newcommand{\Zmot}[1]{\textnormal{Z}_{\textnormal{mot},#1}}
+% \newcommand{\Zmots}{\Zmot{\sigma}}
+% \newcommand{\Zmotl}{\Zmot{\ell}}
+
+\newcommand{\BdR}[1]{\textnormal{B}_{\dR,#1}}
+\newcommand{\BHT}[1]{\textnormal{B}_{\textnormal{HT},#1}}
+\newcommand{\gr}{\textnormal{gr}}
+
+\newcommand{\Vect}{\textnormal{Vect}}
+\newcommand{\Filt}{\textnormal{Filt}}
+\newcommand{\Rep}{\textnormal{Rep}}
+\newcommand{\QHS}{\QQ\textnormal{HS}}
+
+\makeatletter
+\def\cpwith[#1]#2{\textnormal{c.p.}_{#1}(#2)}
+\def\cpwithout#1{\textnormal{c.p.}(#1)}
+\def\cp{\@ifnextchar[{\cpwith}{\cpwithout}}
+\makeatother
+\makeatletter
+\def\Gmwith[#1]{\mathbb{G}_{\textnormal{m},#1}}
+\def\Gmwithout{\mathbb{G}_{\textnormal{m}}}
+\def\Gm{\@ifnextchar[{\Gmwith}{\Gmwithout}}
+\makeatother
+\newcommand{\GL}{\textnormal{GL}}
+\newcommand{\SL}{\textnormal{SL}}
+\newcommand{\PSL}{\textnormal{PSL}}
+\newcommand{\UU}{\textnormal{U}}
+\newcommand{\SU}{\textnormal{SU}}
+\newcommand{\OO}{\textnormal{O}}
+\newcommand{\SO}{\textnormal{SO}}
+\newcommand{\Spin}{\textnormal{Spin}}
+\newcommand{\CSpin}{\textnormal{CSpin}}
+\newcommand{\GSp}{\textnormal{GSp}}
+\newcommand{\Lie}{\textnormal{Lie}}
+
+% \newcommand{\mfsl}{\mathfrak{sl}}
+% \newcommand{\mfso}{\mathfrak{so}}
+
+% \newcommand{\Cliff}{\textnormal{Cl}}
+% \newcommand{\spin}{\textnormal{spin}}
+
+% \newcommand{\St}{\textnormal{St}}
+
+\newcommand{\ab}{\textnormal{ab}}
+\newcommand{\der}{\textnormal{der}}
+\newcommand{\ad}{\textnormal{ad}}
+
+\newcommand{\SmPr}{\textnormal{SmPr}}
+
+\newcommand{\an}{\textnormal{an}}
+\newcommand{\cl}{\textnormal{cl}}
+
+\newcommand{\dR}{\textnormal{dR}}
+\newcommand{\et}{\textnormal{\'{e}t}}
+\newcommand{\sing}{\textnormal{sing}}
+
+\newcommand{\HH}{\textnormal{H}}
+\newcommand{\Hl}{\HH_{\ell}}
+\newcommand{\Hp}{\HH_{p}}
+\newcommand{\Hlambda}{\HH_{\lambda}}
+\newcommand{\HB}{\HH_{\textnormal{B}}}
+
+\newcommand{\Zar}{\textnormal{Zar}}
+
+\newcommand{\Mot}{\textnormal{Mot}}
+
+\newcommand{\GG}{\textnormal{G}}
+\newcommand{\GB}{\GG_{\textnormal{B}}}
+\newcommand{\Gp}{\GG_{p}}
+\newcommand{\Gl}{\GG_{\ell}}
+
+\newcommand{\alg}{\textnormal{alg}}
+\newcommand{\tra}{\textnormal{tra}}
+
+\newcommand{\Res}{\textnormal{Res}}
+\newcommand{\Nm}{\textnormal{Nm}}
+\newcommand{\trace}{\textnormal{tr}}
+\newcommand{\rk}{\textnormal{rk}}
+\renewcommand{\det}{\textnormal{det}}
+\newcommand{\res}{\textnormal{res}}
+
+\newcommand{\chrc}{\textnormal{char}}
+
+\newcommand{\Tangen}[1]{\langle #1 \rangle^{\otimes}}
+\newcommand{\Val}{\textnormal{Val}}
+
+\newcommand{\tr}{\textsc{tr}}
+\newcommand{\cm}{\textsc{cm}}
+
+\newcommand{\MTC}{\textnormal{MTC}}
+
+\newcommand{\rotatesim}{\rotatebox{90}{$\sim$}}
+
+\usepackage{tikz}
+\usetikzlibrary{cd,positioning}
+\usetikzlibrary{decorations.pathmorphing}
+
+\def\title{The Mumford--Tate conjecture for products of abelian varieties}
+\def\author{Johan Commelin}
+
+\usepackage{datetime}
+\def\date{\dayofweekname{\day}{\month}{\year},
+ the \ordinaldate{\day} of \monthname, \number\year}
+
+\begin{document}
+\begin{center}\Large\scshape
+\textls*{\title}
+\end{center}
+
+\medskip
+
+\noindent\textit{by} \quad \author \hfill \date
+
+\vskip3\baselineskip
+
+\tableofcontents
+
+\section{Introduction}
+
+TODO %TODO
+\hfill\cjRL{hw/s`nh brwK hb' b/sM yhwh}
+
+\paragraph{Conventions}
+We say that a reductive group~\(G\) over a field~\(K\) of characteristic~\(0\)
+is \emph{classical} if all its simple factors
+are of type \(A_{n}\),~\(B_{n}\), \(C_{n}\), or~\(D_{n}\).
+(In other words, we exclude the exceptional groups.)
+
+\section{A local-global principle for forms of adjoint algebraic groups}
+
+\begin{theorem} \label{locglob}
+ Let \(E\) be a number field.
+ Let \(G\) be an absolutely simple classical group over~\(E\).
+ Assume that \(G\) is either simply connected or adjoint.
+ Then the natural morphism
+ \[
+  \HH^{1}(E, \iAut_{G}) \stackrel{\phi_{G}}{\longto}
+  \prod_{v} \HH^{1}(E_{v}, \iAut_{G})
+ \]
+ is injective.
+ (Here \(v\) runs over all the places of~\(E\), both finite and infinite.)
+\end{theorem}
+
+\paragraph{First reduction} \label{firstred}
+The proof of \cref{locglob} takes the rest of this section.
+We first show that we may assume that \(G\) is split and simply connected.
+Let \(G'\) be a form of~\(G\) over~\(E\),
+corresponding to a class \([G'] \in \HH^{1}(E, \iAut_{G})\).
+Then we obtain a natural commutative diagram
+\[
+ \begin{tikzcd}
+  \HH^{1}(E, \iAut_{G}) \ar[r,"\phi_{G}"] \ar[d,<->,"\rotatesim"]
+  & \prod_{v} \HH^{1}(E_{v}, \iAut_{G}) \ar[d,<->,"\rotatesim"] \\
+  \HH^{1}(E, \iAut_{G'}) \ar[r,"\phi_{G'}"]
+  & \prod_{v} \HH^{1}(E_{v}, \iAut_{G'}) \\
+ \end{tikzcd}
+\]
+where the downward map on the left sends \([G']\)
+to the distinguished element \(*\) of \(\HH^{1}(E, \iAut_{G})\);
+and the downward map on the right sends \(\phi_{G}([G'])\)
+to \(* \in \prod_{v} \HH^{1}(E_{v}, \iAut_{G})\).
+It is therefore sufficient to prove \cref{locglob}
+in the case that \(G\) is a split group.
+If \(G\) is simply connected, then \(\iAut_{G} \cong \Aut_{G^{\ad}}\),
+and thus the adjoint case follows from the simply connected case.
+
+\paragraph{} \label{exactEpts}
+For the moment, let \(E\) be any field of characteristic~\(0\)
+(for example a \(p\)-adic local field); and
+let \(G\) be a classical group over~\(E\) that is split and simply connected.
+Let \(\Delta\) denote the Dynkin diagram of~\(G_{\bar{E}}\),
+and let \(\Delta_{\bar{E}}\) denote the Dynkin diagram of~\(G_{\bar{E}}\).
+Recall that \(\iOut_{G}(\bar{E}) \cong \Aut(\Delta)\).
+The assumption that \(G\) is split and simply connected
+implies that
+\begin{enumerate*}[label=(\textit{\roman*})]
+ \item \(\iOut_{G}(E) = \iOut_{G}(\bar{E})\); and
+ \item the sequence \(0 \to \iInn_{G}(E) \to \iAut_{G}(E) \to \iOut_{G}(E) \to 0\)
+  is exact.
+\end{enumerate*}
+See for example proposition~1.5.1 and example~1.5.2 of~\cite{Conrad_RedGrp}.
+
+\paragraph{}
+For ease of mind we recall that
+\[
+ \Aut(\Delta) =
+ \begin{cases}
+  1 & \text{if \(G\) is of type \(A_{1}\)} \\
+  \ZZ/2\ZZ & \text{if \(G\) is of type \(A_{n}\), with \(n > 1\)} \\
+  1 & \text{if \(G\) is of type \(B_{n}\) or~\(C_{n}\)} \\
+  \mathfrak{S}_{3} & \text{if \(G\) is of type \(D_{4}\)} \\
+  \ZZ/2\ZZ & \text{if \(G\) is of type \(D_{n}\), with \(n > 4\).}
+ \end{cases}
+\]
+
+\paragraph{} \label{phiDelta}
+We now return to the setting of \cref{locglob} and~\cref{firstred}:
+\(E\) is a number field,
+and \(G\) is a classical group over~\(E\) that is split and simply connected.
+Recall from \cref{exactEpts} that
+the action of \(\Gal(\bar{E}/E)\) on~\(\Aut(\Delta)\) is trivial.
+Therefore \(\HH^{1}(E, \Aut(\Delta)) = \Hom(\Gal(\bar{E}/E), \Aut(\Delta))\),
+which classifies Galois extensions of~\(E\)
+whose Galois group is a subgroup of~\(\Aut(\Delta)\).
+Let \(F/E\) be a Galois extension, and let~\(v\) be any place of~\(E\).
+Recall that \(F \otimes E_{v} \cong \prod_{w|v} F_{w}\),
+and the Galois group acts transitively on the factors~\(F_{w}\).
+Consider the map
+\(\phi_{\Delta} \colon
+ \HH^{1}(E, \Aut(\Delta)) \longto \prod_{v} \HH^{1}(E_{v}, \Aut(\Delta))\),
+which maps a Galois extension \(F/E\) to \((F_{w}/E_{v})_{v}\).
+Hence the map \(\phi_{\Delta}\) is injective,
+since a Galois extension \(F/E\) is trivial
+if and only if it is totally split at all places of~\(E\).
+
+\paragraph{}
+Recall the short exact sequence
+\( 0 \to \iInn_{G} \to \iAut_{G} \to \iOut_{G} \to 0 \).
+Now consider the following commutative diagram of exact sequences
+\[
+ \begin{tikzcd}[column sep=1em]
+    \HH^{0}(E,\iOut_{G}) \ar[r] \ar[d]
+  & \HH^{1}(E,\iInn_{G}) \ar[r,"\beta"]  \ar[d,"\psi"]
+  & \HH^{1}(E,\iAut_{G}) \ar[r,"\gamma"] \ar[d,"\phi_{G}"]
+  & \HH^{1}(E,\iOut_{G}) \ar[d,"\phi_{\Delta}",hook] \\
+    \prod_{v} \HH^{0}(E_{v},\iOut_{G}) \ar[r,"\delta"]
+  & \prod_{v} \HH^{1}(E_{v},\iInn_{G}) \ar[r,"\varepsilon"]
+  & \prod_{v} \HH^{1}(E_{v},\iAut_{G}) \ar[r]
+  & \prod_{v} \HH^{1}(E_{v},\iOut_{G}) \\
+ \end{tikzcd}
+\]
+Recall that \cref{phiDelta} shows that the map \(\phi_{\Delta}\) is injective.
+We claim that
+the map \(\delta\) is trivial; and
+the map \(\psi\) is injective.
+Recall from \cref{exactEpts} that the sequences
+\( 0 \to \iInn_{G}(E_{v}) \to \iAut_{G}(E_{v}) \to \iOut_{G}(E_{v}) \to 0 \)
+are exact. This shows that the map \(\delta\) is trivial.
+The map \(\psi\) is injective by theorem~6.22 on page~336 of~\cite{PlaRap},
+since \(\iInn_{G} = G^{\ad}\).
+
+We can now finish the proof of \cref{locglob} by a diagram chase.
+Let \(x \in \HH^{1}(E, \iAut_{G})\) be a class such that
+\(\phi_{G}(x) = *\).
+Then \(\phi_{\Delta} \circ \gamma(x) = *\),
+and since \(\phi_{\Delta}\) is injective we conclude that \(\gamma(x) = *\).
+Therefore \(x = \beta(y)\) for some class \(y \in \HH^{1}(E, \iInn_{G})\).
+Since \(\delta\) is trivial and \(\psi\) is injective,
+we find that \(\varepsilon \circ \psi\) is injecitve.
+Because \(\varepsilon \circ \psi(y) = \phi_{G} \circ \beta(y) = *\),
+we conclude that \(y = *\), and hence \(x = *\).
+This completes the proof of \cref{locglob}.
+
+\section{Recap: classification of real adjoint Shimura data}
+
+\readme
+Deligne completely describes all pairs~\((G,X)\), where
+\(G\) is a simple adjoint real algebraic group, and
+\(X\) is a conjugacy class of homomorphisms
+\(h \colon \DelS \to G\) satisfying the following conditions:
+\begin{enumerate*}[label=(\kern-.1pt\textit{\roman*}\kern.6pt)]
+ \item the adjoint representation~\(\Lie(G)\) is of type
+  \(\{(-1,1),(0,0),(1,-1)\}\);
+ \item conjugation by \(h(i)\) is a Cartan involution; and
+  \item \(h\) is non-trivial.
+\end{enumerate*}
+What follows is a partial translation of~\S0 and~\S1 of~\cite{Del_ShimVar}.
+Each paragraph indicates to which paragraph of~\cite{Del_ShimVar} it corresponds
+and intermezzos are clearly specified as such.
+
+\paragraph{Terminology and notation (parts of~\S0 of~\cite{Del_ShimVar})}
+In this section \emph{reductive group}
+always means \emph{connected reductive group}.
+A \emph{covering} of a reductive group is a \emph{connected} covering.
+\emph{Adjoint} group means \emph{reductive adjoint} group.
+If \(G\) is a reductive group, we denote with \(G^{\ad}\) its adjoint group,
+with \(G^{\der}\) its derived subgroup, and with
+\(\rho \colon \tilde{G} \to G^{\der}\) the universal covering of~\(G^{\der}\).
+We always denote with~\(Z\) (or~\(Z(G)\)) the centre of~\(G\),
+and (conflict of notation) with \(\tilde{Z}\) that of~\(\tilde{G}\).
+
+With a superscript~\({}^{\circ}\) we denote a
+\emph{algebraic connected component}
+(for example: \(Z^{\circ}\) is
+the connected component of the identity of the centre~\(Z\) of~\(G\)).
+The superscript~\({}^{+}\) denotes a
+\emph{topological connected component}
+(for example: \(G(\RR)^{+}\) is the topological connected component of the
+identity of the real points of a group~\(G\)).
+We also denote with \(G(\QQ)^{+}\) the trace of~\(G(\RR)^{+}\) on~\(G(\QQ)\).
+For \(G\) real reductive, we denote with a subscript \({}_{+}\)
+the inverse image of \(G^{\ad}(\RR)^{+}\) in~\(G(\RR)\).
+The same notation \({}_{+}\) for the trace on the rational points of a group.
+
+If \(X\) is a topological space,
+then we denote with \(\pi_{0}(X)\) the set of its connected components,
+endowed with the quotient topology of that on~\(X\).
+
+A \emph{hermitian symmetric domain} is a hermitian symmetric space
+with curvature \(< 0\) (that is, without euclidean or compact factors).
+
+If not expressly mentioned otherwise,
+a \emph{vector space} is supposed to be finite-dimensional,
+and a \emph{number field} is supposed to be of finite degree over~\(\QQ\).
+
+\paragraph{Moduli spaces of Hodge structures (\S1.1 of~\cite{Del_ShimVar})}
+Recall that a Hodge structure on a real vector space~\(V\)
+is a bigrading \(V_{\CC} = \bigoplus V^{pq}\) of the complexification of~\(V\),
+such that \(V^{pq}\) is the complex conjugate of~\(V^{qp}\).
+
+Define an action \(h\) of~\(\CC^{*}\) on~\(V_{\CC}\) by the formula
+\[
+ h(z)v = z^{-p}\bar{z}^{-q}v \qquad \text{for \(v \in V^{pq}\).}
+\]
+The \(h(z)\) commute with complex conjugation on~\(V_{\CC}\),
+and thus are deduced from the extension of scalars of an action,
+again denoted~\(h\), of~\(\CC^{*}\) on~\(V\).
+Regard \(\CC\) as an extension of~\(\RR\),
+and let~\(\DelS\) be its multiplicative group,
+regarded as real algebraic group
+(in other words, \(\DelS = \Res_{\CC/\RR}\Gm\)
+(restriction of scalars in the sense of Weil)).
+One has \(\DelS(\RR) = \CC^{*}\),
+and \(h\) is an action of the algebraic group~\(\DelS\).
+One verifies that this construction defines an equivalence of categories:
+\(\{\)real vector spaces endowed with a Hodge structure
+\(\} \to \{\)
+real vector spaces endowed with an action of the algebraic group~\(\DelS\}\).
+
+The inclusion \(\RR^{*} \subset \CC^{*}\) corresponds to an inclusion
+of real algebraic groups \(\Gm \subset \DelS\).
+We denote with~\(w_{h}\) (or simply~\(w\))
+the restriction of~\(h^{-1}\) to~\(\Gm\),
+and call \(w \colon \Gm \to \GL(V)\) the \emph{weights}.
+One says that~\(V\) is pure of weight~\(n\)
+if \(V^{pq} = 0\) for \(p + q \ne n\),
+that is, \(w(\lambda)\) is multiplication by the scalar~\(\lambda^{n}\).
+
+We denote with \(\mu_{h}\) (or simply~\(\mu\))
+the action of~\(\Gm\) on~\(V_{\CC}\)
+defined by \(\mu(z)v = z^{-p}v\) for \(v \in V^{pq}\).
+It is a composition \(\Gm \to \DelS_{\CC} \stackrel{h}{\to} \GL(V_{\CC})\).
+
+The \emph{Hodge filtration} \(F_{h}\) (or simply~\(F\)) is defined by
+\(F^{p} = \bigoplus_{r \ge p} V^{rs}\).
+One says that \(V\) is of type \(\mathscr{E} \subset \ZZ \times \ZZ\)
+if \(V^{pq} = 0\) for \((p,q) \notin \mathscr{E}\).
+
+More generally, if \(A\) is a subring of~\(\RR\)
+such that \(A \otimes \QQ\) is a field
+(in practice, \(A = \ZZ\),~\(\QQ\), or~\(\RR\)),
+an \emph{\(A\)-Hodge structure}
+is an \(A\)-module~\(V\) of finite type,
+endowed with a Hodge structure on \(V \otimes_{A} \RR\).
+
+\paragraph{Intermezzo}
+The reader who is unfamiliar with
+(variation of) Hodge structures may want to read the
+instructive paragraphs \S\S~1.1.2--1.1.9 of~\cite{Del_ShimVar}.
+
+\paragraph{(\S1.1.10 of~\cite{Del_ShimVar})}
+A \emph{polarisation} of a real Hodge structure~\(V\) of weight~\(n\)
+is a morphism \(\Psi \colon V \otimes V \to \RR(-n)\)
+such that the form \((2\pi i)^{n} \Psi(x, h(i)y)\)
+is symmetric and positive definite.
+The same for \(\ZZ\)-Hodge structures,
+upon replacing \(\RR(-n)\) with \(\ZZ(-n)\), \dots.
+Since \(\Psi(h(i)x, y) = \Psi(x, h(-i)y)\)
+(indeed, \(h(i)\) is trivial on~\(\RR(-n)\)),
+and \(h(-i)y = (-1)^{n}h(i)y\),
+the condition of symmetry is equivalent to:
+\(\Psi\) is symmetric if \(n\) is even,
+alternating if \(n\) is odd.
+
+Hodge structure that come from algebraic geometry
+are \(\ZZ\)-Hodge structures that are pure and polarisable.
+Fundamental example:
+the Hodge positivity theorems assure that \(\HH^{n}(X, \ZZ\),
+for \(X\) a smooth projective variety, is polarisable.
+
+
+
+\paragraph{}
+Recall that \(X^{*}(\DelS) = \Hom(\DelS_{\CC}, \Gm)\)
+is generated by two characters \(z\) and~\(\bar{z}\)
+that are permuted by the action of~\(\Gal(\CC/\RR)\).
+Let \(G\) be a real algebraic group,
+and let \(h \colon \DelS \to G\) be a morphism.
+
+
+\begin{proposition}[1.2.2 of~\cite{Del_ShimVar}] \label{Del122}
+ Let \(G_{\CC}\) be a simple adjoint complex algebraic group.
+ There is a bijection
+ between \(G_{\CC}(\CC)\)-conjugacy classes
+ of pairs \((G,X)\) as above, with \(G\) a real form of~\(G_{\CC}\),
+ and \(G_{\CC}(\CC)\)-conjugacy classes of
+ non-trivial morphisms \(\mu \colon \Gm[\CC] \to G_{\CC}\)
+ that satisfy the following condition:
+
+ \((\star)\)
+ only the characters \(z^{-1}\),~\(1\), and~\(z\)
+ occur in the representation
+ \(\ad \circ \mu\) of~\(\Gm\) on~\(\Lie(G_{\CC})\).
+\end{proposition}
+
+\paragraph{\S1.2.5 of~\cite{Del_ShimVar}}
+Let \(G\) be a simple adjoint complex algebraic group.
+We enumerate the conjugacy classes of non-trivial morphisms
+\(\mu \colon \Gm \to G\) that satisfy condition \((\star)\) of \cref{Del122}.
+
+
+
+\paragraph{TODO} %TODO
+
+\begin{lemma}
+ Let \(M\) be an irreducible hyperadjoint abelian motive.
+ If on non-compact factor of \(\GB(M)\) is of type \(D_{k}^{\HQ}\)
+ then all non-compact factors are. This is also true if \(k = 4\).
+ \begin{proof}
+  See \cite{No06}; \S\S2.5--2.7.
+ \end{proof}
+\end{lemma}
+
+\begin{proposition}
+ Let \(M\) be an irreducible hyperadjoint abelian motive of type \(D_{k}\).
+ One can recognize from \(\HH_{\Lambda}(M)\)
+ whether \(M\) is of type \(D_{k}^{\RR}\) or of type \(D_{k}^{\HQ}\).
+ \begin{proof}
+  Use theorem~6.2 till remark~6.6 of~\cite{No06}.
+ \end{proof}
+\end{proposition}
+
+\section{Compatible systems}
+TODO %TODO
+Give a summary of the other article.
+First finish that article,
+then copy/paste the relevant definitions and the main theorem.
+
+\section{Geometric lifts of Galois representations}
+
+Give a summary of the relevant result of~\cite{No06}.
+
+\section{The Hodge numbers of a motive with endomorphisms}
+
+\paragraph{Setup}
+Let \(K \subset \CC\) be a finitely generated field.
+Let \(\bar{K}\) be the algebraic closure of~\(K\) in~\(\CC\).
+Let \(M\) be a motive over~\(K\).
+Let \(E\) be subfield of~\(\End(M)\).
+Let \(\tilde{E}\) be the normal closure of~\(E\) in~\(\CC\).
+After passing to a suitable finite extension of~\(K\)
+we may and do assume that \(\tilde{E} \subset K\).
+
+Let \(p\) be a prime number.
+Fix an embedding \(K \into K_{v}\) into some \(p\)-adic field~\(K_{v}\).
+Let \(\BdR{K_{v}}\) be the ring of \(p\)-adic periods associated with~\(K_{v}\),
+in the sense of Fontaine~\cite{Fo94}.
+Fix an embedding \(\bar{K} \into \BdR{K_{v}}\)
+that extends the embedding \(K \into K_{v}\).
+Write \(\bar{K}_{v}\) for the algebraic closure of~\(K_{v}\) in~\(\BdR{K_{v}}\).
+
+Let \(\Sigma = \Sigma(E)\) be the set of embeddings \(E \into \tilde{E}\).
+Depending on the context,
+we may also view an element \(\sigma \in \Sigma\)
+as embedding \(E \into K\) or \(E \into \CC\) or \(E \into \BdR{K_{v}}\).
+
+\paragraph{}
+Observe that \(\HB(M) \otimes_{\QQ} \CC\) is a module over
+\(E \otimes_{\QQ} \CC = \prod_{\sigma \in \Sigma} \CC\).
+Thus we have a decomposition
+\(\HB(M) \otimes_{\QQ} \CC \cong
+ \bigoplus_{\sigma \in \Sigma} \HB(M) \otimes_{E,\sigma} \CC\).
+Since the comparison isomorphism
+\(\HB(M) \otimes_{\QQ} \CC \cong \HdR(M) \otimes_{K} \CC\)
+is compatible with the action of~\(E\),
+we find that \(\HdR(M)\) is a filtered module over
+\(E \otimes_{\QQ} K \cong \prod_{\sigma \in \Sigma} K\).
+This gives a decomposition
+\(\HdR(M) \cong \bigoplus_{\sigma \in \Sigma} \HdR(M)^{(\sigma)}\)
+in such a way that
+\[
+ \HdR(M)^{\sigma} \otimes_{K} \CC \cong \HB(M) \otimes_{E,\sigma} \CC
+\]
+is a natural isomorphism of filtered vector spaces.
+
+\paragraph{}
+We have a natural isomorphism of vector spaces
+\(\HB(M) \otimes \QQp \cong \Hp(M)\).
+This isomorphism is compatible with the action of~\(E\),
+and \(\Hp(M)\) is a module over \(E \otimes \QQp\).
+
+We have a natural isomorphism
+\(\HdR(M) \otimes_{K} \BdR{K_{v}} \cong \Hp(M) \otimes_{\QQp} \BdR{K_{v}}\)
+of filtered modules with an action by \(\Gal(\bar{K}_{v}/K_{v})\).
+This isomorphism is compatible with the action of~\(E\),
+so that \(\Hp(M) \otimes_{\QQp} \BdR{K_{v}}\)
+is a module over
+\(E \otimes_{\QQ} \BdR{K_{v}} = \prod_{\sigma \in \Sigma} \BdR{K_{v}}\).
+Thus we get a natural isomorphism
+\[
+ \HdR(M)^{(\sigma)} \otimes_{K} \BdR{K_{v}} \cong
+ \Hp(M) \otimes_{E \otimes \QQp, \sigma \otimes \id} \BdR{K_{v}}
+\]
+of filtered modules with an action by \(\Gal(\bar{K}_{v}/K_{v})\),
+for each \(\sigma \in \Sigma\).
+
+\paragraph{}
+Assume that \(p\) is totally split in~\(E\).
+Then we get a simplified description of
+\(\Hp(M) \otimes_{E \otimes \QQp, \sigma \otimes \id} \BdR{K_{v}}\),
+as follows.
+For each \(\sigma \in \Sigma\)
+the composite embedding \(\sigma \colon E \into K \into K_{v}\)
+factors via \(\QQp \subset K_{v}\).
+This gives a bijection between \(\Sigma\)~and
+the places \(\pi\) of~\(E\) that lie above~\(p\).
+
+Since \(\Hp(M)\) is a module over \(E \otimes \QQp = \prod_{\pi|p} E_{\pi}\)
+we get a decomposition \(\Hp(M) \cong \bigoplus_{\pi|p} \HH_{\pi}(M)\)
+of Galois representations.
+The above bijection between \(\Sigma\) and the places \(\pi|p\)
+allows us to unambigously write \(\Hp(M)^{(\sigma)}\) for~\(\HH_{\pi}(M)\).
+Then
+\(\Hp(M) \otimes_{E \otimes \QQp, \sigma \otimes \id} \BdR{K_{v}}
+ = \Hp(M)^{(\sigma)} \otimes_{\QQp} \BdR{K_{v}}\).
+
+\paragraph{}
+The upshot of all these comparison isomorphisms
+and their decompositions induced by the action of~\(E\)
+is that we get a refined view on the Hodge numbers of~\(M\).
+It is classical that the comparison isomorphisms
+equate the Hodge numbers of~\(\HB(M)\)
+with the Hodge--Tate numbers of the Galois representation~\(\Hp(M)\).
+Now we also have the following result.
+
+\begin{theorem}
+ Let \(M\) be a motive over a finitely generated field \(K \subset \CC\).
+ Let \(E\) be subfield of~\(\End(M)\), and
+ let \(\tilde{E}\) be the normal closure of~\(E\) in~\(\CC\).
+ Assume that \(\tilde{E} \subset K\).
+ Let \(\Sigma = \Sigma(E)\) be the set of embeddings \(E \into \tilde{E}\).
+ For each \(\sigma \in \Sigma\) we then have
+ \[
+  \bigl\{\,
+  \text{Hodge numbers of \(\HB(M) \otimes_{E,\sigma} \CC\)}
+  \,\bigr\}
+  =
+  \bigl\{\,
+  \text{Hodge--Tate numbers of
+   \(\Hp(M) \otimes_{E \otimes \QQp, \sigma \otimes \id} \BdR{K_{v}}\)}
+  \,\bigr\}.
+ \]
+ \begin{proof}
+  By the above computations we see that both the left-hand side
+  and the right-hand side are equal to
+  \(
+   \bigl\{\,
+   \text{Hodge numbers of \(\HdR(M)^{(\sigma)}\)}
+   \,\bigr\}
+  \).
+ \end{proof}
+\end{theorem}
+
+\section{Foobar}
+
+\paragraph{}
+Recall that \(\HH^{1}(E,\iAut_{G})\) classifies forms of~\(G\) over~\(E\);
+reference?
+
+\paragraph{}
+Let \(K \subset \CC\) be a finitely generated field.
+Let \(M\) be a hyperadjoint abelian motive over~\(K\).
+Let \(E\) be the endomorphism algebra of~\(M\).
+Let \(\tilde{E}\) be the normal closure of~\(E\) in~\(\CC\).
+
+After passing to a suitable finitely generated extension of~\(K\)
+we may and do assume that
+\begin{enumerate*}[label=(\textit{\roman*})]
+ \item \(E = \End(M_{\CC})\);
+ \item \(\Gl(M)\) is connected for all prime numbers~\(\ell\); and
+ \item \(\tilde{E} \subset K\).
+\end{enumerate*}
+(Actually assumption~(\textit{ii}) implies assumption~(\textit{i}),
+but that is not important right now.)
+Let \(\bar{K}\) be the algebraic closure of~\(K\) in~\(\CC\).
+
+Let \(\Sigma = \Sigma(E)\) be the set of embeddings \(E \into \tilde{E}\).
+Depending on the context,
+we may also view an element \(\sigma \in \Sigma\)
+as embedding \(E \into K\) or \(E \into \CC\).
+
+
+\section{An intermediate result}
+
+\begin{theorem}
+ Let \(M_{1}\) and~\(M_{2}\) be two hyperadjoint abelian motives
+ over a finitely generated field \(K \subset \CC\).
+ Assume that \(\MTC(M_{1})\) and \(\MTC(M_{2})\) are true.
+ Then
+ \[
+  M_{1} \cong M_{2} \iff \exists \ell :
+  \Gl(M_{1} \oplus M_{2}) \subsetneq \Gl(M_{1}) \times \Gl(M_{2}).
+ \]
+\end{theorem}
+
+\begin{corollary}
+ Let \(M_{1}\) and~\(M_{2}\) be two hyperadjoint abelian motives
+ over a finitely generated subfield of~\(\CC\).
+ If \(\MTC(M_{1})\) and \(\MTC(M_{2})\) are true,
+ then \(\MTC(M_{1} \oplus M_{2})\) is true.
+\end{corollary}
+
+\begin{proposition} \label{twofib}
+ Let \(K \subset \CC\) be a finitely generated field.
+ Let \(S\) be a scheme of finite type over~\(K\).
+ Let \(f \colon \mathcal{A} \to S\) be an abelian scheme.
+ Let \(x\) and~\(y\) be two points in~\(S(K)\).
+ Let \(\ell\) be a prime number.
+ If \(\Lie(\Gl(\mathcal{A}_{x}))\) and \(\Lie(\Gl(\mathcal{A}_{y}))\)
+ are isomorphic as Galois representations,
+ then the abelian varieties \(\mathcal{A}_{x}\) and~\(\mathcal{A}_{y}\)
+ are isogenous over a finite extension of~\(K\).
+ \begin{proof}
+  View the lisse \(\ell\)-adic sheaf \(\mathrm{R}^{1}f_{*}\QQl\)
+  as representation
+  \(\pi(S,\bar{x}) \to \GL(\Hl^{1}(\mathcal{A}_{x})\).
+  Let \(\rho_{x}\) be denote the representation
+  \(\Gal(\bar{K}/K) \to \GL(\Hl^{1}(\mathcal{A}_{x})\).
+  Via parallel transport,
+  the Galois representation on~\(\Hl^{1}(\mathcal{A}_{y})\)
+  corresponds with a representation
+  \(\rho_{y} \colon \Gal(\bar{K}/K) \to \GL(\Hl^{1}(\mathcal{A}_{x})\).
+  Let \(G \subset \GL(\Hl^{1}(\mathcal{A}_{x})\) be the smallest
+  subgroup such that \(G(\QQl)\) contains the image
+  of both \(\rho_{x}\) and~\(\rho_{y}\).
+
+  Consider the maps \(\ab \colon G \to G^{\ab}\)
+  and \(\ad \colon G \to G^{\ad}\).
+  It follows from \cref{MTCcentre} that
+  the map \(\ab \circ \rho_{s}\) does not depend on~\(s \in \{x,y\}\).
+  By assumption
+  \(\Lie(\Gl(\mathcal{A}_{x}))\) and \(\Lie(\Gl(\mathcal{A}_{y}))\)
+  are isomorphic as Galois representations,
+  and therefore \(\ad \circ \rho_{s}\) does not depend on~\(s \in \{x,y\}\).
+
+  Write \(Z\) for the finite intersection \(\ker(\ab) \cap \ker(\ad)\).
+  Define the morphism \(\phi \colon \Gal(\bar{K}/K) \to G(\QQl)\)
+  via \(g \mapsto \rho_{x}(g)\rho_{y}(g)^{-1}\).
+  We claim that \(\phi\) is a homomorphism.
+  Note that \(\ab \circ \phi\) and \(\ad \circ \phi\)
+  are trivial, and therefore \(\phi\) factors via~\(Z(\QQl)\).
+  We need to show that
+  \[
+   \rho_{x}(g_{1})\rho_{y}(g_{1})^{-1} \cdot \rho_{x}(g_{2})\rho_{y}(g_{2})^{-1}
+   \stackrel{?}{=}
+   \rho_{x}(g_{1}g_{2}) \cdot \rho_{y}(g_{1}g_{2})^{-1}
+   =
+   \rho_{x}(g_{1})\rho_{x}(g_{2}) \cdot
+   \rho_{y}(g_{2})^{-1}\rho_{y}(g_{1})^{-1}.
+  \]
+  This amounts to showing that
+  \(\rho_{y}(g_{1})^{-1} \cdot \phi(g_{2}) =
+   \phi(g_{2}) \cdot \rho_{y}(g_{1})^{-1}\).
+  Since \(Z\) is contained in the centre of~\(G\),
+  we know that \(\phi(g_{2})\) commutes with \(\rho_{y}(g_{1})^{-1}\).
+  This proves the claim that \(\phi\) is a homomorphism.
+
+  Because \(Z\) is finite,
+  the homomorphism \(\phi\) becomes trivial
+  after replacing \(K\) by suitable a finite extension;
+  which means \(\rho_{x} = \rho_{y}\).
+  The \namecref{twofib} now follows from Faltings' results
+  on the Tate conjecture for endomorphisms of abelian varieties
+  (Korollar~1 of Satz~4 of~\cite{Fal83}, see also~\cite{Fal84}).
+ \end{proof}
+\end{proposition}
+
+\section{Main theorem}
+
+\paragraph{}
+Let \(K \subset \CC\) be a finitely generated field.
+Let \(\mathcal{M}_{K} \subset \Mot_{K}\) be the subcategory
+of \emph{abelian} motives for which the Mumford--Tate conjecture is true.
+
+\begin{theorem}
+ Let \(K \subset \CC\) be a finitely generated field.
+ The category~\(M_{K}\) is a Tannakian subcategory of \(\Mot_{K}\).
+\end{theorem}
+
+\begin{corollary}
+ Let \(A_{1}\),~\(A_{2}\), \dots, \(A_{n}\) be abelian varieties over~\(K\).
+ If the Mumford--Tate conjecture is true for \(A_{i}\), for \(i = 1,\dots,n\),
+ then the Mumford--Tate conjecture is true for
+ \(A_{1} \times A_{2} \times \cdots \times A_{n}\).
+\end{corollary}
+
+
+\printbibliography
+
+\end{document}
