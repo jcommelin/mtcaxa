@@ -149,17 +149,21 @@ preheadhook={\bigskip}]{definition}
 \declaretheorem[style=definition,sibling=subsection]{remark}
 \declaretheorem[style=definition,sibling=subsection]{construction}
 
-\declaretheoremstyle[headpunct={\!.},headfont=\itshape,bodyfont=\normalfont,%
-qed=\ensuremath{\square},spaceabove=0pt,spacebelow=0pt]{proof}
-\declaretheoremstyle[headpunct={\!.},headfont=\itshape,bodyfont=\normalfont,%
-qed=\ensuremath{\square},spaceabove=0pt,spacebelow=0pt]{nonumberproof}
-\declaretheorem[style=proof,numbered=no]{proof}
+% \declaretheoremstyle[headpunct={\!.},headfont=\itshape,bodyfont=\normalfont,%
+% qed=\ensuremath{\square},spaceabove=0pt,spacebelow=0pt]{proof}
+% \declaretheoremstyle[headpunct={\!.},headfont=\itshape,bodyfont=\normalfont,%
+% qed=\ensuremath{\square},spaceabove=0pt,spacebelow=0pt]{nonumberproof}
+% \declaretheorem[style=proof,numbered=no]{proof}
 
 \declaretheoremstyle[headformat=swapnumber,headpunct={.\ ---},%
 headfont=\itshape,bodyfont=\normalfont,qed=\ensuremath{\square},%
 spaceabove=0pt,spacebelow=0pt,%
 preheadhook={\bigskip}]{nproof}
 \declaretheorem[style=nproof,sibling=subsection,name=Proof]{nproof}
+
+\let\qed\relax
+\usepackage{pf2}
+\pfkeywords{jmc}
 
 \usepackage{cleveref}
 \crefname{condition}{condition}{conditions}
@@ -182,6 +186,8 @@ preheadhook={\bigskip}]{nproof}
 
 \renewcommand{\Im}{\textnormal{Im}}
 
+\newcommand{\colim}{\mathop{\textnormal{colim}}}
+
 \newcommand{\Hom}{\textnormal{Hom}}
 \newcommand{\End}{\textnormal{End}}
 \newcommand{\Isom}{\textnormal{Isom}}
@@ -202,6 +208,7 @@ preheadhook={\bigskip}]{nproof}
 
 \newcommand{\dual}[1]{\check{#1}}
 
+\newcommand{\NN}{\mathbb{N}}
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\QQ}{\mathbb{Q}}
 \newcommand{\QQl}{\QQ_{\ell}}
@@ -283,14 +290,16 @@ preheadhook={\bigskip}]{nproof}
 \makeatother
 \newcommand{\GL}{\textnormal{GL}}
 \newcommand{\SL}{\textnormal{SL}}
-\newcommand{\PSL}{\textnormal{PSL}}
+\newcommand{\PGL}{\textnormal{PGL}}
 \newcommand{\UU}{\textnormal{U}}
 \newcommand{\SU}{\textnormal{SU}}
+\newcommand{\PU}{\textnormal{PU}}
 \newcommand{\OO}{\textnormal{O}}
 \newcommand{\SO}{\textnormal{SO}}
 \newcommand{\Spin}{\textnormal{Spin}}
 \newcommand{\CSpin}{\textnormal{CSpin}}
-\newcommand{\GSp}{\textnormal{GSp}}
+\newcommand{\PSpin}{\textnormal{PSpin}}
+\newcommand{\CSp}{\textnormal{CSp}}
 \newcommand{\Lie}{\textnormal{Lie}}
 
 % \newcommand{\mfsl}{\mathfrak{sl}}
@@ -354,6 +363,25 @@ preheadhook={\bigskip}]{nproof}
 \usepackage{tikz}
 \usetikzlibrary{cd,positioning}
 \usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{decorations.markings}
+
+%%%%%%%%%%%%%% Macros for Dynkin diagrams %%%%%%%%%%%%%%
+\newcommand{\dynkinradius}{.04cm}
+\newcommand{\dynkinstep}{.35cm}
+\newcommand{\dynkinnode}[2]{\fill (\dynkinstep*#1,\dynkinstep*#2) circle (\dynkinradius);}
+\newcommand{\dynkinXsize}{1.5}
+\newcommand{\dynkinnodespecial}[2]{
+ \draw[thick] (#1*\dynkinstep-\dynkinXsize,#2*\dynkinstep-\dynkinXsize) -- (#1*\dynkinstep+\dynkinXsize,#2*\dynkinstep+\dynkinXsize);
+ \draw[thick] (#1*\dynkinstep-\dynkinXsize,#2*\dynkinstep+\dynkinXsize) -- (#1*\dynkinstep+\dynkinXsize,#2*\dynkinstep-\dynkinXsize);
+}
+\newcommand{\dynkinedge}[4]{\draw[thin] (\dynkinstep*#1,\dynkinstep*#2) -- (\dynkinstep*#3,\dynkinstep*#4);}
+\newcommand{\dynkinnodes}[4]{\draw[dotted] (\dynkinstep*#1,\dynkinstep*#2) -- (\dynkinstep*#3,\dynkinstep*#4);}
+\newcommand{\dynkindoubleedge}[4]{\draw[double,postaction={decorate}] (\dynkinstep*#1,\dynkinstep*#2) -- (\dynkinstep*#3,\dynkinstep*#4);}
+
+\newenvironment{dynkin}{\begin{tikzpicture}[decoration={markings,mark=at position 0.7 with {\arrow{>}}}]}
+ {\end{tikzpicture}}
+%%%%%%%%%%%%%% End of macros for Dynkin diagrams %%%%%%%%%%%%%%
+
 
 \def\title{The Mumford--Tate conjecture for products of abelian varieties}
 \def\author{Johan Commelin}
@@ -376,6 +404,40 @@ preheadhook={\bigskip}]{nproof}
 \tableofcontents
 
 \section{Introduction}
+
+The strategy:
+\begin{enumerate}
+ \item Reduce to the case of hyperadjoint motives, \(M_{1}\) and \(M_{2}\).
+ \item Show that if \(\Gl(M_{1} \oplus M_{2}) \subsetneq \Gl(M_{1}) \times \Gl(M_{2})\),
+  then we have \(\HH_{\lambda_{1}}(M_{1}) \cong \HH_{\lambda_{2}}(M_{2})\)
+  and therefore \(\End(M_{1}) = E = \End(M_{2})\)
+  and also \(\HH_{\Lambda}(M_{1}) \cong \HH_{\Lambda}(M_{2})\).
+ \item Deduce that \(\GB(M_{1})\) and \(\GB(M_{2})\) are isomorphic
+  at all finite and infinite places of~\(E\).
+ \item Conclude that \(\GB(M_{1}) \cong G \cong \GB(M_{2})\).
+ \item Let \((G,X_{i})\) be the Shimura datum attached to \(M_{i}\).
+ \item Fix one infinite place \(v_{0}\) of \(E\),
+  such that \(G_{v_{0}}(\RR)\) is non-compact.
+ \item Act on \(X_{2}\) by \(\Out(G)\) so that
+  special node on the Dynkin diagram of~\(G_{v_{0}}\)
+  corresponding to the factor \((G_{v_{0}},X_{v_{0},2}\)
+  is the same as the special node
+  corresponding to the factor \((G_{v_{0}},X_{v_{0},1}\).
+ \item Show (TODO) that the reflex field \(E(G,X_{1})\)
+  is the same as \(E(G,X_{2})\).
+  \begin{enumerate}
+   \item Idea: look locally to see how \(\Gal(\QQlbar/\QQl)\)
+    acts on the set of special nodes.
+   \item Combine all this \(\ell\)-adic data to determine
+    the reflex field.
+  \end{enumerate}
+ \item Conclude that the special nodes on all components of the Dynkin diagram agree.
+ \item Conclude that \((G,X_{1}) = (G,X) = (G,X_{2})\).
+ \item Left-over: prove the MTC for the product of two fibres on a connected Shimura variety,
+  given that MTC is true for the two factors.
+ \item Do this by lifting to a Shimura variety of Hodge type.
+ \item Use that MTC is known on centres, and reduce to Faltings.
+\end{enumerate}
 
 TODO %TODO
 \hfill\cjRL{hw/s`nh brwK hb' b/sM yhwh}
@@ -522,9 +584,10 @@ Deligne completely describes all pairs~\((G,X)\), where
  \item the adjoint representation~\(\Lie(G)\) is of type
   \(\{(-1,1),(0,0),(1,-1)\}\);
  \item conjugation by \(h(i)\) is a Cartan involution; and
-  \item \(h\) is non-trivial.
+ \item \(h\) is non-trivial.
 \end{enumerate*}
-What follows is a partial translation of~\S0 and~\S1 of~\cite{Del_ShimVar}.
+What follows is a partial translation of~\S0 and~\S1 of~\cite{Del_ShimVar}
+to recapitulate concepts and notation.
 Each paragraph indicates to which paragraph of~\cite{Del_ShimVar} it corresponds
 and intermezzos are clearly specified as such.
 
@@ -563,7 +626,8 @@ If not expressly mentioned otherwise,
 a \emph{vector space} is supposed to be finite-dimensional,
 and a \emph{number field} is supposed to be of finite degree over~\(\QQ\).
 
-\paragraph{Moduli spaces of Hodge structures (\S1.1 of~\cite{Del_ShimVar})}
+\paragraph{Moduli spaces of Hodge structures
+ (parts of~\S1.1 of~\cite{Del_ShimVar})}
 Recall that a Hodge structure on a real vector space~\(V\)
 is a bigrading \(V_{\CC} = \bigoplus V^{pq}\) of the complexification of~\(V\),
 such that \(V^{pq}\) is the complex conjugate of~\(V^{qp}\).
@@ -613,11 +677,6 @@ an \emph{\(A\)-Hodge structure}
 is an \(A\)-module~\(V\) of finite type,
 endowed with a Hodge structure on \(V \otimes_{A} \RR\).
 
-\paragraph{Intermezzo}
-The reader who is unfamiliar with
-(variation of) Hodge structures may want to read the
-instructive paragraphs \S\S~1.1.2--1.1.9 of~\cite{Del_ShimVar}.
-
 \paragraph{(\S1.1.10 of~\cite{Del_ShimVar})}
 A \emph{polarisation} of a real Hodge structure~\(V\) of weight~\(n\)
 is a morphism \(\Psi \colon V \otimes V \to \RR(-n)\)
@@ -635,26 +694,50 @@ alternating if \(n\) is odd.
 Hodge structure that come from algebraic geometry
 are \(\ZZ\)-Hodge structures that are pure and polarisable.
 Fundamental example:
-the Hodge positivity theorems assure that \(\HH^{n}(X, \ZZ\),
+the Hodge positivity theorems assure that \(\HH^{n}(X, \ZZ)\),
 for \(X\) a smooth projective variety, is polarisable.
 
+\paragraph{(From the proof of proposition~1.1.14 of~\cite{Del_ShimVar})}
+Recall that a \emph{Cartan involution}
+of a (not necessarily connected) real linear algebraic group~\(G\)
+is an involution~\(\sigma\) of~\(G\)
+such that the real form~\(G^{\sigma}\) of~\(G\)
+(with complex conjugation \(g \mapsto \sigma(\bar{g})\))
+is compact:
+\(G^{\sigma}(\RR)\) is compact
+and intersects all the connected components of \(G^{\sigma}(\CC) = G(\CC)\).
 
+\paragraph{Classification (parts of~\S1.2 of~\cite{Del_ShimVar})} \label{3cond}
+Consider systems \((G,X)\) of an adjoint simple real algebraic group~\(G\)
+and a \(G(\RR)\)-conjugacy class~\(X\) of
+real algebraic morphisms \(h \colon \DelS \to G\) satisfying:
+\begin{enumerate*}[label=(\kern-.1pt\textit{\roman*}\kern.6pt)]
+ \item the adjoint representation~\(\Lie(G)\) is of type
+  \(\{(-1,1),(0,0),(1,-1)\}\)
+  (in particular, \(h\) is trivial on \(\Gm \subset \DelS\));
+ \item conjugation by \(h(i)\) is a Cartan involution; and
+ \item \(h\) is non-trivial.
+\end{enumerate*}
+By \S1.1.17 of \cite{Del_ShimVar}, the connected components of the spaces~\(X\)
+are irreducible hermitian symmetric domains.
+Hypothesis (\textit{ii}) assures that the Cartan involutions of~\(G\)
+are inner automorphisms, and hence \(G\) is an inner form of its compact form.
+In particular, \(G\) being simple, is absolutely simple.
 
-\paragraph{}
-Recall that \(X^{*}(\DelS) = \Hom(\DelS_{\CC}, \Gm)\)
-is generated by two characters \(z\) and~\(\bar{z}\)
-that are permuted by the action of~\(\Gal(\CC/\RR)\).
-Let \(G\) be a real algebraic group,
-and let \(h \colon \DelS \to G\) be a morphism.
-
+The \(G(\CC\)-conjugacy class of \(\mu_{h} \colon \Gm \to G_{\CC}\)
+does not depend on the choice of \(h \in X\).
+We denote it with~\(M_{X}\).
 
 \begin{proposition}[1.2.2 of~\cite{Del_ShimVar}] \label{Del122}
  Let \(G_{\CC}\) be a simple adjoint complex algebraic group.
- There is a bijection
- between \(G_{\CC}(\CC)\)-conjugacy classes
- of pairs \((G,X)\) as above, with \(G\) a real form of~\(G_{\CC}\),
+ To each system \((G,X)\) consisting of a
+ real form~\(G\) of~\(G_{\CC}\)
+ and an~\(X\) as in~\cref{3cond}
+ we attach~\(M_{X}\).
+ This gives a bijection
+ between \(G_{\CC}(\CC)\)-conjugacy classes of pairs \((G,X)\),
  and \(G_{\CC}(\CC)\)-conjugacy classes of
- non-trivial morphisms \(\mu \colon \Gm[\CC] \to G_{\CC}\)
+ non-trivial morphisms \(\mu \colon \Gm \to G_{\CC}\)
  that satisfy the following condition:
 
  \((\star)\)
@@ -662,43 +745,352 @@ and let \(h \colon \DelS \to G\) be a morphism.
  occur in the representation
  \(\ad \circ \mu\) of~\(\Gm\) on~\(\Lie(G_{\CC})\).
 \end{proposition}
+\begin{proof}
+ \pf\ Omitted; see~\cite{Del_ShimVar}. \qed
+\end{proof}
 
 \paragraph{\S1.2.5 of~\cite{Del_ShimVar}}
-Let \(G\) be a simple adjoint complex algebraic group.
+Let \(G\) be an adjoint simple complex algebraic group.
 We enumerate the conjugacy classes of non-trivial morphisms
-\(\mu \colon \Gm \to G\) that satisfy condition \((\star)\) of \cref{Del122}.
+\(\mu \colon \Gm \to G\) that satisfy condition~\((\star)\) of \cref{Del122},
+in termes of the Dynkin diagram~\(\Delta\) of~\(G\).
+Recall that the latter is canonically attached to~\(G\)---in particular,
+the automorphisms of~\(G\) act on~\(\Delta\)---one can identify nodes
+of~\(\Delta\) with conjugacy classes of maximal parabolic subgroups of~\(G\).
 
+Let \(T\) be a maximal torus,
+\(X(T) = \Hom(T,\Gm)\),
+\(Y(T) = \Hom(\Gm,T)\)
+(the dual of~\(X(T)\) under the pairing
+\(X(T) \times Y(T) \stackrel{\circ}{\to} \Hom(\Gm,\Gm) = \ZZ\)),
+\(R \subset X(T)\) the set of roots,
+\(B\) a system of simple roots,
+\(\alpha_{0}\) the opposite of the largest root,
+and \(B^{+} = B \cup \{\alpha_{0}i\}\).
+The nodes of~\(\Delta\) are parameterised by~\(B\),
+and those of the extended Dynkin diagram~\(\Delta^{+}\) by~\(B^{+}\).
 
+A conjugacy class of morphisms from \(\Gm\) to \(G\)
+has a unique representative \(\mu \in Y(T)\)
+in the fundamental Weyl chamber
+\(\langle \alpha, \mu \rangle \ge 0\) for \(\alpha \in B\).
+It is uniquely determined by the positive integers
+\(\langle \alpha, \mu \rangle_{\alpha \in B}\) and,
+\(G\) being adjoint,
+the may be prescribed arbitrarily.
+The condition~\((\star)\) of \cref{Del122}, for \(\mu\) non-trivial,
+translates to
+\[
+ (\star)' \qquad \langle \alpha_{0}, \mu \rangle = -1.
+\]
 
-\paragraph{TODO} %TODO
+Write the largest root as linear combination of the simple roots,
+\(\sum_{\alpha \in B^{+}} n(\alpha)\alpha = 0\), with \(n(\alpha_{0}) = 1\),
+and call a node of~\(\Delta^{+}\) \emph{special}
+if one has \(n(\alpha) = 1\) for the corresponding root \(\alpha \in B^{+}\).
+The quotient of the lattice of coweights by that of the coroots
+acts on \(\Delta^{+}\),
+and this action is simply transitive on the set of special nodes.
+The special nodes are the conjugates under \(\Aut(\Delta^{+})\)
+of the node corresponding to~\(\alpha_{0}\).
 
-\begin{lemma}
- Let \(M\) be an irreducible hyperadjoint abelian motive.
- If on non-compact factor of \(\GB(M)\) is of type \(D_{k}^{\HQ}\)
- then all non-compact factors are. This is also true if \(k = 4\).
- \begin{proof}
-  See \cite{No06}; \S\S2.5--2.7.
- \end{proof}
+The condition \((\star)'\) translates to
+
+\((\star)''\) For a simple root \(\alpha \in B\) corresponding to
+a special node of~\(\Delta\), one has \(\langle \alpha, \mu \rangle = 1\).
+For the other simple roots, \(\langle \alpha, \mu \rangle = 0\).
+
+\paragraph{Intermezzo: the opposition involution}
+We continue the notation of the previous paragraph.
+Let \(w_{0}\) be the longest element of the Weyl group (with respect to~\(B\)).
+Then \(w_{0}(B) = -B\)
+and \(-w_{0}\) defines an element of \(\Aut(\Delta) = \Out(G)\):
+the \emph{opposition involution}.
+This involution is non-trivial if and only if \(\Delta\)
+has type \(A_{k}\) with \(k \ne 1\), \(D_{k}\) with \(k\)~odd, or \(E_{6}\).
+
+\paragraph{(\S1.2.6 of~\cite{Del_ShimVar})} \label{specialnode}
+In total, the \(G_{\CC}(\CC)\)-conjugacy classes \((G,X)\) as in \cref{Del122}
+are parameterised by the special nodes
+of the Dynkin diagram~\(\Delta\) of~\(G_{\CC}\).
+In particular, for~\(G\) a given real form of~\(G_{\CC}\),
+\(X\) is determined by the corresponding special node~\(s(X)\).
+The node corresponding to \(X^{-1} = \{h^{-1} \mid h \in X\}\)
+is the transform of~\(s(X)\) under the opposition involution.
+
+\begin{proposition}[1.2.7 of~\cite{Del_ShimVar}]
+ Let \(G\) be an adjoint simple real algebraic group,
+ an suppose that there exist morphisms \(h \colon \CC^{*}/\RR^{*} \to G\)
+ satisfying the conditions of~\cref{3cond}.
+ Then the set of such morphisms has two connected components,
+ exchanged by \(h \mapsto h^{-1}\).
+ Either component has the neutral component~\(G(\RR)^{+}\) of~\(G\)
+ as its stabiliser.
+\end{proposition}
+\begin{proof}
+ \pf\ Omitted; see~\cite{Del_ShimVar}. \qed
+\end{proof}
+
+\begin{corollary}[1.2.8 of~\cite{Del_ShimVar}]
+ Let \((G,X)\) be as in~\cref{3cond},
+ and \(s\) the corresponding node of the Dynkin diagram of~\(G_{\CC}\).
+\begin{enumerate*}[label=(\kern-.1pt\textit{\roman*}\kern.6pt)]
+\item If \(s\) is not fixed by the opposition involution,
+ then \(G(\RR)\) and~\(X\) are connected.
+\item If \(s\) is fixed by the opposition involution,
+ then \(G(\RR)\) and~\(X\) have two connected components;
+ the components of~\(X\) are exchanged by \(h \mapsto h^{-1}\),
+ and by \(g \in G(\RR) - G(\RR)^{+}\).
+\end{enumerate*}
+\end{corollary}
+
+\paragraph{Symplectic embeddings (\S1.3 of~\cite{Del_ShimVar})}
+Let \(V\) be a real vector space,
+endowed with a non-degenerate alternating form~\(\Psi\).
+The corresponding \emph{Siegel half space}~\(\mathfrak{H}^{+}\)
+admits the following description:
+it is the space of complex structures~\(h\) on~\(V\),
+such that~\(\Psi\) is of type~\(1,1\)
+(under the identification of complex structures
+and Hodge structures of type \(\{(-1,0),(0,-1)\}\),
+\S1.1.3~of~\cite{Del_ShimVar})
+and such that the form \(\Psi(x,h(i)y)\) is symmetric and positive definite.
+If one replaces ``positive definite'' by ``definite'',
+the obtained \emph{double Siegle half space}~\(\Sds\)
+is a conjugation class of morphisms \(h \colon \DelS \to \CSp(V)\).
+
+\paragraph{(\S1.3.2 of~\cite{Del_ShimVar})} \label{Del132}
+Let \(G\) be an adjoint real algebraic group
+and let \(X\) be a conjugacy class of morphisms \(h \colon \DelS \to G\).
+Assume that \((G,X)\) satisfies conditions~(\textit{i}) and~(\textit{ii})
+of~\cref{3cond}, and replace (\textit{iii}) by
+
+(\textit{iii})' \(G\) does not have a compact factor.
+
+The system \((G,X)\) is then a product of systems
+\((G_{\iota},X_{\iota})\) as in~\cref{3cond},
+and \(X_{\iota}\) corresponds with a special node
+of the Dynkin diagram of~\(G_{\iota\CC}\) (\cref{specialnode}).
+
+Consider diagrams
+\[
+ (G,X) \longleftarrow (G_{1},X_{1}) \rightarrow (\CSp(V),\Sds),
+\]
+where \(G\) is the adjoint group of the reductive group~\(G_{1}\),
+and where \(X_{1}\) is a \(G_{1}(\RR)\)-conjugacy class of
+morphisms from \(\DelS\) to~\(G_{1}\).
+There is a section \(\tilde{G} \to G_{1}\),
+so that \(V\) is a representation of~\(\tilde{G}\).
+The goal is to determine the
+non-trivial irreducible complex representations of~\(\tilde{G}\),
+which is essentially equivalent to occuring in the complexification of
+one of the representations just obtained.
+
+Replacing \(G_{1}\) by the subgroup generated
+by the derived group~\(G_{1}^{\der}\) and the image of~\(h\),
+one can assume that conjugation by \(h(i)\)
+is a Cartan involution of~\(G_{1}/w(\Gm)\).
+Hence there exists a polarisation~\(\Psi\) on~\(V\)
+(\S1.18(a)~of~\cite{Del_ShimVar}),
+such that \(\rho\) is a morphism from \((G_{1},X_{1})\) to \((\CSp(V),\Sds)\).
+
+\paragraph{(\S1.3.4 of~\cite{Del_ShimVar})}
+Consider the following projective system~\(H_{n})_{n \in \NN}\):
+order~\(\NN\) by divisibility, \(H_{n} = \Gm\),
+and the transition morphism from \(H_{nd}\) to \(H_{n}\) is \(x \mapsto x^{d}\).
+(Then \(\lim H_{n}\) is
+the universal covering---in the algebraic sense---of~\(\Gm\).)
+A \emph{fractional morphism} of~\(\Gm\) to a group~\(H\)
+is an element of \(\colim \Hom(H_{n}, H)\).
+The same for the group~\(\DelS\).
+For a fractional morphism \(\mu \colon \Gm \to H\),
+defined by \(\mu_{n} \colon H_{n} = \Gm \to H\),
+every linear representation~\(V\) of~\(H\)
+is the sum of subspaces \(V_{a}\) (\(a \in (1/n)\ZZ\))
+such that \(\Gm\) acts on~\(V_{a}\) via~\(\mu_{n}\)
+as multiplication by~\(x^{na}\).
+The \(a\) such that \(V_{a} \ne 0\) are the \emph{weights} of~\(\mu\) on~\(V\).
+Similarly, a fractional morphism \(h \colon \DelS \to H\)
+determines a fractional Hodge decomposition~\(V_{r,s}\) of~\(V\)
+(\(r,s \in \QQ\)).
+
+\begin{lemma}[1.3.5 of~\cite{Del_ShimVar}] \label{Del135}
+ For \(h \in X\), let \(\tilde{\mu}_{h}\) be
+ the fractional lift of~\(\mu_{h}\) to~\(\tilde{G}_{\CC}\).
+ The representations~\(W\) of~\cref{Del132} are those
+ for which \(\tilde{\mu}_{h}\) has only two weights \(a\)~and~\(a+1\).
+\end{lemma}
+\begin{proof}
+ \pf\ Omitted; see~\cite{Del_ShimVar}. \qed
+\end{proof}
+
+\paragraph{(\S1.3.6 of~\cite{Del_ShimVar})}
+Let us translate the condition of~\cref{Del135} in terms of roots.
+Let \(T\) be a maximal torus of~\(G_{\CC}\),
+\(\tilde{T}\) its inverse image in \(\tilde{G}_{\CC}\),
+\(B\) a system of simple roots of~\(T\),
+and \(\mu \in Y(T)\) the representative in the fundamental Weyl chamber
+of the conjugacy class of~\(\mu_{h}\)~(\(h \in X\)).
+If \(\alpha\) is the dominant weight of~\(W\),
+the smallest weight is \(-\tau(\alpha)\),
+where \(\tau\) is the opposition involution.
+For \(\beta\) a weight of~\(W\), the \(\langle \mu, \beta \rangle\)
+may only take the two values \(a\)~and~\(a + 1\).
+The weights are all of the form
+\((\alpha + \text{a \(\ZZ\)-linear combination of roots})\),
+and the \(\langle \mu, r \rangle\), with \(r\) a root, are integers.
+The condition is therefore
+\(\langle \mu, -\tau(\alpha) \rangle = \langle \mu, \alpha \rangle - 1\),
+that is to say
+\begin{equation} \label{Del1361}
+ \langle \mu, \alpha + \tau(\alpha) \rangle = 1.
+\end{equation}
+
+Let us determine the solutions to this condition.
+For all dominant weights~\(\alpha\)
+we have \(\langle \mu, \alpha + \tau(\alpha) \rangle \in \ZZ\),
+because \(\alpha + \tau(\alpha)\) is a \(\ZZ\)-linear combination of roots.
+If \(\alpha \ne 0\), then \(\alpha > 0\),
+for otherwise \(\mu\) kills all the weights of the corresponding representation.
+A dominant weight~\(\alpha\) that satisfies~\cref{Del1361}
+can not be the sum of two weights.
+
+\begin{lemma}[1.3.7 of~\cite{Del_ShimVar}] \label{Del137}
+ Only the fundamental weights can satisfy~\cref{Del1361}.
 \end{lemma}
 
-\begin{proposition}
- Let \(M\) be an irreducible hyperadjoint abelian motive of type \(D_{k}\).
- One can recognize from \(\HH_{\Lambda}(M)\)
- whether \(M\) is of type \(D_{k}^{\RR}\) or of type \(D_{k}^{\HQ}\).
- \begin{proof}
-  Use theorem~6.2 till remark~6.6 of~\cite{No06}.
- \end{proof}
-\end{proposition}
+\paragraph{(\S1.3.8 of~\cite{Del_ShimVar})}
+By \cref{Del137}, the desired representations~\(W\)
+factor via a simple factor~\(G_{\iota}\) of~\(G\),
+and their dominant weight is a fundamental weight; it corresponds
+to a node of the Dynkin diagram~\(\Delta_{\iota}\) of~\(G_{\iota\CC}\).
+The necessary and sufficient condition~\cref{Del1361}
+only depends on the projection of~\(\mu\) to~\(G_{\iota\CC}\);
+it corresponds with a special node~\(s\) of~\(\Delta_{\iota}\),
+and \(s\) with a simple root~\(\alpha_{s}\).
+The number \(\langle \mu, \varpi \rangle\), for \(\varpi\) a weight,
+is the coefficient of~\(\alpha_{s}\)
+in the expression of~\(\varpi\)
+as \(\QQ\)-linear combination of the simple roots.
 
-\section{Compatible systems}
+\paragraph{Table (1.3.9 of~\cite{Del_ShimVar})} \label[table]{DelTable}
+We reproduce the diagrams depicted in~\cite{Del_ShimVar};
+and we add one column of information.
+
+\begin{tabular}{lm{2.5cm}m{2cm}m{3cm}l}
+ D.t. & Diagram & \(h^{-1,1}\) & \(G_{\iota}\) & Note \\
+ \(A_{n}\) &
+ % \begin{tikzpicture}
+ %  \node (pi1) at (0,0) {};
+ %  \node (pi2) [right=of pi1] {};
+ % \end{tikzpicture}
+ \begin{dynkin}
+  \dynkinedge{1}{0}{2}{0};
+  \dynkinnodes{2}{0}{3}{0};
+  \dynkinedge{3}{0}{5}{0};
+  \dynkinnodes{5}{0}{6}{0};
+  \dynkinedge{6}{0}{7}{0};
+  \foreach \x in {1,...,7}
+  {
+   \ifnum \x=4 {\dynkinnodespecial{\x}{0}}
+   \else {\dynkinnode{\x}{0}}
+   \fi
+  }
+ \end{dynkin}
+ & \(pq\) & \(\PU(p,q)\)? & \(n = p+q-1\) \\
+ \(B_{n}\) &
+ \begin{dynkin}
+  \dynkinedge{1}{0}{2}{0};
+  \dynkinnodes{2}{0}{3}{0};
+  \dynkinedge{3}{0}{4}{0};
+  \dynkindoubleedge{4}{0}{5}{0};
+  \dynkinnodespecial{1}{0};
+  \foreach \x in {2,...,5}
+  {
+   \dynkinnode{\x}{0}
+  }
+ \end{dynkin}
+ & TODO & \(\PSpin(2,n-2)\)? \\
+ \(C_{n}\)
+ &
+ \begin{dynkin}
+  \dynkinedge{1}{0}{2}{0};
+  \dynkinnodes{2}{0}{3}{0};
+  \dynkinedge{3}{0}{4}{0};
+  \dynkindoubleedge{5}{0}{4}{0};
+  \dynkinnodespecial{5}{0};
+  \foreach \x in {1,...,4}
+  {
+   \dynkinnode{\x}{0}
+  }
+ \end{dynkin}
+ & TODO \\
+ \(D_{n}\)
+ &
+ \begin{dynkin}
+  \foreach \x in {2,...,4}
+  {
+   \dynkinnode{\x}{0}
+  }
+  \dynkinnode{4.5}{.9}
+  \dynkinnode{4.5}{-.9}
+  \dynkinnodespecial{1}{0}
+  \dynkinedge{1}{0}{2}{0}
+  \dynkinnodes{2}{0}{3}{0}
+  \dynkinedge{3}{0}{4}{0}
+  \dynkinedge{4}{0}{4.5}{.9}
+  \dynkinedge{4}{0}{4.5}{-.9}
+ \end{dynkin}
+ & TODO \\
+ \(D_{n}\)
+ &
+ \begin{dynkin}
+  \foreach \x in {1,...,4}
+  {
+   \dynkinnode{\x}{0}
+  }
+  \dynkinnodespecial{4.5}{.9}
+  \dynkinnode{4.5}{-.9}
+  \dynkinedge{1}{0}{2}{0}
+  \dynkinnodes{2}{0}{3}{0}
+  \dynkinedge{3}{0}{4}{0}
+  \dynkinedge{4}{0}{4.5}{.9}
+  \dynkinedge{4}{0}{4.5}{-.9}
+ \end{dynkin}
+ & TODO \\
+ \(E_{6}\)
+ &
+ \begin{dynkin}
+  \foreach \x in {2,...,5}
+  {
+   \dynkinnode{\x}{0}
+  }
+  \dynkinnodespecial{1}{0}
+  \dynkinnode{3}{1}
+  \dynkinedge{1}{0}{5}{0}
+  \dynkinedge{3}{0}{3}{1}
+ \end{dynkin}
+ & TODO \\
+ \(E_{7}\)
+ &
+ \begin{dynkin}
+  \foreach \x in {1,...,5}
+  {
+   \dynkinnode{\x}{0}
+  }
+  \dynkinnodespecial{6}{0}
+  \dynkinnode{3}{1}
+  \dynkinedge{1}{0}{6}{0}
+  \dynkinedge{3}{0}{3}{1}
+ \end{dynkin}
+ &
+ TODO
+\end{tabular}
+
+
+\section{Hyperadjoint motives}
+
 TODO %TODO
-Give a summary of the other article.
-First finish that article,
-then copy/paste the relevant definitions and the main theorem.
-
-\section{Geometric lifts of Galois representations}
-
-Give a summary of the relevant result of~\cite{No06}.
 
 \section{The Hodge numbers of a motive with endomorphisms}
 
@@ -810,22 +1202,131 @@ Now we also have the following result.
    \(\Hp(M) \otimes_{E \otimes \QQp, \sigma \otimes \id} \BdR{K_{v}}\)}
   \,\bigr\}.
  \]
- \begin{proof}
-  By the above computations we see that both the left-hand side
-  and the right-hand side are equal to
-  \(
-   \bigl\{\,
-   \text{Hodge numbers of \(\HdR(M)^{(\sigma)}\)}
-   \,\bigr\}
-  \).
- \end{proof}
 \end{theorem}
+\begin{proof}
+ \pf\ By the above computations we see that both the left-hand side
+ and the right-hand side are equal to
+ \(
+  \bigl\{\,
+  \text{Hodge numbers of \(\HdR(M)^{(\sigma)}\)}
+  \,\bigr\}
+ \). \qed
+\end{proof}
 
-\section{Foobar}
+\section{Compatible systems}
+TODO %TODO
+Give a summary of the other article.
+First finish that article,
+then copy/paste the relevant definitions and the main theorem.
+
+\section{Geometric lifts of Galois representations}
+
+Give a summary of the relevant result of~\cite{No06}.
+
+\section{Structure of hyperadjoint abelian motives}
+
+\begin{lemma} \label{EGstruct}
+ Let \(K \subset \CC\) be a finitely generated field.
+ Let \(M\) be an irreducible hyperadjoint abelian motive over~\(K\).
+ Let \(E\) be the endomorphism algebra of~\(M\).
+ Assume that \(E = \End(M_{\CC})\).
+ Then \(E\) is a totally real field,
+ and \(\GB(M) = \Res_{E/\QQ} \mathcal{G}\)
+ for some absolutely simple adjoint algebraic group \(\mathcal{G}/E\).
+\end{lemma}
+
+\paragraph{}
+We follow the conventions of table~2.3.8 of~\cite{Del_ShimVar}.
+Let \(K \subset \CC\) be a finitely generated field.
+Let \(M\) be an irreducible hyperadjoint abelian motive over~\(K\).
+\begin{enumerate}
+ \item All the simple factors of~\(\GB(M)_{\CC}\)
+  have the same Dynkin type;
+  the only types that can occur are the classical types
+  \(A_{k}\),~\(B_{k}\), \(C_{k}\), and~\(D_{k}\).
+ \item For the non-compact simple factors of~\(\GB(M)_{\RR}\)
+  there is a refined type:
+  \(A_{k}\),~\(B_{k}\), \(C_{k}\), \(D_{k}^{\RR}\), and~\(D_{k}^{\HQ}\).
+  All the non-compact simple factors have the same type.
+  For \(k = 4\) the distinction between 
+  \(D_{k}^{\RR}\), and~\(D_{k}^{\HQ}\)
+  is subtle, and depends on \(\GB(M)\) over~\(\QQ\).
+  We refer to the final paragraphs of table~2.3.8 of~\cite{Del_ShimVar}
+  for more details.
+\end{enumerate}
+
+\paragraph{}
+Let \(K \subset \CC\) be a finitely generated field.
+Let \(\bar{K}\) be the algebraic closure of~\(K\) in~\(\CC\).
+Let \(M\) be a motive over~\(K\).
+Let \(E\) be subfield of~\(\End(M)\).
+Let \(\tilde{E}\) be the normal closure of~\(E\) in~\(\CC\).
+After passing to a suitable finite extension of~\(K\)
+we may and do assume that \(\tilde{E} \subset K\).
+
+
+
+\begin{proposition}
+ Let \(M\) be an irreducible hyperadjoint abelian motive of type \(D_{k}\).
+ One can recognize from \(\HH_{\Lambda}(M)\)
+ whether \(M\) is of type \(D_{k}^{\RR}\) or of type \(D_{k}^{\HQ}\).
+\end{proposition}
+\begin{proof}
+ \pf\ Use theorem~6.2 till remark~6.6 of~\cite{No06}. \qed
+\end{proof}
 
 \paragraph{}
 Recall that \(\HH^{1}(E,\iAut_{G})\) classifies forms of~\(G\) over~\(E\);
 reference?
+
+
+\section{An intermediate result}
+
+\begin{theorem} \label{intermed}
+ Let \(M_{1}\) and~\(M_{2}\) be two hyperadjoint abelian motives
+ over a finitely generated field \(K \subset \CC\).
+ Assume that \(\MTC(M_{1})\) and \(\MTC(M_{2})\) are true.
+ Then
+ \[
+  M_{1} \cong M_{2} \iff \exists \ell :
+  \Gl(M_{1} \oplus M_{2}) \subsetneq \Gl(M_{1}) \times \Gl(M_{2}).
+ \]
+\end{theorem}
+
+\begin{corollary} \label{intermed_sums}
+ Let \(M_{i}\), with \(i \in I\),
+ be a finite collection of hyperadjoint abelian motives.
+ Write \(M = \bigoplus M_{i}\).
+ If \(\MTC(M_{i}\) is true for all \(i \in I\),
+ then \(\MTC(M)\) is true.
+\end{corollary}
+\begin{proof}
+ \pf\ We may and do assume that for \(i,j \in I\)
+ we have \(M_{i} \cong M_{j} \iff i = j\).
+ By \cref{intermed},
+ we know that if \(i,j \in I\) are two different indices,
+ then \(\Gl(M_{i} \oplus M_{j}) \cong \Gl(M_{i}) \times \Gl(M_{j})\).
+ Recall that \(\Gl(M) \into \prod_{i \in I} \Gl(M_{i})\),
+ with surjective projections on to the factors \(\Gl(M_{i})\).
+ By the lemma in step~3 on pages~790--791 of~\cite{Ribet}
+ we conclude that
+ \(\Gl(\bigoplus_{i \in I} M_{i}) \cong \prod_{i \in I} \Gl(M_{i})\).
+ Since we know \(\MTC(M_{i}\) for all \(i \in I\)
+ we conclude that \(\MTC(M)\) is true. \qed
+\end{proof}
+
+\paragraph{Strategy}
+The proof of \cref{intermed} will consist of several distinct steps.
+\begin{enumerate}
+ \item We first show that \(\End(M_{1}) = E = \End(M_{2})\).
+ \item We then show that \(\GB(M_{1}) = G = \GB(M_{2})\).
+ \item The next step shows that
+  \(\mu_{1} \colon \Gm[\CC] \to \GB(M_{1})\)
+  and
+  \(\mu_{2} \colon \Gm[\CC] \to \GB(M_{2})\)
+  are in the same \(G(\CC)\)-conjugacy class.
+ \item The final step deduces \(M_{1} \cong M_{2}\).
+\end{enumerate}
 
 \paragraph{}
 Let \(K \subset \CC\) be a finitely generated field.
@@ -849,27 +1350,6 @@ Depending on the context,
 we may also view an element \(\sigma \in \Sigma\)
 as embedding \(E \into K\) or \(E \into \CC\).
 
-
-\section{An intermediate result}
-
-\begin{theorem}
- Let \(M_{1}\) and~\(M_{2}\) be two hyperadjoint abelian motives
- over a finitely generated field \(K \subset \CC\).
- Assume that \(\MTC(M_{1})\) and \(\MTC(M_{2})\) are true.
- Then
- \[
-  M_{1} \cong M_{2} \iff \exists \ell :
-  \Gl(M_{1} \oplus M_{2}) \subsetneq \Gl(M_{1}) \times \Gl(M_{2}).
- \]
-\end{theorem}
-
-\begin{corollary}
- Let \(M_{1}\) and~\(M_{2}\) be two hyperadjoint abelian motives
- over a finitely generated subfield of~\(\CC\).
- If \(\MTC(M_{1})\) and \(\MTC(M_{2})\) are true,
- then \(\MTC(M_{1} \oplus M_{2})\) is true.
-\end{corollary}
-
 \begin{proposition} \label{twofib}
  Let \(K \subset \CC\) be a finitely generated field.
  Let \(S\) be a scheme of finite type over~\(K\).
@@ -880,60 +1360,60 @@ as embedding \(E \into K\) or \(E \into \CC\).
  are isomorphic as Galois representations,
  then the abelian varieties \(\mathcal{A}_{x}\) and~\(\mathcal{A}_{y}\)
  are isogenous over a finite extension of~\(K\).
- \begin{proof}
-  View the lisse \(\ell\)-adic sheaf \(\mathrm{R}^{1}f_{*}\QQl\)
-  as representation
-  \(\pi(S,\bar{x}) \to \GL(\Hl^{1}(\mathcal{A}_{x})\).
-  Let \(\rho_{x}\) be denote the representation
-  \(\Gal(\bar{K}/K) \to \GL(\Hl^{1}(\mathcal{A}_{x})\).
-  Via parallel transport,
-  the Galois representation on~\(\Hl^{1}(\mathcal{A}_{y})\)
-  corresponds with a representation
-  \(\rho_{y} \colon \Gal(\bar{K}/K) \to \GL(\Hl^{1}(\mathcal{A}_{x})\).
-  Let \(G \subset \GL(\Hl^{1}(\mathcal{A}_{x})\) be the smallest
-  subgroup such that \(G(\QQl)\) contains the image
-  of both \(\rho_{x}\) and~\(\rho_{y}\).
-
-  Consider the maps \(\ab \colon G \to G^{\ab}\)
-  and \(\ad \colon G \to G^{\ad}\).
-  It follows from \cref{MTCcentre} that
-  the map \(\ab \circ \rho_{s}\) does not depend on~\(s \in \{x,y\}\).
-  By assumption
-  \(\Lie(\Gl(\mathcal{A}_{x}))\) and \(\Lie(\Gl(\mathcal{A}_{y}))\)
-  are isomorphic as Galois representations,
-  and therefore \(\ad \circ \rho_{s}\) does not depend on~\(s \in \{x,y\}\).
-
-  Write \(Z\) for the finite intersection \(\ker(\ab) \cap \ker(\ad)\).
-  Define the morphism \(\phi \colon \Gal(\bar{K}/K) \to G(\QQl)\)
-  via \(g \mapsto \rho_{x}(g)\rho_{y}(g)^{-1}\).
-  We claim that \(\phi\) is a homomorphism.
-  Note that \(\ab \circ \phi\) and \(\ad \circ \phi\)
-  are trivial, and therefore \(\phi\) factors via~\(Z(\QQl)\).
-  We need to show that
-  \[
-   \rho_{x}(g_{1})\rho_{y}(g_{1})^{-1} \cdot \rho_{x}(g_{2})\rho_{y}(g_{2})^{-1}
-   \stackrel{?}{=}
-   \rho_{x}(g_{1}g_{2}) \cdot \rho_{y}(g_{1}g_{2})^{-1}
-   =
-   \rho_{x}(g_{1})\rho_{x}(g_{2}) \cdot
-   \rho_{y}(g_{2})^{-1}\rho_{y}(g_{1})^{-1}.
-  \]
-  This amounts to showing that
-  \(\rho_{y}(g_{1})^{-1} \cdot \phi(g_{2}) =
-   \phi(g_{2}) \cdot \rho_{y}(g_{1})^{-1}\).
-  Since \(Z\) is contained in the centre of~\(G\),
-  we know that \(\phi(g_{2})\) commutes with \(\rho_{y}(g_{1})^{-1}\).
-  This proves the claim that \(\phi\) is a homomorphism.
-
-  Because \(Z\) is finite,
-  the homomorphism \(\phi\) becomes trivial
-  after replacing \(K\) by suitable a finite extension;
-  which means \(\rho_{x} = \rho_{y}\).
-  The \namecref{twofib} now follows from Faltings' results
-  on the Tate conjecture for endomorphisms of abelian varieties
-  (Korollar~1 of Satz~4 of~\cite{Fal83}, see also~\cite{Fal84}).
- \end{proof}
 \end{proposition}
+\begin{proof}
+ \pf\ View the lisse \(\ell\)-adic sheaf \(\mathrm{R}^{1}f_{*}\QQl\)
+ as representation
+ \(\pi(S,\bar{x}) \to \GL(\Hl^{1}(\mathcal{A}_{x})\).
+ Let \(\rho_{x}\) denote the representation
+ \(\Gal(\bar{K}/K) \to \GL(\Hl^{1}(\mathcal{A}_{x})\).
+ Via parallel transport,
+ the Galois representation on~\(\Hl^{1}(\mathcal{A}_{y})\)
+ corresponds with a representation
+ \(\rho_{y} \colon \Gal(\bar{K}/K) \to \GL(\Hl^{1}(\mathcal{A}_{x})\).
+ Let \(G \subset \GL(\Hl^{1}(\mathcal{A}_{x})\) be the smallest
+ subgroup such that \(G(\QQl)\) contains the image
+ of both \(\rho_{x}\) and~\(\rho_{y}\).
+
+ Consider the maps \(\ab \colon G \to G^{\ab}\)
+ and \(\ad \colon G \to G^{\ad}\).
+ It follows from \cref{MTCcentre} that
+ the map \(\ab \circ \rho_{s}\) does not depend on~\(s \in \{x,y\}\).
+ By assumption
+ \(\Lie(\Gl(\mathcal{A}_{x}))\) and \(\Lie(\Gl(\mathcal{A}_{y}))\)
+ are isomorphic as Galois representations,
+ and therefore \(\ad \circ \rho_{s}\) does not depend on~\(s \in \{x,y\}\).
+
+ Write \(Z\) for the finite intersection \(\ker(\ab) \cap \ker(\ad)\).
+ Define the morphism \(\phi \colon \Gal(\bar{K}/K) \to G(\QQl)\)
+ via \(g \mapsto \rho_{x}(g)\rho_{y}(g)^{-1}\).
+ We claim that \(\phi\) is a homomorphism.
+ Note that \(\ab \circ \phi\) and \(\ad \circ \phi\)
+ are trivial, and therefore \(\phi\) factors via~\(Z(\QQl)\).
+ We need to show that
+ \[
+  \rho_{x}(g_{1})\rho_{y}(g_{1})^{-1} \cdot \rho_{x}(g_{2})\rho_{y}(g_{2})^{-1}
+  \stackrel{?}{=}
+  \rho_{x}(g_{1}g_{2}) \cdot \rho_{y}(g_{1}g_{2})^{-1}
+  =
+  \rho_{x}(g_{1})\rho_{x}(g_{2}) \cdot
+  \rho_{y}(g_{2})^{-1}\rho_{y}(g_{1})^{-1}.
+ \]
+ This amounts to showing that
+ \(\rho_{y}(g_{1})^{-1} \cdot \phi(g_{2}) =
+  \phi(g_{2}) \cdot \rho_{y}(g_{1})^{-1}\).
+ Since \(Z\) is contained in the centre of~\(G\),
+ we know that \(\phi(g_{2})\) commutes with \(\rho_{y}(g_{1})^{-1}\).
+ This proves the claim that \(\phi\) is a homomorphism.
+
+ Because \(Z\) is finite,
+ the homomorphism \(\phi\) becomes trivial
+ after replacing \(K\) by suitable a finite extension;
+ which means \(\rho_{x} = \rho_{y}\).
+ The \namecref{twofib} now follows from Faltings' results
+ on the Tate conjecture for endomorphisms of abelian varieties
+ (Korollar~1 of Satz~4 of~\cite{Fal83}, see also~\cite{Fal84}). \qed
+\end{proof}
 
 \section{Main theorem}
 
@@ -946,6 +1426,25 @@ of \emph{abelian} motives for which the Mumford--Tate conjecture is true.
  Let \(K \subset \CC\) be a finitely generated field.
  The category~\(M_{K}\) is a Tannakian subcategory of \(\Mot_{K}\).
 \end{theorem}
+\begin{proof}
+ \pf\
+ The category~\(\Mot_{K}\) is semisimple,
+ so subquotients are direct summands.
+ It is clear that the subcategory~\(\mathcal{M}_{K}\)
+ is closed under duals, tensor powers, and direct summands.
+ Let \(M_{1}\) and~\(M_{2}\) be two objects in~\(\mathcal{M}_{K}\).
+ We need to show that \(M_{1} \oplus M_{2}\)
+ and \(M_{1} \otimes M_{2}\) are objects in \(\mathcal{M}_{K}\).
+ Observe that \(M_{1} \otimes M_{2}\) is a direct summand of
+ \((M_{1} \oplus M_{2})^{\otimes 2}\).
+ Thus we are done if we show that the Mumford--Tate conjecture is true for
+ \(M = M_{1} \oplus M_{2}\).
+ By foobar?? we may assume that \(M\) is hyperadjoint.
+ Write \(M = \bigoplus_{i \in I} M'_{i}\),
+ with the \(M'_{i}\) hyperadjoint.
+ Now the result follows from \cref{intermed_sums}.
+ \qed
+\end{proof}
 
 \begin{corollary}
  Let \(A_{1}\),~\(A_{2}\), \dots, \(A_{n}\) be abelian varieties over~\(K\).
