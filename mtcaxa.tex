@@ -69,8 +69,8 @@ sorting=nyt,safeinputenc]{biblatex}
  \@afterheading%
 }
 \renewcommand{\section}[1]{%
+ \vskip2\baselineskip\penalty-250%
  \refstepcounter{section}%
- \bigskip\penalty-250
  \vbox{\normalfont\fontsize{12pt}{15pt}\selectfont%
   \centering\scshape\noindent\textls*{\thesection\quad#1}%
   \par}
@@ -293,21 +293,29 @@ preheadhook={\bigskip}]{nproof}
 \newcommand{\PGL}{\textnormal{PGL}}
 \newcommand{\UU}{\textnormal{U}}
 \newcommand{\SU}{\textnormal{SU}}
-\newcommand{\PU}{\textnormal{PU}}
+\newcommand{\GU}{\textnormal{GU}}
+\newcommand{\PGU}{\textnormal{PGU}}
 \newcommand{\OO}{\textnormal{O}}
 \newcommand{\SO}{\textnormal{SO}}
+\newcommand{\GO}{\textnormal{GO}}
+\newcommand{\PGO}{\textnormal{PGO}}
 \newcommand{\Spin}{\textnormal{Spin}}
 \newcommand{\CSpin}{\textnormal{CSpin}}
 \newcommand{\PSpin}{\textnormal{PSpin}}
+\newcommand{\Sp}{\textnormal{Sp}}
 \newcommand{\CSp}{\textnormal{CSp}}
+\newcommand{\PCSp}{\textnormal{PCSp}}
 \newcommand{\Lie}{\textnormal{Lie}}
+
+\newcommand{\Char}{\textnormal{X}^{*}}
+\newcommand{\Cochar}{\textnormal{X}_{*}}
 
 \newcommand{\Dyn}{\textnormal{Dyn}}
 
 % \newcommand{\mfsl}{\mathfrak{sl}}
 % \newcommand{\mfso}{\mathfrak{so}}
 
-% \newcommand{\Cliff}{\textnormal{Cl}}
+\newcommand{\Cliff}{\textnormal{Cl}}
 % \newcommand{\spin}{\textnormal{spin}}
 
 % \newcommand{\St}{\textnormal{St}}
@@ -423,9 +431,9 @@ The strategy:
   such that \(G_{v_{0}}(\RR)\) is non-compact.
  \item Act on \(X_{2}\) by \(\Out(G)\) so that
   special node on the Dynkin diagram of~\(G_{v_{0}}\)
-  corresponding to the factor \((G_{v_{0}},X_{v_{0},2}\)
+  corresponding to the factor \((G_{v_{0}},X_{v_{0},2})\)
   is the same as the special node
-  corresponding to the factor \((G_{v_{0}},X_{v_{0},1}\).
+  corresponding to the factor \((G_{v_{0}},X_{v_{0},1})\).
  \item Show (TODO) that the reflex field \(E(G,X_{1})\)
   is the same as \(E(G,X_{2})\).
   \begin{enumerate}
@@ -443,7 +451,7 @@ The strategy:
 \end{enumerate}
 
 TODO %TODO
-\hfill\cjRL{hw/s`nh brwK hb' b/sM yhwh}
+% \hfill\cjRL{hw/s`nh brwK hb' b/sM yhwh}
 
 \paragraph{Conventions}
 We say that a reductive group~\(G\) over a field~\(K\) of characteristic~\(0\)
@@ -451,130 +459,596 @@ is \emph{classical} if all its simple factors
 are of type \(A_{n}\),~\(B_{n}\), \(C_{n}\), or~\(D_{n}\).
 (In other words, we exclude the exceptional groups.)
 
-\section{A local-global principle for forms of adjoint algebraic groups}
 
-\begin{theorem} \label{locglob}
- Let \(E\) be a number field.
- Let \(G\) be an absolutely simple classical group over~\(E\).
- Assume that \(G\) is either simply connected or adjoint.
- Then the natural morphism
- \[
-  \HH^{1}(E, \iAut_{G}) \stackrel{\phi_{G}}{\longto}
-  \prod_{v} \HH^{1}(E_{v}, \iAut_{G})
- \]
- is injective.
- (Here \(v\) runs over all the places of~\(E\), both finite and infinite.)
-\end{theorem}
+\section{Natural lifts of adjoint Shimura data of abelian type
+ to Shimura data of Hodge type}
 
-\paragraph{First reduction} \label{firstred}
-The proof of \cref{locglob} takes the rest of this section.
-We first show that we may assume that \(G\) is split and simply connected.
-Let \(G'\) be a form of~\(G\) over~\(E\),
-corresponding to a class \([G'] \in \HH^{1}(E, \iAut_{G})\).
-Then we obtain a natural commutative diagram
+\paragraph{Setup} \label{setup}
+Let \(G\) be a simple adjoint algebraic group over~\(\QQ\).
+Let \(h \colon \DelS \to G_{\RR}\) be a homomorphism,
+where \(\DelS = \Res_{\CC/\RR} \Gm\) is the Deligne torus.
+The morphism \(h\) endows \(\Lie(G)\) with a Hodge structure of weight~\(0\).
+Assume that this Hodge structure is polarisable.
+Also assume that it has level~\(2\);
+in other words,
+assume that \(h^{p,-p}(\Lie(G)) = 0\) if \(p > 1\),
+and assume that \(h^{1,-1}(\Lie(G)) \ne 0\).
+
+We also assume that there are diagrams of the following form:
 \[
  \begin{tikzcd}
-  \HH^{1}(E, \iAut_{G}) \ar[r,"\phi_{G}"] \ar[d,<->,"\rotatesim"]
-  & \prod_{v} \HH^{1}(E_{v}, \iAut_{G}) \ar[d,<->,"\rotatesim"] \\
-  \HH^{1}(E, \iAut_{G'}) \ar[r,"\phi_{G'}"]
-  & \prod_{v} \HH^{1}(E_{v}, \iAut_{G'}) \\
+  G_{1} \ar[d,two heads] \ar[r,hook]
+  & \Aut(V) \\
+  G
+ \end{tikzcd}
+ \quad \stackrel{\otimes_{\RR}}{\tikz \draw [->,
+ line join=round,
+ decorate, decoration={
+  zigzag,
+  segment length=4,
+  amplitude=.9,post=lineto,
+  post length=2pt
+ }]  (0,0) -- (1,0);} \quad
+ \begin{tikzcd}
+  & G_{1,\RR} \ar[d,two heads] \ar[r,hook]
+  & \Aut(V)_{\RR} \\
+  \DelS \ar[r,swap,"h"] \ar[ru,dashed,"\tilde{h}"]
+  & G_{\RR}
  \end{tikzcd}
 \]
-where the downward map on the left sends \([G']\)
-to the distinguished element \(*\) of \(\HH^{1}(E, \iAut_{G})\);
-and the downward map on the right sends \(\phi_{G}([G'])\)
-to \(* \in \prod_{v} \HH^{1}(E_{v}, \iAut_{G})\).
-It is therefore sufficient to prove \cref{locglob}
-in the case that \(G\) is a split group.
-If \(G\) is simply connected, then \(\iAut_{G} \cong \Aut_{G^{\ad}}\),
-and thus the adjoint case follows from the simply connected case.
-
-\paragraph{} \label{exactEpts}
-For the moment, let \(E\) be any field of characteristic~\(0\)
-(for example a \(p\)-adic local field); and
-let \(G\) be a classical group over~\(E\) that is split and simply connected.
-Let \(\Delta\) denote the Dynkin diagram of~\(G_{\bar{E}}\),
-and let \(\Delta_{\bar{E}}\) denote the Dynkin diagram of~\(G_{\bar{E}}\).
-Recall that \(\iOut_{G}(\bar{E}) \cong \Aut(\Delta)\).
-The assumption that \(G\) is split and simply connected
-implies that
+where
 \begin{enumerate*}[label=(\textit{\roman*})]
- \item \(\iOut_{G}(E) = \iOut_{G}(\bar{E})\); and
- \item the sequence \(0 \to \iInn_{G}(E) \to \iAut_{G}(E) \to \iOut_{G}(E) \to 0\)
-  is exact.
+ \item \(G_{1}\) is a reductive algebraic group over~\(\QQ\)
+  such that the projection \(G_{1} \onto G\) has central kernel;
+ \item \(G_{1} \into \Aut(V)\) is a finite-dimensional faithful representation
+  of~\(G_{1}\) on a vector space~\(V\) over~\(\QQ\);
+ \item \(\tilde{h}\) is a homomorphism that lifts~\(h\); and
+ \item \(\tilde{h}\) endows~\(V\) with a polarisable Hodge structure
+  of type \((0,1) + (1,0)\).
 \end{enumerate*}
-See for example proposition~1.5.1 and example~1.5.2 of~\cite{Conrad_RedGrp}.
+
+\paragraph{Goal} In this section we propose natural candidates
+for \(G_{1}\),~\(V\), and~\(\tilde{h}\).
+We describe them in the following \namecref{natlift}.
 
 \paragraph{}
-For ease of mind we recall that
+Recall that \(\DelS(\CC)\) acts on \(\Lie(G)_{\CC}\)
+via \(h(z)v = z^{-p}\bar{z}^{-q}v\) for \(v \in \Lie(G)_{\CC}\).
+Let \(\mu \colon \Gm \to G_{\CC}\) be the Hodge cocharacter
+associated with~\(h\);
+it is defined via \(\mu(z)v = z^{-p}v\) for \(v \in \Lie(G)_{\CC}\).
+
+
+\paragraph{}
+The situation in \cref{setup} has been studied extensively by Deligne
+in \S1.2~and~\S1.3 of~\cite{Del_ShimVar}.
+We give an overview of known implications of the above assumptions.
+\begin{enumerate}
+ \item The group \(G\) must be
+  of type~\(A_{n}\),~\(B_{n}\), \(C_{n}\), or~\(D_{n}\).
+  (See \S1.3.8 of~\cite{Del_ShimVar}.)
+ \item The endomorphism algebra \(E = \End_{G}(\Lie(G))\)
+  is a totally real field.
+\end{enumerate}
+In particular \(G = \Res_{E/\QQ} \mathcal{G}\),
+where \(\mathcal{G}\) is some
+absolutely simple adjoint algebraic group over~\(E\).
+Write \(\Sigma = \Sigma(E)\) for the set of
+embeddings \(E \into \RR\).
+We write \(\mathcal{G}_{\sigma}\) for the
+algebraic group \(\mathcal{G} \otimes_{\sigma} \RR\),
+and we write \(\mathcal{G}_{\sigma,\CC}\)
+for \(\mathcal{G}_{\sigma} \otimes_{\RR} \CC\).
+Write \(\mu_{\sigma}\) for the projection
+of \(\mu \colon \Gm \to G_{\CC}\) onto
+the factor \(\mathcal{G} \otimes_{\sigma} \CC\).
+
+Once and for all, fix a maximal torus
+\(T = \prod_{\sigma} T_{\sigma}\)
+inside \(G_{\CC} = \prod_{\sigma} \mathcal{G}_{\sigma,\CC}\)
+such that \(T_{\sigma}\) contains the image of~\(\mu_{\sigma}\).
+Write \(\Char(T)\) for the character lattice \(\Hom(T,\Gm)\)
+and \(\Cochar(T)\) for the cocharacter lattice \(\Hom(\Gm,T)\).
+Composition gives a perfect pairing
 \[
- \Aut(\Delta) =
- \begin{cases}
-  1 & \text{if \(G\) is of type \(A_{1}\)} \\
-  \ZZ/2\ZZ & \text{if \(G\) is of type \(A_{n}\), with \(n > 1\)} \\
-  1 & \text{if \(G\) is of type \(B_{n}\) or~\(C_{n}\)} \\
-  \mathfrak{S}_{3} & \text{if \(G\) is of type \(D_{4}\)} \\
-  \ZZ/2\ZZ & \text{if \(G\) is of type \(D_{n}\), with \(n > 4\).}
- \end{cases}
+ \Char(T) \times \Cochar(T) \stackrel{\circ}{\longrightarrow}
+ \Hom(\Gm,\Gm) = \ZZ.
 \]
+Choose a base~\(\Delta = \bigsqcup_{\sigma} \Delta_{\sigma}\)
+of the root system
+\(R(G_{\CC},T) = \prod_{\sigma} R(\mathcal{G}_{\sigma,\CC},T_{\sigma})\).
+For each \(\sigma \in \Sigma\),
+let \(\Delta_{\sigma}^{+}\) denote
+\(\Delta_{\sigma} \cup \{\alpha_{\sigma}\}\),
+where \(\alpha_{\sigma}\) is
+the shortest root with respect to~\(\Delta_{\sigma}\).
+One may identify \(\Delta_{\sigma}\) with
+the nodes of a connected Dynkin diagram,
+and \(\Delta_{\sigma}^{+}\) with
+the nodes of the corresponding extended Dynkin diagram.
+We say that \(\nu \in \Delta_{\sigma}\) is \emph{special}
+if it is in the orbit of \(\alpha_{\sigma}\)
+under the action of \(\Aut(\Delta_{\sigma}^{+})\).
+We say that an element of \(\Cochar(T_{\sigma})\)
+(\textit{i.e.}, a cocharacter)
+is \emph{special} if it is the indicator function
+on a special element of \(\Delta_{\sigma} \subset \Char(T)\)
+under the perfect pairing mentioned above.
+\begin{enumerate}[resume]
+ \item For each embedding \(\sigma \in \Sigma\),
+  the group \(\mathcal{G} \otimes_{\sigma} \RR\)
+  is an inner form of its compact form.
+ \item For each embedding \(\sigma \in \Sigma\),
+ the cocharacter \(\mu_{\sigma}\) is special.
+ (See \S1.2.5 of~\cite{Del_ShimVar}.)
+\end{enumerate}
 
-\paragraph{} \label{phiDelta}
-We now return to the setting of \cref{locglob} and~\cref{firstred}:
-\(E\) is a number field,
-and \(G\) is a classical group over~\(E\) that is split and simply connected.
-Recall from \cref{exactEpts} that
-the action of \(\Gal(\bar{E}/E)\) on~\(\Aut(\Delta)\) is trivial.
-Therefore \(\HH^{1}(E, \Aut(\Delta)) = \Hom(\Gal(\bar{E}/E), \Aut(\Delta))\),
-which classifies Galois extensions of~\(E\)
-whose Galois group is a subgroup of~\(\Aut(\Delta)\).
-Let \(F/E\) be a Galois extension, and let~\(v\) be any place of~\(E\).
-Recall that \(F \otimes E_{v} \cong \prod_{w|v} F_{w}\),
-and the Galois group acts transitively on the factors~\(F_{w}\).
-Consider the map
-\(\phi_{\Delta} \colon
- \HH^{1}(E, \Aut(\Delta)) \longto \prod_{v} \HH^{1}(E_{v}, \Aut(\Delta))\),
-which maps a Galois extension \(F/E\) to \((F_{w}/E_{v})_{v}\).
-Hence the map \(\phi_{\Delta}\) is injective,
-since a Galois extension \(F/E\) is trivial
-if and only if it is totally split at all places of~\(E\).
+
+
+\begin{theorem} \label{natlift}
+ Let \(G\) and~\(h\) be as in \cref{setup}.
+\end{theorem}
+
+
 
 \paragraph{}
-Recall the short exact sequence
-\( 0 \to \iInn_{G} \to \iAut_{G} \to \iOut_{G} \to 0 \).
-Now consider the following commutative diagram of exact sequences
+Suppose that we have an algebraic group
+\(G_{1} \onto G\) as in~\cref{setup}.
+To verify that \(h \colon \DelS \to G_{\RR}\)
+lifts to a homomorphism \(\tilde{h} \colon \DelS \to G_{1,\RR}\)
+it suffices to verify that
+\(\mu \colon \Gm \to G_{\CC}\) lifts to a homomorphism
+\(\tilde{\mu} \colon \Gm \to G_{1,\CC}\).
+
+% ------ ------ ------ ------ ------ ------
+
+% \paragraph{}
+% Let \(G\) be an absolutely simple adjoint real algebraic group,
+% and let \(X\) be a conjugacy class of homomorphisms
+% \(\DelS \to G\) satisfying the conditions of~\cite{Del_ShimVar}.
+
+% Deligne considers diagrams of the form
+% \[
+%  (G,X) \longleftarrow (G_{1},X_{1})
+%  \lhook\joinrel\longrightarrow (\CSp(V),\Sds),
+% \]
+% such that \(G\) is the adjoint group of~\(G_{1}\),
+% and \(X_{1}\) is a conjugacy class of homomorphisms
+% \(\DelS \to G_{1}\).
+% Assume that such a diagram exists; in other words,
+% assume that \(G\) is of type~\(A_{n}\),~\(B_{n}\), \(C_{n}\), or~\(D_{n}\).
+% In this section we propose a natural candidate for \((G_{1}, X_{1})\).
+
+\paragraph{The case \(A_{1}\)\relax} \label{caseA1}
+The group \(\mathcal{G}\) over~\(E\) is isomorphic to \(\PGL_{1}(Q)\),
+where \(Q\) is a (possibly split) quaternion algebra over~\(E\).
+Take \(\mathcal{G}_{1} = \GL_{1}(Q)\) and \(V = Q \oplus \dual{Q}\).
+Observe that \(V\) is naturally a faithful representation of
+\(\Res_{E/\QQ} \mathcal{G}_{1}\).
+Put \(G_{1} = (\Res_{E/\QQ} \mathcal{G}_{1}) \cdot \Gm \subset \Aut(V)\).
+
+We claim that there is a unique
+\(\tilde{h} \colon \DelS \to G_{1,\RR}\) that lifts~\(h\)
+and endows \(V\) with a polarisable Hodge structure of type \((0,1) + (1,0)\).
+To see this, it suffices to verify that
+\(\mu_{\sigma} \colon \Gm \to \PGL_{1}(Q \otimes_{E,\sigma} \CC)\)
+lifts uniquely to some
+\(\tilde{\mu}_{\sigma} \colon \Gm \to
+ \GL_{1}(Q \otimes_{E,\sigma} \CC) \cdot \Gm
+ \subset \Aut(V \otimes_{E,\sigma} \CC)\)
+such that \(V\) has precisely weights \(0\) and~\(1\).
+
+Note that \(Q \otimes_{E,\sigma} \CC \cong \Mat_{2}(\CC)\).
+Consider the following diagrams:
 \[
- \begin{tikzcd}[column sep=1em]
-    \HH^{0}(E,\iOut_{G}) \ar[r] \ar[d]
-  & \HH^{1}(E,\iInn_{G}) \ar[r,"\beta"]  \ar[d,"\psi"]
-  & \HH^{1}(E,\iAut_{G}) \ar[r,"\gamma"] \ar[d,"\phi_{G}"]
-  & \HH^{1}(E,\iOut_{G}) \ar[d,"\phi_{\Delta}",hook] \\
-    \prod_{v} \HH^{0}(E_{v},\iOut_{G}) \ar[r,"\delta"]
-  & \prod_{v} \HH^{1}(E_{v},\iInn_{G}) \ar[r,"\varepsilon"]
-  & \prod_{v} \HH^{1}(E_{v},\iAut_{G}) \ar[r]
-  & \prod_{v} \HH^{1}(E_{v},\iOut_{G}) \\
+ \begin{tikzcd}
+  (\GL_{2} \times \Gm)/\langle \pm 1 \rangle
+  \ar[d,two heads]
+  \ar[r,hook,"\phi"]
+  & \GL_{4} \\
+  \PGL_{2}
+ \end{tikzcd}
+ \quad \stackrel{\Cochar(\_)}{\tikz \draw [->,
+ line join=round,
+ decorate, decoration={
+  zigzag,
+  segment length=4,
+  amplitude=.9,post=lineto,
+  post length=2pt
+ }]  (0,0) -- (1,0);} \quad
+ \begin{tikzcd}
+  \bigl\{(x_{1},x_{2},k) \in (\frac{1}{2}\ZZ)^{3} \bigm|
+  x_{i} \equiv k \mod \ZZ \bigr\}
+  \ar[d,"\psi"] \ar[r,"\phi_{*}"]
+  & \ZZ^{4} \\
+  \ZZ^{2}/D
  \end{tikzcd}
 \]
-Recall that \cref{phiDelta} shows that the map \(\phi_{\Delta}\) is injective.
-We claim that
-the map \(\delta\) is trivial; and
-the map \(\psi\) is injective.
-Recall from \cref{exactEpts} that the sequences
-\( 0 \to \iInn_{G}(E_{v}) \to \iAut_{G}(E_{v}) \to \iOut_{G}(E_{v}) \to 0 \)
-are exact. This shows that the map \(\delta\) is trivial.
-The map \(\psi\) is injective by theorem~6.22 on page~336 of~\cite{PlaRap},
-since \(\iInn_{G} = G^{\ad}\).
+where \(\phi\) is the map \((g,\lambda) \mapsto \lambda(g \oplus g^{\dagger})\);
+and \(g \mapsto g^{\dagger}\) is the opposition involution on \(\GL_{2}\)
+which maps a matrix to its inverse-transpose;
+and \(\phi_{*}\) is the map
+\((x_{1},x_{2},k) \mapsto (x_{1} + k, x_{2} + k, -x_{1} + k, -x_{2} + k)\);
+and \(D \subset \ZZ^{2}\) is the diagonal;
+and \(\psi\) is the map \((x_{1},x_{2},k) \mapsto
+ (x_{1} + k, x_{2} + k) + D\).
 
-We can now finish the proof of \cref{locglob} by a diagram chase.
-Let \(x \in \HH^{1}(E, \iAut_{G})\) be a class such that
-\(\phi_{G}(x) = *\).
-Then \(\phi_{\Delta} \circ \gamma(x) = *\),
-and since \(\phi_{\Delta}\) is injective we conclude that \(\gamma(x) = *\).
-Therefore \(x = \beta(y)\) for some class \(y \in \HH^{1}(E, \iInn_{G})\).
-Since \(\delta\) is trivial and \(\psi\) is injective,
-we find that \(\varepsilon \circ \psi\) is injecitve.
-Because \(\varepsilon \circ \psi(y) = \phi_{G} \circ \beta(y) = *\),
-we conclude that \(y = *\), and hence \(x = *\).
-This completes the proof of \cref{locglob}.
+The special cocharacter in \(\ZZ^{2}/\Delta\) is \((1,0) + D\).
+It lifts to \((\frac12, -\frac12, \frac12)\),
+which maps to \((1,0,0,1)\) under~\(\phi_{*}\).
+
+\paragraph{The case \(A_{n}\), \(n \ge 2\)\relax}
+The group \(\mathcal{G}\) over~\(E\) is isomorphic to~\(\PGU(B,\tau)\),
+where \(B\)~is a central simple algebra over
+an \'{e}tale quadratic extension \(F/E\),
+and \(\tau\)~is a unitary involution on~\(B\)
+that restricts to the canonical involution of~\(F\) over~\(E\).
+Since \(\mathcal{G}_{\sigma}\) is an absolutely simple group over~\(\RR\),
+we see that \(F\) is a \cm~field,
+and \(E \subset F\) is the maximal \tr~subfield.
+
+Put \(\mathcal{G}_{1} = \UU(B,\tau)\), and \(V = B\).
+Observe that \(V\) is naturally a
+faithful representation of \(\Res_{E/\QQ} \mathcal{G}_{1}\).
+Put \(G_{1} = (\Res_{E/\QQ} \mathcal{G}_{1}) \cdot \Gm \subset \Aut(V)\).
+
+With similar reasoning as in \cref{caseA1}
+we may consider the diagrams:
+\[
+ \begin{tikzcd}
+  (\GL_{n+1} \times \Gm)/\langle \pm 1 \rangle
+  \ar[d,two heads]
+  \ar[r,hook,"\phi"]
+  & \GL_{2n+2} \\
+  \PGL_{n+1}
+ \end{tikzcd}
+ \quad \stackrel{\Cochar(\_)}{\tikz \draw [->,
+ line join=round,
+ decorate, decoration={
+  zigzag,
+  segment length=4,
+  amplitude=.9,post=lineto,
+  post length=2pt
+ }]  (0,0) -- (1,0);} \quad
+ \begin{tikzcd}
+  \bigl\{(\vec x,k) \in (\frac{1}{2}\ZZ)^{n+2} \bigm|
+  x_{i} \equiv k \mod \ZZ \bigr\}
+  \ar[d,"\psi"] \ar[r,"\phi_{*}"]
+  & \ZZ^{2n+2} \\
+  \ZZ^{n+1}/D
+ \end{tikzcd}
+\]
+where \(\phi\) is the map \((g,\lambda) \mapsto \lambda(g \oplus g^{\dagger})\);
+and \(g \mapsto g^{\dagger}\) is the opposition involution on \(\GL_{n}\)
+which maps a matrix to its inverse-transpose;
+and \(\phi_{*}\) is the map \((\vec x,k) \mapsto
+ (x_{1} + k, \ldots, x_{n+1} + k, -x_{1} + k, \ldots -x_{n+1} + k)\);
+and \(D \subset \ZZ^{n+1}\) is the diagonal;
+and \(\psi\) is the map \((\vec x,k) \mapsto
+ (x_{1} + k, \ldots, x_{n+1} + k) + D\).
+
+There are now \(n\) special cocharacters.
+For \(i = 1,\ldots,n\), they are
+\[
+ \mu_{i} = (\underbrace{1,\ldots,1}_{i},
+ \underbrace{0,\ldots,0}_{n+1-i}) + D.
+\]
+It is evident that one can lift~\(\mu_{i}\) to 
+\[
+ \big(\underbrace{\tfrac12,\ldots,\tfrac12}_{i},
+ \underbrace{-\tfrac12,\ldots,-\tfrac12}_{n+1-i},\tfrac12\big)
+ \in (\tfrac12\ZZ)^{n+2},
+\]
+and that this lift has only weights~\(0\) and~\(1\) under~\(\phi_{*}\).
+
+\paragraph{The case \(B_{n}\)\relax}
+This is basically the familiar Kuga--Satake construction.
+The group \(\mathcal{G}\) over~\(E\) is isomorphic to~\(\OO^{+}(W,q)\),
+where \((W,q)\) is a regular quadratic space of dimension~\(2n+1\)
+with trivial discriminant.
+Put \(\mathcal{G}_{1} = \Spin(W,q)\),
+and let \(V = \Cliff^{+}(W,q)\) be the even Clifford algebra.
+Observe that \(V\) is naturally a
+faithful representation of \(\Res_{E/\QQ} \mathcal{G}_{1}\).
+Put \(G_{1} = (\Res_{E/\QQ} \mathcal{G}_{1}) \cdot \Gm \subset \Aut(V)\).
+
+With similar reasoning as in \cref{caseA1}
+we may consider the diagrams:
+\[
+ \begin{tikzcd}
+  \CSpin_{2n+1}
+  \ar[d,two heads] \\
+  \OO_{2n+1}^{+}
+ \end{tikzcd}
+ \quad \stackrel{\Cochar(\_)}{\tikz \draw [->,
+ line join=round,
+ decorate, decoration={
+  zigzag,
+  segment length=4,
+  amplitude=.9,post=lineto,
+  post length=2pt
+ }]  (0,0) -- (1,0);} \quad
+ \begin{tikzcd}
+  \bigl\{(\vec x,k) \in \ZZ^{n} \oplus \frac12\ZZ \bigm|
+  2k + \sum x_{i} \equiv 0 \mod 2 \bigr\}
+  \ar[d,"\psi"] \\
+  \ZZ^{n}
+ \end{tikzcd}
+\]
+where \(\psi\) is the map \((\vec x,k) \mapsto \vec x\).
+
+The only special cocharacter is \(\mu = (1,0,\ldots,0) \in \ZZ^{n}\).
+It is evident that one can lift~\(\mu\)
+to \(\tilde{\mu} = (1,0,\ldots,0,\frac12)\).
+The weights of the spin representation are
+\[
+ (\underbrace{\pm\tfrac12,\ldots,\pm\tfrac12}_{n},1),
+\]
+and we conclude that the spin representation
+only has weights~\(0\) and~\(1\) after composition with~\(\tilde{\mu}\).
+
+\paragraph{The case \(C_{n}\)\relax}
+The group \(\mathcal{G}\) over~\(E\) is isomorphic to~\(\PCSp(A,\iota)\),
+where \(A\) is a central simple algebra over~\(E\) of degree~\(2n\),
+and \(\iota\) is a symplectic involution.
+Put \(\mathcal{G}_{1} = \Sp(A,\iota)\), and \(V = A\).
+Observe that \(V\) is naturally a
+faithful representation of \(\Res_{E/\QQ} \mathcal{G}_{1}\).
+Put \(G_{1} = (\Res_{E/\QQ} \mathcal{G}_{1}) \cdot \Gm \subset \Aut(V)\).
+
+With similar reasoning as in \cref{caseA1}
+we may consider the diagrams:
+\[
+ \begin{tikzcd}
+  \CSp_{2n}
+  \ar[d,two heads]
+  \ar[r,hook,"\phi"]
+  & \GL_{2n} \\
+  \PCSp_{2n}
+ \end{tikzcd}
+ \quad \stackrel{\Cochar(\_)}{\tikz \draw [->,
+ line join=round,
+ decorate, decoration={
+  zigzag,
+  segment length=4,
+  amplitude=.9,post=lineto,
+  post length=2pt
+ }]  (0,0) -- (1,0);} \quad
+ \begin{tikzcd}
+  \bigl\{(\vec x,k) \in (\frac{1}{2}\ZZ)^{n+1} \bigm|
+  x_{i} \equiv k \mod \ZZ \bigr\}
+  \ar[d,"\psi"] \ar[r,"\phi_{*}"]
+  & \ZZ^{2n} \\
+  \bigl\{\vec x \in (\frac{1}{2}\ZZ)^{n} \bigm|
+  x_{i} \equiv x_{1} \mod \ZZ \bigr\}
+ \end{tikzcd}
+\]
+where \(\phi_{*}\) is the map
+\((\vec x,k) \mapsto (x_{1}+ k, \ldots, x_{n}+k, -x_{1}+k, \ldots, -x_{n}+k)\);
+and \(\psi\) is the projection onto the first~\(n\) coordinates.
+
+The only special cocharacter is \(\mu = (\frac12,\ldots,\frac12)\).
+It is evident that it can be lifted to
+\(\tilde{\mu} = (\frac12,\ldots,\frac12)\),
+and we see that \(\phi_{*}(\tilde{\mu})\)
+only has weight~\(0\) and~\(1\).
+
+\paragraph{The case \(D_{n}^{\RR}\), \(n \ge 5\)\relax}
+This is basically the familiar Kuga--Satake construction.
+The group \(\mathcal{G}\) over~\(E\) is isomorphic to~\(\PGO^{+}(A,\iota,f)\),
+where \((A,\iota,f)\) is a central simple algebra over~\(E\)
+of degree~\(2n\) with quadratic pair.
+Put \(\mathcal{G}_{1} = \Spin(A,\iota,f)\),
+and let \(V = \Cliff^{+}(A,\iota,f)\) be the even Clifford algebra.
+Observe that \(V\) is naturally a
+faithful representation of \(\Res_{E/\QQ} \mathcal{G}_{1}\).
+Put \(G_{1} = (\Res_{E/\QQ} \mathcal{G}_{1}) \cdot \Gm \subset \Aut(V)\).
+
+With similar reasoning as in \cref{caseA1}
+we may consider the diagrams:
+\[
+ \begin{tikzcd}
+  \CSpin_{2n}
+  \ar[d,two heads] \\
+  \PGO_{2n}^{+}
+ \end{tikzcd}
+ \quad \stackrel{\Cochar(\_)}{\tikz \draw [->,
+ line join=round,
+ decorate, decoration={
+  zigzag,
+  segment length=4,
+  amplitude=.9,post=lineto,
+  post length=2pt
+ }]  (0,0) -- (1,0);} \quad
+ \begin{tikzcd}
+  \bigl\{(\vec x,k) \in \ZZ^{n} \oplus \frac12\ZZ \bigm|
+  2k + \sum x_{i} \equiv 0 \mod 2 \bigr\}
+  \ar[d,"\psi"] \\
+  \bigl\{\vec x \in (\frac{1}{2}\ZZ)^{n} \bigm|
+  x_{i} \equiv x_{1} \mod \ZZ \bigr\}
+ \end{tikzcd}
+\]
+where \(\psi\) is the map \((\vec x,k) \mapsto \vec x\).
+
+The only special cocharacter is \(\mu = (1,0,\ldots,0)\).
+It is evident that one can lift~\(\mu\)
+to \(\tilde{\mu} = (1,0,\ldots,0,\frac12)\).
+The weights of the spin representation are
+\[
+ (\underbrace{\pm\tfrac12,\ldots,\pm\tfrac12}_{n},1),
+\]
+and we conclude that the spin representation
+only has weights~\(0\) and~\(1\) after composition with~\(\tilde{\mu}\).
+
+
+\paragraph{The case \(D_{n}^{\HQ}\), \(n \ge 5\)\relax}
+Once again,
+the group \(\mathcal{G}\) over~\(E\) is isomorphic to~\(\PGO^{+}(A,\iota,f)\),
+where \((A,\iota,f)\) is a central simple algebra over~\(E\)
+of degree~\(2n\) with quadratic pair.
+This time put \(\mathcal{G}_{1} = \OO^{+}(A,\iota,f)\), and \(V = A\).
+Observe that \(V\) is naturally a
+faithful representation of \(\Res_{E/\QQ} \mathcal{G}_{1}\).
+Put \(G_{1} = (\Res_{E/\QQ} \mathcal{G}_{1}) \cdot \Gm \subset \Aut(V)\).
+
+With similar reasoning as in \cref{caseA1}
+we may consider the diagrams:
+\[
+ \begin{tikzcd}
+  \GO_{2n}^{+}
+  \ar[d,two heads] \\
+  \PGO_{2n+1}^{+}
+ \end{tikzcd}
+ \quad \stackrel{\Cochar(\_)}{\tikz \draw [->,
+ line join=round,
+ decorate, decoration={
+  zigzag,
+  segment length=4,
+  amplitude=.9,post=lineto,
+  post length=2pt
+ }]  (0,0) -- (1,0);} \quad
+ \begin{tikzcd}
+  \bigl\{(\vec x,k) \in \ZZ^{n} \oplus \frac12\ZZ \bigm|
+  2k + \sum x_{i} \equiv 0 \mod 2 \bigr\}
+  \ar[d,"\psi"] \\
+  \bigl\{\vec x \in (\frac{1}{2}\ZZ)^{n} \bigm|
+  x_{i} \equiv x_{1} \mod \ZZ \bigr\}
+ \end{tikzcd}
+\]
+where \(\psi\) is the map \((\vec x,k) \mapsto \vec x\).
+
+The only special cocharacter is \(\mu = (\frac12,\ldots,\frac12)\).
+It is evident that one can lift~\(\mu\)
+to \(\tilde{\mu} = (1,0,\ldots,0,\frac12)\).
+
+\paragraph{The case \(D_{4}^{\RR}\)\relax}
+
+\paragraph{The case \(D_{4}^{\HQ}\)\relax}
+
+% \section{A local-global principle for forms of adjoint algebraic groups}
+
+% \begin{theorem} \label{locglob}
+%  Let \(E\) be a number field.
+%  Let \(G\) be an absolutely simple classical group over~\(E\).
+%  Assume that \(G\) is either simply connected or adjoint.
+%  Then the natural morphism
+%  \[
+%   \HH^{1}(E, \iAut_{G}) \stackrel{\phi_{G}}{\longto}
+%   \prod_{v} \HH^{1}(E_{v}, \iAut_{G})
+%  \]
+%  is injective.
+%  (Here \(v\) runs over all the places of~\(E\), both finite and infinite.)
+% \end{theorem}
+
+% \paragraph{First reduction} \label{firstred}
+% The proof of \cref{locglob} takes the rest of this section.
+% We first show that we may assume that \(G\) is split and simply connected.
+% Let \(G'\) be a form of~\(G\) over~\(E\),
+% corresponding to a class \([G'] \in \HH^{1}(E, \iAut_{G})\).
+% Then we obtain a natural commutative diagram
+% \[
+%  \begin{tikzcd}
+%   \HH^{1}(E, \iAut_{G}) \ar[r,"\phi_{G}"] \ar[d,<->,"\rotatesim"]
+%   & \prod_{v} \HH^{1}(E_{v}, \iAut_{G}) \ar[d,<->,"\rotatesim"] \\
+%   \HH^{1}(E, \iAut_{G'}) \ar[r,"\phi_{G'}"]
+%   & \prod_{v} \HH^{1}(E_{v}, \iAut_{G'}) \\
+%  \end{tikzcd}
+% \]
+% where the downward map on the left sends \([G']\)
+% to the distinguished element \(*\) of \(\HH^{1}(E, \iAut_{G})\);
+% and the downward map on the right sends \(\phi_{G}([G'])\)
+% to \(* \in \prod_{v} \HH^{1}(E_{v}, \iAut_{G})\).
+% It is therefore sufficient to prove \cref{locglob}
+% in the case that \(G\) is a split group.
+% If \(G\) is simply connected, then \(\iAut_{G} \cong \Aut_{G^{\ad}}\),
+% and thus the adjoint case follows from the simply connected case.
+
+% \paragraph{} \label{exactEpts}
+% For the moment, let \(E\) be any field of characteristic~\(0\)
+% (for example a \(p\)-adic local field); and
+% let \(G\) be a classical group over~\(E\) that is split and simply connected.
+% Let \(\Delta\) denote the Dynkin diagram of~\(G_{\bar{E}}\),
+% and let \(\Delta_{\bar{E}}\) denote the Dynkin diagram of~\(G_{\bar{E}}\).
+% Recall that \(\iOut_{G}(\bar{E}) \cong \Aut(\Delta)\).
+% The assumption that \(G\) is split and simply connected
+% implies that
+% \begin{enumerate*}[label=(\textit{\roman*})]
+%  \item \(\iOut_{G}(E) = \iOut_{G}(\bar{E})\); and
+%  \item the sequence \(0 \to \iInn_{G}(E) \to \iAut_{G}(E) \to \iOut_{G}(E) \to 0\)
+%   is exact.
+% \end{enumerate*}
+% See for example proposition~1.5.1 and example~1.5.2 of~\cite{Conrad_RedGrp}.
+
+% \paragraph{}
+% For ease of mind we recall that
+% \[
+%  \Aut(\Delta) =
+%  \begin{cases}
+%   1 & \text{if \(G\) is of type \(A_{1}\)} \\
+%   \ZZ/2\ZZ & \text{if \(G\) is of type \(A_{n}\), with \(n > 1\)} \\
+%   1 & \text{if \(G\) is of type \(B_{n}\) or~\(C_{n}\)} \\
+%   \mathfrak{S}_{3} & \text{if \(G\) is of type \(D_{4}\)} \\
+%   \ZZ/2\ZZ & \text{if \(G\) is of type \(D_{n}\), with \(n > 4\).}
+%  \end{cases}
+% \]
+
+% \paragraph{} \label{phiDelta}
+% We now return to the setting of \cref{locglob} and~\cref{firstred}:
+% \(E\) is a number field,
+% and \(G\) is a classical group over~\(E\) that is split and simply connected.
+% Recall from \cref{exactEpts} that
+% the action of \(\Gal(\bar{E}/E)\) on~\(\Aut(\Delta)\) is trivial.
+% Therefore \(\HH^{1}(E, \Aut(\Delta)) = \Hom(\Gal(\bar{E}/E), \Aut(\Delta))\),
+% which classifies Galois extensions of~\(E\)
+% whose Galois group is a subgroup of~\(\Aut(\Delta)\).
+% Let \(F/E\) be a Galois extension, and let~\(v\) be any place of~\(E\).
+% Recall that \(F \otimes E_{v} \cong \prod_{w|v} F_{w}\),
+% and the Galois group acts transitively on the factors~\(F_{w}\).
+% Consider the map
+% \(\phi_{\Delta} \colon
+%  \HH^{1}(E, \Aut(\Delta)) \longto \prod_{v} \HH^{1}(E_{v}, \Aut(\Delta))\),
+% which maps a Galois extension \(F/E\) to \((F_{w}/E_{v})_{v}\).
+% Hence the map \(\phi_{\Delta}\) is injective,
+% since a Galois extension \(F/E\) is trivial
+% if and only if it is totally split at all places of~\(E\).
+
+% \paragraph{}
+% Recall the short exact sequence
+% \( 0 \to \iInn_{G} \to \iAut_{G} \to \iOut_{G} \to 0 \).
+% Now consider the following commutative diagram of exact sequences
+% \[
+%  \begin{tikzcd}[column sep=1em]
+%     \HH^{0}(E,\iOut_{G}) \ar[r] \ar[d]
+%   & \HH^{1}(E,\iInn_{G}) \ar[r,"\beta"]  \ar[d,"\psi"]
+%   & \HH^{1}(E,\iAut_{G}) \ar[r,"\gamma"] \ar[d,"\phi_{G}"]
+%   & \HH^{1}(E,\iOut_{G}) \ar[d,"\phi_{\Delta}",hook] \\
+%     \prod_{v} \HH^{0}(E_{v},\iOut_{G}) \ar[r,"\delta"]
+%   & \prod_{v} \HH^{1}(E_{v},\iInn_{G}) \ar[r,"\varepsilon"]
+%   & \prod_{v} \HH^{1}(E_{v},\iAut_{G}) \ar[r]
+%   & \prod_{v} \HH^{1}(E_{v},\iOut_{G}) \\
+%  \end{tikzcd}
+% \]
+% Recall that \cref{phiDelta} shows that the map \(\phi_{\Delta}\) is injective.
+% We claim that
+% the map \(\delta\) is trivial; and
+% the map \(\psi\) is injective.
+% Recall from \cref{exactEpts} that the sequences
+% \( 0 \to \iInn_{G}(E_{v}) \to \iAut_{G}(E_{v}) \to \iOut_{G}(E_{v}) \to 0 \)
+% are exact. This shows that the map \(\delta\) is trivial.
+% The map \(\psi\) is injective by theorem~6.22 on page~336 of~\cite{PlaRap},
+% since \(\iInn_{G} = G^{\ad}\).
+
+% We can now finish the proof of \cref{locglob} by a diagram chase.
+% Let \(x \in \HH^{1}(E, \iAut_{G})\) be a class such that
+% \(\phi_{G}(x) = *\).
+% Then \(\phi_{\Delta} \circ \gamma(x) = *\),
+% and since \(\phi_{\Delta}\) is injective we conclude that \(\gamma(x) = *\).
+% Therefore \(x = \beta(y)\) for some class \(y \in \HH^{1}(E, \iInn_{G})\).
+% Since \(\delta\) is trivial and \(\psi\) is injective,
+% we find that \(\varepsilon \circ \psi\) is injecitve.
+% Because \(\varepsilon \circ \psi(y) = \phi_{G} \circ \beta(y) = *\),
+% we conclude that \(y = *\), and hence \(x = *\).
+% This completes the proof of \cref{locglob}.
 
 % \section{Recap: classification of real adjoint Shimura data}
 
@@ -1000,7 +1474,7 @@ This completes the proof of \cref{locglob}.
 %    \fi
 %   }
 %  \end{dynkin}
-%  & \(pq\) & \(\PU(p,q)\)? & \(n = p+q-1\) \\
+%  & \(pq\) & \(\PGU(p,q)\)? & \(n = p+q-1\) \\
 %  \(B_{n}\) &
 %  \begin{dynkin}
 %   \dynkinedge{1}{0}{2}{0};
@@ -1274,7 +1748,7 @@ Let \(M\) be an irreducible hyperadjoint abelian motive over~\(K\).
 Let \(E\) be the endomorphism algebra of~\(M\).
 Let \(\tilde{E}\) be the normal closure of~\(E\) in~\(\CC\).
 After passing to a suitable finite extension of~\(K\)
-we may and do assume that \(E = \End(M_{\CC}\) and \(\tilde{E} \subset K\).
+we may and do assume that \(E = \End(M_{\CC})\) and \(\tilde{E} \subset K\).
 Let \(\mu \colon \Gm[\CC] \to \GB(M)_{\CC}\)
 be the cocharacter that determines the Hodge structure~\(\HB(M)\).
 Let \(\mathcal{G}/E\) be an absolutely simple adjoint algebraic group
@@ -1293,7 +1767,7 @@ that if \(G_{\sigma}\) is non-compact, then
   \(G_{\sigma}(\CC)\)-conjugacy class of~\(\mu_{\sigma}\)
   with the
   \(G_{\sigma}(\CC)\)-conjugacy class of~\(\mu_{\sigma}^{-1}\); and
- \item the \(G_{\sigma}(\CC\)-conjucacy class of~\(\mu_{\sigma}\)
+ \item the \(G_{\sigma}(\CC)\)-conjucacy class of~\(\mu_{\sigma}\)
   determines the isomorphism class of~\(G_{\sigma}\)
   (as real algebraic group).
 \end{enumerate*}
@@ -1307,7 +1781,7 @@ and the \(p\)-adic realisations of~\(M\).
 Since \(M\) is abelian and hyperadjoint,
 we know that \(\HB(M) \otimes_{E,\sigma} \CC\)
 has type \(\{(-1,1), (0,0), (1,-1)\}\) with multiplicities
-\((h^{-1,1},h^{0,0},h^{1,-1}\).
+\((h^{-1,1},h^{0,0},h^{1,-1})\).
 Since \(E\) is totally real, we know that \(h^{-1,1} = h^{1,-1}\),
 and therefore \(h^{-1,1}\) determines the others.
 Write \(\Hp(M)^{(\sigma)}\) for
@@ -1387,12 +1861,13 @@ even in the case that \(M\) is of type~\(D_{k}\).
  By \cref{intermed},
  we know that if \(i,j \in I\) are two different indices,
  then \(\Gl(M_{i} \oplus M_{j}) \cong \Gl(M_{i}) \times \Gl(M_{j})\).
- Recall that \(\Gl(M) \into \prod_{i \in I} \Gl(M_{i})\),
- with surjective projections on to the factors \(\Gl(M_{i})\).
+ Recall that there is a natural injection
+ \(\Gl(M) \into \prod_{i \in I} \Gl(M_{i})\)
+ and the image projects surjectively onto the factors \(\Gl(M_{i})\).
  By the lemma in step~3 on pages~790--791 of~\cite{Ribet}
  we conclude that
  \(\Gl(\bigoplus_{i \in I} M_{i}) \cong \prod_{i \in I} \Gl(M_{i})\).
- Since we know \(\MTC(M_{i}\) for all \(i \in I\)
+ Since we know \(\MTC(M_{i})\) for all \(i \in I\)
  we conclude that \(\MTC(M)\) is true. \qed
 \end{proof}
 
