@@ -453,12 +453,10 @@ The strategy:
 TODO %TODO
 % \hfill\cjRL{hw/s`nh brwK hb' b/sM yhwh}
 
-\paragraph{Conventions}
-We say that a reductive group~\(G\) over a field~\(K\) of characteristic~\(0\)
-is \emph{classical} if all its simple factors
-are of type \(A_{n}\),~\(B_{n}\), \(C_{n}\), or~\(D_{n}\).
-(In other words, we exclude the exceptional groups.)
+\section{On algebras with involutions}
 
+We recall the classification results of~\cite{BoI}.
+For definitions we give references to~\cite{BoI}.
 
 \section{Natural lifts of adjoint Shimura data of abelian type
  to Shimura data of Hodge type}
@@ -477,7 +475,7 @@ and assume that \(h^{1,-1}(\Lie(G)) \ne 0\).
 We also assume that there are diagrams of the following form:
 \[
  \begin{tikzcd}
-  G_{1} \ar[d,two heads] \ar[r,hook]
+  G^{\sharp} \ar[d,two heads] \ar[r,hook]
   & \Aut(V) \\
   G
  \end{tikzcd}
@@ -490,7 +488,7 @@ We also assume that there are diagrams of the following form:
   post length=2pt
  }]  (0,0) -- (1,0);} \quad
  \begin{tikzcd}
-  & G_{1,\RR} \ar[d,two heads] \ar[r,hook]
+  & G^{\sharp}_{\RR} \ar[d,two heads] \ar[r,hook]
   & \Aut(V)_{\RR} \\
   \DelS \ar[r,swap,"h"] \ar[ru,dashed,"\tilde{h}"]
   & G_{\RR}
@@ -498,18 +496,18 @@ We also assume that there are diagrams of the following form:
 \]
 where
 \begin{enumerate*}[label=(\textit{\roman*})]
- \item \(G_{1}\) is a reductive algebraic group over~\(\QQ\)
-  such that the projection \(G_{1} \onto G\) has central kernel;
- \item \(G_{1} \into \Aut(V)\) is a finite-dimensional faithful representation
-  of~\(G_{1}\) on a vector space~\(V\) over~\(\QQ\);
+ \item \(G^{\sharp}\) is a reductive algebraic group over~\(\QQ\)
+  such that the projection \(G^{\sharp} \onto G\) has central kernel;
+ \item \(G^{\sharp} \into \Aut(V)\) is a finite-dimensional faithful representation
+  of~\(G^{\sharp}\) on a vector space~\(V\) over~\(\QQ\);
  \item \(\tilde{h}\) is a homomorphism that lifts~\(h\); and
  \item \(\tilde{h}\) endows~\(V\) with a polarisable Hodge structure
   of type \((0,1) + (1,0)\).
 \end{enumerate*}
 
 \paragraph{Goal} In this section we propose natural candidates
-for \(G_{1}\),~\(V\), and~\(\tilde{h}\).
-We describe them in the following \namecref{natlift}.
+for \(G^{\sharp}\),~\(V\), and~\(\tilde{h}\).
+We describe these in \cref{natlift}.
 
 \paragraph{}
 Recall that \(\DelS(\CC)\) acts on \(\Lie(G)_{\CC}\)
@@ -527,6 +525,11 @@ We give an overview of known implications of the above assumptions.
  \item The group \(G\) must be
   of type~\(A_{n}\),~\(B_{n}\), \(C_{n}\), or~\(D_{n}\).
   (See \S1.3.8 of~\cite{Del_ShimVar}.)
+  The type \(D_{n}\) has a refinement into subtypes
+  \(D_{n}^{\RR}\) and~\(D_{n}^{\HQ}\).
+  The distinction between
+  \(D_{4}^{\RR}\) and~\(D_{4}^{\HQ}\)
+  is subtle (see \S2.3.8 of~\cite{Del_ShimVar}).
  \item The endomorphism algebra \(E = \End_{G}(\Lie(G))\)
   is a totally real field.
 \end{enumerate}
@@ -583,22 +586,108 @@ under the perfect pairing mentioned above.
  (See \S1.2.5 of~\cite{Del_ShimVar}.)
 \end{enumerate}
 
+\paragraph{Candidates} \label{candidates}
+In this paragraph we list candidates for~\(G^{\sharp}\) and~\(V\).
+In \cref{natlift} we prove that \(h\) lifts uniquely
+to a homomorphism \(\tilde{h} \colon \DelS \to G^{\sharp}_{\RR}\)
+such that \(G^{\sharp}\),~\(V\), and~\(h\) satisfy the four conditions
+listed in~\cref{setup}.
+To describe the candidates we need to distinguish six cases:
+\(A_{1}\),~\(A_{n}\)~(\(n \ge 2\)),
+\(B_{n}\),
+\(C_{n}\),
+\(D_{n}^{\RR}\), and~\(D_{n}^{\HQ}\)~(\(n \ge 4\)).
+In each case we define a group \(\mathcal{G}^{\sharp}\) over~\(E\)
+together with a representation of \(\mathcal{G}^{\sharp}\).
+At the end of the paragraph we wrap up all the different cases,
+and define \(G^{\sharp}\) and~\(V\).
 
+\begin{enumerate}[label=\thesubsection.\arabic*,align=left,%
+  itemsep=\baselineskip,topsep=\baselineskip,%
+  leftmargin=0pt,labelindent=0pt,labelsep=1ex,labelwidth=6ex,itemindent=!]
+ \item \emph{Type \(A_{1}\).}
+  The group \(\mathcal{G}\) is isomorphic to \(\PGL_{1}(Q)\),
+  where \(Q\) is a (possibly split) quaternion algebra over~\(E\).
+  The quaternion algebra~\(Q\) is unique up to isomorphism.
+  Put \(\mathcal{G}^{\sharp} = \GL_{1}(Q)\) and \(V = Q \oplus \dual{Q}\).
+
+ \item \emph{Type \(A_{n}\)~(\(n \ge 2\)).}
+  The group \(\mathcal{G}\) over~\(E\) is isomorphic to~\(\PGU(B,\tau)\),
+  where \(B\)~is a central simple algebra over
+  an \'{e}tale quadratic extension \(F/E\),
+  and \(\tau\)~is a unitary involution on~\(B\)
+  that restricts to the canonical involution of~\(F\) over~\(E\).
+  The pair \((B,\tau)\) is unique up to isomorphism.
+  Put \(\mathcal{G}^{\sharp} = \UU(B,\tau)\), and \(V = B\).
+
+ \item \emph{Type \(B_{n}\).}
+  The group \(\mathcal{G}\) over~\(E\) is isomorphic to~\(\OO^{+}(W,q)\),
+  where \((W,q)\) is a regular quadratic space of dimension~\(2n+1\)
+  with trivial discriminant.
+  The pair \((W,q)\) is unique up to isomorphism.
+  Put \(\mathcal{G}^{\sharp} = \Spin(W,q)\),
+  and let \(V = \Cliff^{+}(W,q)\) be the even Clifford algebra.
+
+ \item \emph{Type \(C_{n}\).}
+  The group \(\mathcal{G}\) over~\(E\) is isomorphic to~\(\PCSp(A,\iota)\),
+  where \(A\) is a central simple algebra over~\(E\) of degree~\(2n\),
+  and \(\iota\) is a symplectic involution.
+  The pair \((A,\iota)\) is unique up to isomorphism.
+  Put \(\mathcal{G}^{\sharp} = \Sp(A,\iota)\), and \(V = A\).
+
+ \item \emph{Type \(D_{n}^{\RR}\)~(\(n \ge 5\)).}
+  The group \(\mathcal{G}\) over~\(E\) is isomorphic to~\(\PGO^{+}(A,\iota,f)\),
+  where \((A,\iota,f)\) is a central simple algebra over~\(E\)
+  of degree~\(2n\) with quadratic pair.
+  The triple \((A,\iota,f)\) is unique up to isomorphism.
+  Put \(\mathcal{G}^{\sharp} = \Spin(A,\iota,f)\),
+  and let \(V = \Cliff^{+}(A,\iota,f)\) be the even Clifford algebra.
+  TODO %TODO
+  Bull crap, need to explain what we mean with \(\Cliff^{+}(A,\iota,f)\).
+  Know what this is on a quadratic space,
+  but not on a CSA of dimension \(O(n^2)\).
+
+ \item \emph{Type \(D_{n}^{\HQ}\)~(\(n \ge 5\)).}
+  Once again,
+  the group \(\mathcal{G}\) over~\(E\) is isomorphic to~\(\PGO^{+}(A,\iota,f)\),
+  where \((A,\iota,f)\) is a central simple algebra over~\(E\)
+  of degree~\(2n\) with quadratic pair.
+  The triple \((A,\iota,f)\) is unique up to isomorphism.
+  This time put \(\mathcal{G}^{\sharp} = \OO^{+}(A,\iota,f)\), and \(V = A\).
+
+ \item \emph{Type \(D_{4}^{\RR}\).} TODO %TODO
+  trialitarian algebra, spin rep.
+ \item \emph{Type \(D_{4}^{\HQ}\).} TODO %TODO
+  trialitarian algebra, orthogonal rep.
+
+ \item Observe that in all cases \(V\) is naturally a
+  faithful representation of \(\Res_{E/\QQ} \mathcal{G}^{\sharp}\).
+  We set
+  \[
+   G^{\sharp} = (\Res_{E/\QQ} \mathcal{G}^{\sharp}) \cdot \Gm \subset \Aut(V).
+  \]
+\end{enumerate}
 
 \begin{theorem} \label{natlift}
  Let \(G\) and~\(h\) be as in \cref{setup}.
+ Let \(G^{\sharp}\) and~\(V\) be the corresponding candidates
+ described in \cref{candidates}.
+ Then there is a unique homomorphism
+ \(\tilde{h} \colon \DelS \to G^{\sharp}_{\RR}\) that lifts~\(h\)
+ and that endows \(V\)
+ with a polarisable Hodge structure of type \((0,1) + (1,0)\).
 \end{theorem}
 
 
 
 \paragraph{}
 Suppose that we have an algebraic group
-\(G_{1} \onto G\) as in~\cref{setup}.
+\(G^{\sharp} \onto G\) as in~\cref{setup}.
 To verify that \(h \colon \DelS \to G_{\RR}\)
-lifts to a homomorphism \(\tilde{h} \colon \DelS \to G_{1,\RR}\)
+lifts to a homomorphism \(\tilde{h} \colon \DelS \to G^{\sharp}_{\RR}\)
 it suffices to verify that
 \(\mu \colon \Gm \to G_{\CC}\) lifts to a homomorphism
-\(\tilde{\mu} \colon \Gm \to G_{1,\CC}\).
+\(\tilde{\mu} \colon \Gm \to G^{\sharp}_{\CC}\).
 
 % ------ ------ ------ ------ ------ ------
 
@@ -609,26 +698,26 @@ it suffices to verify that
 
 % Deligne considers diagrams of the form
 % \[
-%  (G,X) \longleftarrow (G_{1},X_{1})
+%  (G,X) \longleftarrow (G^{\sharp},X_{1})
 %  \lhook\joinrel\longrightarrow (\CSp(V),\Sds),
 % \]
-% such that \(G\) is the adjoint group of~\(G_{1}\),
+% such that \(G\) is the adjoint group of~\(G^{\sharp}\),
 % and \(X_{1}\) is a conjugacy class of homomorphisms
-% \(\DelS \to G_{1}\).
+% \(\DelS \to G^{\sharp}\).
 % Assume that such a diagram exists; in other words,
 % assume that \(G\) is of type~\(A_{n}\),~\(B_{n}\), \(C_{n}\), or~\(D_{n}\).
-% In this section we propose a natural candidate for \((G_{1}, X_{1})\).
+% In this section we propose a natural candidate for \((G^{\sharp}, X_{1})\).
 
 \paragraph{The case \(A_{1}\)\relax} \label{caseA1}
 The group \(\mathcal{G}\) over~\(E\) is isomorphic to \(\PGL_{1}(Q)\),
 where \(Q\) is a (possibly split) quaternion algebra over~\(E\).
-Take \(\mathcal{G}_{1} = \GL_{1}(Q)\) and \(V = Q \oplus \dual{Q}\).
+Take \(\mathcal{G}^{\sharp} = \GL_{1}(Q)\) and \(V = Q \oplus \dual{Q}\).
 Observe that \(V\) is naturally a faithful representation of
-\(\Res_{E/\QQ} \mathcal{G}_{1}\).
-Put \(G_{1} = (\Res_{E/\QQ} \mathcal{G}_{1}) \cdot \Gm \subset \Aut(V)\).
+\(\Res_{E/\QQ} \mathcal{G}^{\sharp}\).
+Put \(G^{\sharp} = (\Res_{E/\QQ} \mathcal{G}^{\sharp}) \cdot \Gm \subset \Aut(V)\).
 
 We claim that there is a unique
-\(\tilde{h} \colon \DelS \to G_{1,\RR}\) that lifts~\(h\)
+\(\tilde{h} \colon \DelS \to G^{\sharp}_{\RR}\) that lifts~\(h\)
 and endows \(V\) with a polarisable Hodge structure of type \((0,1) + (1,0)\).
 To see this, it suffices to verify that
 \(\mu_{\sigma} \colon \Gm \to \PGL_{1}(Q \otimes_{E,\sigma} \CC)\)
@@ -687,10 +776,10 @@ Since \(\mathcal{G}_{\sigma}\) is an absolutely simple group over~\(\RR\),
 we see that \(F\) is a \cm~field,
 and \(E \subset F\) is the maximal \tr~subfield.
 
-Put \(\mathcal{G}_{1} = \UU(B,\tau)\), and \(V = B\).
+Put \(\mathcal{G}^{\sharp} = \UU(B,\tau)\), and \(V = B\).
 Observe that \(V\) is naturally a
-faithful representation of \(\Res_{E/\QQ} \mathcal{G}_{1}\).
-Put \(G_{1} = (\Res_{E/\QQ} \mathcal{G}_{1}) \cdot \Gm \subset \Aut(V)\).
+faithful representation of \(\Res_{E/\QQ} \mathcal{G}^{\sharp}\).
+Put \(G^{\sharp} = (\Res_{E/\QQ} \mathcal{G}^{\sharp}) \cdot \Gm \subset \Aut(V)\).
 
 With similar reasoning as in \cref{caseA1}
 we may consider the diagrams:
@@ -746,11 +835,11 @@ This is basically the familiar Kuga--Satake construction.
 The group \(\mathcal{G}\) over~\(E\) is isomorphic to~\(\OO^{+}(W,q)\),
 where \((W,q)\) is a regular quadratic space of dimension~\(2n+1\)
 with trivial discriminant.
-Put \(\mathcal{G}_{1} = \Spin(W,q)\),
+Put \(\mathcal{G}^{\sharp} = \Spin(W,q)\),
 and let \(V = \Cliff^{+}(W,q)\) be the even Clifford algebra.
 Observe that \(V\) is naturally a
-faithful representation of \(\Res_{E/\QQ} \mathcal{G}_{1}\).
-Put \(G_{1} = (\Res_{E/\QQ} \mathcal{G}_{1}) \cdot \Gm \subset \Aut(V)\).
+faithful representation of \(\Res_{E/\QQ} \mathcal{G}^{\sharp}\).
+Put \(G^{\sharp} = (\Res_{E/\QQ} \mathcal{G}^{\sharp}) \cdot \Gm \subset \Aut(V)\).
 
 With similar reasoning as in \cref{caseA1}
 we may consider the diagrams:
@@ -791,10 +880,10 @@ only has weights~\(0\) and~\(1\) after composition with~\(\tilde{\mu}\).
 The group \(\mathcal{G}\) over~\(E\) is isomorphic to~\(\PCSp(A,\iota)\),
 where \(A\) is a central simple algebra over~\(E\) of degree~\(2n\),
 and \(\iota\) is a symplectic involution.
-Put \(\mathcal{G}_{1} = \Sp(A,\iota)\), and \(V = A\).
+Put \(\mathcal{G}^{\sharp} = \Sp(A,\iota)\), and \(V = A\).
 Observe that \(V\) is naturally a
-faithful representation of \(\Res_{E/\QQ} \mathcal{G}_{1}\).
-Put \(G_{1} = (\Res_{E/\QQ} \mathcal{G}_{1}) \cdot \Gm \subset \Aut(V)\).
+faithful representation of \(\Res_{E/\QQ} \mathcal{G}^{\sharp}\).
+Put \(G^{\sharp} = (\Res_{E/\QQ} \mathcal{G}^{\sharp}) \cdot \Gm \subset \Aut(V)\).
 
 With similar reasoning as in \cref{caseA1}
 we may consider the diagrams:
@@ -838,11 +927,11 @@ This is basically the familiar Kuga--Satake construction.
 The group \(\mathcal{G}\) over~\(E\) is isomorphic to~\(\PGO^{+}(A,\iota,f)\),
 where \((A,\iota,f)\) is a central simple algebra over~\(E\)
 of degree~\(2n\) with quadratic pair.
-Put \(\mathcal{G}_{1} = \Spin(A,\iota,f)\),
+Put \(\mathcal{G}^{\sharp} = \Spin(A,\iota,f)\),
 and let \(V = \Cliff^{+}(A,\iota,f)\) be the even Clifford algebra.
 Observe that \(V\) is naturally a
-faithful representation of \(\Res_{E/\QQ} \mathcal{G}_{1}\).
-Put \(G_{1} = (\Res_{E/\QQ} \mathcal{G}_{1}) \cdot \Gm \subset \Aut(V)\).
+faithful representation of \(\Res_{E/\QQ} \mathcal{G}^{\sharp}\).
+Put \(G^{\sharp} = (\Res_{E/\QQ} \mathcal{G}^{\sharp}) \cdot \Gm \subset \Aut(V)\).
 
 With similar reasoning as in \cref{caseA1}
 we may consider the diagrams:
@@ -886,10 +975,10 @@ Once again,
 the group \(\mathcal{G}\) over~\(E\) is isomorphic to~\(\PGO^{+}(A,\iota,f)\),
 where \((A,\iota,f)\) is a central simple algebra over~\(E\)
 of degree~\(2n\) with quadratic pair.
-This time put \(\mathcal{G}_{1} = \OO^{+}(A,\iota,f)\), and \(V = A\).
+This time put \(\mathcal{G}^{\sharp} = \OO^{+}(A,\iota,f)\), and \(V = A\).
 Observe that \(V\) is naturally a
-faithful representation of \(\Res_{E/\QQ} \mathcal{G}_{1}\).
-Put \(G_{1} = (\Res_{E/\QQ} \mathcal{G}_{1}) \cdot \Gm \subset \Aut(V)\).
+faithful representation of \(\Res_{E/\QQ} \mathcal{G}^{\sharp}\).
+Put \(G^{\sharp} = (\Res_{E/\QQ} \mathcal{G}^{\sharp}) \cdot \Gm \subset \Aut(V)\).
 
 With similar reasoning as in \cref{caseA1}
 we may consider the diagrams:
@@ -908,18 +997,20 @@ we may consider the diagrams:
   post length=2pt
  }]  (0,0) -- (1,0);} \quad
  \begin{tikzcd}
-  \bigl\{(\vec x,k) \in \ZZ^{n} \oplus \frac12\ZZ \bigm|
-  2k + \sum x_{i} \equiv 0 \mod 2 \bigr\}
+  \bigl\{(\vec x,k) \in (\frac12\ZZ)^{n+1} \bigm|
+  x_{i} \equiv k \mod \ZZ \bigr\}
   \ar[d,"\psi"] \\
   \bigl\{\vec x \in (\frac{1}{2}\ZZ)^{n} \bigm|
   x_{i} \equiv x_{1} \mod \ZZ \bigr\}
  \end{tikzcd}
 \]
-where \(\psi\) is the map \((\vec x,k) \mapsto \vec x\).
+where \(\psi\) is the projection map \((\vec x,k) \mapsto \vec x\).
 
 The only special cocharacter is \(\mu = (\frac12,\ldots,\frac12)\).
 It is evident that one can lift~\(\mu\)
-to \(\tilde{\mu} = (1,0,\ldots,0,\frac12)\).
+to \(\tilde{\mu} = (\frac12,\ldots,\frac12,\frac12)\).
+This leaves us with weights
+\((1,\ldots,1,0,\ldots,0)\) for the standard representation.
 
 \paragraph{The case \(D_{4}^{\RR}\)\relax}
 
@@ -1351,25 +1442,25 @@ to \(\tilde{\mu} = (1,0,\ldots,0,\frac12)\).
 
 % Consider diagrams
 % \[
-%  (G,X) \longleftarrow (G_{1},X_{1}) \rightarrow (\CSp(V),\Sds),
+%  (G,X) \longleftarrow (G^{\sharp},X_{1}) \rightarrow (\CSp(V),\Sds),
 % \]
-% where \(G\) is the adjoint group of the reductive group~\(G_{1}\),
-% and where \(X_{1}\) is a \(G_{1}(\RR)\)-conjugacy class of
-% morphisms from \(\DelS\) to~\(G_{1}\).
-% There is a section \(\tilde{G} \to G_{1}\),
+% where \(G\) is the adjoint group of the reductive group~\(G^{\sharp}\),
+% and where \(X_{1}\) is a \(G^{\sharp}(\RR)\)-conjugacy class of
+% morphisms from \(\DelS\) to~\(G^{\sharp}\).
+% There is a section \(\tilde{G} \to G^{\sharp}\),
 % so that \(V\) is a representation of~\(\tilde{G}\).
 % The goal is to determine the
 % non-trivial irreducible complex representations of~\(\tilde{G}\),
 % which is essentially equivalent to occuring in the complexification of
 % one of the representations just obtained.
 
-% Replacing \(G_{1}\) by the subgroup generated
-% by the derived group~\(G_{1}^{\der}\) and the image of~\(h\),
+% Replacing \(G^{\sharp}\) by the subgroup generated
+% by the derived group~\(G^{\sharp}^{\der}\) and the image of~\(h\),
 % one can assume that conjugation by \(h(i)\)
-% is a Cartan involution of~\(G_{1}/w(\Gm)\).
+% is a Cartan involution of~\(G^{\sharp}/w(\Gm)\).
 % Hence there exists a polarisation~\(\Psi\) on~\(V\)
 % (\S1.18(a)~of~\cite{Del_ShimVar}),
-% such that \(\rho\) is a morphism from \((G_{1},X_{1})\) to \((\CSp(V),\Sds)\).
+% such that \(\rho\) is a morphism from \((G^{\sharp},X_{1})\) to \((\CSp(V),\Sds)\).
 
 % \paragraph{(\S1.3.4 of~\cite{Del_ShimVar})}
 % Consider the following projective system~\(H_{n})_{n \in \NN}\):
