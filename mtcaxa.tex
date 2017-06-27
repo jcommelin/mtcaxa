@@ -1,5 +1,5 @@
 \documentclass[10pt,twoside,leqno]{article}
-
+% {{{-1 Preamble
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[full]{textcomp}
@@ -404,8 +404,9 @@ preheadhook={\bigskip}]{nproof}
 \usepackage{datetime}
 \def\date{\dayofweekname{\day}{\month}{\year},
  the \ordinaldate{\day} of \monthname, \number\year}
-
+% -}}}1
 \begin{document}
+% {{{-1 Title
 \begin{center}\Large\scshape
 \textls*{\title}
 \end{center}
@@ -417,20 +418,20 @@ preheadhook={\bigskip}]{nproof}
 \vskip3\baselineskip
 
 \tableofcontents
+% -}}}1
 
-\section{Introduction}
+\section{Introduction} % {{{-1
 
 TODO %TODO
 
-\section{On algebras with involutions}
+\section{On algebras with involutions} % {{{-1
 
 We recall the classification results of~\cite{BoI}.
 For definitions we give references to~\cite{BoI}.
 
-\section{Natural lifts of adjoint Shimura data of abelian type
- to Shimura data of Hodge type}
+\section{Natural lifts of adjoint Shimura data of abelian type to Shimura data of Hodge type} % {{{-1
 
-\paragraph{Setup} \label{setup}
+\paragraph{Setup} \label{setup} % {{{-2
 Let \(G\) be a simple adjoint algebraic group over~\(\QQ\).
 Let \(h \colon \DelS \to G_{\RR}\) be a homomorphism,
 where \(\DelS = \Res_{\CC/\RR} \Gm\) is the Deligne torus.
@@ -474,11 +475,11 @@ where
   of type \((0,1) + (1,0)\).
 \end{enumerate*}
 
-\paragraph{Goal} In this section we propose natural candidates
+\paragraph{Goal} In this section we propose natural candidates % {{{-2
 for \(G^{\sharp}\),~\(V\), and~\(h^{\sharp}\).
 We describe these in \cref{natlift}.
 
-\paragraph{}
+\paragraph{} % {{{-2
 Recall that \(\DelS(\CC)\) acts on \(\Lie(G)_{\CC}\)
 via \(h(z)v = z^{-p}\bar{z}^{-q}v\) for \(v \in \Lie(G)_{\CC}\).
 Let \(\mu \colon \Gm \to G_{\CC}\) be the Hodge cocharacter
@@ -489,7 +490,7 @@ it is defined via \(\mu(z)v = z^{-p}v\) for \(v \in \Lie(G)_{\CC}\).
 below we are looking for reps on which \(\mu\) has weights \(\{0,1\}\).
 This should probably change to \(\{-1,0\}\). %TODO
 
-\paragraph{}
+\paragraph{} % {{{-2
 The situation in \cref{setup} has been studied extensively by Deligne
 in \S1.2~and~\S1.3 of~\cite{Del_ShimVar}.
 We give an overview of known implications of the above assumptions.
@@ -559,7 +560,7 @@ under the perfect pairing mentioned above.
   (See \S1.2.5 of~\cite{Del_ShimVar}.)
 \end{enumerate}
 
-\paragraph{Candidates} \label{candidates}
+\paragraph{Candidates} \label{candidates} % {{{-2
 In this paragraph we list candidates for~\(G^{\sharp}\) and~\(V\).
 In \cref{natlift} we prove that \(h\) lifts uniquely
 to a homomorphism \(h^{\sharp} \colon \DelS \to G^{\sharp}_{\RR}\)
@@ -644,7 +645,7 @@ and define \(G^{\sharp}\) and~\(V\).
   \]
 \end{enumerate}
 
-\begin{theorem} \label{natlift}
+\begin{theorem} \label{natlift} % {{{-2
  Let \(G\) and~\(h\) be as in \cref{setup}.
  Let \(G^{\sharp}\) and~\(V\) be the corresponding candidates
  described in \cref{candidates}.
@@ -654,7 +655,7 @@ and define \(G^{\sharp}\) and~\(V\).
  with a polarisable Hodge structure of type \((0,1) + (1,0)\).
 \end{theorem}
 
-\paragraph{}
+\paragraph{} % {{{-2
 The proof of \cref{natlift} will follow
 the same case distinctions as \cref{candidates}.
 Before moving on to these cases we perform a reduction step
@@ -712,7 +713,7 @@ in the preimage of \(\mu\) such that
 For root systems, weights, and lattices we use the standard notation
 of the planches in Bourbaki~\cite{GEADL}.
 
-\begin{enumerate}[label=\thesubsection.\arabic*,align=left,%
+\begin{enumerate}[label=\thesubsection.\arabic*,align=left,% % {{{- Dynkin cases
   itemsep=\baselineskip,topsep=\baselineskip,%
   leftmargin=0pt,labelindent=0pt,labelsep=1ex,labelwidth=6ex,itemindent=!]
  \item \emph{Type \(A_{1}\).}
@@ -949,18 +950,18 @@ of the planches in Bourbaki~\cite{GEADL}.
  \item \emph{Type \(D_{4}^{\HQ}\).}
   In this case the computation is verbatim the same as in the case
   \(D_{n}^{\HQ}\) with \(n \ge 5\).
-\end{enumerate}
+\end{enumerate} % -}}}
 
-\section{Relation with the Albert classification}
+\section{Relation with the Albert classification} % {{{-1
 
-\section{Hyperadjoint motives}
+\section{Hyperadjoint motives} % {{{-1
 
 TODO %TODO
 
-\section{The Hodge numbers of a motive with endomorphisms}
+\section{The Hodge numbers of a motive with endomorphisms} % {{{-1
 \label{padicHodgeEnd}
 
-\paragraph{Setup}
+\paragraph{Setup} % {{{-2
 Let \(K \subset \CC\) be a finitely generated field.
 Let \(\bar{K}\) be the algebraic closure of~\(K\) in~\(\CC\).
 Let \(M\) be a motive over~\(K\).
@@ -982,7 +983,7 @@ Depending on the context,
 we may also view an element \(\sigma \in \Sigma\)
 as embedding \(E \into K\) or \(E \into \CC\) or \(E \into \BdR{K_{v}}\).
 
-\paragraph{}
+\paragraph{} % {{{-2
 Observe that \(\HB(M) \otimes_{\QQ} \CC\) is a module over
 \(E \otimes_{\QQ} \CC = \prod_{\sigma \in \Sigma} \CC\).
 Thus we have a decomposition
@@ -1001,7 +1002,7 @@ in such a way that
 \]
 is a natural isomorphism of filtered vector spaces.
 
-\paragraph{}
+\paragraph{} % {{{-2
 We have a natural isomorphism of vector spaces
 \(\HB(M) \otimes \QQp \cong \Hp(M)\).
 This isomorphism is compatible with the action of~\(E\),
@@ -1022,7 +1023,7 @@ Thus we get a natural isomorphism
 of filtered modules with an action by \(\Gal(\bar{K}_{v}/K_{v})\),
 for each \(\sigma \in \Sigma\).
 
-\paragraph{}
+\paragraph{} % {{{-2
 Assume that \(p\) is totally split in~\(E\).
 Then \(\Hp(M) \otimes_{E \otimes \QQp, \sigma \otimes \id} \BdR{K_{v}}\)
 admits a simplified description, as follows.
@@ -1043,7 +1044,7 @@ Then
 \(\Hp(M) \otimes_{E \otimes \QQp, \sigma \otimes \id} \BdR{K_{v}}
  = \Hp(M)^{(\sigma)} \otimes_{\QQp} \BdR{K_{v}}\).
 
-\paragraph{}
+\paragraph{} % {{{-2
 The upshot of all these comparison isomorphisms
 and their decompositions induced by the action of~\(E\)
 is that we get a refined view on the Hodge numbers of~\(M\).
@@ -1052,7 +1053,7 @@ equate the Hodge numbers of~\(\HB(M)\)
 with the Hodge--Tate numbers of the Galois representation~\(\Hp(M)\).
 Now we also have the following result.
 
-\begin{theorem} \label{Elin_padicHodge}
+\begin{theorem} \label{Elin_padicHodge} % {{{-2
  Let \(M\) be a motive over a finitely generated field \(K \subset \CC\).
  Let \(E\) be subfield of~\(\End(M)\), and
  let \(\tilde{E}\) be the normal closure of~\(E\) in~\(\CC\).
@@ -1080,16 +1081,16 @@ Now we also have the following result.
  \). \qed
 \end{proof}
 
-\section{Compatible systems}
+\section{Quasi-compatible systems} % {{{-1
 TODO %TODO
 Give a summary of the other article.
 First finish that article,
 then copy/paste the relevant definitions and the main theorem.
 
-\section{Structure of hyperadjoint abelian motives}
+\section{Structure of hyperadjoint abelian motives} % {{{-1
 \label{hypadMstruct}
 
-\begin{lemma} \label{EGstruct}
+\begin{lemma} \label{EGstruct} % {{{-2
  Let \(K \subset \CC\) be a finitely generated field.
  Let \(M\) be an irreducible hyperadjoint abelian motive over~\(K\).
  Let \(E\) be the endomorphism algebra of~\(M\).
@@ -1099,7 +1100,7 @@ then copy/paste the relevant definitions and the main theorem.
  for some absolutely simple adjoint algebraic group \(\mathcal{G}/E\).
 \end{lemma}
 
-\paragraph{}
+\paragraph{} % {{{-2
 We follow the conventions of table~2.3.8 of~\cite{Del_ShimVar}.
 Let \(K \subset \CC\) be a finitely generated field.
 Let \(M\) be an irreducible hyperadjoint abelian motive over~\(K\).
@@ -1129,7 +1130,7 @@ Let \(M\) be an irreducible hyperadjoint abelian motive over~\(K\).
   for more details.
 \end{enumerate}
 
-\paragraph{}
+\paragraph{} % {{{-2
 Let \(E\) be the endomorphism algebra of~\(M\).
 Let \(\tilde{E}\) be the normal closure of~\(E\) in~\(\CC\).
 After passing to a suitable finite extension of~\(K\)
@@ -1160,7 +1161,7 @@ We refer to \S\S1.2.6--1.2.8 of~\cite{Del_ShimVar} for more details and proofs.
 See table~1.3.9 of~\cite{Del_ShimVar} for an overview of Dynkin diagrams
 and the nodes that may occur as special nodes.
 
-\paragraph{}
+\paragraph{} % {{{-2
 Let us now discuss the relationship between the type of~\(M\)
 and the \(p\)-adic realisations of~\(M\).
 Since \(M\) is abelian and hyperadjoint,
@@ -1204,7 +1205,7 @@ Assume that \(G_{\sigma}\) is non-compact.
   between the types \(D_{k}^{\RR}\) and~\(D_{k}^{\HQ}\).
 \end{enumerate}
 
-\begin{proposition} \label{inputNoot}
+\begin{proposition} \label{inputNoot} % {{{-2
  Let \(M\) be an irreducible hyperadjoint abelian motive of type~\(D_{k}\).
  One can recognize from \(\HH_{\Lambda}(M)\)
  whether \(M\) is of type \(D_{k}^{\RR}\) or of type~\(D_{k}^{\HQ}\).
@@ -1213,7 +1214,7 @@ Assume that \(G_{\sigma}\) is non-compact.
  \pf\ Use theorem~6.2 till remark~6.6 of~\cite{No06}. \qed
 \end{proof}
 
-\paragraph{}
+\paragraph{} % {{{-2
 Recall that up to isomorphism
 there is a unique real algebraic group of type~\(D_{k}^{\RR}\)
 and a unique real algebraic group of type~\(D_{k}^{\HQ}\).
@@ -1221,9 +1222,9 @@ and a unique real algebraic group of type~\(D_{k}^{\HQ}\).
 non-compact simple factors of~\(\GB(M)_{\RR}\)
 even in the case that \(M\) is of type~\(D_{k}\).
 
-\section{An intermediate result}
+\section{An intermediate result} % {{{-1
 
-\begin{theorem} \label{intermed}
+\begin{theorem} \label{intermed} % {{{-2
  Let \(M_{1}\) and~\(M_{2}\) be two irreducible hyperadjoint abelian motives
  over a finitely generated field \(K \subset \CC\).
  Assume that \(\MTC(M_{1})\) and \(\MTC(M_{2})\) are true.
@@ -1234,7 +1235,7 @@ even in the case that \(M\) is of type~\(D_{k}\).
  \]
 \end{theorem}
 
-\begin{corollary} \label{intermed_sums}
+\begin{corollary} \label{intermed_sums} % {{{-2
  Let \(M_{i}\), with \(i \in I\),
  be a finite collection of hyperadjoint abelian motives.
  Write \(M = \bigoplus M_{i}\).
@@ -1257,7 +1258,7 @@ even in the case that \(M\) is of type~\(D_{k}\).
  we conclude that \(\MTC(M)\) is true. \qed
 \end{proof}
 
-\paragraph{Strategy}
+\paragraph{Strategy} % {{{-2
 The proof of \cref{intermed} will consist of several distinct steps.
 Let \(h_{i} \colon \DelS \to \GB(M_{i})_{\RR}\)
 be the morphism that defines the Hodge structure on~\(\HB(M_{i})\).
@@ -1269,7 +1270,7 @@ be the morphism that defines the Hodge structure on~\(\HB(M_{i})\).
  \item In the final step we deduce \(M_{1} \cong M_{2}\).
 \end{enumerate}
 
-\paragraph{}
+\paragraph{} % {{{-2
 Let us embark on the proof of \cref{intermed}.
 Let \(E_{i}\) be the endomorphism algebra of~\(M_{i}\).
 Let \(\tilde{E_{i}}\) be the normal closure of~\(E_{i}\) in~\(\CC\).
@@ -1284,12 +1285,12 @@ we may and do assume that
 but that is not important right now.)
 Let \(\bar{K}\) be the algebraic closure of~\(K\) in~\(\CC\).
 
-\paragraph{Step 0}
+\paragraph{Step 0} % {{{-2
 The forward implication in \cref{intermed} is trivial.
 Therefore we assume that there exists a prime number~\(\ell\)
 such that \(\Gl(M_{1} \oplus M_{2}) \subsetneq \Gl(M_{1}) \times \Gl(M_{2})\).
 
-\paragraph{Step 1}
+\paragraph{Step 1} % {{{-2
 Observe that \(\Hl(M_{i}) \cong \Lie(\Gl(M_{i}))\).
 By Goursat's lemma for Lie algebras,
 our assumption implies that there is an irreducible summand
@@ -1320,7 +1321,7 @@ From now on we write \(E\) for \(E_{1} = E_{2}\),
 \(\tilde{E}\) for \(\tilde{E_{1}} = \tilde{E_{2}}\),
 and \(\Lambda\) for the set of finite places of~\(E\).
 
-\paragraph{Step 2}
+\paragraph{Step 2} % {{{-2
 Note that by foobar?? we find
 \(\HH_{\Lambda}(M_{1}) \cong \HH_{\Lambda}(M_{2})\).
 Therefore \(\Glambda(M_{1}) \cong \Glambda(M_{2})\)
@@ -1368,7 +1369,7 @@ is compact.
 % By \cref{locglob} we conclude that \(G_{1} \cong G_{2}\)
 % and therefore \(\GB(M_{1}) \cong \GB(M_{2})\).
 
-\paragraph{Step 3}
+\paragraph{Step 3} % {{{-2
 Denote by \(X_{i}\) the \(\GB(M_{i})(\RR)\)-conjugacy class of
 \(h_{i} \colon \DelS \to \GB(M_{i})_{\RR}\).
 Remark that \((\GB(M_{i})_{\RR}, X_{i})\)
@@ -1486,10 +1487,10 @@ We conclude that \(\Dyn(\phi_{\pi,\tau})\)
 also preserves the decorated special node,
 and thus \(\phi_{\CC}\) identifies \(X_{1,\tau}\) with~\(X_{2,\tau}\).
 
-\paragraph{Step 4}
+\paragraph{Step 4} % {{{-2
 Lift to a Shimura datum of Hodge type, and use the following result.
 
-\begin{proposition} \label{twofib}
+\begin{proposition} \label{twofib} % {{{-2
  Let \(K \subset \CC\) be a finitely generated field.
  Let \(S\) be a scheme of finite type over~\(K\).
  Let \(f \colon \mathcal{A} \to S\) be an abelian scheme.
@@ -1554,14 +1555,14 @@ Lift to a Shimura datum of Hodge type, and use the following result.
  (Korollar~1 of Satz~4 of~\cite{Fal83}, see also~\cite{Fal84}). \qed
 \end{proof}
 
-\section{The Mumford--Tate conjecture for products of abelian motives}
+\section{The Mumford--Tate conjecture for products of abelian motives} % {{{-1
 
-\paragraph{}
+\paragraph{} % {{{-2
 Let \(K \subset \CC\) be a finitely generated field.
 Let \(\mathcal{M}_{K} \subset \Mot_{K}\) be the subcategory
 of \emph{abelian} motives for which the Mumford--Tate conjecture is true.
 
-\begin{theorem}
+\begin{theorem} % {{{-2
  Let \(K \subset \CC\) be a finitely generated field.
  The category~\(M_{K}\) is a Tannakian subcategory of \(\Mot_{K}\).
 \end{theorem}
@@ -1585,15 +1586,14 @@ of \emph{abelian} motives for which the Mumford--Tate conjecture is true.
  \qed
 \end{proof}
 
-\begin{corollary}
+\begin{corollary} % {{{-2
  Let \(A_{1}\),~\(A_{2}\), \dots, \(A_{n}\) be abelian varieties over~\(K\).
  If the Mumford--Tate conjecture is true for \(A_{i}\), for \(i = 1,\dots,n\),
  then the Mumford--Tate conjecture is true for
  \(A_{1} \times A_{2} \times \cdots \times A_{n}\).
 \end{corollary}
 
-\section{On the Mumford--Tate conjecture for simple abelian varieties:
- the state of the art}
+\section{On the Mumford--Tate conjecture for simple abelian varieties: the state of the art} % {{{-1
 
 TODO %TODO
 
