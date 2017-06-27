@@ -211,10 +211,11 @@ preheadhook={\bigskip}]{nproof}
 \newcommand{\NN}{\mathbb{N}}
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\QQbar}{\bar{\QQ}}
 \newcommand{\QQl}{\QQ_{\ell}}
-\newcommand{\QQlbar}{\bar{\QQ}_{\ell}}
+\newcommand{\QQlbar}{\QQbar_{\ell}}
 \newcommand{\QQp}{\QQ_{p}}
-\newcommand{\QQpbar}{\bar{\QQ}_{p}}
+\newcommand{\QQpbar}{\QQbar_{p}}
 \newcommand{\RR}{\mathbb{R}}
 \newcommand{\CC}{\mathbb{C}}
 \newcommand{\HQ}{\mathbb{H}}
@@ -370,6 +371,9 @@ preheadhook={\bigskip}]{nproof}
 \newcommand{\MTC}{\textnormal{MTC}}
 
 \newcommand{\rotatesim}{\rotatebox{90}{$\sim$}}
+
+\newcommand{\Sigmacmpt}{\Sigma_{\textnormal{c}}}
+\newcommand{\Sigmanc}{\Sigma_{\textnormal{nc}}}
 
 \usepackage{tikz}
 \usetikzlibrary{cd,positioning}
@@ -953,11 +957,269 @@ of the planches in Bourbaki~\cite{GEADL}.
 
 TODO %TODO
 
+\section{The Hodge numbers of a motive with endomorphisms}
+\label{padicHodgeEnd}
+
+\paragraph{Setup}
+Let \(K \subset \CC\) be a finitely generated field.
+Let \(\bar{K}\) be the algebraic closure of~\(K\) in~\(\CC\).
+Let \(M\) be a motive over~\(K\).
+Let \(E\) be subfield of~\(\End(M)\).
+Let \(\tilde{E}\) be the normal closure of~\(E\) in~\(\CC\).
+After passing to a suitable finite extension of~\(K\)
+we may and do assume that \(\tilde{E} \subset K\).
+
+Let \(p\) be a prime number.
+Fix an embedding \(K \into K_{v}\) into some \(p\)-adic field~\(K_{v}\).
+Let \(\BdR{K_{v}}\) be the ring of \(p\)-adic periods associated with~\(K_{v}\),
+in the sense of Fontaine~\cite{Fo94}.
+Fix an embedding \(\bar{K} \into \BdR{K_{v}}\)
+that extends the embedding \(K \into K_{v}\).
+Write \(\bar{K}_{v}\) for the algebraic closure of~\(K_{v}\) in~\(\BdR{K_{v}}\).
+
+Let \(\Sigma = \Sigma(E)\) be the set of embeddings \(E \into \tilde{E}\).
+Depending on the context,
+we may also view an element \(\sigma \in \Sigma\)
+as embedding \(E \into K\) or \(E \into \CC\) or \(E \into \BdR{K_{v}}\).
+
+\paragraph{}
+Observe that \(\HB(M) \otimes_{\QQ} \CC\) is a module over
+\(E \otimes_{\QQ} \CC = \prod_{\sigma \in \Sigma} \CC\).
+Thus we have a decomposition
+\(\HB(M) \otimes_{\QQ} \CC \cong
+ \bigoplus_{\sigma \in \Sigma} \HB(M) \otimes_{E,\sigma} \CC\).
+Since the comparison isomorphism
+\(\HB(M) \otimes_{\QQ} \CC \cong \HdR(M) \otimes_{K} \CC\)
+is compatible with the action of~\(E\),
+we find that \(\HdR(M)\) is a filtered module over
+\(E \otimes_{\QQ} K \cong \prod_{\sigma \in \Sigma} K\).
+This gives a decomposition
+\(\HdR(M) \cong \bigoplus_{\sigma \in \Sigma} \HdR(M)^{(\sigma)}\)
+in such a way that
+\[
+ \HdR(M)^{(\sigma)} \otimes_{K} \CC \cong \HB(M) \otimes_{E,\sigma} \CC
+\]
+is a natural isomorphism of filtered vector spaces.
+
+\paragraph{}
+We have a natural isomorphism of vector spaces
+\(\HB(M) \otimes \QQp \cong \Hp(M)\).
+This isomorphism is compatible with the action of~\(E\),
+and \(\Hp(M)\) is a module over \(E \otimes \QQp\).
+
+We have a natural isomorphism
+\(\HdR(M) \otimes_{K} \BdR{K_{v}} \cong \Hp(M) \otimes_{\QQp} \BdR{K_{v}}\)
+of filtered modules with an action by \(\Gal(\bar{K}_{v}/K_{v})\).
+This isomorphism is compatible with the action of~\(E\),
+so that \(\Hp(M) \otimes_{\QQp} \BdR{K_{v}}\)
+is a module over
+\(E \otimes_{\QQ} \BdR{K_{v}} = \prod_{\sigma \in \Sigma} \BdR{K_{v}}\).
+Thus we get a natural isomorphism
+\[
+ \HdR(M)^{(\sigma)} \otimes_{K} \BdR{K_{v}} \cong
+ \Hp(M) \otimes_{E \otimes \QQp, \sigma \otimes \id} \BdR{K_{v}}
+\]
+of filtered modules with an action by \(\Gal(\bar{K}_{v}/K_{v})\),
+for each \(\sigma \in \Sigma\).
+
+\paragraph{}
+Assume that \(p\) is totally split in~\(E\).
+Then \(\Hp(M) \otimes_{E \otimes \QQp, \sigma \otimes \id} \BdR{K_{v}}\)
+admits a simplified description, as follows.
+For each \(\sigma \in \Sigma\)
+the composite embedding \(\sigma \colon E \into K \into K_{v}\)
+factors via \(\QQp \subset K_{v}\).
+This gives a bijection between \(\Sigma\)~and
+the places \(\pi\) of~\(E\) that lie above~\(p\).
+
+Since \(\Hp(M)\) is a module over \(E \otimes \QQp = \prod_{\pi|p} E_{\pi}\)
+we get a correspong decomposition
+\(\Hp(M) \cong \bigoplus_{\pi|p} \HH_{\pi}(M)\)
+of Galois representations,
+where \(\HH_{\pi}(M) = \Hp(M) \otimes_{E \otimes \QQp} E_{\pi}\).
+The above bijection between \(\Sigma\) and the places \(\pi|p\)
+allows us to unambigously write \(\Hp(M)^{(\sigma)}\) for~\(\HH_{\pi}(M)\).
+Then
+\(\Hp(M) \otimes_{E \otimes \QQp, \sigma \otimes \id} \BdR{K_{v}}
+ = \Hp(M)^{(\sigma)} \otimes_{\QQp} \BdR{K_{v}}\).
+
+\paragraph{}
+The upshot of all these comparison isomorphisms
+and their decompositions induced by the action of~\(E\)
+is that we get a refined view on the Hodge numbers of~\(M\).
+It is classical that the comparison isomorphisms
+equate the Hodge numbers of~\(\HB(M)\)
+with the Hodge--Tate numbers of the Galois representation~\(\Hp(M)\).
+Now we also have the following result.
+
+\begin{theorem} \label{Elin_padicHodge}
+ Let \(M\) be a motive over a finitely generated field \(K \subset \CC\).
+ Let \(E\) be subfield of~\(\End(M)\), and
+ let \(\tilde{E}\) be the normal closure of~\(E\) in~\(\CC\).
+ Assume that \(\tilde{E} \subset K\).
+ Let \(\Sigma = \Sigma(E)\) be the set of embeddings \(E \into \tilde{E}\).
+ For each \(\sigma \in \Sigma\) we then have
+ \[
+  \bigl\{\,
+  \text{Hodge numbers of \(\HB(M) \otimes_{E,\sigma} \CC\)}
+  \,\bigr\}
+  =
+  \bigl\{\,
+  \text{Hodge--Tate numbers of
+   \(\Hp(M) \otimes_{E \otimes \QQp, \sigma \otimes \id} \BdR{K_{v}}\)}
+  \,\bigr\}.
+ \]
+\end{theorem}
+\begin{proof}
+ \pf\ By the above computations we see that both the left-hand side
+ and the right-hand side are equal to
+ \(
+  \bigl\{\,
+  \text{Hodge numbers of \(\HdR(M)^{(\sigma)}\)}
+  \,\bigr\}
+ \). \qed
+\end{proof}
+
 \section{Compatible systems}
 TODO %TODO
 Give a summary of the other article.
 First finish that article,
 then copy/paste the relevant definitions and the main theorem.
+
+\section{Structure of hyperadjoint abelian motives}
+\label{hypadMstruct}
+
+\begin{lemma} \label{EGstruct}
+ Let \(K \subset \CC\) be a finitely generated field.
+ Let \(M\) be an irreducible hyperadjoint abelian motive over~\(K\).
+ Let \(E\) be the endomorphism algebra of~\(M\).
+ Assume that \(E = \End(M_{\CC})\).
+ Then \(E\) is a totally real field,
+ and \(\GB(M) = \Res_{E/\QQ} \mathcal{G}\)
+ for some absolutely simple adjoint algebraic group \(\mathcal{G}/E\).
+\end{lemma}
+
+\paragraph{}
+We follow the conventions of table~2.3.8 of~\cite{Del_ShimVar}.
+Let \(K \subset \CC\) be a finitely generated field.
+Let \(M\) be an irreducible hyperadjoint abelian motive over~\(K\).
+\begin{enumerate}
+ \item All the simple factors of~\(\GB(M)_{\CC}\)
+  have the same Dynkin type;
+  the only types that can occur are the classical types
+  \(A_{k}\),~\(B_{k}\), \(C_{k}\), and~\(D_{k}\).
+ \item For the non-compact simple factors of~\(\GB(M)_{\RR}\)
+  there is a refined type:
+  \(A_{k}\),~\(B_{k}\), \(C_{k}\), \(D_{k}^{\RR}\), and~\(D_{k}^{\HQ}\).
+  For \(k \ge 4\) there is a unique (up to isomorphism)
+  non-compact adjoint simple real algebraic group of type~\(D_{k}^{\RR}\)
+  and a unique (up to isomorphism)
+  non-compact adjoint simple real algebraic group of type~\(D_{k}^{\HQ}\).
+  For \(k = 4\) these two isomorphism classes coincide,
+  for \(k \ge 5\) they are distinct.
+ \item All the non-compact simple factors of~\(\GB(M)_{\RR}\)
+  have the same refined type.
+ \item In conclusion, it makes sense to say that
+  the motive~\(M\) has type
+  \(A_{k}\),~\(B_{k}\), \(C_{k}\), \(D_{k}^{\RR}\), or~\(D_{k}^{\HQ}\).
+  For \(k = 4\) the distinction between 
+  \(D_{k}^{\RR}\), and~\(D_{k}^{\HQ}\)
+  is subtle, and depends on \(\GB(M)\) over~\(\QQ\).
+  We refer to the final paragraphs of table~2.3.8 of~\cite{Del_ShimVar}
+  for more details.
+\end{enumerate}
+
+\paragraph{}
+Let \(E\) be the endomorphism algebra of~\(M\).
+Let \(\tilde{E}\) be the normal closure of~\(E\) in~\(\CC\).
+After passing to a suitable finite extension of~\(K\)
+we may and do assume that \(E = \End(M_{\CC})\) and \(\tilde{E} \subset K\).
+Let \(\mu \colon \Gm[\CC] \to \GB(M)_{\CC}\)
+be the cocharacter that determines the Hodge structure~\(\HB(M)\).
+Let \(\mathcal{G}/E\) be an absolutely simple adjoint algebraic group
+such that \(\GB(M) = \Res_{E/\QQ} \mathcal{G}\).
+Let \(\sigma \colon E \into \tilde{E}\) be an embedding.
+Write \(G_{\sigma}\) for \(\mathcal{G} \times_{\sigma} \RR\),
+and write \(\mu_{\sigma}\) for the projection of~\(\mu\)
+onto \(G_{\sigma,\CC}\).
+It follows from \S1 of~\cite{Del_ShimVar}
+that if \(G_{\sigma}\) is non-compact, then
+\begin{enumerate*}[label=(\textit{\roman*})]
+ \item the \(G_{\sigma}(\CC)\)-conjucacy class of~\(\mu_{\sigma}\)
+  is determined by a special node of the Dynkin diagram of
+  \(\mathcal{G} \times_{\sigma} \CC\);
+ \item the opposition involution exchanges the
+  \(G_{\sigma}(\CC)\)-conjugacy class of~\(\mu_{\sigma}\)
+  with the
+  \(G_{\sigma}(\CC)\)-conjugacy class of~\(\mu_{\sigma}^{-1}\); and
+ \item the \(G_{\sigma}(\CC)\)-conjucacy class of~\(\mu_{\sigma}\)
+  determines the isomorphism class of~\(G_{\sigma}\)
+  (as real algebraic group).
+\end{enumerate*}
+We refer to \S\S1.2.6--1.2.8 of~\cite{Del_ShimVar} for more details and proofs.
+See table~1.3.9 of~\cite{Del_ShimVar} for an overview of Dynkin diagrams
+and the nodes that may occur as special nodes.
+
+\paragraph{}
+Let us now discuss the relationship between the type of~\(M\)
+and the \(p\)-adic realisations of~\(M\).
+Since \(M\) is abelian and hyperadjoint,
+we know that \(\HB(M) \otimes_{E,\sigma} \CC\)
+has type \(\{(-1,1), (0,0), (1,-1)\}\) with multiplicities
+\((h^{-1,1},h^{0,0},h^{1,-1})\).
+Since \(E\) is totally real, we know that \(h^{-1,1} = h^{1,-1}\),
+and therefore \(h^{-1,1}\), together with \(\dim_{E}(M)\),
+determines the other multiplicities.
+Write \(\Hp(M)^{(\sigma)}\) for
+\(\Hp(M) \otimes_{E \otimes \QQp, \sigma \otimes \id} \BdR{K_{v}}\).
+It follows from \cref{Elin_padicHodge}
+that \(\Hp(M)^{(\sigma)}\) determines~\(h^{-1,1}\).
+Note that \(G_{\sigma}\) is compact if and only if \(h^{-1,1} = 0\).
+In particular \(\Hp(M)^{(\sigma)}\) can distinguish whether
+\(G_{\sigma}\) is compact or not.
+Assume that \(G_{\sigma}\) is non-compact.
+\begin{enumerate}
+ \item Suppose that the type of~\(M\) is~\(A_{k}\).
+  Then every node of the Dynkin diagram may occur as special node.
+  If the \(i\)th node is the special node associated with~\(\mu_{\sigma}\)
+  then \(h^{-1,1} = i\cdot(k+1-i)\).
+  We conclude that \(\Hp(M)^{(\sigma)}\)
+  determines the special node up to the opposition involution.
+  Thus we recover the isomorphism class of~\(G_{\sigma}\)
+  and we recover the \(G_{\sigma}(\CC)\)-conjucay class of~\(\mu_{\sigma}\)
+  up to a sign (in other words, we do not (yet)
+  see the difference between \(\mu_{\sigma}\) and~\(\mu_{\sigma}^{-1}\)).
+ \item Suppose that the type of~\(M\) is \(B_{k}\) or~\(C_{k}\).
+  Then there is only one node of the Dynkin diagram
+  that may occur as special node.
+  We conclude that \(\Hp(M)^{(\sigma)}\) determines
+  the isomorphism class of~\(G_{\sigma}\),
+  and since the opposition involution acts trivially,
+  \(\Hp(M)^{(\sigma)}\) also determines
+  the \(G_{\sigma}(\CC)\)-conjucay class of~\(\mu_{\sigma}\).
+ \item Suppose that the Dynkin type of~\(G_{\sigma,\CC}\) is~\(D_{k}\).
+  Then the three extremal nodes may occur as special node of the Dynkin diagram.
+  In all cases we have \(h^{-1,1} = 2k-2\),
+  and hence \(\Hp(M)^{(\sigma)}\) is not (yet) able to distinguish
+  between the types \(D_{k}^{\RR}\) and~\(D_{k}^{\HQ}\).
+\end{enumerate}
+
+\begin{proposition} \label{inputNoot}
+ Let \(M\) be an irreducible hyperadjoint abelian motive of type~\(D_{k}\).
+ One can recognize from \(\HH_{\Lambda}(M)\)
+ whether \(M\) is of type \(D_{k}^{\RR}\) or of type~\(D_{k}^{\HQ}\).
+\end{proposition}
+\begin{proof}
+ \pf\ Use theorem~6.2 till remark~6.6 of~\cite{No06}. \qed
+\end{proof}
+
+\paragraph{}
+Recall that up to isomorphism
+there is a unique real algebraic group of type~\(D_{k}^{\RR}\)
+and a unique real algebraic group of type~\(D_{k}^{\HQ}\).
+\Cref{inputNoot} shows that one may determine the isomorphism class of the
+non-compact simple factors of~\(\GB(M)_{\RR}\)
+even in the case that \(M\) is of type~\(D_{k}\).
 
 \section{An intermediate result}
 
@@ -976,7 +1238,7 @@ then copy/paste the relevant definitions and the main theorem.
  Let \(M_{i}\), with \(i \in I\),
  be a finite collection of hyperadjoint abelian motives.
  Write \(M = \bigoplus M_{i}\).
- If \(\MTC(M_{i}\) is true for all \(i \in I\),
+ If \(\MTC(M_{i})\) is true for all \(i \in I\),
  then \(\MTC(M)\) is true.
 \end{corollary}
 \begin{proof}
@@ -1063,18 +1325,48 @@ Note that by foobar?? we find
 \(\HH_{\Lambda}(M_{1}) \cong \HH_{\Lambda}(M_{2})\).
 Therefore \(\Glambda(M_{1}) \cong \Glambda(M_{2})\)
 for all \(\lambda \in \Lambda\).
-Let \(G_{i}\) be an absolutely simple adjoint algebraic group over~\(E\)
-such that \(\GB(M) \cong \Res_{E/\QQ}G_{i}\).
-Since we know \(\MTC(M_{i})\)
-we know that \(G_{i,\lambda} \cong \Glambda(M_{i})\),
+Let \(\mathcal{G}_{i}\) be
+an absolutely simple adjoint algebraic group over~\(E\)
+such that \(\GB(M) \cong \Res_{E/\QQ}\mathcal{G}_{i}\).
+Since \(\MTC(M_{i})\) holds,
+we know that \(\mathcal{G}_{i,\lambda} \cong \Glambda(M_{i})\),
 for all \(\lambda \in \Lambda\).
 
-By the discussions and calculations in \cref{hypadMstruct}
-we also know the isomorphism class of \(G_{i,\sigma}\)
-for all \(\sigma \colon E \into \tilde{E} \subset \RR\);
-and in particular \(G_{1,\sigma} \cong G_{2,\sigma}\).
-By \cref{locglob} we conclude that \(G_{1} \cong G_{2}\)
-and therefore \(\GB(M_{1}) \cong \GB(M_{2})\).
+Let \(\Delta_{i}\) be the Dynkin diagram of~\(\GB(M_{i}) \otimes \QQbar\).
+Our next goal is to show that \(\Delta_{1} \cong \Delta_{2}\)
+as Dynkin diagrams with an action of \(\Gal(\QQbar/\QQ)\).
+
+Let \(K_{\Delta_{i}}\) be the smallest subfield of~\(\QQbar\)
+such that \(\Gal(\QQbar/K_{\Delta_{i}})\) acts trivially on~\(\Delta_{i}\).
+Note that \(\Gal(\QQbar/K_{\Delta_{i}})\) is a normal subgroup
+of \(\Gal(\QQbar/\QQ)\),
+and the action of \(\Gal(\QQbar/\QQ)\) on~\(\Delta_{i}\)
+factors via \(\Gal(K_{\Delta_{i}}/\QQ)\).
+Without loss of generality, we may and do assume that
+\(K_{\Delta_{i}} \subset K \subset \CC\), for \(i = 1,2\).
+Observe that \(E \subset \tilde{E} \subset K_{\Delta_{i}}\).
+
+The components of \(\Delta_{i}\) are indexed by \(\Sigma = \Sigma(E)\)
+and hence there is a natural bijection between
+the components of~\(\Delta_{1}\) and the components of~\(\Delta_{2}\).
+We know that for every \(\sigma \in \Sigma\)
+the group \(\mathcal{G}_{1} \otimes_{E,\sigma} \RR\) is compact if and only if
+the group \(\mathcal{G}_{2} \otimes_{E,\sigma} \RR\) is compact.
+Thus we get a partition \(\Sigma = \Sigmacmpt \sqcup \Sigmanc\),
+where \(\Sigmacmpt\) is precisely the subset of \(\sigma \in \Sigma\)
+for which \(\mathcal{G}_{1} \otimes_{E,\sigma} \RR\)
+(or equivalently \(\mathcal{G}_{2} \otimes_{E,\sigma} \RR\))
+is compact.
+
+
+
+
+% By the discussions and calculations in \cref{hypadMstruct}
+% we also know the isomorphism class of \(\mathcal{G}_{i,\sigma}\)
+% for all \(\sigma \colon E \into \tilde{E} \subset \RR\);
+% and in particular \(G_{1,\sigma} \cong G_{2,\sigma}\).
+% By \cref{locglob} we conclude that \(G_{1} \cong G_{2}\)
+% and therefore \(\GB(M_{1}) \cong \GB(M_{2})\).
 
 \paragraph{Step 3}
 Denote by \(X_{i}\) the \(\GB(M_{i})(\RR)\)-conjugacy class of
@@ -1128,7 +1420,7 @@ that extends the embedding \(\tilde{E} \into \tilde{E}_{\pi}\).
 Now observe that \cref{padicHodgeEnd} shows that
 for all \(\sigma \in \Sigma(E)\), and \(i = 1,2\),
 the cocharacter \(\mu_{i,\sigma}\) is defined over~\(K\);
-after extending scalars to \(\BdR[K_{v}]\)
+after extending scalars to \(\BdR{K_{v}}\)
 this cocharacter agrees with the cocharacter~\(\nu_{i}\)
 that defines the grading on
 \(\gr(\Hp(M_{i}) \otimes_{E \otimes \QQp, \sigma \otimes \id} \BdR{K_{v}})\).
@@ -1137,8 +1429,8 @@ of \(E_{\pi}\)-adic Galois representations.
 This induces an isomorphism
 \(\psi' \colon \GG_{\pi}(M_{1}) \to \GG_{\pi}(M_{2})\)
 of linear algebraic groups over~\(E_{\pi}\).
-After extending scalars to \(\BdR[K_{v}]\),
-the isomorphism \(\psi'_{\BdR[K_{v}]}\) identifies \(\nu_{1}\) with~\(\nu_{2}\).
+After extending scalars to \(\BdR{K_{v}}\),
+the isomorphism \(\psi'_{\BdR{K_{v}}}\) identifies \(\nu_{1}\) with~\(\nu_{2}\).
 
 Let \(\Sigma_{0} \subset \Sigma(E)\) be the orbit of \(\sigma_{0}\)
 under the action of~\(\gamma\).
@@ -1147,11 +1439,11 @@ By assumption, \(\tau \in \Sigma_{0}\).
 
 Observe that we get decompositions
 \[
- \HH_{\pi}(M_{i}) \otimes_{E_{\pi}} \BdR[K_{v}] \cong
+ \HH_{\pi}(M_{i}) \otimes_{E_{\pi}} \BdR{K_{v}} \cong
  \bigoplus_{\sigma \in \Sigma_{0}}
  \Hp(M_{i}) \otimes_{E \otimes \QQp, \sigma \otimes \id} \BdR{K_{v}},
 \]
-and \(\GG_{\pi}(M_{i}) \times_{E_{\pi}} \BdR[K_{v}] \cong
+and \(\GG_{\pi}(M_{i}) \times_{E_{\pi}} \BdR{K_{v}} \cong
  \prod_{\sigma \in \Sigma_{0}} \GG_{\pi,\sigma}(M_{i})\)
 and \(\nu_{i} = (\nu_{i,\sigma})_{\sigma \in \Sigma_{0}}\).
 
@@ -1164,11 +1456,11 @@ the conjugacy class \(X_{1,\sigma_{0}}\) with~\(X_{2,\sigma_{0}}\).
 We also have an isomorphism
 \(\psi' \colon \GG_{\pi}(M_{1}) \to \GG_{\pi}(M_{2})\)
 of algebraic groups over~\(E_{\pi}\),
-and over~\(\BdR[K_{v}]\) it identifies \(\nu_{1}\) with~\(\nu_{2}\).
+and over~\(\BdR{K_{v}}\) it identifies \(\nu_{1}\) with~\(\nu_{2}\).
 This last statement may be decomposed into:
 we have an isomorphism
 \(\psi'_{\sigma} \colon \GG_{\pi,\sigma}(M_{1}) \to \GG_{\pi,\sigma}(M_{2})\)
-of algebraic groups over~\(\BdR[K_{v}]\)
+of algebraic groups over~\(\BdR{K_{v}}\)
 that identifies \(\nu_{1,\sigma}\) with~\(\nu_{2,\sigma}\).
 
 Recall that \(G_{i} \times_{E} E_{\pi} = \GG_{\pi}(M_{i})\).
