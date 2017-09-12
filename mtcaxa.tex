@@ -51,7 +51,7 @@ paper=a4paper,
 \usepackage{cjhebrew}
 
 \usepackage[backend=biber,doi=false,url=false,isbn=false,%
-sorting=nyt,safeinputenc]{biblatex}
+safeinputenc,style=quasialphabetic,citestyle=alphabetic]{biblatex}
 \bibliography{\jobname.bib}
 \defbibheading{bibliography}[\bibname]{\sectionstar{#1}}
 
@@ -324,6 +324,7 @@ preheadhook={\bigskip}]{nproof}
 \newcommand{\ab}{\textnormal{ab}}
 \newcommand{\der}{\textnormal{der}}
 \newcommand{\ad}{\textnormal{ad}}
+\newcommand{\hypad}[1]{#1^{\textnormal{ha}}}
 
 \newcommand{\SmPr}{\textnormal{SmPr}}
 
@@ -952,8 +953,6 @@ of the planches in Bourbaki~\cite{GEADL}.
   \(D_{n}^{\HQ}\) with \(n \ge 5\).
 \end{enumerate} % -}}}
 
-\section{Relation with the Albert classification} % {{{-1
-
 \section{Hyperadjoint motives} % {{{-1
 
 TODO %TODO
@@ -1222,10 +1221,42 @@ and a unique real algebraic group of type~\(D_{k}^{\HQ}\).
 non-compact simple factors of~\(\GB(M)_{\RR}\)
 even in the case that \(M\) is of type~\(D_{k}\).
 
+\section{A construction by Deligne} % {{{-1
+
+\readme % {{{-2
+We recall proposition~2.3.10 of~\cite{Del_ShimVar},
+and prove some properties of this construction.
+
+\begin{construction} % {{{-2
+ Constructs an abelian variety from an adjoint Hodge structure.
+
+ \emph{Input:}
+ Let \((G,X)\) be as in \S2.1.1 of~\cite{Del_ShimVar},
+ with \(G\) a \(\QQ\)-simple adjoint algebraic group
+ of type \(A\),~\(B\), \(C\), \(D^{\RR}\), or~\(D^{\HQ}\).
+ Let \(F\) be a quadratic extension of~\(E\),
+ equipped with a \(T\) as in \S2.3.9 of~\cite{Del_ShimVar}.
+
+ \emph{Output:}
+ A diagram
+ \[
+  (G,X) \longleftarrow (G^{\sharp},X^{\sharp}) \longrightarrow (\CSp(V), \Sds),
+ \]
+ where the derived group \((G^{\sharp})^{\der}\) is simply connected
+ if \(G^{\sharp}\) has type \(A\),~\(B\), \(C\), or~\(D^{\RR}\),
+ and \((G^{\sharp})^{\der}\) is the covering of~\(G\)
+ described in \S2.3.8 of~\cite{Del_ShimVar}
+ if \(G^{\sharp}\) has type \(D^{\HQ}\).
+ 
+ \emph{Construction:}
+ See the proof of proposition~2.3.10 of~\cite{Del_ShimVar}.
+\end{construction}
+
 \section{An intermediate result} % {{{-1
 
 \begin{theorem} \label{intermed} % {{{-2
- Let \(M_{1}\) and~\(M_{2}\) be two irreducible hyperadjoint abelian motives
+ Let \(M_{1}\) and~\(M_{2}\) be two
+ geometrically irreducible hyperadjoint abelian motives
  over a finitely generated field \(K \subset \CC\).
  Assume that \(\MTC(M_{1})\) and \(\MTC(M_{2})\) are true.
  Then
@@ -1236,8 +1267,8 @@ even in the case that \(M\) is of type~\(D_{k}\).
 \end{theorem}
 
 \begin{corollary} \label{intermed_sums} % {{{-2
- Let \(M_{i}\), with \(i \in I\),
- be a finite collection of hyperadjoint abelian motives.
+ Let \(M_{i}\), with \(i \in I\), be a finite collection of
+ geometrically irreducible hyperadjoint abelian motives.
  Write \(M = \bigoplus M_{i}\).
  If \(\MTC(M_{i})\) is true for all \(i \in I\),
  then \(\MTC(M)\) is true.
@@ -1263,11 +1294,14 @@ The proof of \cref{intermed} will consist of several distinct steps.
 Let \(h_{i} \colon \DelS \to \GB(M_{i})_{\RR}\)
 be the morphism that defines the Hodge structure on~\(\HB(M_{i})\).
 \begin{enumerate}
- \item We first show that \(\End(M_{1}) = E = \End(M_{2})\).
- \item We then show that \(\GB(M_{1}) \cong \GB(M_{2})\).
- \item We choose the isomorphism \(\GB(M_{1}) \cong \GB(M_{2})\)
-  in such a way that \(h_{1}\) and~\(h_{2}\) are conjugate.
- \item In the final step we deduce \(M_{1} \cong M_{2}\).
+ \item We first show that \(\End(M_{1}) = E = \End(M_{2})\),
+  and \(\HH_{\Lambda}(M_{1}) = \HH_{\Lambda}(M_{2})\).
+ \item We then run a construction by Deligne
+  that produces two abelian varieties~\(A_{1}\) and~\(A_{2}\)
+  such that \(M_{i} = \hypad{\HH(A_{i})}\).
+ \item We show that \(\Hl^{1}(A_{1}) \cong \Hl^{1}(A_{2})\).
+ \item By Faltings' theorem, we deduce \(\HH(A_{1}) \cong \HH(A_{2})\),
+  which implies \(M_{1} \cong M_{2}\).
 \end{enumerate}
 
 \paragraph{} % {{{-2
@@ -1597,7 +1631,7 @@ of \emph{abelian} motives for which the Mumford--Tate conjecture is true.
 
 TODO %TODO
 
-
+% {{{-1 Footer
 \printbibliography
 
 \end{document}
