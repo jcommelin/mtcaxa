@@ -1,3 +1,5 @@
+all: mtcaxa
+
 %: %.pdf
 	
 %.pdf: %.tex tmp/%.bib
