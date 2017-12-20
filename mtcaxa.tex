@@ -435,6 +435,27 @@ preheadhook={\bigskip}]{nproof}
 % \tableofcontents
 % -}}}1
 
+% {{{-1 Abstract
+{\narrower
+ \small
+ \centerline{\textsc{Abstract}}
+ \medskip\noindent
+ Let $X$ be a smooth projective variety over a number field $K \subset \CC$.
+ The Mumford--Tate conjecture is a precise way of saying that
+ the extra structure on the singular cohomology groups of~$X$
+ (a Hodge structure)
+ and the extra structure on the $\ell$-adic \'etale cohomology groups of~$X$
+ (a Galois representation) convey the same information.
+
+ The main result of this paper says that if $A_1$ and~$A_2$ are
+ abelian varieties over~$K$, and the Mumford--Tate conjecture holds for
+ both~$A_1$ and~$A_2$, then it holds for $A_1 \times A_2$.
+ 
+ We use techniques from Hodge theory, representation theory, and number theory.
+ A crucial ingredient is a construction of~Deligne~\cite{Del_ShimVar}.
+ \par}
+% -}}}1
+
 \section{Introduction} % {{{-1
 
 \paragraph{} % {{{-2
@@ -569,10 +590,10 @@ I also thank Rutger Noot for a very inspiring discussion of this subject.
 This article also benefited from the extensive feedback on my PhD~thesis
 that I received from Anna Cadoret, Pierre Deligne, Bas Edixhoven,
 Milan Lopuha\"a, Rutger Noot, and Lenny Taelman.
-I thank Netan Dogra, Milan Lopuha\"a, Joost Nuiten, and Salvatore Floccari
-for their interest and useful comments.
+I thank Netan Dogra, Carel Faber, Salvatore Floccari, Joost Nuiten,
+and Frans Oort for their interest and useful comments.
 
-\section{Adjoint objects in Tannakian categories} % {{{-1
+\section{Hyperadjoint objects in Tannakian categories} % {{{-1
 
 \readme % {{{-2
 In representation theory the adjoint representation is very important.
@@ -640,12 +661,43 @@ Since $V$ is finite-dimensional
 this sequence stabilises at an object $V^{(\infty)}$.
 
 \begin{definition} % {{{-2
+ \label{ha-obj}
  Retain the notation of the previous paragraph.
  We call the object $V^{(\infty)}$ the \emph{hyperadjoint object}
  associated with~$V$, and we denote it with~$V^\ha$.
  We say that an object $V \in T$ is \emph{hyperadjoint} if $V \cong V^\ha$
  (or equivalently, if $V \cong V^\ad$).
 \end{definition}
+
+\begin{remark}
+ Let $T$ be a Tannakian category over a field~$Q$ of characteristic~$0$.
+ The constructions $V \rightsquigarrow V^\ad$ and $V \rightsquigarrow V^\ha$
+ are not functorial.
+ They do not in general commute with
+ tensor functors between Tannakian categories.
+ Also, the constructions are not in general compatible with direct sums.
+ Caveat emptor!
+\end{remark}
+
+\begin{lemma} % {{{-2
+ Let $T$ be a Tannakian category over a field~$Q$ of characteristic~$0$.
+ Let $V$ be an object of~$T$, and $W$ and object of~$\Tangen{V}$.
+ \begin{enumerate}
+  \item We have $W^\ad \in \Tangen{V^\ad}$ and $W^\ha \in \Tangen{V^\ha}$.
+  \item If $V$ is hyperadjoint, then $\Tangen{V}$ is semisimple.
+  \item If $V$ and~$W$ are hyperadjoint, then $W$ is a direct summand of~$V$.
+ \end{enumerate}
+  Suppose that $V = V_1 \oplus V_2$, with $V_1,V_2 \in T$.
+ \begin{enumerate}[resume]
+  \item Then $V^\ad$ is a subobject of $V_1^\ad \oplus V_2^\ad$,
+   and in particular an object of $\Tangen{V_1^\ad \oplus V_2^\ad}$.
+  \item For all $i \in \ZZ_{\ge0}$,
+   we have $V^{(i+1)} \in \Tangen{(V_1^{(i)} \oplus V_2^{(i)})^\ad}
+   \subset \Tangen{V_1^{(i+1)} \oplus V_2^{(i+1)}}$
+  \item The object $V^\ha$ is a direct summand of $V_1^\ha \oplus V_2^\ha$.
+   \label[lemma]{ha-summands}
+ \end{enumerate}
+\end{lemma}
 
 \section{Hodge structures} \label{HS} % {{{-1
 
@@ -843,8 +895,9 @@ It is not known whether $\GG(\Mot_{\bar K})$ is connected.
  under the comparison isomorphism $\Hl(M) \cong \HB(M) \otimes \QQl$
  we have
  \[
-  \MTC(M)\colon \qquad \Glc(M) \cong \GB(M) \otimes \QQl.
+  \MTC_\ell(M)\colon \qquad \Glc(M) \cong \GB(M) \otimes \QQl.
  \]
+ We write $\MTC(M)$ for the conjecture $\forall \ell: \MTC_\ell(M)$.
 \end{conjecture}
 
 \paragraph{} % {{{-2
@@ -996,6 +1049,50 @@ where $A$ is a CM~abelian variety over~$K$ (\emph{cf.}~\cref{cm-hs-cat}).
  \end{proof}
 \end{lemma}
 
+\begin{proposition} % {{{-2
+ \label{mtc-adjoint-motive}
+ Let $M$ be an abelian motive over
+ a finitely generated field $K \subset \CC$.
+ Fix a prime number~$\ell$.
+ Then $\MTC_\ell(M)$
+ is equivalent to $\MTC_\ell(M^\ha)$.
+ \begin{proof}
+  Consider the following commutative diagram
+  \[
+   \begin{tikzcd}
+    0 \ar[r] &
+    \Zentrum(\Glc(M)) \ar[r,hook] \ar[d,hook,"a"] &
+    \Glc(M) \ar[r,two heads] \ar[d,hook,"b"] &
+    \Glc(M^\ha) \ar[d,hook,"c"] \ar[r] &
+    0 \\
+    0 \ar[r] &
+    \Zentrum(\GB(M)) \otimes \QQl \ar[r,hook] &
+    \GB(M) \otimes \QQl \ar[r,two heads] &
+    \GB(M^\ha) \otimes \QQl \ar[r] &
+    0 \\
+   \end{tikzcd}
+  \]
+  where the inclusions $b$, and $c$ exist by \cref{hodge-is-motivated},
+  and $a$ exists by \cref{centre-mtc-abelian-motive}.
+  Moreover, $a$ is an isomorphism on connected components,
+  also by \cref{centre-mtc-abelian-motive}.
+  The bottom row is exact by
+  the definition of hyperadjoint objects (\cref{ha-obj})
+  and \cref{hodge-is-motivated}.
+  
+  Certainly, if $b$ is an isomorphism, then $c$ is also an isomorphism.
+  Conversely, if $c$ is an isomorphism,
+  then $\Glc(M^\ha)$ is an adjoint group,
+  and therefore the absolute rank of $\Glc(M)$
+  is the sum of the absolute ranks of $\Glc(M^\ha)$ and~$\Zentrum(\Glc(M))$.
+  Now we apply the Borel--de Siebenthal theorem
+  (see~\cite{BdS} or~\cite{PL2015}):
+  since $\Glc(M)$ has maximal rank as subgroup of $\GB(M) \otimes \QQl$,
+  it is equal to the connected component of the centraliser of its centre.
+  But since $a$ is an inclusion, we conclude that $b$ is an isomorphism.
+  In other words: $\MTC_\ell(M) \iff \MTC_\ell(M^\ha)$.
+ \end{proof}
+\end{proposition}
 
 \section{Quasi-compatible systems of Galois representations} % {{{-1
 
@@ -1323,6 +1420,16 @@ irreducible symplectic populated Deligne--Dynkin diagrams over~$\QQ$.
  irreducible component of~$\Delta^\mu$.
 \end{definition}
 
+\begin{remark} % {{{-2
+ There is a risk of confusing terminology:
+ a \emph{connected component} of~$\Delta$ (or~$\Delta^\mu$)
+ will always mean a connected component of the Dynkin diagram~$\Delta$
+ (disregarding the $\Gal(\bar Q/Q)$-action);
+ whereas an \emph{irreducible component} $\Delta_1^{\mu_1} \subset \Delta^\mu$
+ is an irreducible $\Gal(\bar Q/Q)$-subset $\Delta_1$
+ of connected components of~$\Delta$ and $\mu_1 = \Delta_1 \cap \mu$.
+\end{remark}
+
 \paragraph{} % {{{-2
 \label{table-deligne-dynkin-diagrams}
 We copy table~1.3.9 of~\cite{Del_ShimVar}:
@@ -1405,7 +1512,7 @@ over a field $Q = \bar Q$.
   \end{scope}
  \end{tikzpicture}
 \]
-\end{minipage}\hfill% -}}}
+\end{minipage}\hfill% -}}}3
 \newdimen\curparindent
 \curparindent=\parindent
 \begin{minipage}{.41\textwidth} % {{{-3
@@ -1437,17 +1544,7 @@ The diagram~$D_{k+2}^{\HQ}$ is required to satisfy $k + 2 \ge 5$.
 The diagrams of type~$E_8$, $F_4$, and~$G_2$ do not occur:
 they do not have special nodes.
 The diagrams of type~$E_6$ and~$E_7$ do not have symplectic nodes.
-\end{minipage} % -}}}
-
-\begin{remark} % {{{-2
- There is a risk of confusing terminology:
- a \emph{connected component} of~$\Delta$ (or~$\Delta^\mu$)
- will always mean a connected component of the Dynkin diagram~$\Delta$
- (disregarding the $\Gal(\bar Q/Q)$-action);
- whereas an \emph{irreducible component} $\Delta_1^{\mu_1} \subset \Delta^\mu$
- is an irreducible $\Gal(\bar Q/Q)$-subset $\Delta_1$
- of connected components of~$\Delta$ and $\mu_1 = \Delta_1 \cap \mu$.
-\end{remark}
+\end{minipage} % -}}}3
 
 \paragraph{} % {{{-2
 \label{opposition-involution}
@@ -1955,35 +2052,35 @@ In other words, the natural map
 $\GB(W_F) \times \tilde G \to \GB(A)$ is an isogeny,
 and so is the natural map $\GB(W_F) \to T$.
 
-\paragraph{} % {{{-2
-We end this section with a picture of the $\ell$-adic side of this story.
-Let $K \subset \CC$ be a finitely generated field
-such that the motive~$M$ and the abelian variety~$A$ are defined over~$K$.
-We have the following diagram:
-\[
- \begin{tikzpicture}[commutative diagrams/every diagram]
-  \node (Gal) at (-4,-1.75) {$\Gal(\bar K/K)$};
-  \node (GlA) at (0,0) {$\Gl(A)$};
-  \node (GlMt) at (90:1.7) {$\widetilde{\Gl(M)}$};
-  \node (GlN) at (55:-1.7) {$\Gl(N)$};
-  \node (GlM) at (110:-2) {$\Gl(M)$};
-  \node (HlA) at ($(0,0) +(5,0)$) {$\GL(\Hl(A))$};
-  \node (HlN) at ($(55:-1.7) +(5,0)$) {\GL($\Hl(N))$};
-  \node (HlM) at ($(110:-2) +(5,0)$) {$\GL(\Hl(M))$};
-  \path[commutative diagrams/.cd, every arrow, every label]
-  (GlM) edge (HlM)
-  (GlN) edge (HlN)
-  (GlA) edge (HlA)
-  (GlMt) edge (GlA)
-  (GlA) edge [commutative diagrams/crossing over] (GlM)
-  (GlA) edge (GlN)
-  (Gal) edge (GlA)
-  (Gal) edge (GlN)
-  (Gal) edge (GlM);
- \end{tikzpicture}
-\]
-Indeed, the map from $\Gal(\bar K/K)$ to $\Gl(A)$
-exists by our assumption that $A$ is defined over~$K$.
+% \paragraph{} % {{{-2
+% We end this section with a picture of the $\ell$-adic side of this story.
+% Let $K \subset \CC$ be a finitely generated field
+% such that the motive~$M$ and the abelian variety~$A$ are defined over~$K$.
+% We have the following diagram:
+% \[
+%  \begin{tikzpicture}[commutative diagrams/every diagram]
+%   \node (Gal) at (-4,-1.75) {$\Gal(\bar K/K)$};
+%   \node (GlA) at (0,0) {$\Gl(A)$};
+%   \node (GlMt) at (90:1.7) {$\widetilde{\Gl(M)}$};
+%   \node (GlN) at (55:-1.7) {$\Gl(N)$};
+%   \node (GlM) at (110:-2) {$\Gl(M)$};
+%   \node (HlA) at ($(0,0) +(5,0)$) {$\GL(\Hl(A))$};
+%   \node (HlN) at ($(55:-1.7) +(5,0)$) {\GL($\Hl(N))$};
+%   \node (HlM) at ($(110:-2) +(5,0)$) {$\GL(\Hl(M))$};
+%   \path[commutative diagrams/.cd, every arrow, every label]
+%   (GlM) edge (HlM)
+%   (GlN) edge (HlN)
+%   (GlA) edge (HlA)
+%   (GlMt) edge (GlA)
+%   (GlA) edge [commutative diagrams/crossing over] (GlM)
+%   (GlA) edge (GlN)
+%   (Gal) edge (GlA)
+%   (Gal) edge (GlN)
+%   (Gal) edge (GlM);
+%  \end{tikzpicture}
+% \]
+% Indeed, the map from $\Gal(\bar K/K)$ to $\Gl(A)$
+% exists by our assumption that $A$ is defined over~$K$.
 
 \section{The main proposition} % {{{-1
 
@@ -2149,63 +2246,6 @@ and let $\ell$ be the residue characteristic of~$\lambda$.
 Observe that $E$ acts on $M_i$,~$V_i$, $W_{F,i}$, and~$A_i$.
 Let $\rho_i$ denote the Galois representation
 $\Gal(\bar K/K) \to \Gl(A_i)(\QQl) \subset \GL(\Hl(A_i))(\QQl)$.
-% We have the following diagram:
-% \[
-%  \begin{tikzpicture}[commutative diagrams/every diagram] % {{{-3
-%   \def\cubel{.9}
-%   % define a vanishing points
-%   \coordinate (P1) at (-7,3.5);
-%   \coordinate (P2) at (40,3.5);
-%   % define a reference points
-%   \coordinate (A1) at (0,1.5);
-%   \coordinate (A2) at (0,-1.5);
-%   \coordinate (A3) at ($(P1)!.7!(A2)$);
-%   \coordinate (A4) at ($(P1)!.7!(A1)$);
-%   \coordinate (Lc) at (barycentric cs:A1=1,A2=1,A3=1,A4=1);
-%   \coordinate (Rc) at ($(P2)!\cubel!(Lc)$);
-
-%   \node (Gal) at ($(Lc)!-1!(Rc)$) {$\Gal(\bar K/K)$};
-
-%   \node (GlM1) at (A1) {$\Glambda(M_1)$};
-%   \node (GlN1) at (A4) {$\Gl(N)$};
-%   \node (GlA1) at (barycentric cs:Lc=-1.25,GlN1=1,GlM1=1) {$\Glambda(A_1)$};
-%   \node (GlMt1) at ($(Lc)!1.5!(GlA1)$) {$\widetilde{\Glambda(M_1)}$};
-%   \node (HlM1) at ($(P2)!\cubel!(GlM1)$) {$\GL(\Hlambda(M_1))$};
-%   \node (HlN1) at ($(P2)!\cubel!(GlN1)$) {\GL($\Hl(N))$};
-%   \node (HlA1) at ($(P2)!\cubel!(GlA1)$) {$\GL(\Hlambda(A_1))$};
-
-%   \node (GlM2) at (A2) {$\Glambda(M_2)$};
-%   \node (GlN2) at (A3) {$\Gl(N)$};
-%   \node (GlA2) at (barycentric cs:Lc=-1.25,GlN2=1,GlM2=1) {$\Glambda(A_2)$};
-%   \node (GlMt2) at ($(Lc)!1.5!(GlA2)$) {$\widetilde{\Glambda(M_2)}$};
-%   \node (HlM2) at ($(P2)!\cubel!(GlM2)$) {$\GL(\Hlambda(M_2))$};
-%   \node (HlN2) at ($(P2)!\cubel!(GlN2)$) {\GL($\Hl(N))$};
-%   \node (HlA2) at ($(P2)!\cubel!(GlA2)$) {$\GL(\Hlambda(A_2))$};
-
-%   \path[commutative diagrams/.cd, every arrow, every label]
-%   (GlM1) edge (HlM1)
-%   (GlN1) edge (HlN1)
-%   (GlA1) edge (HlA1)
-%   (GlM2) edge (HlM2)
-%   (GlN2) edge (HlN2)
-%   (GlA2) edge (HlA2)
-%   (GlN1) edge [commutative diagrams/leftrightarrow] (GlN2)
-%   (GlMt1) edge (GlA1)
-%   (GlA1) edge [commutative diagrams/crossing over] (GlM1)
-%   (GlA1) edge (GlN1)
-%   (GlMt2) edge (GlA2)
-%   (GlA2) edge (GlM2)
-%   (GlA2) edge (GlN2)
-%   (Gal) edge node {$\rho_1$} (GlA1)
-%   (Gal) edge (GlN1)
-%   (Gal) edge [commutative diagrams/crossing over] (GlM1)
-%   (Gal) edge node[swap] {$\rho_2$} (GlA2)
-%   (Gal) edge (GlN2)
-%   (Gal) edge [commutative diagrams/crossing over] (GlM2)
-%   (GlM1) edge [commutative diagrams/leftrightarrow,
-%   commutative diagrams/crossing over] node[near end] {$\psi_\lambda$} (GlM2);
-%  \end{tikzpicture} % -}}}
-% \]
 We make a table of all the data that is canonically identified
 by $\phi_\lambda = \psi_\lambda$.
 \begin{align*}
@@ -2222,15 +2262,15 @@ by $\phi_\lambda = \psi_\lambda$.
   with $F_{S,\lambda}$-action, henceforth~$V_\lambda$} \\
  \Hlambda(A_1) &= \Hlambda(A_2)
  &&\text{as $\widetilde{\Glambda}$-representations
-  with $W_{F,\lambda}$-action, henceforth~$\Hlambda$} \\
+  with $W_{F,\lambda}$-action, henceforth~$\Hlambda$}
 \end{align*}
-Let $G' \subset \GL(\Hlambda)$ be the subgroup
+Let $G' \subset \GL_{E_\lambda}(\Hlambda)$ be the subgroup
 generated by the image of $\widetilde{\Glambda}$
 and the image of $W_{F,\lambda}^\star$.
 For $i = 1,2$, let $\rho_{i,\lambda}$ be
 the $\lambda$-adic component of~$\rho_i$.
 We may view $\rho_{i,\lambda}$ as a Galois representation on~$\Hlambda$,
-and it takes values in~$G'$.
+and it takes values in~$G'(E_\lambda)$.
 Observe that $\Glambda$ is the adjoint group of~$G'$,
 and denote the projection with $\pi^\ad \colon G' \onto \Glambda$.
 We note that $\pi^\ad \circ \rho_{i,\lambda}$ defines the Galois
@@ -2240,12 +2280,14 @@ and thus $\pi^\ad \circ \rho_{1,\lambda} = \pi^\ad \circ \rho_{2,\lambda}$.
 \paragraph{} % {{{-2
 Recall that we have an isogeny $p_i \colon \Gl(A_i)^\ab \to T_\ell = \Gl(N)$.
 Denote the kernel of this isogeny with~$K_i$.
-We also have a composition $\Gl(A_i) \onto \Glambda(A_i) \into G'$,
-and therefore a map $\Gl(A_i)^\ab \to (G')^\ab$.
-Let $K'_i$ be the image of~$K_i$ in~$(G')^\ab$ under this map,
-and denote with $T'$ the quotient of $(G')^\ab$
+We also have a composition
+$\Gl(A_i) \to \Res_{E_\lambda/\QQl}\Glambda(A_i) \into \Res_{E_\lambda/\QQl}G'$,
+and therefore a map $\Gl(A_i)^\ab \to (\Res_{E_\lambda/\QQl}G')^\ab$.
+Let $K'_i$ be the image of~$K_i$
+in~$(\Res_{E_\lambda/\QQl}G')^\ab$ under this map,
+and denote with $T'$ the quotient of $(\Res_{E_\lambda/\QQl}G')^\ab$
 by the finite group $K'_1 \cdot K'_2$.
-Let $\pi^\ab \colon G' \onto T'$ be the natural projection map.
+Let $\pi^\ab \colon \Res_{E_\lambda/\QQl}G' \onto T'$ be the natural projection.
 We claim that $\pi^\ab \circ \rho_{1,\lambda} = \pi^\ab \circ \rho_{2,\lambda}$.
 
 Indeed, observe that $p_i \circ \rho_i$ defines
@@ -2258,16 +2300,17 @@ $\pi^\ab \circ \rho_{1,\lambda} = \pi^\ab \circ \rho_{2,\lambda}$.
 
 \paragraph{} % {{{-2
 We are almost done!
-Since $T'$ is a finite quotient of~$(G')^\ab$,
-the group $\Gamma = \ker(\pi^\ad) \cap \ker(\pi^\ab)$ is a finite abelian group.
-Define $\xi \colon \Gal(\bar \Gamma/\Gamma) \to G'(\QQl)$
+Recall that $T'$ is a finite quotient of~$(\Res_{E_\lambda/\QQl}G')^\ab$.
+Hencethe group $\Gamma = \ker(\pi^\ad) \cap \ker(\pi^\ab)$ is
+a finite abelian subgroup of $G'(E_\lambda) = (\Res_{E_\lambda/\QQl}G')(\QQl)$.
+Define $\xi \colon \Gal(\bar \Gamma/\Gamma) \to G'(E_\lambda)$
 via $\xi(g) = \rho_{1,\lambda}(g) \cdot \rho_{2,\lambda}(g)^{-1}$.
 This map $\xi$ takes values in~$\Gamma$,
 and is a homomorphism since $\Gamma$ is commutative.
 We conclude that after replacing $K$ by a finite extension,
-the Galois representations $\rho_1$ and~$\rho_2$ are the same.
+the homomorphisms $\rho_{1,\lambda}$ and~$\rho_{2,\lambda}$ are the same.
 
-This implies that $\Hlambda(A_1)$ and~$\Hlambda(A_2)$
+This means that $\Hlambda(A_1)$ and~$\Hlambda(A_2)$
 are isomorphic as $\lambda$-adic Galois representations.
 Another application of \cref{quasi-compatible-semisimple-isomorphic}
 shows that $\HLambda(A_1)$ and~$\HLambda(A_2)$
@@ -2325,24 +2368,26 @@ This concludes the proof of \cref{mtc-product-abelian-motives}.
 \begin{theorem} % {{{-2
 	\label{mtc-abelian-motives-tannakian-subcategory}
 	Fix a finitely generated field $K \subset \CC$.
-	Let $\mathcal{M}_{K} \subset \Mot_{K}$ be the full subcategory
+	Let $\mathcal{M}_K \subset \Mot_K$ be the full subcategory
 	of \emph{abelian} motives for which the Mumford--Tate conjecture is true.
-	Then the category~$M_{K}$ is a Tannakian subcategory of $\Mot_{K}$.
+	Then the category~$M_K$ is a Tannakian subcategory of $\Mot_K$.
 	\begin{proof}
-		The category~$\Mot_{K}$ is semisimple,
+		The category~$\Mot_K$ is semisimple,
 		so subquotients are direct summands.
-		It is clear that the subcategory~$\mathcal{M}_{K}$
+		It is clear that the subcategory~$\mathcal{M}_K$
 		is closed under duals, tensor powers, and direct summands.
-		Let $M_{1}$ and~$M_{2}$ be two objects in~$\mathcal{M}_{K}$.
-		We need to show that $M_{1} \oplus M_{2}$
-		and $M_{1} \otimes M_{2}$ are objects in $\mathcal{M}_{K}$.
-		Observe that $M_{1} \otimes M_{2}$ is a direct summand of
-		$(M_{1} \oplus M_{2})^{\otimes 2}$.
+		Let $M_1$ and~$M_2$ be two objects in~$\mathcal{M}_K$.
+		We need to show that $M_1 \oplus M_2$
+		and $M_1 \otimes M_2$ are objects in $\mathcal{M}_K$.
+		Observe that $M_1 \otimes M_2$ is a direct summand of
+		$(M_1 \oplus M_2)^{\otimes 2}$.
 		Thus we are done if we show that the Mumford--Tate conjecture is true for
-		$M = M_{1} \oplus M_{2}$.
+		$M = M_1 \oplus M_2$.
 		By \cref{mtc-adjoint-motive} we may assume that $M$ is hyperadjoint.
-		Write $M = \bigoplus_{i \in I} M'_{i}$,
-		with the $M'_{i}$ hyperadjoint.
+		Decompose $M = \bigoplus_{i \in I} M'_i$ into a sum of irreducible motives.
+  Note that for every $i \in I$, the motive~$M'_i$ is hyperadjoint,
+  and $\MTC(M'_i)$ holds
+  since $M'_i$ is a summand of $M_1^\ha$ or~$M_2^\ha$ by \cref{ha-summands}.
 		Now the result follows from \cref{mtc-finite-product-abelian-motives}.
 	\end{proof}
 \end{theorem}
