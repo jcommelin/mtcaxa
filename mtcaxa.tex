@@ -629,7 +629,7 @@ is a $Q$-linear monoidal functor $T \to \Mod_R$
 that is faithful and exact and takes values in the subcategory
 $\Proj_R \subset \Mod_R$ of finitely generated projective $R$-modules.
 We denote with $\Fib(T)_R$ be the groupoid of
-fibre functors $T \to \Mod_R$,
+fibre functors $T \to \Mod_R$.
 
 \paragraph{} % {{{-2
 Let $Q$ be a field of characteristic~$0$.
@@ -638,14 +638,15 @@ is a $Q$-linear rigid abelian symmetric monoidal category
 with an isomorphism $Q \stackrel\sim\to \End(1)$ such that
 for every object $V \in T$ the following equivalent conditions hold:
 \begin{enumerate}
- \item $\dim(V)$ is an integer;
- \item there exists an integer~$n$ such that $\bigwedge^n V = 0$.
+ \item there exists an integer~$n$ such that $\bigwedge^n V = 0$;
+ \item $\dim(V)$ is an integer.
 \end{enumerate}
 (See \S1.2 and th\'eor\`eme~7.1 of~\cite{Deligne_CatTan}.)
 The exterior power $\bigwedge^n V$ is defined in the usual way
 in terms of $\bigotimes^n V$ and antisymmetrisation.
 The dimension of~$V$ is defined as the trace of the identity morphism on~$V$,
-which is the composition
+in other words, $\dim(V)$ is the composition of the natural morphisms
+$\delta$ (unit) and $\ev$ (counit):
 \[
  1 \stackrel\delta\longto V^\star \otimes V \stackrel\ev\longto 1.
 \]
@@ -700,7 +701,7 @@ then $G$ is naturally isomorphic to $\Fib(\Rep(G))$.)
 \paragraph{} % {{{-2
 Let $T$ be a Tannakian category over a field~$Q$ of characteristic~$0$.
 If $V$ is an object in~$T$,
-define a sequence of objects by $V^{(0)} = V$,
+inductively define a sequence of objects by $V^{(0)} = V$,
 and $V^{(i+1)} = (V^{(i)})^\ad$ for $i \in \ZZ_{\ge0}$.
 Observe that for $i \ge 1$ the object~$V^{(i+1)}$ is a quotient of~$V^{(i)}$,
 and therefore $\dim V^{(i+1)} \le \dim V^{(i)}$.
@@ -782,8 +783,9 @@ this sequence stabilises at an object $V^{(\infty)}$.
     the natural map $\Lie(G) \onto \Lie(H)$ is also surjective.
     This proves the first claim, and the second claim follows by induction.
    \item If $V$ is hyperadjoint, then $G$ is semisimple and thus reductive.
-    The claim follows from Goursat's lemma for semisimple algebraic groups.
-   \item Both $G$ and $H$ are semisimple, and $H$ is a quotient of~$G$.
+    The claim follows from Goursat's lemma
+    for adjoint semisimple algebraic groups.
+   \item Both $G$ and $H$ are adjoint semisimple, and $H$ is a quotient of~$G$.
     Thus $H$ is a factor of~$G$.
   \end{enumerate}
   Let $G_i$ be the group $\iAut^\otimes(\omega|_{\Tangen{V_1}})$.
@@ -791,7 +793,7 @@ this sequence stabilises at an object $V^{(\infty)}$.
   and its composition with the projection onto~$G_1$ or~$G_2$ is surjective.
   \begin{enumerate}[resume]
    \item There is a natural map $\Lie(G) \into \Lie(G_1) \oplus \Lie(G_2)$.
-   \item Inductively apply the point~1 and the preceding point.
+   \item Inductively apply point~1 and the preceding point.
    \item Apply the preceding point and point~3.
   \end{enumerate}
  \end{proof}
@@ -801,8 +803,8 @@ this sequence stabilises at an object $V^{(\infty)}$.
 
 \readme % {{{-2
 Following \cite{Del_ShimVar} we use the notion of
-fractional Hodge structures,
-because it will prove useful in understanding
+fractional Hodge structures.
+The notion will prove useful in understanding
 Deligne's construction (\cref{delignes-construction}).
 
 \begin{definition} % {{{-2
@@ -838,12 +840,12 @@ Recall that a Hodge structure over~$R$ is completely described
 by a representation $h \colon \DelS \to \GL(V)_\RR$, as follows:
 for $z \in \DelS(\CC)$ and $v \in V^{p,q}$
 we put $h(z) \cdot v = z^{-p}\bar z^{-q}v$.
-Composing $h$ with the map $\DelS \to \DelS, x \mapsto x^k$
+Composing $h$ with the map $x \mapsto x^k \colon \DelS \to \DelS$
 amounts to relabeling $V^{p,q}$ as~$V^{kp,kq}$.
 
 Put $\tilde \DelS = \lim_\NN \DelS$,
 where $\NN$ is ordered by divisibility,
-and for $m | n$, we take the transition map $\DelS \to \DelS$
+and for $m | n$ we take the transition map $\DelS \to \DelS$
 given by $x \mapsto x^{n/m}$.
 A fractional pre-Hodge structure is then described by a representation
 $h \colon \tilde \DelS \to \GL(V)_\RR$.
@@ -861,16 +863,16 @@ $h \colon \tilde \DelS \to \GL(V)_\RR$.
  and $\GB(V) = \iAut^\otimes(\omega|_{\Tangen{V}})$.
 \end{definition}
 
-\paragraph{Hodge cocharacter} % {{{-2
+\paragraph{} % {{{-2
 \label{hodge-cocharacter}
 Let $V$ be a pre-Hodge structure over a ring $R \subset \RR$.
 Recall that this pre-Hodge structure is described by a morphism
-$h \colon \DelS \to \GB(V)$.
+$h \colon \DelS \to \GB(V)_\RR$.
 Denote with $\mu_0$ the cocharacter $\Gm[\CC] \to \DelS_\CC$
 given by $z \mapsto (z,1)$ on $\CC$-valued points.
-The composite morphism $\mu_h = h \circ \mu_0$
+The composite morphism $\mu_h = h_\CC \circ \mu_0$
 is called the \emph{Hodge cocharacter} of~$V$.
-If there is no confusion, we will usually write $\mu$ for~$\mu_h$.
+If there is no confusion, we will write $\mu$ for~$\mu_h$.
 
 \begin{lemma} % {{{-2
  Let $V$ be a fractional pre-Hodge structure over~$\QQ$.
@@ -881,7 +883,7 @@ If there is no confusion, we will usually write $\mu$ for~$\mu_h$.
  \begin{proof}
   Assume that $\GB(V)$ is a torus.
   Let $T \subset \GL(V)$ be a maximal torus containing $\GB(V)$.
-  Then $E = \End_{\Vect_\QQ}(V)^T \subset \End_{\Vect_\QQ}(V)^\GB(V)
+  Then $E = \End_{\Vect_\QQ}(V)^T \subset \End_{\Vect_\QQ}(V)^{\GB(V)}
   = \End_{\FpHS_\QQ}(V)$ is a commutative semisimple algebra
   and $V$ has rank~$1$ over~$E$.
 
@@ -982,7 +984,8 @@ to $\ell$-adic Galois representations of~$K$,
 and we obtain a Betti-realisation functor
 $\HB \colon \Mot_K \to \HS_\QQ$
 to the category of Hodge structures over~$\QQ$.
-There is a natural isomorphism $\Hl(\_) \cong \HB(\_) \otimes \QQl$.
+There is a natural isomorphism $\Hl(\_) \cong \HB(\_) \otimes \QQl$
+of functors to $\QQl$-vector spaces.
 
 \begin{definition}
  Let $K$ be a subfield of~$\CC$.
@@ -1213,7 +1216,7 @@ where $A$ is a \cm~abelian variety over~$K$ (\emph{cf.}~\cref{cm-hs-cat}).
   we find $\Glc(N) = \GB(N)_{\QQl} = \GB(M)^\ab_{\QQl}$.
   To complete the proof,
   we remark that $\Glc(N)$ is exactly the image of $\Glc(M)$
-  under the composition map of the preceding paragraph.
+  under the composite map of the preceding paragraph.
  \end{proof}
 \end{lemma}
 
@@ -1785,6 +1788,25 @@ such that $\mu$ defines a $\{-1,0,1\}$-grading on~$V$.
  its subset of symplectic nodes is non-empty.
 \end{definition}
 
+\begin{theorem} % {{{-2
+ \label{deldyn-symplectic}
+ If $M$ is a hyperadjoint abelian motive over a field $K \subset \CC$,
+ then the Deligne--Dynkin diagram $\Delta^{\mu}$
+ associated with~$M$ is symplectic.
+ \begin{proof}
+  Since $M$ is an abelian motive,
+  there is an abelian variety $A/K$ such that $M \in \Tangen{\HH^1(A)}$.
+  Therefore there is a quotient map $\GB(A) \onto \GB(M)$,
+  and hence a map $\tilde\GG_{\mathrm{B}}(M) \to \GB(A)^{\der}$,
+  where $\tilde\GG_{\mathrm{B}}(M)$ denotes
+  the simply-connected cover of~$\GB(M)$.
+  The representation $\GB(A) \to \GL(\HB^1(A))$ is symplectic,
+  and thus its restriction to $\tilde\GG_{\mathrm{B}}(M)$ is symplectic.
+  In \S1.3 and~\S2.3.7 of~\cite{Del_ShimVar}, Deligne shows that this means
+  that $\Delta^{\mu}$ is symplectic.
+ \end{proof}
+\end{theorem}
+
 \paragraph{The type of $\Delta^\mu$} % {{{-2
 Let $\Delta^{\mu}$ be an irreducible populated Deligne--Dynkin diagram over~$Q$.
 If $\Delta^{\mu}$ is symplectic,
@@ -1829,25 +1851,6 @@ We say that $\Delta^{\mu}$ has \emph{type} $D_4^\RR$
 if $\deg(\bar\mu) = 1$ and $\deg(S) = 2$,
 while $\Delta^{\mu}$ has \emph{type} $D_4^\HQ$
 if $\deg(\bar\mu) = 2$ and $\deg(S) = 1$.
-
-\begin{theorem} % {{{-2
- \label{deldyn-symplectic}
- If $M$ is a hyperadjoint abelian motive over a field $K \subset \CC$,
- then the Deligne--Dynkin diagram $\Delta^{\mu}$
- associated with~$M$ is symplectic.
- \begin{proof}
-  Since $M$ is an abelian motive,
-  there is an abelian variety $A/K$ such that $M \in \Tangen{\HH^1(A)}$.
-  Therefore there is a quotient map $\GB(A) \onto \GB(M)$,
-  and hence a map $\tilde\GG_{\mathrm{B}}(M) \to \GB(A)^{\der}$,
-  where $\tilde\GG_{\mathrm{B}}(M)$ denotes
-  the simply-connected cover of~$\GB(M)$.
-  The representation $\GB(A) \to \GL(\HB^1(A))$ is symplectic,
-  and thus its restriction to $\tilde\GG_{\mathrm{B}}(M)$ is symplectic.
-  In \S1.3 and~\S2.3.7 of~\cite{Del_ShimVar}, Deligne shows that this means
-  that $\Delta^{\mu}$ is symplectic.
- \end{proof}
-\end{theorem}
 
 \begin{remark} % {{{-2
  \label{type-remarks}
@@ -1949,13 +1952,13 @@ an irreducible symplectic populated Deligne--Dynkin diagram over~$Q$.
 The action of $\Gal(\bar Q/Q)$ on~$\Delta$
 is determined by the action on
 a $\Gal(\bar Q/Q)$-closed subset $U(\Delta^\mu)$ of~$\Delta$.
-Let $S$ be the subset of symplectic nodes of~$\Delta^{\mu}$.
+Let $S$ be the subset of symplectic nodes of~$\Delta^\mu$.
 \begin{itemize}
- \item If $(\Delta, \mu)$ is of type~$A_n$, we take~$U(\Delta^\mu) = S$.
- \item If $(\Delta, \mu)$ is of type~$B_n$, we take $U(\Delta^\mu) = S$.
- \item If $(\Delta, \mu)$ is of type~$C_n$, we take $U(\Delta^\mu) = \bar\mu$.
- \item If $(\Delta, \mu)$ is of type~$D_n^\RR$, we take $U(\Delta^\mu) = S$.
- \item If $(\Delta, \mu)$ is of type~$D_n^\HQ$,
+ \item If $\Delta^\mu$ is of type~$A_n$, we take~$U(\Delta^\mu) = S$.
+ \item If $\Delta^\mu$ is of type~$B_n$, we take $U(\Delta^\mu) = S$.
+ \item If $\Delta^\mu$ is of type~$C_n$, we take $U(\Delta^\mu) = \bar\mu$.
+ \item If $\Delta^\mu$ is of type~$D_n^\RR$, we take $U(\Delta^\mu) = S$.
+ \item If $\Delta^\mu$ is of type~$D_n^\HQ$,
   we take $U(\Delta^\mu) = \bar\mu$.
 \end{itemize}
 Note that the degree of $U(\Delta^\mu)$ over~$\pi_0(\Delta)$ is at most~$2$.
@@ -2025,16 +2028,22 @@ We will use this notation below.
   It remains to prove that we can choose~$\phi$
   in such a way that it maps $\mu_1$ to~$\mu_2$.
   If $\Delta_1^{\mu_1}$ and $\Delta_2^{\mu_2}$
-  are of type $A_1$,~$B_n$, $C_n$, or~$D_n^\RR$ then $\phi(\mu_1) = \mu_2$,
+  are of type $A_1$,~$B_n$, $C_n$, or~$D_n^\RR$ ($n \ge 5$),
+  then the topology of the diagram forces $\phi(\mu_1) = \mu_2$,
   hence there is nothing left to do.
   Now suppose that the type is $A_n$, with $n \ge 2$.
   If $\mu_1$ (and therefore $\mu_2$) is fixed
   under the opposition involution,
   then there is again nothing to do.
+  If the type is $D_4^\RR$,
+  recall that $U(\Delta_i^{\mu_i}) = S_i$,
+  so we can choose $\phi$ such that $\phi(S_1) = S_2$.
+  This means that $\phi(\bar\mu_1) = \bar\mu_2$,
+  and we conclude that $\phi(\mu_1) = \mu_2$.
 
   Finally, suppose that the type is $D_n^\HQ$,
   or the type is $A_n$ and $\mu_i$ is not fixed by the opposition involution.
-  Let $S_i$ be the subset of special nodes of~$\Delta_i^{\mu_i}$,
+  Let $S_i$ be the subset of symplectic nodes of~$\Delta_i^{\mu_i}$,
   and observe that $\phi(S_1) = S_2$.
   There is a unique non-trivial involution~$\tau_i \in \Aut_\id(\Delta_i)$
   such that $\tau_i(S_i) = S_i$.
@@ -2140,7 +2149,7 @@ for suitable~$n$.
 Now we fix three choices:
 \begin{enumerate}
  \item Choose a totally imaginary quadratic extension $F/E$.
- \item Choose a partial \cm~type~$\Phi$ for~$F$ relative to $(\Delta, \mu)$:
+ \item Choose a partial \cm~type~$\Phi$ for~$F$ relative to $\Delta^\mu$:
   a subset $\Phi \subset \Hom(F,\CC) = \Hom(F,\QQbar)$
   that maps 1-to-1 onto the complement of the image of~$\mu$
   in $\Hom(E,\QQbar) = \pi_0(\Delta)$.
@@ -2409,9 +2418,7 @@ we view $N$ as a complex motive.
 Note that $N$ is an abelian \cm~motive.
 
 Replace~$K$ with a finitely generated extension of~$K$
-such that $A_1$,~$A_2$, the motive~$N$,
-and the maps $\GG(\HH^1(A_i)) \onto \GG(N)$
-are defined over~$K$.
+such that $A_1$,~$A_2$, and the motive~$N$ are defined over~$K$.
 We are now ready for the two final steps in~\cref{prp-strategy}.
 
 \paragraph{} % {{{-2
@@ -2544,7 +2551,7 @@ This concludes the proof of \cref{mtc-product-abelian-motives}.
 	\label{mtc-abelian-motives-tannakian-subcategory}
 	Fix a finitely generated field $K \subset \CC$.
 	Let $\mathcal{M}_K \subset \Mot_K$ be the full subcategory
-	of \emph{abelian} motives for which the Mumford--Tate conjecture is true.
+	of abelian motives for which the Mumford--Tate conjecture is true.
 	Then the category~$M_K$ is a Tannakian subcategory of $\Mot_K$.
 	\begin{proof}
 		The category~$\Mot_K$ is semisimple,
@@ -2558,18 +2565,19 @@ This concludes the proof of \cref{mtc-product-abelian-motives}.
 		$(M_1 \oplus M_2)^{\otimes 2}$.
 		Thus we are done if we show that the Mumford--Tate conjecture is true for
 		$M = M_1 \oplus M_2$.
-		By \cref{mtc-adjoint-motive} we may assume that $M$ is hyperadjoint.
-		Decompose $M = \bigoplus_{i \in I} M'_i$ into a sum of irreducible motives.
+		By \cref{mtc-adjoint-motive} it suffices to prove $\MTC(M^\ha)$.
+		Decompose $M^\ha = \bigoplus_{i \in I} M'_i$
+  into a sum of irreducible motives.
   Note that for every $i \in I$, the motive~$M'_i$ is hyperadjoint,
   and $\MTC(M'_i)$ holds
-  since $M'_i$ is a summand of $M_1^\ha$ or~$M_2^\ha$ by \cref{ha-summands}.
+  since $M'_i$ is a summand of $M_1^\ha$ or~$M_2^\ha$ by \cref{ha-props}.
 		Now the result follows from \cref{mtc-finite-product-abelian-motives}.
 	\end{proof}
 \end{theorem}
 
 \begin{theorem} % {{{-2
  \label{mtcaxa}
- Let $K$ be a subfield of~$\CC$.
+ Let $K$ be a finitely generated subfield of~$\CC$.
  Let $A_i$, $i \in I$, be a finite collection of abelian varieries over~$K$,
 	and write $A = \prod_{i \in I} A_i$.
  Assume that $\MTC(A_i)$ is true for all $i \in I$.
