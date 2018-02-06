@@ -432,7 +432,8 @@ preheadhook={\bigskip}]{nproof}
 
 \noindent\textit{by} \quad \author \hfill \date
 
-\vskip3\baselineskip
+\bigskip
+\bigskip
 
 % \tableofcontents
 % -}}}1
@@ -453,7 +454,8 @@ preheadhook={\bigskip}]{nproof}
  convey the same information.
 
  The main result of this paper says that if $A_1$ and~$A_2$ are
- abelian varieties over~$K$, and the Mumford--Tate conjecture holds for
+ abelian varieties (or abelian motives) over~$K$,
+ and the Mumford--Tate conjecture holds for
  both~$A_1$ and~$A_2$, then it holds for $A_1 \times A_2$.
  These results do not depend on the embedding $K \subset \CC$.
  
@@ -498,9 +500,21 @@ The goal of this article is \cref{mtcaxa}:
 {\narrower\it\noindent
  Let $A_1$ and~$A_2$ be two abelian varieties
  over a finitely generated field $K \subset \CC$.
- Assume that the Mumford--Tate conjecture is true for $A_1$ and~$A_2$.
- Then the Mumford--Tate conjecture is true for $A_1 \times A_2$.
+ If the Mumford--Tate conjecture is true for $A_1$ and~$A_2$,
+ then it is true for $A_1 \times A_2$.
  \par}
+
+\medskip
+
+\nobreak
+\noindent
+In fact, in \cref{mtc-abelian-motives-tannakian-subcategory}
+we prove the more general statement that
+the full subcategory of abelian motives over~$K$
+consisting of motives for which the
+Mumford--Tate conjecture holds
+is a subcategory that is closed under
+direct sums, tensor products, duals, and taking direct summands.
 
 \begin{remark} % {{{-2
  Observe that the conclusion of the theorem
