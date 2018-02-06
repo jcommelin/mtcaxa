@@ -635,15 +635,16 @@ motivic Galois group of~$A$.
 (See also the strategy in \cref{strategy}.)
 
 \paragraph{} % {{{-2
-Let $Q$ be a field of characteristic~$0$.
-Let $T$ be a $Q$-linear symmetric monoidal category.
-Let $R$ be a $Q$-algebra.
-An \emph{$R$-valued fibre functor}
-is a $Q$-linear monoidal functor $T \to \Mod_R$
-that is faithful and exact and takes values in the subcategory
-$\Proj_R \subset \Mod_R$ of finitely generated projective $R$-modules.
+Let $Q$ be a field of characteristic~$0$, and
+let $T$ be a $Q$-linear symmetric monoidal category.
+Let $R$ be a $Q$-algebra, and
+denote with $\Proj_R$ the category of
+finitely generated projective $R$-modules.
+An \emph{$R$-valued fibre functor} of~$T$
+is a $Q$-linear monoidal functor $T \to \Proj_R$
+that is faithful and exact.
 We denote with $\Fib(T)_R$ be the groupoid of
-fibre functors $T \to \Mod_R$.
+fibre functors $T \to \Proj_R$.
 
 \paragraph{} % {{{-2
 Let $Q$ be a field of characteristic~$0$.
@@ -666,15 +667,15 @@ $\delta$ (unit) and $\ev$ (counit):
 \]
 Th\'eor\`eme~7.1 of~\cite{Deligne_CatTan}
 shows that the two conditions listed above are equivalent to the existence of
-a $Q$-algebra~$R$ and a fibre functor $T \to \Mod_R$.
+a $Q$-algebra~$R$ and a fibre functor $T \to \Proj_R$.
 
 \paragraph{} % {{{-2
 Let $T$ be a Tannakian category over a field~$Q$ of characteristic~$0$.
 For a $Q$-algebra~$R$, recall that $\Fib(T)_R$ is the groupoid of
-fibre functors $T \to \Mod_R$.
+fibre functors $T \to \Proj_R$.
 It turns out that $\Fib(T)$ is an algebraic stack over~$Q$.
 In fact, if $\alpha \colon Q \to R$ is a $Q$-algebra,
-and $\omega \colon T \to \Mod_R$ is a fibre functor,
+and $\omega \colon T \to \Proj_R$ is a fibre functor,
 then the stack $\alpha^*\Fib(T)$ is isomorphic to $\BB G = [\Spec(R)/G]$,
 where $G$ is the affine group scheme $\iAut^\otimes(\omega)$ over~$R$.
 This observation
@@ -871,7 +872,7 @@ $h \colon \tilde \DelS \to \GL(V)_\RR$.
  such that $h \colon \tilde\DelS \to \GL(V)_\RR$
  factors through $\GB(V)_\RR \subset \GL(V)_\RR$.
 
- Alternatively, let $\omega \colon \FpHS_R \to \Mod_R$
+ Alternatively, let $\omega \colon \FpHS_R \to \Proj_R$
  be the forgetful functor.
  Then $\omega$ is a fibre functor,
  and $\GB(V) = \iAut^\otimes(\omega|_{\Tangen{V}})$.
