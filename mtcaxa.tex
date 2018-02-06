@@ -1087,7 +1087,8 @@ It is not known whether $\GG(\Mot_{\bar K})$ is connected.
 Let $M$ be a motive over a field~$K$ of characteristic~$0$.
 By definition there is a smooth projective variety~$X$
 such that $M \in \Tangen{\HH(X)}$.
-By work of Serre~\cite{Serre_letter_to_Ribet}, there is a finite extension $L/K$
+By work of Serre~\cite{Serre_letter_to_Ribet}, %\cite{SerreIV}
+there is a finite extension $L/K$
 such that $\Gl(\Hl(X_L))$ is connected for all~$\ell$.
 Since $M \in \Tangen{\HH(X)}$,
 there is a quotient map $\Gl(\Hl(X_L)) \onto \Gl(M_L)$,
@@ -2143,7 +2144,7 @@ Let $M$ be an irreducible hyperadjoint abelian motive over~$\CC$.
 Let $E$ denote $\End(M)$,
 and let $\Delta^{\mu}$ be the Deligne--Dynkin diagram associated with~$M$.
 Recall that $E$ is a totally real field
-(see the discussion in~\S1.2.1 of~\cite{Del_ShimVar}),
+(see the discussion in~\S2.3.4(a) of~\cite{Del_ShimVar}),
 and note that $\Hom(E,\QQbar) \cong \pi_0(\Delta)$.
 We also recall that $\Delta^{\mu}$ is symplectic (\cref{deldyn-symplectic}).
 Let $S$ be the subset of symplectic nodes of~$\Delta^{\mu}$.
@@ -2152,10 +2153,8 @@ Write $G$ for the $\QQ$-simple adjoint group $\GB(M)$,
 and let $\tilde G$ be the simply-connected cover of~$G$.
 For $s \in S$, let $V(s)$ be the representation of~$\tilde G_\CC$
 whose highest weight corresponds to~$s$.
-The isomorphism class of $\bigoplus_{s \in S} V(s)$
-is defined over~$\QQ$,
-since $S$ is closed under the action of~$\Gal(\QQbar/\QQ)$.
-Therefore, there exists a representation~$V$ of~$\tilde G$ over~$\QQ$
+Since $S$ is closed under the action of~$\Gal(\QQbar/\QQ)$,
+there exists a representation~$V$ of~$\tilde G$ over~$\QQ$
 such that $V_\CC \cong \bigoplus_{s \in S} V(s)^{\oplus n}$
 for suitable~$n$.
 
@@ -2331,14 +2330,14 @@ write $E_i$ for $\End(M_i)$, and
 write $\Lambda_i$ for the set of finite places of~$E_i$.
 For a prime number~$\ell$, let $\Lambda_{i,\ell}$
 denote the set of places~$\lambda \in \Lambda_i$ that lie above~$\ell$.
-Since $\MTC(M_i)$ holds, we know that
+Since $\MTC(M_i)$ holds, we know that %TODO explain
 $\Glc(M_i) = \prod_{\lambda \in \Lambda_{i,\ell}}
 \Res_{E_{i,\lambda}/\QQl} \Glambdac(M_i)$.
 By assumption $\Gl(M_i) = \Glc(M_i)$,
 and hence $\Glambda(M_i) = \Glambdac(M_i)$.
 We also know that
 $\Glambda(M_i)$ is a simple adjoint group over~$E_{i,\lambda}$,
-once again, because $\MTC(M_i)$ holds.
+once again, because $\MTC(M_i)$ holds. %TODO explain
 Finally, observe that $\HH_{\Lambda_i}(M_i)$ is a
 quasi-compatible system of representations,
 by \cref{abelian-motive-quasi-compatible-realisations}.
@@ -2352,7 +2351,7 @@ such that the projection of $\Gl(M_1 \oplus M_2)$ in
 $\Res_{E_{1,\lambda_1}} \GG_{\lambda_1}(M_1) \times
 \Res_{E_{2,\lambda_2}} \GG_{\lambda_2}(M_2)$
 is the graph of an isomorphism of algebraic groups over~$\QQl$.
-Hence there is a $\QQl$-linear isomorphism
+Hence there is a $\QQl$-linear isomorphism %TODO explain
 $\psi \colon \HH_{\lambda_1}(M_1) \to \HH_{\lambda_2}(M_2)$
 of Galois representations of~$K$.
 
@@ -2396,7 +2395,7 @@ $\psi_\ell \in \Hom_f(\Delta_{1,\QQl},\Delta_{2,\QQl})$.
 By \cref{hodge-tate-cochar-deldyn} we have
 $\psi_\ell(\mu_1) = \mu_2$ for all~$\ell$.
 Thus we may apply \cref{deldyn-local-global}
-to obtain an isomorphism $\phi \in \Hom_f(\Delta_1^{\mu_1},\Delta_2^{\mu_2})$,
+to obtain an isomorphism $\phi \in \Isom_f(\Delta_1^{\mu_1},\Delta_2^{\mu_2})$,
 such that $\psi_\lambda = \phi_\lambda$ for some finite place~$\lambda$ of~$E$.
 
 Let $S_i$ be the subset of symplectic nodes of~$\Delta_i^{\mu_i}$.
@@ -2522,7 +2521,7 @@ This concludes the proof of \cref{mtc-product-abelian-motives}.
 
 \begin{lemma} % {{{-2
  \label{subgroup-surjective-projection-binary-products}
- Let $K$ be a field.
+ Let $K$ be a field of characteristic~$0$.
  For $i = 1, \dots, n$, let $G_i$ be a simple linear algebraic group over~$K$.
  Let $G$ be a subgroup of $G_1 \times \cdots \times G_n$,
  such that $G$ surjects onto $G_i$ for $1 \le i \le n$
@@ -2567,7 +2566,7 @@ This concludes the proof of \cref{mtc-product-abelian-motives}.
 	Fix a finitely generated field $K \subset \CC$.
 	Let $\mathcal{M}_K \subset \Mot_K$ be the full subcategory
 	of abelian motives for which the Mumford--Tate conjecture is true.
-	Then the category~$M_K$ is a Tannakian subcategory of $\Mot_K$.
+	Then the category~$\mathcal{M}_K$ is a Tannakian subcategory of $\Mot_K$.
 	\begin{proof}
 		The category~$\Mot_K$ is semisimple,
 		so subquotients are direct summands.
@@ -2590,10 +2589,22 @@ This concludes the proof of \cref{mtc-product-abelian-motives}.
 	\end{proof}
 \end{theorem}
 
+\begin{remark} % {{{-2
+ We give a short list of examples of varieties whose motives
+ are objects of the category~$\mathcal{M}_K$
+ of the preceding \namecref{mtc-abelian-motives-tannakian-subcategory}.
+ %TODO give references for each of the claims.
+ \begin{enumerate}
+  \item Elliptic curves, abelian surfaces, and abelian threefolds.
+  \item K3~surfaces.
+  \item Cubic fourfolds.
+ \end{enumerate}
+\end{remark}
+
 \begin{theorem} % {{{-2
  \label{mtcaxa}
  Let $K$ be a finitely generated subfield of~$\CC$.
- Let $A_i$, $i \in I$, be a finite collection of abelian varieries over~$K$,
+ Let $A_i$, $i \in I$, be a finite collection of abelian varieties over~$K$,
 	and write $A = \prod_{i \in I} A_i$.
  Assume that $\MTC(A_i)$ is true for all $i \in I$.
  Then $\MTC(A)$ is also true.
