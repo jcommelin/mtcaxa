@@ -1566,11 +1566,11 @@ obtained from~$\rho_\Lambda$ by restricting to $\QQ \subset E$;
 \section{Deligne--Dynkin diagrams} % {{{-1
 
 \readme % {{{-2
-This section is an attempt to axiomatise parts of~\cite{Del_ShimVar}
-(notably \S1.3 and~\S2.3)
-in order to streamline the discussion of Deligne's construction
+In order to streamline the discussion of Deligne's construction
 (\cref{delignes-construction}) and the proof of the main theorem
-in the final two sections.
+in the final two sections,
+this section attempts to axiomatise parts of~\cite{Del_ShimVar}
+(notably \S1.3 and~\S2.3)
 
 We introduce Deligne--Dynkin diagrams:
 they are Dynkin diagrams with extra structure
@@ -1579,16 +1579,200 @@ The main result of this section is \cref{deldyn-local-global},
 a local-global result for
 irreducible symplectic populated Deligne--Dynkin diagrams over~$\QQ$.
 
+\paragraph{} % {{{-2
+Let $\Delta$ be a connected Dynkin diagram, and
+let $\Delta^+$ be the extended (or affine)
+Dynkin diagram associated with~$\Delta$.
+Then $\Delta^+ = \Delta \sqcup \{\alpha_0\}$.
+Below we depict the connected extended Dynkin diagrams,
+in which $\alpha_0$ is depicted by a grey node
+\tikz \node[draw,circle,inner sep=2pt,fill=gray] {};.
+ \[
+ \begin{tikzpicture}[ % {{{-3
+  yscale=-1.3,
+  every node/.style={draw,circle,inner sep=2pt},
+  every label/.append style={rectangle,font=\footnotesize,
+   inner sep=1ex,text depth=1pt},
+  decoration={markings},
+  doubledynkin/.style={double distance=2pt,postaction=decorate},
+  a0/.style={fill=gray}
+  ]
+  \node[draw=none] (A1text) [label=right:{\normalsize$A_1^+$:}] at (-.5,-1) {};
+  \node[a0] (A10) at (1,-1) {};
+  \node (A11) at (2,-1) {};
+  \draw[double distance=2pt,
+  decoration={
+  mark=at position 0.95 with {\arrow{>}},
+  mark=at position 0.36 with {\arrow{<}}
+  },
+  postaction=decorate] (A10) -- (A11);
+
+  \begin{scope}[xshift=5cm,yshift=-1cm]
+   \node[draw=none] (Antext) [label=right:{\normalsize$A_n^+$ ($n \ge 2$):}] at (-1.5,0) {};
+   \node[a0] (An0) at (3,-0.7) {};
+   \node (An1) at (1,0) {};
+   \node (An2) at (2,0) {};
+   \node (Annm1) at (4,0) {};
+   \node (Ann) at (5,0) {};
+   \draw (Annm1) -- (Ann) -- (An0) -- (An1) -- (An2);
+   \draw[dashed] (An2) -- (Annm1);
+  \end{scope}
+ \end{tikzpicture}
+\]
+\[
+ \begin{tikzpicture}[
+  yscale=-1.3,
+  every node/.style={draw,circle,inner sep=2pt},
+  every label/.append style={rectangle,font=\footnotesize,
+   inner sep=1ex,text depth=1pt},
+  decoration={markings},
+  doubledynkin/.style={double distance=2pt,postaction=decorate},
+  a0/.style={fill=gray}
+  ]
+  \begin{scope}[yshift=.33cm]
+   \node[draw=none] (Btext) [label=right:{\normalsize$B_n^+$:}] at (-.5,0) {};
+   \node[a0] (B0) at (1,-.5) {};
+   \node (B1) at (1,.5) {};
+   \node (B2) at (2,0) {};
+   \node (Bnm1) at (4,0) {};
+   \node (Bn) at (5,0) {};
+   \draw (B0) -- (B2) -- (B1);
+   \draw[dashed] (B2) -- (Bnm1);
+   \draw[doubledynkin,decoration={mark=at position 0.7 with {\arrow{>}}}] (Bnm1) -- (Bn);
+  \end{scope}
+
+  \begin{scope}[xshift=6.5cm,yshift=-1.66cm]
+   \node[draw=none] (Ctext) [label=right:{\normalsize$C_n^+$:}] at (-.5,2) {};
+   \node[a0] (C0) at (1,2) {};
+   \node (C1) at (2,2) {};
+   \node (Cnm1) at (4,2) {};
+   \node (Cn) at (5,2) {};
+   \draw[doubledynkin,decoration={mark=at position 0.7 with {\arrow{>}}}] (C0) -- (C1);
+   \draw[dashed] (C1) -- (Cnm1);
+   \draw[doubledynkin,decoration={mark=at position 0.7 with {\arrow{>}}}] (Cn) -- (Cnm1);
+  \end{scope}
+ \end{tikzpicture}
+\]
+\[
+ \begin{tikzpicture}[
+  yscale=-1.3,
+  every node/.style={draw,circle,inner sep=2pt},
+  every label/.append style={rectangle,font=\footnotesize,
+   inner sep=1ex,text depth=1pt},
+  decoration={markings},
+  doubledynkin/.style={double distance=2pt,postaction=decorate},
+  a0/.style={fill=gray}
+  ]
+
+  \begin{scope}[yshift=-1cm]
+   \node[draw=none] (Dtext) [label=right:{\normalsize$D_n^+$:}] at (-.5,3) {};
+   \node[a0] (D0) at (1,2.5) {};
+   \node (D1) at (1,3.5) {};
+   \node (D2) at (2,3) {};
+   \node (Dnm2) at (4,3) {};
+   \node (Dnm1) at (5,2.5) {};
+   \node (Dn) at (5,3.5) {};
+   \draw (D0) -- (D2) -- (D1);
+   \draw[dashed] (D2) -- (Dnm2);
+   \draw (Dnm1) -- (Dnm2) -- (Dn);
+  \end{scope}
+
+  \begin{scope}[xshift=6.5cm,yshift=-3.33cm]
+   \node[draw=none] (E6text) [label=right:{\normalsize$E_6^+$:}] at (-.5,6) {};
+   \node[a0] (E60) at (3,4.6) {};
+   \node (E61) at (1,6) {};
+   \node (E62) at (2,6) {};
+   \node (E63) at (3,6) {};
+   \node (E64) at (3,5.3) {};
+   \node (E65) at (4,6) {};
+   \node (E66) at (5,6) {};
+   \draw (E61) -- (E62) -- (E63) -- (E64) -- (E60);
+   \draw (E63) -- (E65) -- (E66);
+  \end{scope}
+ \end{tikzpicture}
+\]
+\[
+ \begin{tikzpicture}[
+  yscale=-1.3,
+  every node/.style={draw,circle,inner sep=2pt},
+  every label/.append style={rectangle,font=\footnotesize,
+   inner sep=1ex,text depth=1pt},
+  decoration={markings},
+  doubledynkin/.style={double distance=2pt,postaction=decorate},
+  a0/.style={fill=gray}
+  ]
+
+
+  \begin{scope}[xshift=7.5cm,yshift=-2.66cm]
+   \node[draw=none] (E7text) [label=right:{\normalsize$E_7^+$:}] at (-1.5,7) {};
+   \node[a0] (E70) at (0,7) {};
+   \node (E71) at (1,7) {};
+   \node (E72) at (2,7) {};
+   \node (E73) at (3,7) {};
+   \node (E74) at (3,6.3) {};
+   \node (E75) at (4,7) {};
+   \node (E76) at (5,7) {};
+   \node (E77) at (6,7) {};
+   \draw (E70) -- (E71) -- (E72) -- (E73) -- (E74);
+   \draw (E73) -- (E75) -- (E76) -- (E77);
+  \end{scope}
+
+  \begin{scope}[xshift=6.5cm,yshift=-1cm]
+   \node[draw=none] (E8text) [label=right:{\normalsize$E_8^+$:}] at (-1.5,7) {};
+   \node[a0] (E80) at (0,7) {};
+   \node (E81) at (1,7) {};
+   \node (E82) at (2,7) {};
+   \node (E83) at (3,7) {};
+   \node (E84) at (4,7) {};
+   \node (E85) at (5,7) {};
+   \node (E86) at (5,6.3) {};
+   \node (E87) at (6,7) {};
+   \node (E88) at (7,7) {};
+   \draw (E80) -- (E81) -- (E82) -- (E83) -- (E84) -- (E85) -- (E86);
+   \draw (E85) -- (E87) -- (E88);
+  \end{scope}
+
+  \begin{scope}[xshift=1cm,yshift=-3.33cm]
+   \node[draw=none] (F4text) [label=right:{\normalsize$F_4^+$:}] at (-1.5,7) {};
+   \node[a0] (F40) at (0,7) {};
+   \node (F41) at (1,7) {};
+   \node (F42) at (2,7) {};
+   \node (F43) at (3,7) {};
+   \node (F44) at (4,7) {};
+   \draw (F40) -- (F41) -- (F42);
+   \draw[doubledynkin,decoration={mark=at position 0.7 with {\arrow{>}}}] (F42) -- (F43);
+   \draw (F43) -- (F44);
+  \end{scope}
+
+  \begin{scope}[xshift=1cm,yshift=-2cm]
+   \node[draw=none] (F4text) [label=right:{\normalsize$G_2^+$:}] at (-1.5,7) {};
+   \node[a0] (G20) at (0,7) {};
+   \node (G21) at (1,7) {};
+   \node (G22) at (2,7) {};
+   \draw[doubledynkin,decoration={mark=at position 0.7 with {\arrow{>}}}] (G21) -- (G22);
+   \draw (G20) -- (G21) -- (G22);
+  \end{scope}
+ \end{tikzpicture} % -}}}3
+\]
+
 \begin{definition} % {{{-2
  \label{special-node}
  Let $\Delta$ be a connected Dynkin diagram, and
- let $\Delta^+$ be the extended Dynkin diagram associated with~$\Delta$.
- Then $\Delta^+ = \Delta \sqcup \{\alpha_0\}$.
+ let $\Delta^+ = \Delta \sqcup \{\alpha_0\}$ be the extended (or affine)
+ Dynkin diagram associated with~$\Delta$.
  A node of $\Delta$ is \emph{special}
  if it is in the $\Aut(\Delta^+)$-orbit of~$\alpha_0$.
  See~\cref{table-deligne-dynkin-diagrams}
  for diagrams that depict which nodes are special.
 \end{definition}
+
+\begin{example} % {{{-2
+ If $\Delta$ is a connected Dynkin diagram of type~$A_n$,
+ then all nodes of~$\Delta$ are special.
+ If $\Delta$ is of type~$D_n$, then all extremal nodes are special.
+ If~$\Delta$ is of type~$E_8$,~$F_4$, or~$G_2$,
+ then $\Delta$ has no special nodes.
+\end{example}
 
 \begin{definition} % {{{-2
  \label{deligne-dynkin-diagram}
@@ -1596,7 +1780,8 @@ irreducible symplectic populated Deligne--Dynkin diagrams over~$\QQ$.
  A \emph{Deligne--Dynkin diagram} over~$Q$
  is a pair $\Delta^\mu = (\Delta, \mu)$, where
  $\Delta$ is a Dynkin diagram equipped with an action of~$\Gal(\bar Q/Q)$,
- and $\mu$ is a subset of the special nodes the connected components of~$\Delta$
+ and $\mu$ is a subset of the special nodes
+ of the connected components of~$\Delta$
  that meets each connected component in at most $1$~node.
  (Note: $\mu$ is not required to be $\Gal(\bar Q/Q)$-stable.)
  The Deligne--Dynkin diagram $\Delta^\mu$ is called \emph{irreducible}
@@ -1609,7 +1794,7 @@ irreducible symplectic populated Deligne--Dynkin diagrams over~$\QQ$.
  There is a risk of confusing terminology:
  a \emph{connected component} of~$\Delta$ (or~$\Delta^\mu$)
  will always mean a connected component of the Dynkin diagram~$\Delta$
- (disregarding the $\Gal(\bar Q/Q)$-action);
+ disregarding the $\Gal(\bar Q/Q)$-action;
  whereas an \emph{irreducible component} $\Delta_1^{\mu_1} \subset \Delta^\mu$
  is an irreducible $\Gal(\bar Q/Q)$-subset $\Delta_1$
  of connected components of~$\Delta$ and $\mu_1 = \Delta_1 \cap \mu$.
@@ -1620,21 +1805,23 @@ irreducible symplectic populated Deligne--Dynkin diagrams over~$\QQ$.
 The reason we study Deligne--Dynkin diagrams
 is that we may naturally attach such a diagram to
 any hyperadjoint abelian motive~$M$ over a field $K \subset \CC$.
-Let $\Delta$ be the Dynkin diagram
-of the adjoint linear algebraic group~$\GB(M)$ over~$\QQ$.
+Recall that the linear algebraic group~$\GB(M)$ over~$\QQ$ is an adjoint group.
+Let $\Delta$ be the Dynkin diagram of~$\GB(M)$.
 Note that $\Delta$ is naturally equipped with an action of $\Gal(\QQbar/\QQ)$.
 Let $\mu \colon \Gm \to \GB(M)_\CC$ be the Hodge cocharacter
 (see~\cref{hodge-cocharacter}).
-By \S1.2.5 of~\cite{Del_ShimVar} this cocharacter may be identified
-with a (non-empty) subset of special nodes $\mu \subset \Delta$.
-In particular $\Delta^{\mu}$ is a populated Deligne--Dynkin diagram over~$\QQ$,
-and we call it the \emph{Deligne--Dynkin diagram associated with $M$}.
+This cocharacter may be identified with a subset of nodes $\mu \subset \Delta$.
+(If $M$ is non-trivial, then $\mu$ is non-empty.)
+By \S1.2.5 of~\cite{Del_ShimVar} the nodes in~$\mu$ are special,
+and hence $\Delta^\mu$ is a populated Deligne--Dynkin diagram over~$\QQ$
+that we call the \emph{Deligne--Dynkin diagram associated with $M$}.
 % By \cref{deldyn-symplectic} below, $\Delta^\mu$ is also symplectic.
 
 \paragraph{} % {{{-2
 \label{table-deligne-dynkin-diagrams}
 Table~1.3.9 of~\cite{Del_ShimVar}:
-the irreducible populated Deligne--Dynkin diagrams over~$Q = \bar Q$.
+the irreducible populated Deligne--Dynkin diagrams over
+an algebraically closed field~$Q = \bar Q$.
 
 \nobreak
 \noindent
@@ -1680,16 +1867,16 @@ the irreducible populated Deligne--Dynkin diagrams over~$Q = \bar Q$.
   \draw (DRlm1) -- (DRlm2) -- (DRl);
 
   \begin{scope}[yshift=0.5cm]
-   \node[draw=none] (DRtext) [label=right:{\normalsize$D_{k+2}^{\HQ}$:}] at (-1.25,4) {};
-   \node[symplectic] (DR1) [label={$1/2$}] at (1,4) {};
-   \node (DRlm2) [label={$k/2$}] at (4,4) {};
-   \node[special] (DRlm1) [label=right:{$k/4$}] at (5,3.5) {};
-   \node (DRl) [label=right:{$k/4+1/2$}] at (5,4.5) {};
-   \draw[dashed] (DR1) -- (DRlm2);
-   \draw (DRlm1) -- (DRlm2) -- (DRl);
+   \node[draw=none] (DHtext) [label=right:{\normalsize$D_{k+2}^{\HQ}$:}] at (-1.25,4) {};
+   \node[symplectic] (DH1) [label={$1/2$}] at (1,4) {};
+   \node (DHlm2) [label={$k/2$}] at (4,4) {};
+   \node[special] (DHlm1) [label=right:{$k/4$}] at (5,3.5) {};
+   \node (DHl) [label=right:{$k/4+1/2$}] at (5,4.5) {};
+   \draw[dashed] (DH1) -- (DHlm2);
+   \draw (DHlm1) -- (DHlm2) -- (DHl);
   \end{scope}
 
-  \node[draw=none] (DRtext) [label=right:{\normalsize$E_6$:}] at (-1.25,6) {};
+  \node[draw=none] (E6text) [label=right:{\normalsize$E_6$:}] at (-1.25,6) {};
   \node (E61) [label={$2/3$}] at (1,6) {};
   \node (E62) [label={$4/3$}] at (2,6) {};
   \node (E63) [label={\hbox{\hss\quad$2$}}] at (3,6) {};
@@ -1700,7 +1887,7 @@ the irreducible populated Deligne--Dynkin diagrams over~$Q = \bar Q$.
   \draw (E63) -- (E65) -- (E66);
 
   \begin{scope}[yshift=0.5cm]
-   \node[draw=none] (DRtext) [label=right:{\normalsize$E_7$:}] at (-1.25,7) {};
+   \node[draw=none] (E7text) [label=right:{\normalsize$E_7$:}] at (-1.25,7) {};
    \node (E71) [label={$1$}] at (1,7) {};
    \node (E72) [label={$2$}] at (2,7) {};
    \node (E73) [label={\hbox{\hss\quad$3$}}] at (3,7) {};
@@ -1735,8 +1922,8 @@ Legend (and comparison with \cite{Del_ShimVar}):
   (underlined nodes in \cite{Del_ShimVar}).
 \end{itemize}
 
-The number next to a node $\omega$ is $\langle \mu,\omega \rangle$,
-where $\mu$ is the cocharacter corresponding to the special node,
+The number next to a node $\omega$ is $\langle \alpha,\omega \rangle$,
+where $\alpha$ is the cocharacter corresponding to the special node,
 and $\omega$ is identified with the appropriate character.
 
 In diagram~$A_{p+q-1}$ it is the $p$-th node that is special.
@@ -1759,20 +1946,19 @@ let $w_0$ be the longest element of the Weyl group (with respect to~$\Delta$).
 Then $w_0(\Delta) = -\Delta$
 and $-w_0$ defines an element~$\tau$ of $\Aut(\Delta)$:
 the \emph{opposition involution}.
-This involution is non-trivial if and only if
+This involution depends only on the type of~$\Delta$.
+It is non-trivial if and only if
 $\Delta$ has type $A_k$ with $k \ne 1$, $D_k$ with $k$~odd, or $E_6$.
 
 For Dynkin diagrams with multiple connected components
-the opposition involution is defined as the disjoint union
-of the componentwise opposition involutions.
+the opposition involution is defined componentwise.
 
 \begin{definition} % {{{-2
  \label{symplectic-node}
 	Let $\Delta$ be a connected Dynkin diagram with opposition involution~$\tau$,
- and let $\mu \in \Delta$ be a special node.
- A node $\omega \in \Delta$ is called a \emph{symplectic} node
- (with respect to~$\mu$)
- if $\langle \mu, \omega + \tau(\omega) \rangle = 1$.
+ and let $\alpha \in \Delta$ be a special node.
+ A node $\omega \in \Delta$ is called \emph{$\alpha$-symplectic}
+ if $\langle \alpha, \omega + \tau(\omega) \rangle = 1$.
 \end{definition}
 
 \paragraph{} % {{{-2
@@ -1781,28 +1967,28 @@ in terms of Deligne's construction
 (\cref{delignes-construction}, see also \S1.3 and~\S2.3 of~\cite{Del_ShimVar}):
 the symplectic nodes correspond precisely to
 the highest weights of symplectic representations~$V$
-such that $\mu$ defines a $\{-1,0,1\}$-grading on~$V$.
+such that $\alpha$ defines a $\{-1,0,1\}$-grading on~$V$.
 
 \begin{definition} % {{{-2
  \label{symplectic-nodes-deligne-dynkin-diagram}
- Let $\Delta^{\mu}$ be a Deligne--Dynkin diagram over a field~$Q$.
- The \emph{subset of symplectic nodes} attached to $\Delta^{\mu}$
+ Let $\Delta^\mu$ be a Deligne--Dynkin diagram over a field~$Q$.
+ The \emph{subset of $\mu$-symplectic nodes} attached to $\Delta^\mu$
  is the maximal subset $S \subset \Delta$ defined by the following conditions:
  \begin{enumerate}
   \item For every special node $\alpha \in \mu \subset \Delta$,
    let $\Delta_\alpha$ denote the connected component of~$\Delta$
    that contains~$\alpha$.
    Then $S \cap \Delta_\alpha$ consists only of
-   symplectic nodes of~$\Delta_\alpha$ with respect to~$\alpha$.
+   $\alpha$-symplectic nodes of~$\Delta_\alpha$.
    (See also \cref{table-deligne-dynkin-diagrams}.)
   \item The set $S$ is stable under the action of $\Gal(\bar Q/Q)$.
  \end{enumerate}
 \end{definition}
 
 \begin{definition} % {{{-2
- A Deligne--Dynkin diagram $\Delta^{\mu}$ over~$Q$ is \emph{symplectic}
- if for every irreducible component of $\Delta^{\mu}$
- its subset of symplectic nodes is non-empty.
+ A Deligne--Dynkin diagram $\Delta^\mu$ over~$Q$ is \emph{symplectic}
+ if its subset of $\mu$-symplectic nodes has non-empty intersection
+ with every irreducible component of $\Delta^\mu$.
 \end{definition}
 
 \begin{theorem} % {{{-2
@@ -1832,7 +2018,7 @@ $A_n$,~$B_n$, $C_n$, or~$D_n$.
 Conversely, if the connected components of~$\Delta$
 are of type $A_n$ (resp.~$B_n$, or~$C_n$),
 then $\Delta^{\mu}$ is symplectic.
-In this case we say that the \emph{type} of~$\Delta$
+In this case we say that the \emph{type} of~$\Delta^\mu$
 is $A_n$ (resp.~$B_n$ or~$C_n$).
 The case where the connected components of~$\Delta$
 are of type~$D_n$ requires more attention.
@@ -1844,7 +2030,7 @@ let $\Delta_\alpha$ be the connected component of~$\Delta$
 that contains~$\alpha$.
 The pair $(\Delta_\alpha, \alpha)$ is of type~$D_n^\RR$ or~$D_n^\HQ$
 according to the diagrams listed in \cref{table-deligne-dynkin-diagrams}.
-One readily verifies that $\Delta^{\mu}$ is symplectic if and only if
+One readily verifies that $\Delta^\mu$ is symplectic if and only if
 one of the following conditions holds:
 \begin{itemize}
  \item for every special node~$\alpha$, the pair $(\Delta_\alpha, \alpha)$
@@ -1858,7 +2044,7 @@ if the former (resp.~the latter) condition holds.
 Now assume that the connected components of~$\Delta$ are of type~$D_4$.
 Let $V$ be the subset of extremal nodes of~$\Delta$,
 let $\bar\mu$ be the $\Gal(\bar Q/Q)$-closure of~$\mu$,
-and let $S$ be the subset of symplectic nodes of $\Delta^{\mu}$.
+and let $S$ be the subset of $\mu$-symplectic nodes of $\Delta^\mu$.
 Observe that $S \subset V$,
 and $S$ meets every compontent of~$\Delta$ in $0$,~$1$, or~$2$ nodes.
 (In other words, the degree of~$S$ over $\pi_0(\Delta)$ is at most~$2$.)
