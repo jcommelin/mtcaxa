@@ -2504,22 +2504,31 @@ that is called the \emph{Hodge--Tate} cocharacter.
   that maps a motive to the associated graded
   of its algebraic de~Rham realisation.
   If $\GdR(M)/K$ denotes the algebraic group $\Aut^\otimes(\HdR)$
-  that corresponds to~$\Tangen{M}$,
+  that corresponds to~$\Tangen{M}$ via the fibre functor~$\HdR$,
   then $\gr\HdR$ corresponds to a cocharacter $\mu_\dR \in X_*(\GdR(M))$.
 
-  The comparison theorem between the algebraic de~Rham realisation
-  and the Betti realisation
-  gives a natural transformation $\gr\HdR \otimes \CC \to \HB \otimes \CC$.
-  This yields an isomorphism $\GdR(M) \otimes_K \CC \to \GB(M) \otimes_\QQ \CC$
-  that maps $\mu_\dR$ to~$\mu$.
+  Recall that $\GG(M)/\QQ$ is the algebraic group $\Aut^\otimes(\HB)$
+  that corresponds to~$\Tangen{M}$ via the fibre functor~$\HB$.
+  The groups $\GdR(M)$ and $\GG(M) \otimes_\QQ K$ are inner forms of each other.
+  In \cref{GB-id-comp} we explained that,
+  the Mumford--Tate group $\GB(M)$ is the identity component of~$\GG(M)$
+  since $M$ is an abelian motive.
+
+  The comparison theorem between
+  the Betti realisation
+  and
+  the algebraic de~Rham realisation
+  gives a natural transformation $\HB \otimes \CC \to \gr\HdR \otimes \CC$.
+  This yields an injection $\GB(M) \otimes_\QQ \CC \into \GdR(M) \otimes_K \CC$
+  that maps $\mu$ to~$\mu_\dR$.
 
   On the other hand, $p$-adic Hodge theory compares
-  the algebraic de~Rham realisation with the $p$-adic \'etale realisation,
+  the $p$-adic \'etale realisation with the algebraic de~Rham realisation,
   and gives a natural transformation
-  $\gr\HdR \otimes \BHT{v} \to \Hp \otimes \BHT{v}$.
-  This yields an isomorphism
-  $\GdR(M) \otimes_K \CC \to \GB(M) \otimes_\QQ \BHT{v}$
-  that maps $\mu_\dR$ to~$\mu_\HT$.
+  $\Hp \otimes \BHT{v} \to \gr\HdR \otimes \BHT{v}$.
+  This yields an inclusion
+  $\GB(M) \otimes_\QQ \BHT{v} \into \GdR(M) \otimes_K \CC$
+  that maps $\mu_\HT$ to~$\mu_\dR$.
   This finishes the proof.
  \end{proof}
 \end{lemma}
@@ -3016,5 +3025,6 @@ This concludes the proof of \cref{mtc-product-abelian-motives}.
 
 % {{{-1 Footer
 \printbibliography
+%TODO Ser13 should by Ser81 or something like that
 
 \end{document}
