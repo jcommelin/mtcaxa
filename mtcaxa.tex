@@ -2183,12 +2183,17 @@ a $\Gal(\bar Q/Q)$-closed subset $U(\Delta^\mu)$ of~$\Delta$
 with $\deg_{\pi_0(\Delta)}(U(\Delta^\mu)) \in \{1,2\}$.
 Indeed, let $S$ be the subset of $\mu$-symplectic nodes of~$\Delta^\mu$.
 \begin{itemize}
- \item If $\Delta^\mu$ is of type~$A_n$, we take~$U(\Delta^\mu) = S$.
- \item If $\Delta^\mu$ is of type~$B_n$, we take $U(\Delta^\mu) = S$.
- \item If $\Delta^\mu$ is of type~$C_n$, we take $U(\Delta^\mu) = \bar\mu$.
- \item If $\Delta^\mu$ is of type~$D_n^\RR$, we take $U(\Delta^\mu) = S$.
- \item If $\Delta^\mu$ is of type~$D_n^\HQ$,
-  we take $U(\Delta^\mu) = \bar\mu$.
+ \item If $\Delta^\mu$ has type~$A_n$, we take~$U(\Delta^\mu) = S$,
+  which has degree~$1$ if $n = 1$ and degree~$2$ otherwise.
+ \item If $\Delta^\mu$ has type~$B_n$, we take $U(\Delta^\mu) = S$,
+  which has degree~$1$.
+ \item If $\Delta^\mu$ has type~$C_n$, we take $U(\Delta^\mu) = \bar\mu$,
+  which has degree~$1$.
+ \item If $\Delta^\mu$ has type~$D_n^\RR$, we take $U(\Delta^\mu) = S$,
+  which has degree~$2$.
+ \item If $\Delta^\mu$ has type~$D_n^\HQ$,
+  we take $U(\Delta^\mu) = \bar\mu$,
+  which has degree~$1$ or~$2$.
 \end{itemize}
 
 \paragraph{} % {{{-2
@@ -2206,7 +2211,8 @@ We restrict the Galois action to $\Gal(\QQlbar/\QQl)$,
 for some prime number~$\ell$.
 The irreducible components of~$(\Delta_1^{\mu_1})_{\QQl}$
 are in a natural way indexed by the places~$\lambda$ of~$E$
-that lie above~$\ell$.
+that lie above~$\ell$, so that
+$(\Delta_1^{\mu_1})_{\QQl} = \sqcup_{\lambda|\ell} (\Delta_1^{\mu_1})_\lambda$.
 In a similar manner, the maps~$f_\ell$ and~$\phi_\ell$
 are the disjoint union of local components~$f_\lambda$ and~$\phi_\lambda$.
 We will use this notation below.
@@ -2240,100 +2246,132 @@ We will use this notation below.
   Note that $\phi$ maps $\mu_1$ to~$\mu_2$,
   because it does so locally.
 
-  The other types require a bit more bookkeeping.
+  The other types require more bookkeeping,
+  although the strategy remains the same.
   We begin by proving that
   there is an element $\phi \in \Isom_f(\Delta_1,\Delta_2)$,
   that may or may not map $\mu_1$ to~$\mu_2$.
-  By \cref{deg2-set} it suffices to show that
-  there is a $\Gal(\QQbar/\QQ)$-equivariant isomorphism
-  $U(\Delta_1^{\mu_1}) \to U(\Delta_2^{\mu_2})$ lying above~$f$.
+  By \cref{deg2-set}, a $\Gal(\QQbar/\QQ)$-equivariant isomorphism
+  $U(\Delta_1^{\mu_1}) \to U(\Delta_2^{\mu_2})$ lying above~$f$
+  will extend to a $\Gal(\QQbar/\QQ)$-equivariant isomorphism
+  $\Delta_1 \to \Delta_2$.
   Since the degree of~$U(\Delta_i^{\mu_i})$ over~$\pi_0(\Delta_i)$
   is at most~$2$,
-  the existence of such a global isomorphism
+  the existence of global isomorphism
+  $U(\Delta_1^{\mu_1}) \to U(\Delta_2^{\mu_2})$
   will follow from Chebotarev's density theorem
   if we prove that these sets are locally isomorphic.
-  Once again, if $\Delta_1^{\mu_1}$ and~$\Delta_2^{\mu_2}$
-  are of type~$A_n$, or~$D_n^\RR$ ($n \ge 5$),
-  then the topology of the diagrams
-  forces that $\psi_\ell(U(\Delta_1^{\mu_1})) = U(\Delta_2^{\mu_2})$
-  for all prime numbers~$\ell$.
-  %TODO
-
-  If the type is not~$D_4^\HQ$,
-  such local isomorphisms are obtained
-  by restricting the~$\psi_\ell$ to~$U(\Delta_1^{\mu_1})$.
-  If the type is~$D_4^\HQ$,
-  all $\psi_\ell$ will map $\mu_1$ to~$\mu_2$,
-  but they need not all map $\Gal(\QQbar/\QQ)\cdot\mu_1$
-  to~$\Gal(\QQbar/\QQ)\cdot\mu_2$.
-  Suppose that $\psi_\lambda$ is a component of some~$\psi_\ell$
-  that does not map $(\Gal(\QQbar/\QQ)\cdot\mu_1) \cap \Delta_{1,\lambda}$
-  to $(\Gal(\QQbar/\QQ)\cdot\mu_2) \cap \Delta_{2,\lambda}$.
-  In that case the vertices of $\Delta_{i,\lambda}$
-  form $4$~orbits under $\Gal(\QQlbar/\QQl)$
-  and in particular there is an element in
-  $\Isom_{f_\lambda}(U(\Delta_1^{\mu_1})_{\lambda},
-  U(\Delta_2^{\mu_2})_{\lambda})$.
-  This proves the claim that
-  $\Isom_f(U(\Delta_1^{\mu_1}),U(\Delta_2^{\mu_2}))$ is non-empty.
-  As a consequence there is an element
-  $\phi \in \Isom_f(\Delta_1, \Delta_2)$ (see~\cref{deg2-set}).
-
+  \begin{itemize}
+   \item If $\Delta_1^{\mu_1}$ and~$\Delta_2^{\mu_2}$ have type~$A_n$,
+    or~$D_n^\RR$ with $n \ge 5$,
+    then the topology of the diagrams
+    forces that $\psi_\ell(U(\Delta_1^{\mu_1}))$ equals $U(\Delta_2^{\mu_2})$
+    for all prime numbers~$\ell$.
+   \item Now assume that $\Delta_1^{\mu_1}$ and~$\Delta_2^{\mu_2}$
+    have type~$D_4^\RR$ or~$D_4^\HQ$.
+    Let $\lambda$ be a finite place of~$E$.
+    There are two possibilities:
+    either the extremal nodes of
+    $(\Delta_1^{\mu_1})_\lambda$ and $(\Delta_2^{\mu_2})_\lambda$
+    form $2$ orbits under the action of $\Gal(\QQlbar/\QQl)$,
+    or the extremal nodes form $3$ orbits.
+    For both possibilities it is clear that
+    $U(\Delta_1^{\mu_1})_\lambda$
+    is isomorphic to
+    $U(\Delta_2^{\mu_2})_\lambda$.
+   \item Finally, assume that $\Delta_1^{\mu_1}$ and~$\Delta_2^{\mu_2}$
+    have type $D_n^\HQ$ with $n \ge 5$.
+    Recall that $U(\Delta_i^{\mu_i}) = \bar\mu_i$ has degree~$1$ or~$2$.
+    If these degrees are equal, then we are done.
+    Now suppose that the degree of $\bar\mu_1$ is~$2$.
+    Let $\{\alpha,\beta\} \subset \bar\mu_1$
+    be two nodes that lie in the same connected component of~$\Delta_1$.
+    Without loss of generality we may and do assume $\alpha \in \mu_1$.
+    By Chebotarev's density theorem,
+    there exists a prime number~$\ell$ and $g \in \Gal(\QQlbar/\QQl)$
+    such that $g\alpha = \beta$.
+    By assumption, we have $\psi_\ell(\alpha) \in \mu_2$
+    and $\psi_\ell(\beta) = g\psi_\ell(\alpha) \in \bar\mu_2$.
+    We conclude that $\bar\mu_1$ and~$\bar\mu_2$ have the same degree.
+  \end{itemize}
+  We have now proven that there exists a $\Gal(\QQbar/\QQ)$-equivariant
+  isomorphism $\phi \colon \Delta_1 \to \Delta_2$ lying over~$f$.
   It remains to prove that we can choose~$\phi$
   in such a way that it maps $\mu_1$ to~$\mu_2$.
-  If $\Delta_1^{\mu_1}$ and $\Delta_2^{\mu_2}$
-  are of type $A_1$,~$B_n$, $C_n$, or~$D_n^\RR$ ($n \ge 5$),
-  then the topology of the diagram forces $\phi(\mu_1) = \mu_2$,
-  hence there is nothing left to do.
-  Now suppose that the type is $A_n$, with $n \ge 2$.
-  If $\mu_1$ (and therefore $\mu_2$) is fixed
-  under the opposition involution,
-  then there is again nothing to do.
-  If the type is $D_4^\RR$,
-  recall that $U(\Delta_i^{\mu_i}) = S_i$,
-  so we can choose $\phi$ such that $\phi(S_1) = S_2$.
-  This means that $\phi(\bar\mu_1) = \bar\mu_2$,
-  and we conclude that $\phi(\mu_1) = \mu_2$.
 
-  Finally, suppose that the type is $D_n^\HQ$,
+  At the beginning of this proof, we already dealt with the cases where
+  $\Delta_1^{\mu_1}$ and $\Delta_2^{\mu_2}$ have type~$B_n$ or~$C_n$.
+  We continue with some other easy cases.
+  \begin{itemize}
+   \item If $\Delta_1^{\mu_1}$ and $\Delta_2^{\mu_2}$
+    are of type $A_1$, or~$D_n^\RR$ with $n \ge 5$,
+    then the topology of the diagrams force $\phi(\mu_1) = \mu_2$,
+    hence there is nothing left to do.
+   \item If the type is $D_4^\RR$,
+    recall that $\bar\mu_i$ has degree~$1$ over~$\pi_0(\Delta_i)$.
+    Hence it is clear that we can choose~$\phi$
+    such that $\phi(\mu_1) = \mu_2$.
+   \item Now suppose that the type is $A_n$ with $n \ge 2$,
+    and assume that $\mu_1$ (and therefore $\mu_2$) is fixed
+    under the opposition involution.
+    Once again, the topology of the diagrams force $\phi(\mu_1) = \mu_2$.
+  \end{itemize}
+  The remaining cases require a bit more work:
+  so far we have not needed to change our choice of~$\phi$,
+  but with the remaining cases this might be necessary.
+
+  We save the case~$D_4^\HQ$ for the \emph{coup de gr\^ace} of this proof.
+  Suppose that the type is $D_n^\HQ$ with $n \ge 5$,
   or the type is $A_n$ and $\mu_i$ is not fixed by the opposition involution.
-  Let $S_i$ be the subset of symplectic nodes of~$\Delta_i^{\mu_i}$,
-  and observe that $\phi(S_1) = S_2$.
-  There is a unique non-trivial involution~$\tau_i \in \Aut_\id(\Delta_i)$
-  such that $\tau_i(S_i) = S_i$.
-  Now remark that $\phi \circ \tau_1 = \tau_2 \circ \phi$.
+  There is a unique non-trivial $\Gal(\QQbar/\QQ)$-equivariant
+  involution~$\tau_i \in \Aut_\id(\Delta_i)$.
+  Observe that $\phi \circ \tau_1 = \tau_2 \circ \phi$.
   Let $\alpha \in \mu_1$ be a special node that is not fixed under~$\tau_1$.
   We may assume that $\phi(\alpha) \in \mu_2$,
   by replacing $\phi$ with $\phi \circ \tau_1$ if necessary.
-  
+
   We claim that $\phi(\mu_1) = \mu_2$.
   Indeed, suppose that $\alpha' \in \mu_1$ is a special node, and
   let $\Delta_{\alpha'}$ be the component of~$\Delta_1$ containing~$\alpha'$.
-  There exists a $g \in \Gal(\QQbar/\QQ)$ such that
-  \[
-   \begin{cases}
-    g\alpha = \alpha' &\text{if the type is~$D_4^\HQ$}\\
-    g\alpha \in \Delta_{\alpha'} &\text{otherwise.}
-   \end{cases}
-  \]
+  There exists a $g \in \Gal(\QQbar/\QQ)$
+  such that $g\alpha \in \Delta_{\alpha'}$.
   By Chebotarev's density theorem,
   we may assume that $g \in \Gal(\QQlbar/\QQl)$
   for some prime number~$\ell$.
-
-  If the type is $D_4^\HQ$, then
-  \[
-   \phi(\alpha') = \phi(g\alpha) = g\phi(\alpha) = g\psi_\ell(\alpha)
-   = \psi_\ell(g\alpha) = \psi_\ell(\alpha') \in \mu_2.
-  \]
-  Finally, if the type is not~$D_4^\HQ$, then we argue as follows:
+  Now we argue as follows:
   Let $\Delta_{1,\lambda}^{\mu_{1,\lambda}}$
   (resp.~$\Delta_{2,\lambda}^{\mu_{2,\lambda}}$)
   be the irreducible component of~$\Delta_{1,\QQl}^{\mu_1}$
   (resp.\ $\Delta_{2,\QQl}^{\mu_2}$)
   that contains~$\alpha$ (resp.~$\phi(\alpha)$).
-  It is clear that $\phi_\lambda = \psi_\lambda$,
-  and hence $\phi(\alpha') \in \mu_2$.
-  This concludes the proof.
+  Since $\phi(\alpha) \in \mu_2$, we have $\phi(\alpha) = \psi_\ell(\alpha)$
+  and therefore $\phi_\lambda = \psi_\lambda$.
+  This implies $\phi(\alpha') \in \mu_2$, which concludes the proof.
+
+  Finally, assume the type is $D_4^\HQ$.
+  Recall that $\bar\mu_i$ has degree~$2$.
+  Thus there is a unique non-trivial $\Gal(\QQbar/\QQ)$-equivariant
+  involution~$\tau_i \in \Aut_\id(\Delta_i)$
+  such that $\tau_i(\bar\mu_i) = \bar\mu_i$.
+  Once again, we have $\phi \circ \tau_1 = \tau_2 \circ \phi$.
+  Let $\alpha \in \mu_1$ be a special node that is not fixed under~$\tau_1$.
+  We may assume that $\phi(\alpha) \in \mu_2$,
+  by replacing $\phi$ with $\phi \circ \tau_1$ if necessary.
+
+  As before, we claim that $\phi(\mu_1) = \mu_2$.
+  Indeed, let $\alpha' \in \mu_1$ be a special node.
+  There exists a $g \in \Gal(\QQbar/\QQ)$
+  such that $g\alpha = \alpha'$.
+  By Chebotarev's density theorem,
+  we may assume that $g \in \Gal(\QQlbar/\QQl)$
+  for some prime number~$\ell$.
+  Since $\phi(\alpha) \in \mu_2$, we have $\phi(\alpha) = \psi_\ell(\alpha)$,
+  and we compute
+  \[
+   \phi(\alpha') = \phi(g\alpha) = g\phi(\alpha) = g\psi_\ell(\alpha)
+   = \psi_\ell(g\alpha) = \psi_\ell(\alpha') \in \mu_2.
+  \]
+  This completes the proof.
  \end{proof}
 \end{proposition}
 
