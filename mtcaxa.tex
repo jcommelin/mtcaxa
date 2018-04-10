@@ -275,8 +275,9 @@ preheadhook={\bigskip}]{nproof}
 
 \newcommand{\BdR}[1]{\textnormal{B}_{\dR,#1}}
 \newcommand{\HT}{\textnormal{HT}}
-\newcommand{\BHT}[1]{\textnormal{B}_{\textnormal{HT},#1}}
+\newcommand{\BHT}[1]{\textnormal{B}_{\HT,#1}}
 \newcommand{\gr}{\textnormal{gr}}
+\newcommand{\GdR}{\GG_{\dR}}
 
 \newcommand{\Vect}{\textnormal{Vect}}
 \newcommand{\grVect}{\textnormal{grVect}}
@@ -2453,26 +2454,65 @@ Let $M$ be a hyperadjoint abelian motive
 over a finitely generated field $K \subset \CC$.
 Let $\Delta^\mu$ be the Deligne--Dynkin diagram associated with~$M$.
 Choose an embedding of $K$ into a $p$-adic field~$K_v$.
-Let $C_v$ be the completion of an algebraic closure of~$K_v$.
+Let $C_v$ be the completion of an algebraic closure of~$K_v$,
+let $C_v(i)$ denote the invertible $C_v$-module $C_v \otimes_{\QQp} \QQp(i)$,
+and let $\BHT{v}$ denote the Hodge--Tate ring $\bigoplus_{i \in \ZZ} C_v(i)$.
 By $p$-adic Hodge theory,
-we know that there is a grading on $\Hp(M) \otimes_{\QQp} C_v$.
-This determines a cocharacter~$\mu_{\HT}$ of
-$\Gpc(M) \otimes_{\QQp} C_v \subset \GB(M) \otimes_\QQ C_v$,
-the \emph{Hodge--Tate} cocharacter.
+we know that there is a grading on $\Hp(M) \otimes_{\QQp} \BHT{v}$.
+This determines a cocharacter~$\mu_\HT$ of
+$\Gpc(M) \otimes_{\QQp} \BHT{v} \subset \GB(M) \otimes_\QQ \BHT{v}$
+that is called the \emph{Hodge--Tate} cocharacter.
 
 \begin{lemma} % {{{-2
  \label{hodge-tate-cochar-deldyn}
  Retain the notation of the preceding paragraph.
  The conjugacy class of the cocharacter
- $\mu_{\HT} \colon \Gm[C_v] \to \GB(M) \otimes_\QQ C_v$
- is defined over~$\QQbar$ and coincides with the
- conjugacy class of the Hodge cocharacter
- $\mu \colon \Gm[\CC] \to \GB(M) \otimes_\QQ \CC$.
- In particular, $\mu_{\HT}$ determines the subset $\mu \subset \Delta$.
+ $\mu_\HT \in X_*(\GB(M) \otimes_\QQ \BHT{v})$
+ and
+ the conjugacy class of the Hodge cocharacter
+ $\mu \in X_*(\GB(M) \otimes_\QQ \CC)$
+ correspond to the same conjugacy class of
+ cocharacters $X_*(\GB(M) \otimes_\QQ \QQbar)$.
+ In particular, $\mu_\HT$ determines the subset $\mu \subset \Delta$.
  \begin{proof}
-  This follows from the comparison theorems
-  between Betti cohomology, algebraic de~Rham cohomology,
-  and $p$-adic \'etale cohomology.
+  By the Tannakian formalism,
+  the cocharacters $\mu_\HT$ and~$\mu$ correspond to a tensor functors
+  \[
+   \begin{aligned}
+    \Hp \otimes \BHT{v} \colon \Tangen{M} &\to \grVect_{\BHT{v}} \\
+    N &\mapsto \Hp(N) \otimes_{\QQp} \BHT{v}
+   \end{aligned}
+   \qquad\text{respectively}\qquad
+   \begin{aligned}
+    \HB \otimes \CC \colon \Tangen{M} &\to \grVect_{\CC} \\
+    N &\mapsto \HB(N) \otimes_\QQ \CC.
+   \end{aligned}
+  \]
+  There is also another tensor functor
+  \begin{align*}
+   \gr\HdR \colon \Tangen{M} &\to \grVect_{K} \\
+   N &\mapsto \gr\HdR(N)
+  \end{align*}
+  that maps a motive to the associated graded
+  of its algebraic de~Rham realisation.
+  If $\GdR(M)/K$ denotes the algebraic group $\Aut^\otimes(\HdR)$
+  that corresponds to~$\Tangen{M}$,
+  then $\gr\HdR$ corresponds to a cocharacter $\mu_\dR \in X_*(\GdR(M))$.
+
+  The comparison theorem between the algebraic de~Rham realisation
+  and the Betti realisation
+  gives a natural transformation $\gr\HdR \otimes \CC \to \HB \otimes \CC$.
+  This yields an isomorphism $\GdR(M) \otimes_K \CC \to \GB(M) \otimes_\QQ \CC$
+  that maps $\mu_\dR$ to~$\mu$.
+
+  On the other hand, $p$-adic Hodge theory compares
+  the algebraic de~Rham realisation with the $p$-adic \'etale realisation,
+  and gives a natural transformation
+  $\gr\HdR \otimes \BHT{v} \to \Hp \otimes \BHT{v}$.
+  This yields an isomorphism
+  $\GdR(M) \otimes_K \CC \to \GB(M) \otimes_\QQ \BHT{v}$
+  that maps $\mu_\dR$ to~$\mu_\HT$.
+  This finishes the proof.
  \end{proof}
 \end{lemma}
 
