@@ -1127,26 +1127,27 @@ It is not known whether $\GG(\Mot_{\bar K})$ is connected.
  We write $\MTC(M)$ for the conjecture $\forall \ell: \MTC_\ell(M)$.
 \end{conjecture}
 
-\paragraph{} % {{{-2
-% TODO turn this into 2 subremarks, and refer to them when needed
-Let $M$ be a motive over a field~$K$ of characteristic~$0$.
-By definition there is a smooth projective variety~$X$
-such that $M \in \Tangen{\HH(X)}$.
-By work of Serre~\cite{Serre_letter_to_Ribet}, %\cite{SerreIV}
-there is a finite extension $L/K$
-such that $\Gl(\Hl(X_L))$ is connected for all~$\ell$.
-Since $M \in \Tangen{\HH(X)}$,
-there is a quotient map $\Gl(\Hl(X_L)) \onto \Gl(M_L)$,
-and therefore $\Gl(M_L)$ is connected for all~$\ell$.
-
-\label{ext-base-field}
-If $L/K$ is a finitely generated extension field,
-then there is an isomorphism $\Glc(M_L) \cong \Glc(M)$
-(see proposition~1.3 of~\cite{Mo15}).
-Therefore, the Mumford--Tate conjecture for~$M$
-is equivalent to the Mumford--Tate conjecture for~$M_L$.
-In particular, when trying to prove this conjecture for~$M$
-we may always assume that $\Gl(M)$ is connected for all prime numbers~$\ell$.
+\begin{remark} % {{{-2
+ \begin{enumerate}
+  \item Let $M$ be a motive over a field~$K$ of characteristic~$0$.
+   By definition there is a smooth projective variety~$X$
+   such that $M \in \Tangen{\HH(X)}$.
+   By work of Serre~\cite{Serre_letter_to_Ribet}, %\cite{SerreIV}
+   there is a finite extension $L/K$
+   such that $\Gl(\Hl(X_L))$ is connected for all~$\ell$.
+   Since $M \in \Tangen{\HH(X)}$,
+   there is a quotient map $\Gl(\Hl(X_L)) \onto \Gl(M_L)$,
+   and therefore $\Gl(M_L)$ is connected for all~$\ell$.
+  \item \label[remark]{ext-base-field}
+   If $L/K$ is a finitely generated extension field,
+   then there is an isomorphism $\Glc(M_L) \cong \Glc(M)$
+   (see proposition~1.3 of~\cite{Mo15}).
+   Therefore, the Mumford--Tate conjecture for~$M$
+   is equivalent to the Mumford--Tate conjecture for~$M_L$.
+   In particular, when trying to prove this conjecture for~$M$
+   we may always assume that $\Gl(M)$ is connected for all prime numbers~$\ell$.
+ \end{enumerate}
+\end{remark}
 
 \begin{definition} % {{{-2
  An \emph{abelian} motive over a field~$K$
@@ -1166,30 +1167,32 @@ we may always assume that $\Gl(M)$ is connected for all prime numbers~$\ell$.
  \end{proof}
 \end{theorem}
 
-\paragraph{} % {{{-2
-\label{abmot-remarks}
-% TODO restructure this paragraph to emphasize its claims
-Let $M$ be an abelian motive over a field $K \subset \CC$.
-A corollary of \cref{hodge-is-motivated}
-is that $\GB(M)$ is the identity component of~$\GG(M)$.
-In particular, we obtain the inclusion $\Glc(M) \subset \GB(M) \otimes \QQl$.
-
-Let $A$ be an abelian variety over~$K$.
-Then $\Glc(A)$ is a reductive group
-by Satz~3 in~\S5 of~\cite{Fal83}.
-(See also~\cite{Fal84}, for the case where $K$ is not a number field.)
-Suppose that $M \in \Tangen{\HH^1(A)}$.
-Then there is a surjection $\Glc(A) \onto \Glc(M)$.
-Hence $\Glc(M)$ is reductive for every abelian motive~$M$.
-
-We also know that
-$\End_{\Glc(A)}(\Hl^1(A)) \cong \End_{\GB(A)}(\HB^1(A))_{\QQl}$,
-by Satz~4 in~\S5 of~\cite{Fal83} (see also~\cite{Fal84}).
-Now observe that $\Zentrum(\Glc(A)) = \Glc(A) \cap \End_{\Glc(A)}(\Hl^1(A))$
-where the intersection takes place inside $\End_{\Vect}(\Hl^1(A))$;
-and similarly $\Zentrum(\GB(A))_{\QQl} =
-\GB(A)_{\QQl} \cap \End_{\GB(A)}(\HB^1(A))_{\QQl}$.
-We conclude that $\Zentrum(\Glc(A)) \subset \Zentrum(\GB(A))_{\QQl}$.
+\begin{remark} % {{{-2
+ \begin{enumerate}
+  \item \label[remark]{GB-id-comp}
+   Let $M$ be an abelian motive over a field $K \subset \CC$.
+   A corollary of \cref{hodge-is-motivated}
+   is that $\GB(M)$ is the identity component of~$\GG(M)$.
+   In particular, we obtain the inclusion $\Glc(M) \subset \GB(M) \otimes \QQl$.
+  \item \label[remark]{GlcM-reductive}
+   Let $A$ be an abelian variety over~$K$.
+   Then $\Glc(A)$ is a reductive group
+   by Satz~3 in~\S5 of~\cite{Fal83}.
+   (See also~\cite{Fal84}, for the case where $K$ is not a number field.)
+   Suppose that $M \in \Tangen{\HH^1(A)}$.
+   Then there is a surjection $\Glc(A) \onto \Glc(M)$.
+   Hence $\Glc(M)$ is reductive for every abelian motive~$M$.
+  \item \label[remark]{abvar-Zlc-in-ZB}
+   We also know that
+   $\End_{\Glc(A)}(\Hl^1(A)) \cong \End_{\GB(A)}(\HB^1(A))_{\QQl}$,
+   by Satz~4 in~\S5 of~\cite{Fal83} (see also~\cite{Fal84}).
+   Now observe that $\Zentrum(\Glc(A)) = \Glc(A) \cap \End_{\Glc(A)}(\Hl^1(A))$
+   where the intersection takes place inside $\End_{\Vect}(\Hl^1(A))$;
+   and similarly $\Zentrum(\GB(A))_{\QQl} =
+   \GB(A)_{\QQl} \cap \End_{\GB(A)}(\HB^1(A))_{\QQl}$.
+   We conclude that $\Zentrum(\Glc(A)) \subset \Zentrum(\GB(A))_{\QQl}$.
+ \end{enumerate}
+\end{remark}
 
 \begin{lemma} % {{{-2
  \label{abelian-motive-centre-inclusion}
@@ -1216,9 +1219,9 @@ We conclude that $\Zentrum(\Glc(A)) \subset \Zentrum(\GB(A))_{\QQl}$.
    \end{tikzcd}
   \]
   where $b$ and~$c$ exist by \cref{hodge-is-motivated},
-  and $a$ exists by the final remark in~\cref{abmot-remarks}.
+  and $a$ exists by the final remark in~\cref{abvar-Zlc-in-ZB}.
 
-  Since $\Glc(A)$ and~$\Glc(M)$ are reductive (see~\cref{abmot-remarks}),
+  Since $\Glc(A)$ and~$\Glc(M)$ are reductive (see~\cref{GlcM-reductive}),
   we find that the image of $\Zentrum(\Glc(A))$
   under the quotient map to~$\Glc(M)$
   is exactly~$\Zentrum(\Glc(M))$.
