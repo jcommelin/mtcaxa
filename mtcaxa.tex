@@ -2031,6 +2031,53 @@ such that $\alpha$ defines a $\{-1,0,1\}$-grading on~$V$.
  \end{proof}
 \end{theorem}
 
+\begin{example} % {{{-2
+ \label{eg-D4}
+ We will now look in some detail at Deligne--Dynkin diagrams
+ whose underlying Dynkin diagrams have connected components of type~$D_4$.
+ Let $\Delta^\mu$ be such an irreducible Deligne--Dynkin diagram
+ over some field~$Q$.
+ Recall that this means that we have the following:
+ \begin{itemize}
+  \item a diagram~$\Delta$ consisting of a number of copies of~$D_4$,
+  \item an action of $\Gal(\bar Q/Q)$ on~$\Delta$
+   that is transitive on the set~$\pi_0(\Delta)$ of connected components,
+  \item a subset $\mu \subset \Delta$ of the extremal nodes
+   (\emph{cf}.~\cref{eg-special-nodes}),
+   such that $\mu$ meets every connected component of~$\Delta$
+   in at most $1$~node.
+ \end{itemize}
+ Several properties of~$\Delta^\mu$ depend on how
+ the action of $\Gal(\bar Q/Q)$ and the subset $\mu \subset \Delta$
+ play together:
+ let $\bar\mu$ denote the closure of~$\mu$
+ under the action of~$\Gal(\bar Q/Q)$.
+ Then $d = \deg_{\pi_0(\Delta)}(\bar\mu)$ takes values in $\{0,1,2,3\}$.
+
+ The cases $d = 0$ and $d = 3$ are somewhat degenerate.
+ To see this, let $S \subset \Delta$ be the subset of $\mu$-symplectic nodes.
+ If $d = 0$, then $\mu = \varnothing$ and $S = \Delta$:
+ in this case $\Delta^\mu$ is not populated.
+ On the other hand, if $\Delta^\mu$ is populated ($\mu \ne \varnothing$),
+ then \cref{table-deligne-dynkin-diagrams} shows that
+ $S$ is contained in the set~$V$ of extremal nodes of~$\Delta$.
+ In fact, we have $V = \bar\mu \sqcup S$, by the maximality of~$S$.
+ Hence, if $d = 3$, then $S = \varnothing$
+ and $\Delta^\mu$ is not symplectic.
+ \Cref{deldyn-symplectic,abmotdeldyn} explain why we are not interested
+ in these degenerate cases.
+
+ If $d = 1$, then $\deg(S) = 2$,
+ and we say that $\Delta^\mu$ has type~$D_4^\RR$.
+ If $d = 2$, then $\deg(S) = 1$,
+ and we say that $\Delta^\mu$ has type~$D_4^\HQ$.
+ We will not say more about these diagrams in this example,
+ apart from mentioning that the distinction
+ between diagrams of type~$D_4^\RR$ and~$D_4^\HQ$
+ will play an important r\^ole in the proofs in the remainder of this section
+ (notably the proof of \cref{deldyn-local-global}).
+\end{example}
+
 \paragraph{The type of $\Delta^\mu$} % {{{-2
 Let $\Delta^{\mu}$ be an irreducible populated Deligne--Dynkin diagram over~$Q$.
 If $\Delta^{\mu}$ is symplectic,
@@ -2062,24 +2109,30 @@ one of the following conditions holds:
 We say that $\Delta^\mu$ is of \emph{type}~$D_n^\RR$ (resp.~$D_n^\HQ$)
 if the former (resp.~the latter) condition holds.
 
-Finally, assume that the connected components of~$\Delta$ are of type~$D_4$.
-Let $V$ be the subset of extremal nodes of~$\Delta$,
-let $\bar\mu$ be the $\Gal(\bar Q/Q)$-closure of~$\mu$,
-and let $S$ be the subset of $\mu$-symplectic nodes of $\Delta^\mu$.
-Observe that $d = \deg_{\pi_0(\Delta)}(\bar\mu) \in \{1,2,3\}$.
-It follows from the definition of~$S$ and \cref{table-deligne-dynkin-diagrams}
-that $\bar\mu$ and~$S$ are disjoint, and in fact $V = \bar\mu \sqcup S$.
-In resemblance with the case $n \ge 5$,
-we say that $\Delta^\mu$ has \emph{type}~$D_4^\RR$
-if $d = 1$ and $\deg(S) = 2$,
-while $\Delta^\mu$ has \emph{type}~$D_4^\HQ$
-if $d = 2$ and $\deg(S) = 1$.
-Note that if $d = 3$, then $S$ is empty and $\Delta^\mu$ is not symplectic.
+Finally, if the connected components of~$\Delta$ have type~$D_4$,
+then the type of $\Delta^\mu$ was explained in \cref{eg-D4},
+as follows:
+Let $\bar\mu$ be the $\Gal(\bar Q/Q)$-closure of~$\mu$.
+and write $d = \deg_{\pi_0(\Delta)}(\bar\mu)$.
+Recall that $d \in \{1,2,3\}$,
+and if $d = 3$, then $\Delta^\mu$ is not symplectic.
+We say that $\Delta^\mu$ has \emph{type}~$D_4^\RR$ (resp.~$D_4^\HQ$)
+if $d = 1$ (resp.~$d = 2$).
 
-To summarise: an irreducible symplectic populated Deligne--Dynkin diagram
-always has one of the following types:
-$A_n$~($n \ge 1$), $B_n$ ($n \ge 2$), $C_n$ ($n \ge 3$), $D_n^\RR$ ($n \ge 4$),
-or~$D_n^\HQ$ ($n \ge 4$).
+We conclude with two observations:
+\begin{itemize}
+ \item The definitions of type~$D_n^\RR$ and~$D_n^\HQ$
+  distinguish between the cases $n = 4$ and $n \ge 5$,
+  but these cases unify in the following way:
+  if $\Delta^\mu$ is of type~$D_n^\RR$ (resp.~$D_n^\HQ$),
+  then the subset of $\mu$-symplectic nodes of~$\Delta$
+  has degree~$2$ (resp.~$1$) over~$\pi_0(\Delta)$.
+ \item An irreducible symplectic populated Deligne--Dynkin diagram
+  always has one of the following types:
+  $A_n$~($n \ge 1$), $B_n$ ($n \ge 2$), $C_n$ ($n \ge 3$),
+  $D_n^\RR$ ($n \ge 4$), or~$D_n^\HQ$ ($n \ge 4$);
+  and all these types occur.
+\end{itemize}
 
 \begin{remark} % {{{-2
  \label{meaning-DnR-DnH}
