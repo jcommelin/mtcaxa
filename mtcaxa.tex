@@ -19,6 +19,7 @@
 \usepackage{dsfont}  % disable this when loading mathdesign
 
 \usepackage{microtype}
+% \usepackage[biblatex]{embrac}
 % \linespread{1.25}  % = 1.500 * fontheight
 \linespread{1.388} % = 1.666 * fontheight
 \usepackage[
@@ -95,10 +96,11 @@ safeinputenc,style=quasialphabetic,citestyle=alphabetic]{biblatex}
  {\ \textls{#1.}}%
  \ ---}%
 }
-\newcommand{\readme}{\par\vskip\baselineskip%
+\newcommand{\readmetitle}{\par\vskip\baselineskip%
  {\normalfont\normalsize\scshape\noindent%
   \textls{Readme.}\ ---}
 }
+\newenvironment{readme}{\readmetitle\itshape}{\normalfont}
 \renewcommand\tableofcontents{%
  \sectionstar{\contentsname}%
  \@starttoc{toc}%
@@ -642,20 +644,21 @@ and Frans Oort for their interest and useful comments.
 
 \section{Hyperadjoint objects in Tannakian categories} % {{{-1
 
-\readme % {{{-2
-In representation theory the adjoint representation is very important.
-Tannakian categories behave like
-the category of representations of an affine group scheme.
-For a good overview of the Tannakian formalism, see~\cite{Breen_TanCats}.
-For details we refer to~\cite{Deligne_CatTan} and~\cite{DMOS}.
+\begin{readme} % {{{-2
+ In representation theory the adjoint representation is very important.
+ Tannakian categories behave like
+ the category of representations of an affine group scheme.
+ For a good overview of the Tannakian formalism, see~\cite{Breen_TanCats}.
+ For details we refer to~\cite{Deligne_CatTan} and~\cite{DMOS}.
 
-We define \emph{hyperadjoint} objects in Tannakian categories
-and study some of their properties (\cref{ha-props}).
-This ties into the proof of the main theorem
-because we will replace abelian varieties~$A$ by the motive
-that corresponds to the adjoint representation of the
-motivic Galois group of~$A$.
-(See also the strategy in \cref{strategy}.)
+ We define hyperadjoint objects in Tannakian categories
+ and study some of their properties (\cref{ha-props}).
+ This ties into the proof of the main theorem
+ because we will replace abelian varieties~$A$ by the motive
+ that corresponds to the adjoint representation of the
+ motivic Galois group of~$A$.
+ (See also the strategy in \cref{strategy}.)
+\end{readme}
 
 \paragraph{} % {{{-2
 Let $Q$ be a field of characteristic~$0$, and
@@ -849,11 +852,12 @@ this sequence stabilises at an object $V^{(\infty)}$.
 
 \section{Fractional Hodge structures} \label{HS} % {{{-1
 
-\readme % {{{-2
-Following \cite{Del_ShimVar} we use the notion of
-fractional Hodge structures.
-The notion will prove useful in understanding
-Deligne's construction (\cref{delignes-construction}).
+\begin{readme} % {{{-2
+ Following \cite{Del_ShimVar} we use the notion of
+ fractional Hodge structures.
+ The notion will prove useful in understanding
+ Deligne's construction (\cref{delignes-construction}).
+\end{readme}
 
 \begin{definition} % {{{-2
  Let $R \subset \RR$ be a subring (typically $\ZZ$,~$\QQ$, or~$\RR$).
@@ -964,13 +968,14 @@ If there is no confusion, we will write $\mu$ for~$\mu_h$.
 
 \section{Abelian motives} % {{{-1
 
-\readme % {{{-2
-To give ourselves access to
-the strength and flexibility of representation theory,
-we linearise the category of abelian varieties,
-yielding a category of so-called abelian \emph{motives}.
-As a consequence of work of Deligne and Andr\'e
-this category is very tractable (see \cref{hodge-is-motivated}).
+\begin{readme} % {{{-2
+ To give ourselves access to
+ the strength and flexibility of representation theory,
+ we linearise the category of abelian varieties,
+ yielding a category of so-called abelian motives.
+ As a consequence of work of Deligne and Andr\'e
+ this category is very tractable (see \cref{hodge-is-motivated}).
+\end{readme}
 
 \paragraph{} % {{{-2
 The category of (pure) motives developed by Andr\'e~\cite{An95}
@@ -1315,16 +1320,17 @@ where $A$ is a \cm~abelian variety over~$K$ (\emph{cf.}~\cref{cm-hs-cat}).
 
 \section{Quasi-compatible systems of Galois representations} % {{{-1
 
-\readme % {{{-2
-In general it is expected that the $\ell$-adic realisations~$\Hl(M)$
-of a motive~$M$ over a finitely generated field~$K$ of characteristic~$0$
-form a compatible system of Galois representations in the sense of Serre.
+\begin{readme} % {{{-2
+ In general it is expected that the $\ell$-adic realisations~$\Hl(M)$
+ of a motive~$M$ over a finitely generated field~$K$ of characteristic~$0$
+ form a compatible system of Galois representations in the sense of Serre.
 
-The main result of~\cite{Co17} shows that if $M$~is an abelian motive
-a slightly weaker version is satisfied;
-and this is good enough for our purposes.
-The weaker condition is called \emph{quasi-compatibility}
-and in this section we recall the necessary definitions and results.
+ The main result of~\cite{Co17} shows that if $M$~is an abelian motive
+ a slightly weaker version is satisfied;
+ and this is good enough for our purposes.
+ The weaker condition is called quasi-compatibility
+ and in this section we recall the necessary definitions and results.
+\end{readme}
 
 \begin{definition} % {{{-2
  \label{frobenius-element-number-field}
@@ -1601,20 +1607,22 @@ obtained from~$\rho_\Lambda$ by restricting to $\QQ \subset E$;
 \end{proposition}
 
 \section{Deligne--Dynkin diagrams} % {{{-1
+\label{DeligneDynkin}
 
-\readme % {{{-2
-In order to streamline the discussion of Deligne's construction
-(\cref{delignes-construction}) and the proof of the main theorem
-in the final two sections,
-this section attempts to axiomatise parts of~\cite{Del_ShimVar}
-(notably \S1.3 and~\S2.3)
+\begin{readme} % {{{-2
+ In order to streamline the discussion of Deligne's construction
+ (\cref{delignes-construction}) and the proof of the main theorem
+ in the final two sections,
+ this section attempts to axiomatise parts of~\cite{Del_ShimVar}
+ (notably \S1.3 and~\S2.3).
 
-We introduce Deligne--Dynkin diagrams:
-they are Dynkin diagrams with extra structure
-that capture important information about hyperadjoint abelian motives.
-The main result of this section is \cref{deldyn-local-global},
-a local-global result for
-irreducible symplectic populated Deligne--Dynkin diagrams over~$\QQ$.
+ We introduce Deligne--Dynkin diagrams:
+ they are Dynkin diagrams with extra structure
+ that capture important information about hyperadjoint abelian motives.
+ The main result of this section is \cref{deldyn-local-global},
+ a local-global result for
+ irreducible symplectic populated Deligne--Dynkin diagrams over~$\QQ$.
+\end{readme}
 
 \paragraph{} % {{{-2
 Let $\Delta$ be a connected Dynkin diagram, and
@@ -2360,14 +2368,15 @@ the \emph{Hodge--Tate} cocharacter.
 \section{Deligne's construction} % {{{-1
 \label{delignes-construction}
 
-\readme % {{{-2
-Let $M$ be an irreducible hyperadjoint abelian motive over~$\CC$.
-Proposition~2.3.10 of~\cite{Del_ShimVar} provides a recipe
-to construct a complex abelian variety~$A$ (up to isogeny)
-such that $M \cong \HH^1(A)^\ha$.
-Deligne uses the language of Shimura data and Hodge theory.
-We recall this construction,
-using the terminology of abelian motives and Deligne--Dynkin diagrams.
+\begin{readme} % {{{-2
+ Let $M$ be an irreducible hyperadjoint abelian motive over~$\CC$.
+ Proposition~2.3.10 of~\cite{Del_ShimVar} provides a recipe
+ to construct a complex abelian variety~$A$ (up to isogeny)
+ such that $M \cong \HH^1(A)^\ha$.
+ Deligne uses the language of Shimura data and Hodge theory.
+ We recall this construction,
+ using the terminology of abelian motives and Deligne--Dynkin diagrams.
+\end{readme}
 
 \paragraph{Preparations} % {{{-2
 Let $M$ be an irreducible hyperadjoint abelian motive over~$\CC$.
@@ -2510,9 +2519,10 @@ and so is the natural map $\GB(W_F) \to T$.
 
 \section{The main proposition} % {{{-1
 
-\readme % {{{-2
-In this section we prove the main technical result of this paper.
-Its proof uses results of the preceding three sections.
+\begin{readme} % {{{-2
+ In this section we prove the main technical result of this paper.
+ Its proof uses results of the preceding three sections.
+\end{readme}
 
 \begin{proposition} % {{{-2
  \label{mtc-product-abelian-motives}
