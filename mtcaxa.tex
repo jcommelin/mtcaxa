@@ -393,6 +393,15 @@ preheadhook={\bigskip}]{nproof}
 \newcommand{\Sigmacmpt}{\Sigma_{\textnormal{c}}}
 \newcommand{\Sigmanc}{\Sigma_{\textnormal{nc}}}
 
+% Dynkin types
+\newcommand{\DtA}{\textnormal{A}}
+\newcommand{\DtB}{\textnormal{B}}
+\newcommand{\DtC}{\textnormal{C}}
+\newcommand{\DtD}{\textnormal{D}}
+\newcommand{\DtE}{\textnormal{E}}
+\newcommand{\DtF}{\textnormal{F}}
+\newcommand{\DtG}{\textnormal{G}}
+
 \usepackage{tikz}
 \usetikzlibrary{calc,
 	arrows.meta,
@@ -574,7 +583,7 @@ direct sums, tensor products, duals, and taking direct summands.
 \begin{remark}
  Vasiu~\cite{Va08} proves a similar result to \cref{mtcaxa}
  although he has to exclude the case where $A_1$ or~$A_2$
- has a Mumford--Tate group with a simple factor of type~$D_4^\HQ$.
+ has a Mumford--Tate group with a simple factor of type~$\DtD_4^\HQ$.
  His proof is long and very technical,
  and I do not claim to fully grasp the details.
  His global strategy is similar to the one employed below;
@@ -602,7 +611,7 @@ direct sums, tensor products, duals, and taking direct summands.
   For this we employ \emph{\cm~motives},
   and reduce the claim to the Mumford--Tate conjecture for \cm~abelian varieties,
   for which the statement is known by work of Pohlmann~\cite{Pohl68}.
- \item The next step consists of replacing the abelian variety $A_i$ ($i = 1,2$)
+ \item The next step consists of replacing the abelian variety~$A_i$ ($i = 1,2$)
   by the motive~$M_i$ that corresponds---via the Tannakian formalism---with
   the adjoint representation of $\GB(A_i)^\ad$.
   It suffices to prove the Mumford--Tate conjecture for $M_1 \oplus M_2$.
@@ -1649,7 +1658,7 @@ in which $\alpha_0$ is depicted by a grey node
 \tikz[Dynkin] \node[a0] {};.
  \[
  \begin{tikzpicture}[Dynkin] % {{{-3
-  \node[diagramlabel] (A1text) [label=left:{\normalsize$A_1^+$:}] at (-.2,0) {};
+  \node[diagramlabel] (A1text) [label=left:{\normalsize$\DtA_1^+$:}] at (-.2,0) {};
   \node[a0] (A10) at (0,0) {};
   \node (A11) at (1,0) {};
 		\draw[double distance=2pt,
@@ -1660,7 +1669,7 @@ in which $\alpha_0$ is depicted by a grey node
 		postaction=decorate] (A10) -- (A11);
 
   \begin{scope}[xshift=6.5cm]
-   \node[diagramlabel] (Antext) [label=left:{\normalsize$A_n^+$ ($n \ge 2$):}] at (-.2,0) {};
+   \node[diagramlabel] (Antext) [label=left:{\normalsize$\DtA_n^+$ ($n \ge 2$):}] at (-.2,0) {};
    \node[a0] (An0) at (2,-0.7) {};
    \node (An1) at (0,0) {};
    \node (An2) at (1,0) {};
@@ -1673,7 +1682,7 @@ in which $\alpha_0$ is depicted by a grey node
   \end{scope}
 
   \begin{scope}[yshift=-2cm]
-			\node[diagramlabel] (Btext) [label=left:{\normalsize$B_n^+$:}] at (-.2,0) {};
+			\node[diagramlabel] (Btext) [label=left:{\normalsize$\DtB_n^+$:}] at (-.2,0) {};
    \node[a0] (B0) at (0,-.5) {};
    \node (B1) at (0,.5) {};
    \node (B2) at (1,0) {};
@@ -1686,7 +1695,7 @@ in which $\alpha_0$ is depicted by a grey node
   \end{scope}
 
   \begin{scope}[xshift=6.5cm,yshift=-2cm]
-			\node[diagramlabel] (Ctext) [label=left:{\normalsize$C_n^+$:}] at (-.2,0) {};
+			\node[diagramlabel] (Ctext) [label=left:{\normalsize$\DtC_n^+$:}] at (-.2,0) {};
    \node[a0] (C0) at (0,0) {};
    \node (C1) at (1,0) {};
    \node (Cnm1) at (3,0) {};
@@ -1697,7 +1706,7 @@ in which $\alpha_0$ is depicted by a grey node
   \end{scope}
 
   \begin{scope}[yshift=-4cm]
-			\node[diagramlabel] (Dtext) [label=left:{\normalsize$D_n^+$:}] at (-.2,0) {};
+			\node[diagramlabel] (Dtext) [label=left:{\normalsize$\DtD_n^+$:}] at (-.2,0) {};
    \node[a0] (D0) at (0,-.5) {};
    \node (D1) at (0,.5) {};
    \node (D2) at (1,0) {};
@@ -1712,7 +1721,7 @@ in which $\alpha_0$ is depicted by a grey node
 		\end{scope}
 
   \begin{scope}[xshift=6.5cm,yshift=-4cm]
-			\node[diagramlabel] (E6text) [label=left:{\normalsize$E_6^+$:}] at (-.2,0) {};
+			\node[diagramlabel] (E6text) [label=left:{\normalsize$\DtE_6^+$:}] at (-.2,0) {};
    \node[a0] (E60) at (2,1.4) {};
    \node (E61) at (0,0) {};
    \node (E62) at (1,0) {};
@@ -1728,7 +1737,7 @@ in which $\alpha_0$ is depicted by a grey node
 \[
  \begin{tikzpicture}[Dynkin]
   \begin{scope}[xshift=6.0cm,yshift=0cm]
-   \node[diagramlabel] (E7text) [label=left:{\normalsize$E_7^+$:}] at (-.2,0) {};
+   \node[diagramlabel] (E7text) [label=left:{\normalsize$\DtE_7^+$:}] at (-.2,0) {};
    \node[a0] (E70) at (0,0) {};
    \node (E71) at (1,0) {};
    \node (E72) at (2,0) {};
@@ -1742,7 +1751,7 @@ in which $\alpha_0$ is depicted by a grey node
   \end{scope}
 
   \begin{scope}[xshift=5cm,yshift=-2cm]
-   \node[diagramlabel] (E8text) [label=left:{\normalsize$E_8^+$:}] at (-.2,0) {};
+   \node[diagramlabel] (E8text) [label=left:{\normalsize$\DtE_8^+$:}] at (-.2,0) {};
    \node[a0] (E80) at (0,0) {};
    \node (E81) at (1,0) {};
    \node (E82) at (2,0) {};
@@ -1757,7 +1766,7 @@ in which $\alpha_0$ is depicted by a grey node
   \end{scope}
 
   \begin{scope}[xshift=0cm,yshift=0cm]
-   \node[diagramlabel] (F4text) [label=left:{\normalsize$F_4^+$:}] at (-.2,0) {};
+   \node[diagramlabel] (F4text) [label=left:{\normalsize$\DtF_4^+$:}] at (-.2,0) {};
    \node[a0] (F40) at (0,0) {};
    \node (F41) at (1,0) {};
    \node (F42) at (2,0) {};
@@ -1769,7 +1778,7 @@ in which $\alpha_0$ is depicted by a grey node
   \end{scope}
 
   \begin{scope}[xshift=0cm,yshift=-2cm]
-   \node[diagramlabel] (F4text) [label=left:{\normalsize$G_2^+$:}] at (-.2,0) {};
+   \node[diagramlabel] (F4text) [label=left:{\normalsize$\DtG_2^+$:}] at (-.2,0) {};
    \node[a0] (G20) at (0,0) {};
    \node (G21) at (1,0) {};
    \node (G22) at (2,0) {};
@@ -1792,10 +1801,10 @@ in which $\alpha_0$ is depicted by a grey node
 
 \begin{example} % {{{-2
  \label{eg-special-nodes}
- If $\Delta$ is a connected Dynkin diagram of type~$A_n$,
+ If $\Delta$ is a connected Dynkin diagram of type~$\DtA_n$,
  then all nodes of~$\Delta$ are special.
- If $\Delta$ is of type~$D_n$, then all extremal nodes are special.
- If~$\Delta$ is of type~$E_8$,~$F_4$, or~$G_2$,
+ If $\Delta$ is of type~$\DtD_n$, then all extremal nodes are special.
+ If~$\Delta$ is of type~$\DtE_8$,~$\DtF_4$, or~$\DtG_2$,
  then $\Delta$ has no special nodes.
 \end{example}
 
@@ -1853,10 +1862,10 @@ the irreducible populated Deligne--Dynkin diagrams over
 an algebraically closed field~$Q = \bar Q$.
 
 As explained in \cref{eg-special-nodes},
-if the Dynkin diagram has type~$D_n$, then all extremal nodes are special.
+if the Dynkin diagram has type~$\DtD_n$, then all extremal nodes are special.
 This leads to two different isomorphism classes%
 ---listed in the table below---%
-that are labelled with $D_n^\RR$ and~$D_n^\HQ$.
+that are labelled with $\DtD_n^\RR$ and~$\DtD_n^\HQ$.
 The reader that has never seen these labels before
 should not currently worry about the meaning of the superscripts~$(\_)^\RR$
 and~$(\_)^\HQ$,
@@ -1868,28 +1877,28 @@ remarques~1.3.10(ii) of~\cite{Del_ShimVar}.
 \begin{minipage}{.50\textwidth} % {{{-3
 \[
  \begin{tikzpicture}[Dynkin,yscale=-1]
-  \node[diagramlabel] (Atext) [label=right:{\normalsize$A_{p+q-1}$:}] at (-1.25,0) {};
+  \node[diagramlabel] (Atext) [label=right:{\normalsize$\DtA_{p+q-1}$:}] at (-1.25,0) {};
   \node[symplectic] (A1) [label={$q/(p+q)$}] at (1,0) {};
   \node[special] (Ap) [label={$pq/(p+q)$}] at (3,0) {};
   \node[symplectic] (Ak) [label={$p/(p+q)$}] at (5,0) {};
   \draw[dashed] (A1) -- (Ap);
   \draw[dashed] (Ap) -- (Ak);
 
-  \node[diagramlabel] (Btext) [label=right:{\normalsize$B_{l}$:}] at (-1.25,1) {};
+  \node[diagramlabel] (Btext) [label=right:{\normalsize$\DtB_{l}$:}] at (-1.25,1) {};
   \node[special] (B1) [label={$1$}] at (1,1) {};
   \node (Blm1) [label={$1$}] at (4,1) {};
   \node[symplectic] (Bl) [label={$1/2$}] at (5,1) {};
   \draw[dashed] (B1) -- (Blm1);
   \draw[doubledynkin] (Blm1) -- (Bl);
 
-  \node[diagramlabel] (Ctext) [label=right:{\normalsize$C_{l}$:}] at (-1.25,2) {};
+  \node[diagramlabel] (Ctext) [label=right:{\normalsize$\DtC_{l}$:}] at (-1.25,2) {};
   \node[symplectic] (C1) [label={$1/2$}] at (1,2) {};
   \node (Clm1) at (4,2) {};
   \node[special] (Cl) [label={$l/2$}] at (5,2) {};
   \draw[dashed] (C1) -- (Clm1);
   \draw[doubledynkin] (Cl) -- (Clm1);
 
-  \node[diagramlabel] (DRtext) [label=right:{\normalsize$D_{l}^{\RR}$:}] at (-1.25,3) {};
+  \node[diagramlabel] (DRtext) [label=right:{\normalsize$\DtD_{l}^{\RR}$:}] at (-1.25,3) {};
   \node[special] (DR1) [label={$1$}] at (1,3) {};
   \node (DRlm2) [label={$1$}] at (4,3) {};
   \node[symplectic] (DRlm1) [label=right:{$1/2$}] at (5,2.5) {};
@@ -1899,7 +1908,7 @@ remarques~1.3.10(ii) of~\cite{Del_ShimVar}.
   \draw[thick] (DRlm2) -- (DRl);
 
   \begin{scope}[yshift=0.5cm]
-   \node[diagramlabel] (DHtext) [label=right:{\normalsize$D_{k+2}^{\HQ}$:}] at (-1.25,4) {};
+   \node[diagramlabel] (DHtext) [label=right:{\normalsize$\DtD_{k+2}^{\HQ}$:}] at (-1.25,4) {};
    \node[symplectic] (DH1) [label={$1/2$}] at (1,4) {};
    \node (DHlm2) [label={$k/2$}] at (4,4) {};
    \node[special] (DHlm1) [label=right:{$k/4$}] at (5,3.5) {};
@@ -1909,7 +1918,7 @@ remarques~1.3.10(ii) of~\cite{Del_ShimVar}.
    \draw[thick] (DHlm2) -- (DHl);
   \end{scope}
 
-  \node[diagramlabel] (E6text) [label=right:{\normalsize$E_6$:}] at (-1.25,6) {};
+  \node[diagramlabel] (E6text) [label=right:{\normalsize$\DtE_6$:}] at (-1.25,6) {};
   \node (E61) [label={$2/3$}] at (1,6) {};
   \node (E62) [label={$4/3$}] at (2,6) {};
   \node (E63) [label={\hbox{\hss\quad$2$}}] at (3,6) {};
@@ -1920,7 +1929,7 @@ remarques~1.3.10(ii) of~\cite{Del_ShimVar}.
   \draw (E63) -- (E65) -- (E66);
 
   \begin{scope}[yshift=0.5cm]
-   \node[diagramlabel] (E7text) [label=right:{\normalsize$E_7$:}] at (-1.25,7) {};
+   \node[diagramlabel] (E7text) [label=right:{\normalsize$\DtE_7$:}] at (-1.25,7) {};
    \node (E71) [label={$1$}] at (1,7) {};
    \node (E72) [label={$2$}] at (2,7) {};
    \node (E73) [label={\hbox{\hss\quad$3$}}] at (3,7) {};
@@ -1956,12 +1965,12 @@ The number next to a node $\omega$ is $\langle \alpha,\omega \rangle$,
 where the special node~$\alpha$ and the node~$\omega$
 are identified with the appropriate (co)characters.
 
-In diagram~$A_{p+q-1}$ it is the $p$-th node that is special.
-The diagram~$D_{k+2}^{\HQ}$ is required to satisfy $k + 2 \ge 5$.
+In diagram~$\DtA_{p+q-1}$ it is the $p$-th node that is special.
+The diagram~$\DtD_{k+2}^{\HQ}$ is required to satisfy $k + 2 \ge 5$.
 
-The diagrams of type~$E_8$, $F_4$, and~$G_2$ do not occur:
+The diagrams of type~$\DtE_8$, $\DtF_4$, and~$\DtG_2$ do not occur:
 they do not have special nodes.
-The diagrams of type~$E_6$ and~$E_7$ do not have symplectic nodes.
+The diagrams of type~$\DtE_6$ and~$\DtE_7$ do not have symplectic nodes.
 \end{minipage} % -}}}3
 
 \paragraph{} % {{{-2
@@ -1977,7 +1986,7 @@ Then $w_0(\Delta) = -\Delta$
 and $-w_0$ defines an element~$\tau$ of $\Aut(\Delta)$:
 the \emph{opposition involution}.
 It is non-trivial if and only if
-$\Delta$ has type $A_k$ with $k \ne 1$, $D_k$ with $k$~odd, or $E_6$.
+$\Delta$ has type $\DtA_k$ with $k \ne 1$, $\DtD_k$ with $k$~odd, or $\DtE_6$.
 In these cases, $\tau$ is the unique non-trivial automorphism of~$\Delta$.
 In particular, the opposition involution depends only on the type of~$\Delta$.
 
@@ -2044,12 +2053,12 @@ the opposition involution is defined componentwise.
 \begin{example} % {{{-2
  \label{eg-D4}
  We will now look in some detail at Deligne--Dynkin diagrams
- whose underlying Dynkin diagrams have connected components of type~$D_4$.
+ whose underlying Dynkin diagrams have connected components of type~$\DtD_4$.
  Let $(\Delta,\mu)$ be such a Deligne--Dynkin diagram over some field~$Q$,
  and assume that it is irreducible.
  Recall that this means that we have the following:
  \begin{itemize}
-  \item a diagram~$\Delta$ consisting of a number of copies of~$D_4$,
+  \item a diagram~$\Delta$ consisting of a number of copies of~$\DtD_4$,
   \item an action of $\Gal(\bar Q/Q)$ on~$\Delta$
    that is transitive on the set~$\pi_0(\Delta)$ of connected components,
   \item a subset $\mu \subset \Delta$ of the extremal nodes
@@ -2078,12 +2087,12 @@ the opposition involution is defined componentwise.
  in these degenerate cases.
 
  If $d = 1$, then $\deg(S) = 2$,
- and we say that $(\Delta,\mu)$ has type~$D_4^\RR$.
+ and we say that $(\Delta,\mu)$ has type~$\DtD_4^\RR$.
  If $d = 2$, then $\deg(S) = 1$,
- and we say that $(\Delta,\mu)$ has type~$D_4^\HQ$.
+ and we say that $(\Delta,\mu)$ has type~$\DtD_4^\HQ$.
  We will not say more about these diagrams in this example,
  apart from mentioning that the distinction
- between diagrams of type~$D_4^\RR$ and~$D_4^\HQ$
+ between diagrams of type~$\DtD_4^\RR$ and~$\DtD_4^\HQ$
  will play an important r\^ole in the proofs in the remainder of this section
  (notably the proof of \cref{deldyn-local-global}).
 \end{example}
@@ -2092,55 +2101,55 @@ the opposition involution is defined componentwise.
 Let $(\Delta,\mu)$ be an irreducible populated Deligne--Dynkin diagram over~$Q$.
 If $(\Delta,\mu)$ is symplectic,
 the type of its connected components is classical:
-$A_n$,~$B_n$, $C_n$, or~$D_n$.
+$\DtA_n$,~$\DtB_n$, $\DtC_n$, or~$\DtD_n$.
 On the other hand, if the connected components of~$\Delta$
-are of type $A_n$ (resp.~$B_n$, or~$C_n$),
+are of type $\DtA_n$ (resp.~$\DtB_n$, or~$\DtC_n$),
 then $(\Delta,\mu)$ is symplectic.
 In this case we say that the \emph{type} of~$(\Delta,\mu)$
-is $A_n$ (resp.~$B_n$, or~$C_n$).
+is $\DtA_n$ (resp.~$\DtB_n$, or~$\DtC_n$).
 The case where the connected components of~$\Delta$
-are of type~$D_n$ requires more attention.
+are of type~$\DtD_n$ requires more attention.
 
 Assume that the connected components of~$\Delta$
-are of type~$D_n$, with $n \ge 5$.
+are of type~$\DtD_n$, with $n \ge 5$.
 For every special node $\alpha \in \mu \subset \Delta$,
 let $\Delta_\alpha$ be the connected component of~$\Delta$
 that contains~$\alpha$.
-The pair $(\Delta_\alpha, \alpha)$ is of type~$D_n^\RR$ or~$D_n^\HQ$
+The pair $(\Delta_\alpha, \alpha)$ is of type~$\DtD_n^\RR$ or~$\DtD_n^\HQ$
 according to the diagrams listed in \cref{table-deligne-dynkin-diagrams}.
 One readily verifies that $(\Delta,\mu)$ is symplectic if and only if
 one of the following conditions holds:
 \begin{itemize}
  \item for every special node~$\alpha$, the pair $(\Delta_\alpha, \alpha)$
-  is of type $D_n^\RR$; or
+  is of type $\DtD_n^\RR$; or
  \item for every special node~$\alpha$, the pair $(\Delta_\alpha, \alpha)$
-  is of type $D_n^\HQ$.
+  is of type $\DtD_n^\HQ$.
 \end{itemize}
-We say that $(\Delta,\mu)$ is of \emph{type}~$D_n^\RR$ (resp.~$D_n^\HQ$)
+We say that $(\Delta,\mu)$ is of \emph{type}~$\DtD_n^\RR$ (resp.~$\DtD_n^\HQ$)
 if the former (resp.~the latter) condition holds.
 
-Finally, if the connected components of~$\Delta$ have type~$D_4$,
+Finally, if the connected components of~$\Delta$ have type~$\DtD_4$,
 then the type of $(\Delta,\mu)$ was explained in \cref{eg-D4},
 as follows:
 Let $\bar\mu$ be the $\Gal(\bar Q/Q)$-closure of~$\mu$.
 and write $d = \deg_{\pi_0(\Delta)}(\bar\mu)$.
 Recall that $d \in \{1,2,3\}$,
 and if $d = 3$, then $(\Delta,\mu)$ is not symplectic.
-We say that $(\Delta,\mu)$ has \emph{type}~$D_4^\RR$ (resp.~$D_4^\HQ$)
+We say that $(\Delta,\mu)$ has \emph{type}~$\DtD_4^\RR$ (resp.~$\DtD_4^\HQ$)
 if $d = 1$ (resp.~$d = 2$).
 
 We conclude with two observations:
 \begin{itemize}
- \item The definitions of type~$D_n^\RR$ and~$D_n^\HQ$
+ \item The definitions of type~$\DtD_n^\RR$ and~$\DtD_n^\HQ$
   distinguish between the cases $n = 4$ and $n \ge 5$,
   but these cases unify in the following way:
-  if $(\Delta,\mu)$ is of type~$D_n^\RR$ (resp.~$D_n^\HQ$),
+  if $(\Delta,\mu)$ is of type~$\DtD_n^\RR$ (resp.~$\DtD_n^\HQ$),
   then the subset of $\mu$-symplectic nodes of~$\Delta$
   has degree~$2$ (resp.~$1$) over~$\pi_0(\Delta)$.
  \item An irreducible symplectic populated Deligne--Dynkin diagram
   always has one of the following types:
-  $A_n$~($n \ge 1$), $B_n$ ($n \ge 2$), $C_n$ ($n \ge 3$),
-  $D_n^\RR$ ($n \ge 4$), or~$D_n^\HQ$ ($n \ge 4$);
+  $\DtA_n$~($n \ge 1$), $\DtB_n$ ($n \ge 2$), $\DtC_n$ ($n \ge 3$),
+  $\DtD_n^\RR$ ($n \ge 4$), or~$\DtD_n^\HQ$ ($n \ge 4$);
   and all these types occur.
 \end{itemize}
 
@@ -2161,10 +2170,10 @@ We conclude with two observations:
    may be strictly larger than
    the subset of $\mu$-symplectic nodes of $(\Delta,\mu)$.
   \item \label[remark]{restriction-remarks-type}
-   If $(\Delta,\mu)$ is irreducible of type~$D_4^\HQ$
-   then $(\Delta,\mu)_{Q'}$ may have irreducible components of type~$D_4^\RR$.
+   If $(\Delta,\mu)$ is irreducible of type~$\DtD_4^\HQ$
+   then $(\Delta,\mu)_{Q'}$ may have irreducible components of type~$\DtD_4^\RR$.
    On the other hand, if $(\Delta,\mu)$ is populated and symplectic,
-   but not of type~$D_4^\HQ$,
+   but not of type~$\DtD_4^\HQ$,
    then every irreducible component of $(\Delta,\mu)_{Q'}$ that is populated
    must have the same type as $(\Delta,\mu)$.
  \end{enumerate}
@@ -2179,7 +2188,7 @@ We conclude with two observations:
  that has the same type as $(\Delta,\mu)$.
  \begin{proof}
   By what was said in \cref{restriction-remarks-type} this is trivial,
-  unless $(\Delta,\mu)$ has type~$D_4^\HQ$.
+  unless $(\Delta,\mu)$ has type~$\DtD_4^\HQ$.
   In that case, let $\alpha \in \mu$ be a special node,
   and let $\Delta_\alpha$ be
   the connected component of~$\Delta$ that contains~$\alpha$.
@@ -2193,7 +2202,7 @@ We conclude with two observations:
   and an element $g \in \Gal(\QQlbar/\QQl)$ such that $g\alpha = \beta$.
   Let $\Delta'$ be the $\Gal(\QQlbar/\QQl)$-closure of $\Delta_\alpha$,
   and take $\mu' = \Delta' \cap \mu$.
-  Then $(\Delta', \mu')$ has type~$D_4^\HQ$.
+  Then $(\Delta', \mu')$ has type~$\DtD_4^\HQ$.
  \end{proof}
 \end{lemma}
 
@@ -2222,9 +2231,9 @@ such that $\pi_0(\phi) = f$.
  \[
   \#\Aut_\id(\Delta,\mu) =
   \begin{cases}
-   1 &\text{if $(\Delta,\mu)$ has type $A_1$,~$B_n$, $C_n$, $D_n^\HQ$,
-   or $A_n$ and $\mu$ is not fixed by~$\tau$,}\\
-   2 &\text{if $(\Delta,\mu)$ has type $D_n^\RR$, or $A_n$ ($n \ge 2$)
+   1 &\text{if $(\Delta,\mu)$ has type $\DtA_1$,~$\DtB_n$, $\DtC_n$, $\DtD_n^\HQ$,
+   or $\DtA_n$ and $\mu$ is not fixed by~$\tau$,}\\
+   2 &\text{if $(\Delta,\mu)$ has type $\DtD_n^\RR$, or $\DtA_n$ ($n \ge 2$)
     and $\mu$ is fixed by~$\tau$.}
   \end{cases}
  \]
@@ -2271,15 +2280,15 @@ a $\Gal(\bar Q/Q)$-closed subset $U(\Delta,\mu)$ of~$\Delta$
 with $\deg_{\pi_0(\Delta)}(U(\Delta,\mu)) \in \{1,2\}$.
 Indeed, let $S$ be the subset of $\mu$-symplectic nodes of~$(\Delta,\mu)$.
 \begin{itemize}
- \item If $(\Delta,\mu)$ has type~$A_n$, we take~$U(\Delta,\mu) = S$,
+ \item If $(\Delta,\mu)$ has type~$\DtA_n$, we take~$U(\Delta,\mu) = S$,
   which has degree~$1$ if $n = 1$ and degree~$2$ otherwise.
- \item If $(\Delta,\mu)$ has type~$B_n$, we take $U(\Delta,\mu) = S$,
+ \item If $(\Delta,\mu)$ has type~$\DtB_n$, we take $U(\Delta,\mu) = S$,
   which has degree~$1$.
- \item If $(\Delta,\mu)$ has type~$C_n$, we take $U(\Delta,\mu) = \bar\mu$,
+ \item If $(\Delta,\mu)$ has type~$\DtC_n$, we take $U(\Delta,\mu) = \bar\mu$,
   which has degree~$1$.
- \item If $(\Delta,\mu)$ has type~$D_n^\RR$, we take $U(\Delta,\mu) = S$,
+ \item If $(\Delta,\mu)$ has type~$\DtD_n^\RR$, we take $U(\Delta,\mu) = S$,
   which has degree~$2$.
- \item If $(\Delta,\mu)$ has type~$D_n^\HQ$,
+ \item If $(\Delta,\mu)$ has type~$\DtD_n^\HQ$,
   we take $U(\Delta,\mu) = \bar\mu$,
   which has degree~$1$ or~$2$.
 \end{itemize}
@@ -2326,7 +2335,7 @@ We will use this notation below.
   First of all, observe
   that $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$ have the same type,
   by \cref{restriction-remarks-type} and \cref{locally-same-type}.
-  If this type is $B_n$ or~$C_n$,
+  If this type is $\DtB_n$ or~$\DtC_n$,
   then the topology of the diagrams
   and the map $f \colon \pi_0(\Delta_1) \to \pi_0(\Delta_2)$
   determine a unique $\Gal(\QQbar/\QQ)$-equivariant map
@@ -2350,13 +2359,13 @@ We will use this notation below.
   will follow from Chebotarev's density theorem
   if we prove that these sets are locally isomorphic.
   \begin{itemize}
-   \item If $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$ have type~$A_n$,
-    or~$D_n^\RR$ with $n \ge 5$,
+   \item If $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$ have type~$\DtA_n$,
+    or~$\DtD_n^\RR$ with $n \ge 5$,
     then the topology of the diagrams
     forces that $\psi_\ell(U(\Delta_1,\mu_1))$ equals $U(\Delta_2,\mu_2)$
     for all prime numbers~$\ell$.
    \item Now assume that $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$
-    have type~$D_4^\RR$ or~$D_4^\HQ$.
+    have type~$\DtD_4^\RR$ or~$\DtD_4^\HQ$.
     Let $\lambda$ be a finite place of~$E$.
     There are two possibilities:
     either the extremal nodes of
@@ -2368,7 +2377,7 @@ We will use this notation below.
     is isomorphic to
     $U(\Delta_2,\mu_2)_\lambda$.
    \item Finally, assume that $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$
-    have type $D_n^\HQ$ with $n \ge 5$.
+    have type $\DtD_n^\HQ$ with $n \ge 5$.
     Recall that $U(\Delta_i,\mu_i) = \bar\mu_i$ has degree~$1$ or~$2$.
     If these degrees are equal, then we are done.
     Now suppose that the degree of $\bar\mu_1$ is~$2$.
@@ -2388,18 +2397,18 @@ We will use this notation below.
   in such a way that it maps $\mu_1$ to~$\mu_2$.
 
   At the beginning of this proof, we already dealt with the cases where
-  $(\Delta_1,\mu_1)$ and $(\Delta_2,\mu_2)$ have type~$B_n$ or~$C_n$.
+  $(\Delta_1,\mu_1)$ and $(\Delta_2,\mu_2)$ have type~$\DtB_n$ or~$\DtC_n$.
   We continue with some other easy cases.
   \begin{itemize}
    \item If $(\Delta_1,\mu_1)$ and $(\Delta_2,\mu_2)$
-    are of type $A_1$, or~$D_n^\RR$ with $n \ge 5$,
+    are of type $\DtA_1$, or~$\DtD_n^\RR$ with $n \ge 5$,
     then the topology of the diagrams force $\phi(\mu_1) = \mu_2$,
     hence there is nothing left to do.
-   \item If the type is $D_4^\RR$,
+   \item If the type is $\DtD_4^\RR$,
     recall that $\bar\mu_i$ has degree~$1$ over~$\pi_0(\Delta_i)$.
     Hence it is clear that we can choose~$\phi$
     such that $\phi(\mu_1) = \mu_2$.
-   \item Now suppose that the type is $A_n$ with $n \ge 2$,
+   \item Now suppose that the type is $\DtA_n$ with $n \ge 2$,
     and assume that $\mu_1$ (and therefore $\mu_2$) is fixed
     under the opposition involution.
     Once again, the topology of the diagrams force $\phi(\mu_1) = \mu_2$.
@@ -2408,9 +2417,9 @@ We will use this notation below.
   so far we have not needed to change our choice of~$\phi$,
   but with the remaining cases this might be necessary.
 
-  We save the case~$D_4^\HQ$ for the \emph{coup de gr\^ace} of this proof.
-  Suppose that the type is $D_n^\HQ$ with $n \ge 5$,
-  or the type is $A_n$ and $\mu_i$ is not fixed by the opposition involution.
+  We save the case~$\DtD_4^\HQ$ for the \emph{coup de gr\^ace} of this proof.
+  Suppose that the type is $\DtD_n^\HQ$ with $n \ge 5$,
+  or the type is $\DtA_n$ and $\mu_i$ is not fixed by the opposition involution.
   There is a unique non-trivial $\Gal(\QQbar/\QQ)$-equivariant
   involution~$\tau_i \in \Aut_\id(\Delta_i)$.
   Observe that $\phi \circ \tau_1 = \tau_2 \circ \phi$.
@@ -2436,7 +2445,7 @@ We will use this notation below.
   and therefore $\phi_\lambda = \psi_\lambda$.
   This implies $\phi(\alpha') \in \mu_2$, which concludes the proof.
 
-  Finally, assume the type is $D_4^\HQ$.
+  Finally, assume the type is $\DtD_4^\HQ$.
   Recall that $\bar\mu_i$ has degree~$2$.
   Thus there is a unique non-trivial $\Gal(\QQbar/\QQ)$-equivariant
   involution~$\tau_i \in \Aut_\id(\Delta_i)$
