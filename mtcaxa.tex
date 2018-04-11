@@ -406,8 +406,7 @@ preheadhook={\bigskip}]{nproof}
 	shapes.geometric
 }
 \tikzset{Dynkin/.style = {
-		every node/.style = {ellipse, draw, semithick, inner xsep=1.5pt, inner ysep=2pt,
-			fill=white,
+		every node/.style = {circle, draw, semithick, inner sep=2pt, fill=white,
 			copy shadow={fill=black, shadow xshift=0.3pt, shadow yshift=-0.1pt},
 		},
 		every label/.append style = {label distance=-2.5pt,
@@ -415,8 +414,8 @@ preheadhook={\bigskip}]{nproof}
    inner sep=1ex,text depth=1pt,
 			every shadow/.style={opacity=0}
 		},
-  special/.style={double},
-  symplectic/.style={forbidden sign},
+  special/.style={rectangle, inner sep=2.4pt},
+  symplectic/.style={correct forbidden sign},
 		a0/.style = {fill=gray!50},
   diagramlabel/.style = {draw=none,opacity=0},
 		doubledynkin/.style={double distance=2pt,
@@ -1854,18 +1853,9 @@ and~$(\_)^\HQ$. Some details are given in \cref{meaning-DnR-DnH}.
 
 \nobreak
 \noindent
-\begin{minipage}{.55\textwidth} % {{{-3
+\begin{minipage}{.50\textwidth} % {{{-3
 \[
  \begin{tikzpicture}[Dynkin,yscale=-1]
-  % yscale=-1.3,
-  % every node/.style={draw,circle,inner sep=2pt},
-  % special/.style={double},
-  % symplectic/.style={forbidden sign},
-  % every label/.append style={rectangle,font=\footnotesize,
-  %  inner sep=1ex,text depth=1pt},
-  % decoration={markings,mark=at position 0.7 with {\arrow{>}}},
-  % doubledynkin/.style={double distance=2pt,postaction=decorate}
-  % ]
   \node[diagramlabel] (Atext) [label=right:{\normalsize$A_{p+q-1}$:}] at (-1.25,0) {};
   \node[symplectic] (A1) [label={$q/(p+q)$}] at (1,0) {};
   \node[special] (Ap) [label={$pq/(p+q)$}] at (3,0) {};
@@ -1893,7 +1883,8 @@ and~$(\_)^\HQ$. Some details are given in \cref{meaning-DnR-DnH}.
   \node[symplectic] (DRlm1) [label=right:{$1/2$}] at (5,2.5) {};
   \node[symplectic] (DRl) [label=right:{$1/2$}] at (5,3.5) {};
   \draw[dashed] (DR1) -- (DRlm2);
-  \draw (DRlm1) -- (DRlm2) -- (DRl);
+  \draw (DRlm1) -- (DRlm2);
+  \draw[thick] (DRlm2) -- (DRl);
 
   \begin{scope}[yshift=0.5cm]
    \node[diagramlabel] (DHtext) [label=right:{\normalsize$D_{k+2}^{\HQ}$:}] at (-1.25,4) {};
@@ -1902,7 +1893,8 @@ and~$(\_)^\HQ$. Some details are given in \cref{meaning-DnR-DnH}.
    \node[special] (DHlm1) [label=right:{$k/4$}] at (5,3.5) {};
    \node (DHl) [label=right:{$k/4+1/2$}] at (5,4.5) {};
    \draw[dashed] (DH1) -- (DHlm2);
-   \draw (DHlm1) -- (DHlm2) -- (DHl);
+   \draw (DHlm1) -- (DHlm2);
+   \draw[thick] (DHlm2) -- (DHl);
   \end{scope}
 
   \node[diagramlabel] (E6text) [label=right:{\normalsize$E_6$:}] at (-1.25,6) {};
@@ -1932,25 +1924,22 @@ and~$(\_)^\HQ$. Some details are given in \cref{meaning-DnR-DnH}.
 \end{minipage}\hfill% -}}}3
 \newdimen\curparindent
 \curparindent=\parindent
-\begin{minipage}{.41\textwidth} % {{{-3
+\begin{minipage}{.44\textwidth} % {{{-3
  \parindent=\curparindent
  \divide\parindent by 3
  \multiply\parindent by 2
  \noindent
  \small
 Legend (and comparison with \cite{Del_ShimVar}):
-\begin{itemize}[leftmargin=\parindent]
- \item nodes are represented by circles~%
-  \tikz[Dynkin] \node {};
-  (bars in \cite{Del_ShimVar});
- \item special nodes are represented by double circles~%
-  \tikz[Dynkin] \node[special] {};
-  (circled nodes in \cite{Del_ShimVar});
- \item symplectic nodes (defined below) are represented by slashed circles~%
-  \tikz[Dynkin] \node[symplectic] {};
-  (underlined nodes in \cite{Del_ShimVar}).
+\begin{itemize}[leftmargin=12pt]
+ \item[{\tikz[Dynkin] \node {};}]
+  a node (bar in \cite{Del_ShimVar});
+ \item[{\tikz[Dynkin] \node[special] {};}]
+  the special node~$\alpha$ (circled node in \cite{Del_ShimVar});
+ \item[{\tikz[Dynkin] \node[symplectic] {};}]
+  an $\alpha$-symplectic node (underlined node in \cite{Del_ShimVar});
+  these are defined below.
 \end{itemize}
-
 The number next to a node $\omega$ is $\langle \alpha,\omega \rangle$,
 where the special node~$\alpha$ and the node~$\omega$
 are identified with the appropriate (co)characters.
