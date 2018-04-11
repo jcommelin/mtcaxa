@@ -1797,26 +1797,26 @@ in which $\alpha_0$ is depicted by a grey node
  \label{deligne-dynkin-diagram}
  Let $Q$ be a field.
  A \emph{Deligne--Dynkin diagram} over~$Q$
- is a pair $\Delta^\mu = (\Delta, \mu)$, where
+ is a pair $(\Delta,\mu)$, where
  $\Delta$ is a Dynkin diagram equipped with an action of~$\Gal(\bar Q/Q)$,
  and $\mu$ is a subset of the special nodes
  of the connected components of~$\Delta$
  that meets each connected component in at most $1$~node.
  (Note: $\mu$ is not required to be $\Gal(\bar Q/Q)$-stable.)
- The Deligne--Dynkin diagram $\Delta^\mu$ is called \emph{irreducible}
+ The Deligne--Dynkin diagram $(\Delta,\mu)$ is called \emph{irreducible}
  if $\pi_0(\Delta)$ is irreducible as $\Gal(\bar Q/Q)$-set,
- and $\Delta^\mu$ is \emph{populated} if $\mu$ meets every
- irreducible component of~$\Delta^\mu$.
+ and $(\Delta,\mu)$ is \emph{populated} if $\mu$ meets every
+ irreducible component of~$(\Delta,\mu)$.
 \end{definition}
 
 \begin{remark} % {{{-2
  There is a risk of confusing terminology:
- a \emph{connected component} of~$\Delta$ (or~$\Delta^\mu$)
+ a \emph{connected component} of~$\Delta$ (or~$(\Delta,\mu)$)
  will always mean a connected component of the Dynkin diagram~$\Delta$
  disregarding the $\Gal(\bar Q/Q)$-action;
- whereas an \emph{irreducible component} $\Delta_1^{\mu_1} \subset \Delta^\mu$
- is an irreducible $\Gal(\bar Q/Q)$-subset $\Delta_1$
- of connected components of~$\Delta$ and $\mu_1 = \Delta_1 \cap \mu$.
+ whereas an \emph{irreducible component} $(\Delta',\mu') \subset (\Delta,\mu)$
+ is an irreducible $\Gal(\bar Q/Q)$-subset $\Delta'$
+ of connected components of~$\Delta$ and $\mu' = \Delta' \cap \mu$.
 \end{remark}
 
 \paragraph{} % {{{-2
@@ -1831,7 +1831,7 @@ Let $\mu \colon \Gm \to \GB(M)_\CC$ be the Hodge cocharacter
 (see~\cref{hodge-cocharacter}).
 This cocharacter may be identified with a subset of nodes $\mu \subset \Delta$.
 By \S1.2.5 of~\cite{Del_ShimVar} the nodes in~$\mu$ are special
-and $\Delta^\mu$ is a populated Deligne--Dynkin diagram over~$\QQ$.
+and $(\Delta,\mu)$ is a populated Deligne--Dynkin diagram over~$\QQ$.
 We call it the \emph{Deligne--Dynkin diagram associated with $M$}.
 
 \paragraph{} % {{{-2
@@ -2001,8 +2001,8 @@ such that $\alpha$ defines a $\{-1,0,1\}$-grading on~$V$.
 
 \begin{definition} % {{{-2
  \label{symplectic-nodes-deligne-dynkin-diagram}
- Let $\Delta^\mu$ be a Deligne--Dynkin diagram over a field~$Q$.
- The \emph{subset of $\mu$-symplectic nodes} attached to $\Delta^\mu$
+ Let $(\Delta,\mu)$ be a Deligne--Dynkin diagram over a field~$Q$.
+ The \emph{subset of $\mu$-symplectic nodes} attached to $(\Delta,\mu)$
  is the maximal subset $S \subset \Delta$ satisfying the following conditions:
  \begin{enumerate}
   \item For every special node $\alpha \in \mu \subset \Delta$,
@@ -2016,15 +2016,15 @@ such that $\alpha$ defines a $\{-1,0,1\}$-grading on~$V$.
 \end{definition}
 
 \begin{definition} % {{{-2
- A Deligne--Dynkin diagram $\Delta^\mu$ over~$Q$ is \emph{symplectic}
+ A Deligne--Dynkin diagram $(\Delta,\mu)$ over~$Q$ is \emph{symplectic}
  if its subset of $\mu$-symplectic nodes has non-empty intersection
- with every irreducible component of $\Delta^\mu$.
+ with every irreducible component of $(\Delta,\mu)$.
 \end{definition}
 
 \begin{theorem} % {{{-2
  \label{deldyn-symplectic}
  If $M$ is a hyperadjoint abelian motive over a field $K \subset \CC$,
- then the Deligne--Dynkin diagram $\Delta^{\mu}$
+ then the Deligne--Dynkin diagram $(\Delta,\mu)$
  associated with~$M$ is symplectic.
  \begin{proof}
   Since $M$ is an abelian motive,
@@ -2036,7 +2036,7 @@ such that $\alpha$ defines a $\{-1,0,1\}$-grading on~$V$.
   The representation $\GB(A) \to \GL(\HB^1(A))$ is symplectic,
   and thus its restriction to $\tilde\GG_{\mathrm{B}}(M)$ is symplectic.
   In \S1.3 and~\S2.3.7 of~\cite{Del_ShimVar}, Deligne shows that this means
-  that $\Delta^{\mu}$ is symplectic.
+  that $(\Delta,\mu)$ is symplectic.
  \end{proof}
 \end{theorem}
 
@@ -2044,7 +2044,7 @@ such that $\alpha$ defines a $\{-1,0,1\}$-grading on~$V$.
  \label{eg-D4}
  We will now look in some detail at Deligne--Dynkin diagrams
  whose underlying Dynkin diagrams have connected components of type~$D_4$.
- Let $\Delta^\mu$ be such a Deligne--Dynkin diagram over some field~$Q$,
+ Let $(\Delta,\mu)$ be such a Deligne--Dynkin diagram over some field~$Q$,
  and assume that it is irreducible.
  Recall that this means that we have the following:
  \begin{itemize}
@@ -2056,7 +2056,7 @@ such that $\alpha$ defines a $\{-1,0,1\}$-grading on~$V$.
    such that $\mu$ meets every connected component of~$\Delta$
    in at most $1$~node.
  \end{itemize}
- Several properties of~$\Delta^\mu$ depend on how
+ Several properties of~$(\Delta,\mu)$ depend on how
  the action of $\Gal(\bar Q/Q)$ and the subset $\mu \subset \Delta$
  play together:
  let $\bar\mu$ denote the closure of~$\mu$
@@ -2066,20 +2066,20 @@ such that $\alpha$ defines a $\{-1,0,1\}$-grading on~$V$.
  The cases $d = 0$ and $d = 3$ are somewhat degenerate.
  To see this, let $S \subset \Delta$ be the subset of $\mu$-symplectic nodes.
  If $d = 0$, then $\mu = \varnothing$ and $S = \Delta$:
- in this case $\Delta^\mu$ is not populated.
- On the other hand, if $\Delta^\mu$ is populated ($\mu \ne \varnothing$),
+ in this case $(\Delta,\mu)$ is not populated.
+ On the other hand, if $(\Delta,\mu)$ is populated ($\mu \ne \varnothing$),
  then \cref{table-deligne-dynkin-diagrams} shows that
  $S$ is contained in the set~$V$ of extremal nodes of~$\Delta$.
  In fact, we have $V = \bar\mu \sqcup S$, by the maximality of~$S$.
  Hence, if $d = 3$, then $S = \varnothing$
- and $\Delta^\mu$ is not symplectic.
+ and $(\Delta,\mu)$ is not symplectic.
  \Cref{deldyn-symplectic,abmotdeldyn} explain why we are not interested
  in these degenerate cases.
 
  If $d = 1$, then $\deg(S) = 2$,
- and we say that $\Delta^\mu$ has type~$D_4^\RR$.
+ and we say that $(\Delta,\mu)$ has type~$D_4^\RR$.
  If $d = 2$, then $\deg(S) = 1$,
- and we say that $\Delta^\mu$ has type~$D_4^\HQ$.
+ and we say that $(\Delta,\mu)$ has type~$D_4^\HQ$.
  We will not say more about these diagrams in this example,
  apart from mentioning that the distinction
  between diagrams of type~$D_4^\RR$ and~$D_4^\HQ$
@@ -2087,15 +2087,15 @@ such that $\alpha$ defines a $\{-1,0,1\}$-grading on~$V$.
  (notably the proof of \cref{deldyn-local-global}).
 \end{example}
 
-\paragraph{The type of $\Delta^\mu$} % {{{-2
-Let $\Delta^{\mu}$ be an irreducible populated Deligne--Dynkin diagram over~$Q$.
-If $\Delta^{\mu}$ is symplectic,
+\paragraph{The type of $(\Delta,\mu)$} % {{{-2
+Let $(\Delta,\mu)$ be an irreducible populated Deligne--Dynkin diagram over~$Q$.
+If $(\Delta,\mu)$ is symplectic,
 the type of its connected components is classical:
 $A_n$,~$B_n$, $C_n$, or~$D_n$.
 On the other hand, if the connected components of~$\Delta$
 are of type $A_n$ (resp.~$B_n$, or~$C_n$),
-then $\Delta^\mu$ is symplectic.
-In this case we say that the \emph{type} of~$\Delta^\mu$
+then $(\Delta,\mu)$ is symplectic.
+In this case we say that the \emph{type} of~$(\Delta,\mu)$
 is $A_n$ (resp.~$B_n$, or~$C_n$).
 The case where the connected components of~$\Delta$
 are of type~$D_n$ requires more attention.
@@ -2107,7 +2107,7 @@ let $\Delta_\alpha$ be the connected component of~$\Delta$
 that contains~$\alpha$.
 The pair $(\Delta_\alpha, \alpha)$ is of type~$D_n^\RR$ or~$D_n^\HQ$
 according to the diagrams listed in \cref{table-deligne-dynkin-diagrams}.
-One readily verifies that $\Delta^\mu$ is symplectic if and only if
+One readily verifies that $(\Delta,\mu)$ is symplectic if and only if
 one of the following conditions holds:
 \begin{itemize}
  \item for every special node~$\alpha$, the pair $(\Delta_\alpha, \alpha)$
@@ -2115,17 +2115,17 @@ one of the following conditions holds:
  \item for every special node~$\alpha$, the pair $(\Delta_\alpha, \alpha)$
   is of type $D_n^\HQ$.
 \end{itemize}
-We say that $\Delta^\mu$ is of \emph{type}~$D_n^\RR$ (resp.~$D_n^\HQ$)
+We say that $(\Delta,\mu)$ is of \emph{type}~$D_n^\RR$ (resp.~$D_n^\HQ$)
 if the former (resp.~the latter) condition holds.
 
 Finally, if the connected components of~$\Delta$ have type~$D_4$,
-then the type of $\Delta^\mu$ was explained in \cref{eg-D4},
+then the type of $(\Delta,\mu)$ was explained in \cref{eg-D4},
 as follows:
 Let $\bar\mu$ be the $\Gal(\bar Q/Q)$-closure of~$\mu$.
 and write $d = \deg_{\pi_0(\Delta)}(\bar\mu)$.
 Recall that $d \in \{1,2,3\}$,
-and if $d = 3$, then $\Delta^\mu$ is not symplectic.
-We say that $\Delta^\mu$ has \emph{type}~$D_4^\RR$ (resp.~$D_4^\HQ$)
+and if $d = 3$, then $(\Delta,\mu)$ is not symplectic.
+We say that $(\Delta,\mu)$ has \emph{type}~$D_4^\RR$ (resp.~$D_4^\HQ$)
 if $d = 1$ (resp.~$d = 2$).
 
 We conclude with two observations:
@@ -2133,7 +2133,7 @@ We conclude with two observations:
  \item The definitions of type~$D_n^\RR$ and~$D_n^\HQ$
   distinguish between the cases $n = 4$ and $n \ge 5$,
   but these cases unify in the following way:
-  if $\Delta^\mu$ is of type~$D_n^\RR$ (resp.~$D_n^\HQ$),
+  if $(\Delta,\mu)$ is of type~$D_n^\RR$ (resp.~$D_n^\HQ$),
   then the subset of $\mu$-symplectic nodes of~$\Delta$
   has degree~$2$ (resp.~$1$) over~$\pi_0(\Delta)$.
  \item An irreducible symplectic populated Deligne--Dynkin diagram
@@ -2151,42 +2151,42 @@ We conclude with two observations:
 \begin{remark} % {{{-2
  \label{restriction-remarks}
  Let $Q'/Q$ be a field extension,
- and let $\Delta^{\mu}$ be a Deligne--Dynkin diagram over~$Q$.
+ and let $(\Delta,\mu)$ be a Deligne--Dynkin diagram over~$Q$.
  By restricting the Galois action,
- one obtains a Deligne--Dynkin diagram $\Delta^{\mu}_{Q'}$ over~$Q'$.
+ one obtains a Deligne--Dynkin diagram $(\Delta,\mu)_{Q'}$ over~$Q'$.
  We make the following observations:
  \begin{enumerate}
-  \item If $\Delta^{\mu}$ is irreducible or populated
-   then this need not be true for $\Delta^{\mu}_{Q'}$.
-   (Of course $\Delta^\mu_{Q'}$ will have
+  \item If $(\Delta,\mu)$ is irreducible or populated
+   then this need not be true for $(\Delta,\mu)_{Q'}$.
+   (Of course $(\Delta,\mu)_{Q'}$ will have
    irreducible components that are populated.)
   \item Related to the preceding point:
-   the subset of symplectic nodes of $\Delta^{\mu}_{Q'}$
-   may be strictly larger than the subset of symplectic nodes of $\Delta^{\mu}$.
+   the subset of symplectic nodes of $(\Delta,\mu)_{Q'}$
+   may be strictly larger than the subset of symplectic nodes of $(\Delta,\mu)$.
   \item \label[remark]{restriction-remarks-type}
-   If $\Delta^{\mu}$ is irreducible of type~$D_4^\HQ$
-   then $\Delta^{\mu}_{Q'}$ may have irreducible components of type~$D_4^\RR$.
-   On the other hand, if $\Delta^{\mu}$ is populated and symplectic,
+   If $(\Delta,\mu)$ is irreducible of type~$D_4^\HQ$
+   then $(\Delta,\mu)_{Q'}$ may have irreducible components of type~$D_4^\RR$.
+   On the other hand, if $(\Delta,\mu)$ is populated and symplectic,
    but not of type~$D_4^\HQ$,
-   then every irreducible component of $\Delta^{\mu}_{Q'}$ that is populated
-   must have the same type as $\Delta^{\mu}$.
+   then every irreducible component of $(\Delta,\mu)_{Q'}$ that is populated
+   must have the same type as $(\Delta,\mu)$.
  \end{enumerate}
 \end{remark}
 
 \begin{lemma} % {{{-2
  \label{locally-same-type}
- Let $\Delta^{\mu}$ be
+ Let $(\Delta,\mu)$ be
  an irreducible symplectic populated Deligne--Dynkin diagram over~$\QQ$.
  Then there exists a prime number~$\ell$,
- and an irreducible component of $\Delta^{\mu}_{\QQl}$
- that has the same type as $\Delta^{\mu}$.
+ and an irreducible component of $(\Delta,\mu)_{\QQl}$
+ that has the same type as $(\Delta,\mu)$.
  \begin{proof}
   By what was said in \cref{restriction-remarks-type} this is trivial,
-  unless $\Delta^{\mu}$ has type~$D_4^\HQ$.
+  unless $(\Delta,\mu)$ has type~$D_4^\HQ$.
   In that case, let $\alpha \in \mu$ be a special node,
   and let $\Delta_\alpha$ be
   the connected component of~$\Delta$ that contains~$\alpha$.
-  By assumption, the subset of $\mu$-symplectic nodes of $\Delta^{\mu}$
+  By assumption, the subset of $\mu$-symplectic nodes of $(\Delta,\mu)$
   meets $\Delta_\alpha$ in exactly one node~$s$.
   Label the remaining extremal node of~$\Delta_\alpha$ with $\beta$,
   so that $\{\alpha,\beta,s\}$ is the set of extremal nodes of~$\Delta_\alpha$.
@@ -2202,32 +2202,32 @@ We conclude with two observations:
 
 \paragraph{} % {{{-2
 An \emph{isomorphism of Deligne--Dynkin diagrams}
-$\phi \colon \Delta_1^{\mu_1} \to \Delta_2^{\mu_2}$ over a field~$Q$
+$\phi \colon (\Delta_1,\mu_1) \to (\Delta_2,\mu_2)$ over a field~$Q$
 is a $\Gal(\bar Q/Q)$-equivariant isomorphism
 $\phi \colon \Delta_1 \to \Delta_2$ that maps $\mu_1$ onto~$\mu_2$.
-We denote the set of isomorphisms from~$\Delta_1^{\mu_1}$ to~$\Delta_2^{\mu_2}$
-by $\Isom(\Delta_1^{\mu_1},\Delta_2^{\mu_2})$.
+We denote the set of isomorphisms from~$(\Delta_1,\mu_1)$ to~$(\Delta_2,\mu_2)$
+by $\Isom((\Delta_1,\mu_1),(\Delta_2,\mu_2))$.
 
 Observe that there is a natural map
-$\Isom(\Delta_1^{\mu_1},\Delta_2^{\mu_2})
+$\Isom((\Delta_1,\mu_1),(\Delta_2,\mu_2))
 \to \Isom_{\Gal(\bar Q/Q)}(\pi_0(\Delta_1),\pi_0(\Delta_2))$,
 and if $f \in \Isom_{\Gal(\bar Q/Q)}(\pi_0(\Delta_1),\pi_0(\Delta_2))$,
-then we write $\Isom_f(\Delta_1^{\mu_1},\Delta_2^{\mu_2})$
-for the set of $\phi \in \Isom(\Delta_1^{\mu_1},\Delta_2^{\mu_2})$
+then we write $\Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))$
+for the set of $\phi \in \Isom((\Delta_1,\mu_1),(\Delta_2,\mu_2))$
 such that $\pi_0(\phi) = f$.
 
 \begin{lemma} % {{{-2
  \label{AutDeltamu}
- Let $\Delta^{\mu}$ be
+ Let $(\Delta,\mu)$ be
  an irreducible symplectic populated Deligne--Dynkin diagram over~$Q$.
  Let $\tau$ denote the opposition involution on~$\Delta$.
  Then
  \[
-  \#\Aut_\id(\Delta^\mu) =
+  \#\Aut_\id(\Delta,\mu) =
   \begin{cases}
-   1 &\text{if $\Delta^\mu$ has type $A_1$,~$B_n$, $C_n$, $D_n^\HQ$,
+   1 &\text{if $(\Delta,\mu)$ has type $A_1$,~$B_n$, $C_n$, $D_n^\HQ$,
    or $A_n$ and $\mu$ is not fixed by~$\tau$,}\\
-   2 &\text{if $\Delta^\mu$ has type $D_n^\RR$, or $A_n$ ($n \ge 2$)
+   2 &\text{if $(\Delta,\mu)$ has type $D_n^\RR$, or $A_n$ ($n \ge 2$)
     and $\mu$ is fixed by~$\tau$.}
   \end{cases}
  \]
@@ -2235,12 +2235,12 @@ such that $\pi_0(\phi) = f$.
 
 \begin{lemma} % {{{-2
  \label{locally-same-aut}
- Let $\Delta^{\mu}$ be
+ Let $(\Delta,\mu)$ be
  an irreducible symplectic populated Deligne--Dynkin diagram over~$\QQ$.
  Then there exists
- an irreducible component $\Delta_\lambda^{\mu_\lambda}$ of $\Delta^{\mu}_{\QQl}$
+ an irreducible component $(\Delta_\lambda,\mu_\lambda)$ of $(\Delta,\mu)_{\QQl}$
  such that the natural map
- $\Aut_\id(\Delta^\mu) \to \Aut_\id(\Delta_\lambda^{\mu_\lambda})$
+ $\Aut_\id(\Delta,\mu) \to \Aut_\id(\Delta_\lambda,\mu_\lambda)$
  is an isomorphism.
  \begin{proof}
   This follows immediately from \cref{locally-same-type,AutDeltamu}.
@@ -2257,44 +2257,44 @@ Now recall that a quadratic extension~$F$ of a number field~$E$
 is completely determined by the set of primes of~$E$ that split in~$F$.
 This fact inspires the following remark.
 
-Let $\Delta^\mu$ be
+Let $(\Delta,\mu)$ be
 an irreducible symplectic populated Deligne--Dynkin diagram over~$Q$.
 The action of $\Gal(\bar Q/Q)$ on~$\Delta$
 is determined by the action on
-a $\Gal(\bar Q/Q)$-closed subset $U(\Delta^\mu)$ of~$\Delta$
-with $\deg_{\pi_0(\Delta)}(U(\Delta^\mu)) \in \{1,2\}$.
-Indeed, let $S$ be the subset of $\mu$-symplectic nodes of~$\Delta^\mu$.
+a $\Gal(\bar Q/Q)$-closed subset $U(\Delta,\mu)$ of~$\Delta$
+with $\deg_{\pi_0(\Delta)}(U(\Delta,\mu)) \in \{1,2\}$.
+Indeed, let $S$ be the subset of $\mu$-symplectic nodes of~$(\Delta,\mu)$.
 \begin{itemize}
- \item If $\Delta^\mu$ has type~$A_n$, we take~$U(\Delta^\mu) = S$,
+ \item If $(\Delta,\mu)$ has type~$A_n$, we take~$U(\Delta,\mu) = S$,
   which has degree~$1$ if $n = 1$ and degree~$2$ otherwise.
- \item If $\Delta^\mu$ has type~$B_n$, we take $U(\Delta^\mu) = S$,
+ \item If $(\Delta,\mu)$ has type~$B_n$, we take $U(\Delta,\mu) = S$,
   which has degree~$1$.
- \item If $\Delta^\mu$ has type~$C_n$, we take $U(\Delta^\mu) = \bar\mu$,
+ \item If $(\Delta,\mu)$ has type~$C_n$, we take $U(\Delta,\mu) = \bar\mu$,
   which has degree~$1$.
- \item If $\Delta^\mu$ has type~$D_n^\RR$, we take $U(\Delta^\mu) = S$,
+ \item If $(\Delta,\mu)$ has type~$D_n^\RR$, we take $U(\Delta,\mu) = S$,
   which has degree~$2$.
- \item If $\Delta^\mu$ has type~$D_n^\HQ$,
-  we take $U(\Delta^\mu) = \bar\mu$,
+ \item If $(\Delta,\mu)$ has type~$D_n^\HQ$,
+  we take $U(\Delta,\mu) = \bar\mu$,
   which has degree~$1$ or~$2$.
 \end{itemize}
 
 \paragraph{} % {{{-2
 Let $E$ be a number field, and
-let $\Delta_1^{\mu_1}$ and~$\Delta_2^{\mu_2}$ be two
+let $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$ be two
 irreducible symplectic populated Deligne--Dynkin diagrams over~$\QQ$
 such that $\pi_0(\Delta_1)$ and $\pi_0(\Delta_2)$ are
 both isomorphic to $\Hom(E,\QQbar)$ as $\Gal(\QQbar/\QQ)$-sets.
 Fix $\Gal(\QQbar/\QQ)$-equivariant isomorphisms
 $\pi_0(\Delta_1) \cong \Hom(E,\QQbar) \cong \pi_0(\Delta_2)$
 and write $f$ for the composite map $\pi_0(\Delta_1) \to \pi_0(\Delta_2)$.
-Suppose that there is a $\phi \in \Isom_f(\Delta_1^{\mu_1},\Delta_2^{\mu_2})$.
+Suppose that there is a $\phi \in \Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))$.
 
 We restrict the Galois action to $\Gal(\QQlbar/\QQl)$,
 for some prime number~$\ell$.
-The irreducible components of~$(\Delta_1^{\mu_1})_{\QQl}$
+The irreducible components of~$(\Delta_1,\mu_1)_{\QQl}$
 are in a natural way indexed by the places~$\lambda$ of~$E$
 that lie above~$\ell$, so that
-$(\Delta_1^{\mu_1})_{\QQl} = \sqcup_{\lambda|\ell} (\Delta_1^{\mu_1})_\lambda$.
+$(\Delta_1,\mu_1)_{\QQl} = \sqcup_{\lambda|\ell} (\Delta_1,\mu_1)_\lambda$.
 In a similar manner, the maps~$f_\ell$ and~$\phi_\ell$
 are the disjoint union of local components~$f_\lambda$ and~$\phi_\lambda$.
 We will use this notation below.
@@ -2302,7 +2302,7 @@ We will use this notation below.
 \begin{proposition} % {{{-2
  \label{deldyn-local-global}
  Let $E$ be a number field, and
- let $\Delta_1^{\mu_1}$ and~$\Delta_2^{\mu_2}$ be two
+ let $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$ be two
  irreducible symplectic populated Deligne--Dynkin diagrams over~$\QQ$
  such that $\pi_0(\Delta_1)$ and $\pi_0(\Delta_2)$ are
  both isomorphic to $\Hom(E,\QQbar)$ as $\Gal(\QQbar/\QQ)$-sets.
@@ -2310,15 +2310,15 @@ We will use this notation below.
  $\pi_0(\Delta_1) \cong \Hom(E,\QQbar) \cong \pi_0(\Delta_2)$
  and write $f$ for the composite map $\pi_0(\Delta_1) \to \pi_0(\Delta_2)$.
  Suppose that for each prime number~$\ell$ there is an element
- $\psi_\ell \in \Isom_f(\Delta_{1,\QQl}^{\mu_1},\Delta_{2,\QQl}^{\mu_2})$.
- Then there exists a $\phi \in \Isom_f(\Delta_1^{\mu_1},\Delta_2^{\mu_2})$
+ $\psi_\ell \in \Isom_f((\Delta_1,\mu_1)_{\QQl},(\Delta_2,\mu_2)_{\QQl})$.
+ Then there exists a $\phi \in \Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))$
  and a finite place~$\lambda$ of~$E$
  such that $\phi_\lambda = \psi_\lambda$.
  \begin{proof}
   It suffices to prove the existence of~$\phi$;
   the second claim will follow automatically from \cref{locally-same-aut}.
   First of all, observe
-  that $\Delta_1^{\mu_1}$ and~$\Delta_2^{\mu_2}$ have the same type,
+  that $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$ have the same type,
   by \cref{restriction-remarks-type} and \cref{locally-same-type}.
   If this type is $B_n$ or~$C_n$,
   then the topology of the diagrams
@@ -2334,36 +2334,36 @@ We will use this notation below.
   there is an element $\phi \in \Isom_f(\Delta_1,\Delta_2)$,
   that may or may not map $\mu_1$ to~$\mu_2$.
   By \cref{deg2-set}, a $\Gal(\QQbar/\QQ)$-equivariant isomorphism
-  $U(\Delta_1^{\mu_1}) \to U(\Delta_2^{\mu_2})$ lying above~$f$
+  $U(\Delta_1,\mu_1) \to U(\Delta_2,\mu_2)$ lying above~$f$
   will extend to a $\Gal(\QQbar/\QQ)$-equivariant isomorphism
   $\Delta_1 \to \Delta_2$.
-  Since the degree of~$U(\Delta_i^{\mu_i})$ over~$\pi_0(\Delta_i)$
+  Since the degree of~$U(\Delta_i,\mu_i)$ over~$\pi_0(\Delta_i)$
   is at most~$2$,
   the existence of global isomorphism
-  $U(\Delta_1^{\mu_1}) \to U(\Delta_2^{\mu_2})$
+  $U(\Delta_1,\mu_1) \to U(\Delta_2,\mu_2)$
   will follow from Chebotarev's density theorem
   if we prove that these sets are locally isomorphic.
   \begin{itemize}
-   \item If $\Delta_1^{\mu_1}$ and~$\Delta_2^{\mu_2}$ have type~$A_n$,
+   \item If $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$ have type~$A_n$,
     or~$D_n^\RR$ with $n \ge 5$,
     then the topology of the diagrams
-    forces that $\psi_\ell(U(\Delta_1^{\mu_1}))$ equals $U(\Delta_2^{\mu_2})$
+    forces that $\psi_\ell(U(\Delta_1,\mu_1))$ equals $U(\Delta_2,\mu_2)$
     for all prime numbers~$\ell$.
-   \item Now assume that $\Delta_1^{\mu_1}$ and~$\Delta_2^{\mu_2}$
+   \item Now assume that $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$
     have type~$D_4^\RR$ or~$D_4^\HQ$.
     Let $\lambda$ be a finite place of~$E$.
     There are two possibilities:
     either the extremal nodes of
-    $(\Delta_1^{\mu_1})_\lambda$ and $(\Delta_2^{\mu_2})_\lambda$
+    $(\Delta_1,\mu_1)_\lambda$ and $(\Delta_2,\mu_2)_\lambda$
     form $2$ orbits under the action of $\Gal(\QQlbar/\QQl)$,
     or the extremal nodes form $3$ orbits.
     For both possibilities it is clear that
-    $U(\Delta_1^{\mu_1})_\lambda$
+    $U(\Delta_1,\mu_1)_\lambda$
     is isomorphic to
-    $U(\Delta_2^{\mu_2})_\lambda$.
-   \item Finally, assume that $\Delta_1^{\mu_1}$ and~$\Delta_2^{\mu_2}$
+    $U(\Delta_2,\mu_2)_\lambda$.
+   \item Finally, assume that $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$
     have type $D_n^\HQ$ with $n \ge 5$.
-    Recall that $U(\Delta_i^{\mu_i}) = \bar\mu_i$ has degree~$1$ or~$2$.
+    Recall that $U(\Delta_i,\mu_i) = \bar\mu_i$ has degree~$1$ or~$2$.
     If these degrees are equal, then we are done.
     Now suppose that the degree of $\bar\mu_1$ is~$2$.
     Let $\{\alpha,\beta\} \subset \bar\mu_1$
@@ -2382,10 +2382,10 @@ We will use this notation below.
   in such a way that it maps $\mu_1$ to~$\mu_2$.
 
   At the beginning of this proof, we already dealt with the cases where
-  $\Delta_1^{\mu_1}$ and $\Delta_2^{\mu_2}$ have type~$B_n$ or~$C_n$.
+  $(\Delta_1,\mu_1)$ and $(\Delta_2,\mu_2)$ have type~$B_n$ or~$C_n$.
   We continue with some other easy cases.
   \begin{itemize}
-   \item If $\Delta_1^{\mu_1}$ and $\Delta_2^{\mu_2}$
+   \item If $(\Delta_1,\mu_1)$ and $(\Delta_2,\mu_2)$
     are of type $A_1$, or~$D_n^\RR$ with $n \ge 5$,
     then the topology of the diagrams force $\phi(\mu_1) = \mu_2$,
     hence there is nothing left to do.
@@ -2421,10 +2421,10 @@ We will use this notation below.
   we may assume that $g \in \Gal(\QQlbar/\QQl)$
   for some prime number~$\ell$.
   Now we argue as follows:
-  Let $\Delta_{1,\lambda}^{\mu_{1,\lambda}}$
-  (resp.~$\Delta_{2,\lambda}^{\mu_{2,\lambda}}$)
-  be the irreducible component of~$\Delta_{1,\QQl}^{\mu_1}$
-  (resp.\ $\Delta_{2,\QQl}^{\mu_2}$)
+  Let $(\Delta_1,\mu_1)_\lambda$
+  (resp.~$(\Delta_2,\mu_2)_\lambda$)
+  be the irreducible component of~$(\Delta_1,\mu_1)_{\QQl}$
+  (resp.\ $(\Delta_2,\mu_2)_{\QQl}$)
   that contains~$\alpha$ (resp.~$\phi(\alpha)$).
   Since $\phi(\alpha) \in \mu_2$, we have $\phi(\alpha) = \psi_\ell(\alpha)$
   and therefore $\phi_\lambda = \psi_\lambda$.
@@ -2460,7 +2460,7 @@ We will use this notation below.
 \paragraph{} % {{{-2
 Let $M$ be a hyperadjoint abelian motive
 over a finitely generated field $K \subset \CC$.
-Let $\Delta^\mu$ be the Deligne--Dynkin diagram associated with~$M$.
+Let $(\Delta,\mu)$ be the Deligne--Dynkin diagram associated with~$M$.
 Choose an embedding of $K$ into a $p$-adic field~$K_v$.
 Let $C_v$ be the completion of an algebraic closure of~$K_v$,
 let $C_v(i)$ denote the invertible $C_v$-module $C_v \otimes_{\QQp} \QQp(i)$,
@@ -2549,12 +2549,12 @@ that is called the \emph{Hodge--Tate} cocharacter.
 \paragraph{Preparations} % {{{-2
 Let $M$ be an irreducible hyperadjoint abelian motive over~$\CC$.
 Let $E$ denote $\End(M)$,
-and let $\Delta^{\mu}$ be the Deligne--Dynkin diagram associated with~$M$.
+and let $(\Delta,\mu)$ be the Deligne--Dynkin diagram associated with~$M$.
 Recall that $E$ is a totally real field
 (see the discussion in~\S2.3.4(a) of~\cite{Del_ShimVar}),
 and note that $\Hom(E,\QQbar) \cong \pi_0(\Delta)$.
-We also recall that $\Delta^{\mu}$ is symplectic (\cref{deldyn-symplectic}).
-Let $S$ be the subset of symplectic nodes of~$\Delta^{\mu}$.
+We also recall that $(\Delta,\mu)$ is symplectic (\cref{deldyn-symplectic}).
+Let $S$ be the subset of symplectic nodes of~$(\Delta,\mu)$.
 
 Write $G$ for the $\QQ$-simple adjoint group $\GB(M)$,
 and let $\tilde G$ be the simply-connected cover of~$G$.
@@ -2570,7 +2570,7 @@ for suitable~$n$.
 Now we fix three choices:
 \begin{enumerate}
  \item Choose a totally imaginary quadratic extension $F/E$.
- \item Choose a partial \cm~type~$\Phi$ for~$F$ relative to $\Delta^\mu$:
+ \item Choose a partial \cm~type~$\Phi$ for~$F$ relative to $(\Delta,\mu)$:
   a subset $\Phi \subset \Hom(F,\CC) = \Hom(F,\QQbar)$
   that maps 1-to-1 onto the complement of the image of~$\mu$
   in $\Hom(E,\QQbar) = \pi_0(\Delta)$.
@@ -2790,7 +2790,7 @@ We have now completed the first two steps of the strategy
 outlined in \cref{prp-strategy}.
 
 \paragraph{} % {{{-2
-For $i = 1,2$, let $\Delta_i^{\mu_i}$
+For $i = 1,2$, let $(\Delta_i,\mu_i)$
 be the Deligne--Dynkin diagram associated with~$M_i$,
 as in \cref{abmotdeldyn}.
 Let $f \colon \pi_0(\Delta_1) \to \pi_0(\Delta_2)$ be the map,
@@ -2799,21 +2799,21 @@ $\pi_0(\Delta_i) \cong \Hom(E,\QQbar)$.
 Since $\HLambda(M_1)$ and $\HLambda(M_2)$ are isomorphic
 as $E$-linear quasi-compatible systems of representations,
 we get local isomorphisms
-$\psi_\ell \in \Hom_f(\Delta_{1,\QQl},\Delta_{2,\QQl})$.
+$\psi_\ell \in \Isom_f(\Delta_{1,\QQl},\Delta_{2,\QQl})$.
 By \cref{hodge-tate-cochar-deldyn} we have
 $\psi_\ell(\mu_1) = \mu_2$ for all~$\ell$.
 Thus we may apply \cref{deldyn-local-global}
-to obtain an isomorphism $\phi \in \Isom_f(\Delta_1^{\mu_1},\Delta_2^{\mu_2})$,
+to obtain an isomorphism $\phi \in \Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))$,
 such that $\psi_\lambda = \phi_\lambda$ for some finite place~$\lambda$ of~$E$.
 
-Let $S_i$ be the subset of symplectic nodes of~$\Delta_i^{\mu_i}$.
+Let $S_i$ be the subset of symplectic nodes of~$(\Delta_i,\mu_i)$.
 We will now apply Deligne's construction (see \cref{delignes-construction})
 to the motives~$M_1$ and~$M_2$.
 To do so, we have to make three choices, as in \cref{choices}:
 \begin{enumerate*}[label=(\textit{\roman*})]
 \item choose a totally imaginary quadratic extension $F/E$, and
 \item endow it with a partial \cm~type
- relative to $\Delta_1^{\mu_1} \stackrel{\phi}{=} \Delta_2^{\mu_2}$;
+ relative to $(\Delta_1,\mu_1) \stackrel{\phi}{=} (\Delta_2,\mu_2)$;
  finally,
 \item choose the representations~$V_1$ and~$V_2$
  in such a way that they have the same dimension.
