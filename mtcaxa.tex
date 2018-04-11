@@ -859,10 +859,12 @@ this sequence stabilises at an object $V^{(\infty)}$.
 \section{Fractional Hodge structures} \label{HS} % {{{-1
 
 \begin{readme} % {{{-2
- Following \cite{Del_ShimVar} we use the notion of
- fractional Hodge structures.
- The notion will prove useful in understanding
- Deligne's construction (\cref{delignes-construction}).
+ Following \cite{Del_ShimVar} we use the notion of fractional Hodge structures.
+ We also define the slightly more general notion of a
+ fractional pre-Hodge structure.
+ This section does not contain anything original,
+ but only introduces these concepts because they will prove useful
+ in understanding Deligne's construction (\cref{delignes-construction}).
 \end{readme}
 
 \begin{definition} % {{{-2
@@ -1409,8 +1411,13 @@ where $A$ is a \cm~abelian variety over~$K$ (\emph{cf.}~\cref{cm-hs-cat}).
  and let $\lambda$ be a finite place of~$E$.
  A \emph{$\lambda$-adic Galois representation} of~$K$
  is a representation of $\Gal(\bar{K}/K)$
- on a finite-dimensional $E_\lambda$-vector space
+ on a finite-dimensional $E_\lambda$-vector space~$V$
  that is continuous for the $\lambda$-adic topology.
+
+ We denote with $\Glambda(V) \subset \GL(V)$
+ for the algebraic group over~$E_\lambda$ that is
+ the Zariski closure of the image of $\Gal(\bar K/K)$ under this representation.
+ The identity component of $\Glambda(V)$ is denoted with $\Glambdac(V)$.
 \end{definition}
 
 \begin{definition} % {{{-2
@@ -1795,14 +1802,13 @@ in which $\alpha_0$ is depicted by a grey node
 
 \begin{definition} % {{{-2
  \label{deligne-dynkin-diagram}
- Let $Q$ be a field.
- A \emph{Deligne--Dynkin diagram} over~$Q$
+ A \emph{Deligne--Dynkin diagram} over a field~$Q$
  is a pair $(\Delta,\mu)$, where
  $\Delta$ is a Dynkin diagram equipped with an action of~$\Gal(\bar Q/Q)$,
  and $\mu$ is a subset of the special nodes
  of the connected components of~$\Delta$
- that meets each connected component in at most $1$~node.
- (Note: $\mu$ is not required to be $\Gal(\bar Q/Q)$-stable.)
+ meeting each connected component in at most $1$~node.
+ (Note: $\mu$~is not required to be $\Gal(\bar Q/Q)$-stable.)
  The Deligne--Dynkin diagram $(\Delta,\mu)$ is called \emph{irreducible}
  if $\pi_0(\Delta)$ is irreducible as $\Gal(\bar Q/Q)$-set,
  and $(\Delta,\mu)$ is \emph{populated} if $\mu$ meets every
@@ -1824,15 +1830,19 @@ in which $\alpha_0$ is depicted by a grey node
 The reason we study Deligne--Dynkin diagrams
 is that we may naturally attach such a diagram to
 any hyperadjoint abelian motive~$M$ over a field $K \subset \CC$.
-Recall that the linear algebraic group~$\GB(M)$ over~$\QQ$ is an adjoint group.
+The assumptions on $M$ imply that
+the linear algebraic group~$\GB(M)$ over~$\QQ$ is an adjoint group.
 Let $\Delta$ be the Dynkin diagram of~$\GB(M)$, and
 note that $\Delta$ is naturally equipped with an action of $\Gal(\QQbar/\QQ)$.
 Let $\mu \colon \Gm \to \GB(M)_\CC$ be the Hodge cocharacter
+of the Hodge structure~$\HB(M)$
 (see~\cref{hodge-cocharacter}).
 This cocharacter may be identified with a subset of nodes $\mu \subset \Delta$.
-By \S1.2.5 of~\cite{Del_ShimVar} the nodes in~$\mu$ are special
+Since $M$ is hyperadjoint and abelian,
+the computation in \S1.2.5 of~\cite{Del_ShimVar} shows
+that the nodes in~$\mu$ are special
 and $(\Delta,\mu)$ is a populated Deligne--Dynkin diagram over~$\QQ$.
-We call it the \emph{Deligne--Dynkin diagram associated with $M$}.
+We call it the \emph{Deligne--Dynkin diagram of $M$}.
 
 \paragraph{} % {{{-2
 \label{table-deligne-dynkin-diagrams}
@@ -1939,7 +1949,7 @@ Legend (and comparison with \cite{Del_ShimVar}):
   the special node~$\alpha$ (circled node in \cite{Del_ShimVar});
  \item[{\tikz[Dynkin] \node[symplectic] {};}]
   an $\alpha$-symplectic node (underlined node in \cite{Del_ShimVar});
-  these are defined below.
+  see \cref{symplectic-node}.
 \end{itemize}
 The number next to a node $\omega$ is $\langle \alpha,\omega \rangle$,
 where the special node~$\alpha$ and the node~$\omega$
@@ -1970,7 +1980,7 @@ $\Delta$ has type $A_k$ with $k \ne 1$, $D_k$ with $k$~odd, or $E_6$.
 In these cases, $\tau$ is the unique non-trivial automorphism of~$\Delta$.
 In particular, the opposition involution depends only on the type of~$\Delta$.
 
-For Dynkin diagrams with multiple connected components
+For non-connected Dynkin diagrams
 the opposition involution is defined componentwise.
 
 \begin{definition} % {{{-2
@@ -2151,8 +2161,9 @@ We conclude with two observations:
    (Of course $(\Delta,\mu)_{Q'}$ will have
    irreducible components that are populated.)
   \item Related to the preceding point:
-   the subset of symplectic nodes of $(\Delta,\mu)_{Q'}$
-   may be strictly larger than the subset of symplectic nodes of $(\Delta,\mu)$.
+   the subset of $\mu$-symplectic nodes of $(\Delta,\mu)_{Q'}$
+   may be strictly larger than
+   the subset of $\mu$-symplectic nodes of $(\Delta,\mu)$.
   \item \label[remark]{restriction-remarks-type}
    If $(\Delta,\mu)$ is irreducible of type~$D_4^\HQ$
    then $(\Delta,\mu)_{Q'}$ may have irreducible components of type~$D_4^\RR$.
@@ -2221,6 +2232,15 @@ such that $\pi_0(\phi) = f$.
     and $\mu$ is fixed by~$\tau$.}
   \end{cases}
  \]
+ \begin{proof}
+  If $\Delta$ has only one connected component,
+  then the result may be deduced from the tables
+  in~\cref{table-deligne-dynkin-diagrams}.
+  If $\Delta$ has multiple components,
+  then the result follows from the fact that
+  a non-trivial element of $\Aut_\id(\Delta,\mu)$
+  must act non-trivially on every connected component of~$\Delta$.
+ \end{proof}
 \end{lemma}
 
 \begin{lemma} % {{{-2
@@ -2537,14 +2557,13 @@ that is called the \emph{Hodge--Tate} cocharacter.
 \end{readme}
 
 \paragraph{Preparations} % {{{-2
-Let $M$ be an irreducible hyperadjoint abelian motive over~$\CC$.
-Let $E$ denote $\End(M)$,
+Let $M$ be an irreducible hyperadjoint abelian motive over~$\CC$,
 and let $(\Delta,\mu)$ be the Deligne--Dynkin diagram associated with~$M$.
-Recall that $E$ is a totally real field
-(see the discussion in~\S2.3.4(a) of~\cite{Del_ShimVar}),
-and note that $\Hom(E,\QQbar) \cong \pi_0(\Delta)$.
+The endomorphism algebra $E = \End(M)$ is a totally real field
+(see the discussion in~\S2.3.4(a) of~\cite{Del_ShimVar}).
+Note that $\Hom(E,\QQbar) \cong \pi_0(\Delta)$.
 We also recall that $(\Delta,\mu)$ is symplectic (\cref{deldyn-symplectic}).
-Let $S$ be the subset of symplectic nodes of~$(\Delta,\mu)$.
+Let $S$ be the subset of $\mu$-symplectic nodes of~$(\Delta,\mu)$.
 
 Write $G$ for the $\QQ$-simple adjoint group $\GB(M)$,
 and let $\tilde G$ be the simply-connected cover of~$G$.
@@ -2726,42 +2745,59 @@ We first make some observations about~$M_1$ and~$M_2$.
 For $i \in \{1,2\}$,
 write $E_i$ for $\End(M_i)$, and
 write $\Lambda_i$ for the set of finite places of~$E_i$.
-For a prime number~$\ell$, let $\Lambda_{i,\ell}$
-denote the set of places~$\lambda \in \Lambda_i$ that lie above~$\ell$.
-Since $\MTC(M_i)$ holds, we know that %TODO explain
-$\Glc(M_i) = \prod_{\lambda \in \Lambda_{i,\ell}}
-\Res_{E_{i,\lambda}/\QQl} \Glambdac(M_i)$.
-By assumption $\Gl(M_i) = \Glc(M_i)$,
-and hence $\Glambda(M_i) = \Glambdac(M_i)$.
-We also know that
-$\Glambda(M_i)$ is a simple adjoint group over~$E_{i,\lambda}$,
-once again, because $\MTC(M_i)$ holds. %TODO explain
-Finally, observe that $\HH_{\Lambda_i}(M_i)$ is a
+Observe that $\HH_{\Lambda_i}(M_i)$ is a
 quasi-compatible system of representations,
 by \cref{abelian-motive-quasi-compatible-realisations}.
 
+For a prime number~$\ell$, let $\Lambda_{i,\ell}$
+denote the set of places~$\lambda \in \Lambda_i$ that lie above~$\ell$.
+Recall that $\GB(M) = \Res_{E/\QQ}(G)$,
+for some absolutely simple adjoint group~$G$ over~$E$.
+Since $\MTC(M_i)$ holds
+and Weil restriction of scalars commutes with base change,
+we find that
+\[
+\Glc(M_i) = \GB(M) \otimes_\QQ \QQl
+= \prod_{\lambda \in \Lambda_{i,\ell}}
+\Res_{E_{i,\lambda}/\QQl} (G \otimes_E E_\lambda).
+\]
+In particular we have
+$\Gl(\Hlambda(M_i)) = \Res_{E_{i,\lambda}/\QQl} (G \otimes_E E_\lambda)$
+for every $\lambda \in \Lambda_{i,\ell}$.
+If we write $\Glambda(M_i)$ for $\Glambda(\Hlambda(M_i))$
+then the above computation implies that
+$\Glambda(M_i)$ is equal to $G \otimes_E E_\lambda$,
+an absolutely simple adjoint group over~$E_{i,\lambda}$.
+
 Let $\ell$ be a prime number
 such that $\Gl(M_1 \oplus M_2) \subsetneq \Gl(M_1) \times \Gl(M_2)$.
-By Goursat's lemma this implies that there are
+By Goursat's lemma this implies that there are % TODO reference for Goursat
 places $\lambda_1 \in \Lambda_{1,\ell}$
 and $\lambda_2 \in \Lambda_{2,\ell}$
 such that the projection of $\Gl(M_1 \oplus M_2)$ in
-$\Res_{E_{1,\lambda_1}} \GG_{\lambda_1}(M_1) \times
-\Res_{E_{2,\lambda_2}} \GG_{\lambda_2}(M_2)$
+$\Res_{E_{1,\lambda_1}/\QQl} \GG_{\lambda_1}(M_1) \times
+\Res_{E_{2,\lambda_2}/\QQl} \GG_{\lambda_2}(M_2)$
 is the graph of an isomorphism of algebraic groups over~$\QQl$.
-Hence there is a $\QQl$-linear isomorphism %TODO explain
+The derivative of this isomorphism at the identity element
+is a $\QQl$-linear isomorphism
 $\psi \colon \HH_{\lambda_1}(M_1) \to \HH_{\lambda_2}(M_2)$
 of Galois representations of~$K$.
+(Recall that $\HH_{\lambda_i}(M_i)$ is the adjoint representation
+$\Lie(\Res_{E_{i,\lambda_i}/\QQl} \GG_{\lambda_i}(M_i))$.)
 
 Note that $\psi$ induces an isomorphism
 $f \colon \End_{\Gal(\bar{K}/K)}(\HH_{\lambda_1}(M_1)) \to
-\End_{\Gal(\bar{K}/K)}(\HH_{\lambda_2}(M_2))$,
-and since these endomorphism algebras are commutative,
+\End_{\Gal(\bar{K}/K)}(\HH_{\lambda_2}(M_2))$.
+Since these endomorphism algebras are commutative,
 the isomorphism~$f$ does not depend on~$\psi$.
 By \cref{recover-endomorphisms} we recover
 $\lambda_i \colon E_i \into E_{i,\lambda_i} =
-\End_{\Gal(\bar{K}/K)}(\HH_{\lambda_i}(M_i))$,
-and therefore $\psi$ gives a canonical isomorphism
+\End_{\Gal(\bar{K}/K)}(\HH_{\lambda_i}(M_i))$
+as the subfield generated by coefficients of
+characteristic polynomials of Frobenius elements
+acting $E_{i,\lambda_i}$-linearly on~$\HH_{\lambda_i}(M_i)$.
+Because $\psi$ commutes with the action of these Frobenius elements
+the map~$f$ restricts to a canonical isomorphism
 $f \colon E_1 \to E_2$ that identifies $\lambda_1$ with~$\lambda_2$.
 Write $E$ for $E_1 = E_2$,
 and write $\lambda$ for $\lambda_1 = \lambda_2$.
@@ -2796,7 +2832,7 @@ Thus we may apply \cref{deldyn-local-global}
 to obtain an isomorphism $\phi \in \Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))$,
 such that $\psi_\lambda = \phi_\lambda$ for some finite place~$\lambda$ of~$E$.
 
-Let $S_i$ be the subset of symplectic nodes of~$(\Delta_i,\mu_i)$.
+Let $S_i$ be the subset of $\mu_i$-symplectic nodes of~$(\Delta_i,\mu_i)$.
 We will now apply Deligne's construction (see \cref{delignes-construction})
 to the motives~$M_1$ and~$M_2$.
 To do so, we have to make three choices, as in \cref{choices}:
@@ -2988,7 +3024,8 @@ This concludes the proof of \cref{mtc-product-abelian-motives}.
 \end{theorem}
 
 \begin{remark} % {{{-2
- We give a short list of examples of varieties whose motives
+ We give a short list of examples of varieties
+ for which it is known that their motives
  are objects of the category~$\mathcal{M}_K$
  of the preceding \namecref{mtc-abelian-motives-tannakian-subcategory}.
  %TODO give references for each of the claims.
@@ -2997,6 +3034,8 @@ This concludes the proof of \cref{mtc-product-abelian-motives}.
   \item K3~surfaces.
   \item Cubic fourfolds.
  \end{enumerate}
+ This list is not extensive.
+ See \S2.4,~\S3.3, and~\S4.4 of~\cite{Mo17} for more examples.
 \end{remark}
 
 \begin{theorem} % {{{-2
