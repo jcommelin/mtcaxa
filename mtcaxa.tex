@@ -19,6 +19,7 @@
 \usepackage{dsfont}  % disable this when loading mathdesign
 
 \usepackage{microtype}
+% \usepackage[biblatex]{embrac}
 % \linespread{1.25}  % = 1.500 * fontheight
 \linespread{1.388} % = 1.666 * fontheight
 \usepackage[
@@ -95,10 +96,11 @@ safeinputenc,style=quasialphabetic,citestyle=alphabetic]{biblatex}
  {\ \textls{#1.}}%
  \ ---}%
 }
-\newcommand{\readme}{\par\vskip\baselineskip%
+\newcommand{\readmetitle}{\par\vskip\baselineskip%
  {\normalfont\normalsize\scshape\noindent%
   \textls{Readme.}\ ---}
 }
+\newenvironment{readme}{\readmetitle\itshape}{\normalfont}
 \renewcommand\tableofcontents{%
  \sectionstar{\contentsname}%
  \@starttoc{toc}%
@@ -273,8 +275,9 @@ preheadhook={\bigskip}]{nproof}
 
 \newcommand{\BdR}[1]{\textnormal{B}_{\dR,#1}}
 \newcommand{\HT}{\textnormal{HT}}
-\newcommand{\BHT}[1]{\textnormal{B}_{\textnormal{HT},#1}}
+\newcommand{\BHT}[1]{\textnormal{B}_{\HT,#1}}
 \newcommand{\gr}{\textnormal{gr}}
+\newcommand{\GdR}{\GG_{\dR}}
 
 \newcommand{\Vect}{\textnormal{Vect}}
 \newcommand{\grVect}{\textnormal{grVect}}
@@ -391,28 +394,50 @@ preheadhook={\bigskip}]{nproof}
 \newcommand{\Sigmanc}{\Sigma_{\textnormal{nc}}}
 
 \usepackage{tikz}
-\usetikzlibrary{calc}
-\usetikzlibrary{cd,positioning,shapes}
-\usetikzlibrary{decorations.pathmorphing}
-\usetikzlibrary{decorations.markings}
-
-
-%%%%%%%%%%%%%% Macros for Dynkin diagrams %%%%%%%%%%%%%%
-\newcommand{\dynkinradius}{.04cm}
-\newcommand{\dynkinstep}{.35cm}
-\newcommand{\dynkinnode}[2]{\fill (\dynkinstep*#1,\dynkinstep*#2) circle (\dynkinradius);}
-\newcommand{\dynkinXsize}{1.5}
-\newcommand{\dynkinnodespecial}[2]{
- \draw[thick] (#1*\dynkinstep-\dynkinXsize,#2*\dynkinstep-\dynkinXsize) -- (#1*\dynkinstep+\dynkinXsize,#2*\dynkinstep+\dynkinXsize);
- \draw[thick] (#1*\dynkinstep-\dynkinXsize,#2*\dynkinstep+\dynkinXsize) -- (#1*\dynkinstep+\dynkinXsize,#2*\dynkinstep-\dynkinXsize);
+\usetikzlibrary{calc,
+	arrows.meta,
+	cd,
+	decorations.markings,
+	decorations.pathmorphing,
+	positioning,
+	positioning,
+	shadows,
+	shapes,
+	shapes.geometric
 }
-\newcommand{\dynkinedge}[4]{\draw[thin] (\dynkinstep*#1,\dynkinstep*#2) -- (\dynkinstep*#3,\dynkinstep*#4);}
-\newcommand{\dynkinnodes}[4]{\draw[dotted] (\dynkinstep*#1,\dynkinstep*#2) -- (\dynkinstep*#3,\dynkinstep*#4);}
-\newcommand{\dynkindoubleedge}[4]{\draw[double,postaction={decorate}] (\dynkinstep*#1,\dynkinstep*#2) -- (\dynkinstep*#3,\dynkinstep*#4);}
+\tikzset{Dynkin/.style = {
+		every node/.style = {circle, draw, semithick, inner sep=2pt, fill=white,
+			copy shadow={fill=black, shadow xshift=0.3pt, shadow yshift=-0.1pt},
+		},
+		every label/.append style = {label distance=-2.5pt,
+   rectangle,draw=none,font=\footnotesize,
+   inner sep=1ex,text depth=1pt,
+			every shadow/.style={opacity=0}
+		},
+  special/.style={rectangle, inner sep=2.4pt},
+  symplectic/.style={correct forbidden sign},
+		a0/.style = {fill=gray!50},
+  diagramlabel/.style = {draw=none,opacity=0},
+		doubledynkin/.style={double distance=2pt,
+			decoration={markings,
+				mark=at position 0.6 with {\arrow[semithick]{Straight Barb[length=5pt]}},
+			},
+			postaction={decorate},
+		}
+	}% end of Dynkin style
+}% end of tikzset
 
-\newenvironment{dynkin}{\begin{tikzpicture}[decoration={markings,mark=at position 0.7 with {\arrow{>}}}]}
- {\end{tikzpicture}}
-%%%%%%%%%%%%%% End of macros for Dynkin diagrams %%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%% GET UPRIGHT BRACES
+\def\adef#1{\catcode`#1=13 \bgroup \lccode`\~=`#1\lowercase{\egroup\def~}}
+\long\def\addto#1#2{\expandafter\def\expandafter#1\expandafter{#1#2}}
+\def\activebraces#1#2{\adef#1{\ifmmode#1\else{\textup#1}\fi}\adef#2{\ifmmode#2\else{\/\textup#2}\fi}}
+\let\emphOri=\emph
+\def\emph{\bgroup\activebraces()\activebraces[]\emphA}
+\def\emphA#1{\emphOri{#1}\egroup}
+\addto\itshape{\activebraces()}%\activebraces[]}
+
+\renewcommand{\mkbibbrackets}[1]{\textup{[}#1\textup{]}}
+%%%%%%%%%%%%%%%%%%%%%%%%5
 
 
 \def\title{The Mumford--Tate conjecture for products of abelian varieties}
@@ -432,7 +457,8 @@ preheadhook={\bigskip}]{nproof}
 
 \noindent\textit{by} \quad \author \hfill \date
 
-\vskip3\baselineskip
+\bigskip
+\bigskip
 
 % \tableofcontents
 % -}}}1
@@ -453,7 +479,8 @@ preheadhook={\bigskip}]{nproof}
  convey the same information.
 
  The main result of this paper says that if $A_1$ and~$A_2$ are
- abelian varieties over~$K$, and the Mumford--Tate conjecture holds for
+ abelian varieties (or abelian motives) over~$K$,
+ and the Mumford--Tate conjecture holds for
  both~$A_1$ and~$A_2$, then it holds for $A_1 \times A_2$.
  These results do not depend on the embedding $K \subset \CC$.
  
@@ -493,14 +520,26 @@ but see \cite{Mo17} for a recent overview of the state of the art.
 \paragraph{Main theorem} % {{{-2
 The goal of this article is \cref{mtcaxa}:
 
-\medskip
+\smallskip
 
 {\narrower\it\noindent
  Let $A_1$ and~$A_2$ be two abelian varieties
  over a finitely generated field $K \subset \CC$.
- Assume that the Mumford--Tate conjecture is true for $A_1$ and~$A_2$.
- Then the Mumford--Tate conjecture is true for $A_1 \times A_2$.
+ If the Mumford--Tate conjecture is true for $A_1$ and~$A_2$,
+ then it is true for $A_1 \times A_2$.
  \par}
+
+\smallskip
+
+\nobreak
+\noindent
+In fact, in \cref{mtc-abelian-motives-tannakian-subcategory}
+we prove the more general statement that
+the full subcategory of abelian motives over~$K$
+consisting of motives for which the
+Mumford--Tate conjecture holds
+is a subcategory that is closed under
+direct sums, tensor products, duals, and taking direct summands.
 
 \begin{remark} % {{{-2
  Observe that the conclusion of the theorem
@@ -544,8 +583,9 @@ The goal of this article is \cref{mtcaxa}:
 \end{remark}
 
 \paragraph{Strategy of the proof} % {{{-2
+%TODO This is ugly. Make sure that the first step is typeset
+% on the same line as the paragraph head.
 \label{strategy}
-
 \begin{enumerate}
  \item As a first step, we linearise the category of abelian varieties,
   into so called \emph{abelian motives} (in the sense of Andr\'e~\cite{An95},
@@ -605,31 +645,33 @@ and Frans Oort for their interest and useful comments.
 
 \section{Hyperadjoint objects in Tannakian categories} % {{{-1
 
-\readme % {{{-2
-In representation theory the adjoint representation is very important.
-Tannakian categories behave like
-the category of representations of an affine group scheme.
-For a good overview of the Tannakian formalism, see~\cite{Breen_TanCats}.
-For details we refer to~\cite{Deligne_CatTan} and~\cite{DMOS}.
+\begin{readme} % {{{-2
+ In representation theory the adjoint representation is very important.
+ Tannakian categories behave like
+ the category of representations of an affine group scheme.
+ For a good overview of the Tannakian formalism, see~\cite{Breen_TanCats}.
+ For details we refer to~\cite{Deligne_CatTan} and~\cite{DMOS}.
 
-We define \emph{hyperadjoint} objects in Tannakian categories
-and study some of their properties (\cref{ha-props}).
-This ties into the proof of the main theorem
-because we will replace abelian varieties~$A$ by the motive
-that corresponds to the adjoint representation of the
-motivic Galois group of~$A$.
-(See also the strategy in \cref{strategy}.)
+ We define hyperadjoint objects in Tannakian categories
+ and study some of their properties (\cref{ha-props}).
+ This ties into the proof of the main theorem
+ because we will replace abelian varieties~$A$ by the motive
+ that corresponds to the adjoint representation of the
+ motivic Galois group of~$A$.
+ (See also the strategy in \cref{strategy}.)
+\end{readme}
 
 \paragraph{} % {{{-2
-Let $Q$ be a field of characteristic~$0$.
-Let $T$ be a $Q$-linear symmetric monoidal category.
-Let $R$ be a $Q$-algebra.
-An \emph{$R$-valued fibre functor}
-is a $Q$-linear monoidal functor $T \to \Mod_R$
-that is faithful and exact and takes values in the subcategory
-$\Proj_R \subset \Mod_R$ of finitely generated projective $R$-modules.
+Let $Q$ be a field of characteristic~$0$, and
+let $T$ be a $Q$-linear symmetric monoidal category.
+Let $R$ be a $Q$-algebra, and
+denote with $\Proj_R$ the category of
+finitely generated projective $R$-modules.
+An \emph{$R$-valued fibre functor} of~$T$
+is a $Q$-linear monoidal functor $T \to \Proj_R$
+that is faithful and exact.
 We denote with $\Fib(T)_R$ be the groupoid of
-fibre functors $T \to \Mod_R$.
+fibre functors $T \to \Proj_R$.
 
 \paragraph{} % {{{-2
 Let $Q$ be a field of characteristic~$0$.
@@ -652,15 +694,15 @@ $\delta$ (unit) and $\ev$ (counit):
 \]
 Th\'eor\`eme~7.1 of~\cite{Deligne_CatTan}
 shows that the two conditions listed above are equivalent to the existence of
-a $Q$-algebra~$R$ and a fibre functor $T \to \Mod_R$.
+a $Q$-algebra~$R$ and a fibre functor $T \to \Proj_R$.
 
 \paragraph{} % {{{-2
 Let $T$ be a Tannakian category over a field~$Q$ of characteristic~$0$.
 For a $Q$-algebra~$R$, recall that $\Fib(T)_R$ is the groupoid of
-fibre functors $T \to \Mod_R$.
+fibre functors $T \to \Proj_R$.
 It turns out that $\Fib(T)$ is an algebraic stack over~$Q$.
 In fact, if $\alpha \colon Q \to R$ is a $Q$-algebra,
-and $\omega \colon T \to \Mod_R$ is a fibre functor,
+and $\omega \colon T \to \Proj_R$ is a fibre functor,
 then the stack $\alpha^*\Fib(T)$ is isomorphic to $\BB G = [\Spec(R)/G]$,
 where $G$ is the affine group scheme $\iAut^\otimes(\omega)$ over~$R$.
 This observation
@@ -724,6 +766,9 @@ this sequence stabilises at an object $V^{(\infty)}$.
  They do not in general commute with
  tensor functors between Tannakian categories.
  Also, the constructions are not in general compatible with direct sums.
+ Note that the definitions are such that
+ if $V \ne 0$ is a hyperadjoint object in~$T$
+ then $V \oplus V$ is not hyperadjoint.
  Caveat emptor!
 
  On a more positive note, the following remark explains that in this paper
@@ -751,6 +796,16 @@ this sequence stabilises at an object $V^{(\infty)}$.
  and therefore $V^\ha = V^{(2)}$.
 \end{remark}
 
+\begin{remark} % {{{-2
+ I do not know of an intrinsic way to define
+ adjoint and hyperadjoint objects in a finitely generated Tannakian category.
+ Given the universal nature of the adjoint representation,
+ I expect that it is possible to give a definition
+ without using the Tannakian formalism to pass to algebraic groups or gerbes.
+ Such a definition might also lead to intrinsic proofs of several properties,
+ such as those in the following \namecref{ha-props}.
+\end{remark}
+
 \begin{lemma} % {{{-2
  \label{ha-props}
  Let $T$ be a Tannakian category over a field~$Q$ of characteristic~$0$.
@@ -760,7 +815,7 @@ this sequence stabilises at an object $V^{(\infty)}$.
   \item If $V$ is a direct sum of hyperadjoint objects,
    then $\Tangen{V}$ is semisimple.
   \item If $V$ is a direct sum of hyperadjoint objects
-   and~$W$ are hyperadjoint, then $W$ is a direct summand of~$V$.
+   and~$W$ is hyperadjoint, then $W$ is a direct summand of~$V$.
  \end{enumerate}
   Suppose that $V = V_1 \oplus V_2$, with $V_1,V_2 \in T$.
  \begin{enumerate}[resume]
@@ -783,8 +838,9 @@ this sequence stabilises at an object $V^{(\infty)}$.
     the natural map $\Lie(G) \onto \Lie(H)$ is also surjective.
     This proves the first claim, and the second claim follows by induction.
    \item If $V$ is hyperadjoint, then $G$ is semisimple and thus reductive.
-    The claim follows from Goursat's lemma
-    for adjoint semisimple algebraic groups.
+    The general case---where $V$ is a direct sum of hyperadjoint objects---%
+    follows from Goursat's lemma in the context of algebraic groups
+    (which is completely analogous to the version for discrete groups).
    \item Both $G$ and $H$ are adjoint semisimple, and $H$ is a quotient of~$G$.
     Thus $H$ is a factor of~$G$.
   \end{enumerate}
@@ -801,11 +857,14 @@ this sequence stabilises at an object $V^{(\infty)}$.
 
 \section{Fractional Hodge structures} \label{HS} % {{{-1
 
-\readme % {{{-2
-Following \cite{Del_ShimVar} we use the notion of
-fractional Hodge structures.
-The notion will prove useful in understanding
-Deligne's construction (\cref{delignes-construction}).
+\begin{readme} % {{{-2
+ Following \cite{Del_ShimVar} we use the notion of fractional Hodge structures.
+ We also define the slightly more general notion of a
+ fractional pre-Hodge structure.
+ This section does not contain anything original,
+ but only introduces these concepts because they will prove useful
+ in understanding Deligne's construction (\cref{delignes-construction}).
+\end{readme}
 
 \begin{definition} % {{{-2
  Let $R \subset \RR$ be a subring (typically $\ZZ$,~$\QQ$, or~$\RR$).
@@ -857,7 +916,7 @@ $h \colon \tilde \DelS \to \GL(V)_\RR$.
  such that $h \colon \tilde\DelS \to \GL(V)_\RR$
  factors through $\GB(V)_\RR \subset \GL(V)_\RR$.
 
- Alternatively, let $\omega \colon \FpHS_R \to \Mod_R$
+ Alternatively, let $\omega \colon \FpHS_R \to \Proj_R$
  be the forgetful functor.
  Then $\omega$ is a fibre functor,
  and $\GB(V) = \iAut^\otimes(\omega|_{\Tangen{V}})$.
@@ -916,13 +975,14 @@ If there is no confusion, we will write $\mu$ for~$\mu_h$.
 
 \section{Abelian motives} % {{{-1
 
-\readme % {{{-2
-To give ourselves access to
-the strength and flexibility of representation theory,
-we linearise the category of abelian varieties,
-yielding a category of so-called abelian \emph{motives}.
-As a consequence of work of Deligne and Andr\'e
-this category is very tractable (see \cref{hodge-is-motivated}).
+\begin{readme} % {{{-2
+ To give ourselves access to
+ the strength and flexibility of representation theory,
+ we linearise the category of abelian varieties,
+ yielding a category of so-called abelian motives.
+ As a consequence of work of Deligne and Andr\'e
+ this category is very tractable (see \cref{hodge-is-motivated}).
+\end{readme}
 
 \paragraph{} % {{{-2
 The category of (pure) motives developed by Andr\'e~\cite{An95}
@@ -1014,7 +1074,7 @@ It is not known whether $\GG(\Mot_{\bar K})$ is connected.
  Let $M$ be a motive over a field~$K \subset \CC$.
  We denote with $\Gl(M)$ the Zariski closure of the image of
  the Galois representation $\Gal(\bar K/K) \to \GL(\Hl(M))$,
- and with $\Glc(M)$ the connected component of the identity of~$\Gl(M)$.
+ and with $\Glc(M)$ the identity component of~$\Gl(M)$.
  With $\GB(M)$ we denote the Mumford--Tate group of~$\HB(M)$.
  There are natural injective morphisms 
  $\Gl(M) \to \GG(M)_{\QQl}$ (via the comparison isomorphism)
@@ -1068,29 +1128,34 @@ It is not known whether $\GG(\Mot_{\bar K})$ is connected.
  We write $\MTC(M)$ for the conjecture $\forall \ell: \MTC_\ell(M)$.
 \end{conjecture}
 
-\paragraph{} % {{{-2
-Let $M$ be a motive over a field~$K$ of characteristic~$0$.
-By definition there is a smooth projective variety~$X$
-such that $M \in \Tangen{\HH(X)}$.
-By work of Serre~\cite{Serre_letter_to_Ribet}, there is a finite extension $L/K$
-such that $\Gl(\Hl(X_L))$ is connected for all~$\ell$.
-Since $M \in \Tangen{\HH(X)}$,
-there is a quotient map $\Gl(\Hl(X_L)) \onto \Gl(M_L)$,
-and therefore $\Gl(M_L)$ is connected for all~$\ell$.
-
-If $L/K$ is a finitely generated extension field,
-then there is an isomorphism $\Glc(M_L) \cong \Glc(M)$
-(see proposition~1.3 of~\cite{Mo15}).
-Therefore, the Mumford--Tate conjecture for~$M$
-is equivalent to the Mumford--Tate conjecture for~$M_L$.
-In particular, when trying to prove this conjecture for~$M$
-we may always assume that $\Gl(M)$ is connected for all prime numbers~$\ell$.
+\begin{remark} % {{{-2
+ \begin{enumerate}
+  \item Let $M$ be a motive over a field~$K$ of characteristic~$0$.
+   By definition there is a smooth projective variety~$X$
+   such that $M \in \Tangen{\HH(X)}$.
+   By work of Serre~\cite{Serre_letter_to_Ribet}, %\cite{SerreIV}
+   there is a finite extension $L/K$
+   such that $\Gl(\Hl(X_L))$ is connected for all~$\ell$.
+   Since $M \in \Tangen{\HH(X)}$,
+   there is a quotient map $\Gl(\Hl(X_L)) \onto \Gl(M_L)$,
+   and therefore $\Gl(M_L)$ is connected for all~$\ell$.
+  \item \label[remark]{ext-base-field}
+   If $L/K$ is a finitely generated extension field,
+   then there is an isomorphism $\Glc(M_L) \cong \Glc(M)$
+   (see proposition~1.3 of~\cite{Mo15}).
+   Therefore, the Mumford--Tate conjecture for~$M$
+   is equivalent to the Mumford--Tate conjecture for~$M_L$.
+   In particular, when trying to prove this conjecture for~$M$
+   we may always assume that $\Gl(M)$ is connected for all prime numbers~$\ell$.
+ \end{enumerate}
+\end{remark}
 
 \begin{definition} % {{{-2
  An \emph{abelian} motive over a field~$K$
  is an object in the Tannakian subcategory of~$\Mot_K$
- generated by motives of the form~$\HH^1(A)$,
- where $A$ is an abelian variety over~$K$.
+ generated by motives of the form~$\HH(X)$,
+ where $X$ is an abelian variety over~$K$
+ or $X = \Spec(L)$ for some finite field extension $L/K$.
 \end{definition}
 
 \begin{theorem} % {{{-2
@@ -1103,29 +1168,32 @@ we may always assume that $\Gl(M)$ is connected for all prime numbers~$\ell$.
  \end{proof}
 \end{theorem}
 
-\paragraph{} % {{{-2
-\label{abmot-remarks}
-Let $M$ be an abelian motive over a field $K \subset \CC$.
-A corollary of \cref{hodge-is-motivated}
-is that $\GB(M)$ is the identity component of~$\GG(M)$.
-In particular, we obtain the inclusion $\Glc(M) \subset \GB(M) \otimes \QQl$.
-
-Let $A$ be an abelian variety over~$K$.
-Then $\Glc(A)$ is a reductive group
-by Satz~3 in~\S5 of~\cite{Fal83}.
-(See also~\cite{Fal84}, for the case where $K$ is not a number field.)
-Suppose that $M \in \Tangen{\HH^1(A)}$.
-Then there is a surjection $\Glc(A) \onto \Glc(M)$.
-Hence $\Glc(M)$ is reductive for every abelian motive~$M$.
-
-We also know that
-$\End_{\Glc(A)}(\Hl^1(A)) \cong \End_{\GB(A)}(\HB^1(A))_{\QQl}$,
-by Satz~4 in~\S5 of~\cite{Fal83} (see also~\cite{Fal84}).
-Now observe that $\Zentrum(\Glc(A)) = \Glc(A) \cap \End_{\Glc(A)}(\Hl^1(A))$
-where the intersection takes place inside $\End_{\Vect}(\Hl^1(A))$;
-and similarly $\Zentrum(\GB(A))_{\QQl} =
-\GB(A)_{\QQl} \cap \End_{\GB(A)}(\HB^1(A))_{\QQl}$.
-We conclude that $\Zentrum(\Glc(A)) \subset \Zentrum(\GB(A))_{\QQl}$.
+\begin{remark} % {{{-2
+ \begin{enumerate}
+  \item \label[remark]{GB-id-comp}
+   Let $M$ be an abelian motive over a field $K \subset \CC$.
+   A corollary of \cref{hodge-is-motivated}
+   is that $\GB(M)$ is the identity component of~$\GG(M)$.
+   In particular, we obtain the inclusion $\Glc(M) \subset \GB(M) \otimes \QQl$.
+  \item \label[remark]{GlcM-reductive}
+   Let $A$ be an abelian variety over~$K$.
+   Then $\Glc(A)$ is a reductive group
+   by Satz~3 in~\S5 of~\cite{Fal83}.
+   (See also~\cite{Fal84}, for the case where $K$ is not a number field.)
+   Suppose that $M \in \Tangen{\HH^1(A)}$.
+   Then there is a surjection $\Glc(A) \onto \Glc(M)$.
+   Hence $\Glc(M)$ is reductive for every abelian motive~$M$.
+  \item \label[remark]{abvar-Zlc-in-ZB}
+   We also know that
+   $\End_{\Glc(A)}(\Hl^1(A)) \cong \End_{\GB(A)}(\HB^1(A))_{\QQl}$,
+   by Satz~4 in~\S5 of~\cite{Fal83} (see also~\cite{Fal84}).
+   Now observe that $\Zentrum(\Glc(A)) = \Glc(A) \cap \End_{\Glc(A)}(\Hl^1(A))$
+   where the intersection takes place inside $\End_{\Vect}(\Hl^1(A))$;
+   and similarly $\Zentrum(\GB(A))_{\QQl} =
+   \GB(A)_{\QQl} \cap \End_{\GB(A)}(\HB^1(A))_{\QQl}$.
+   We conclude that $\Zentrum(\Glc(A)) \subset \Zentrum(\GB(A))_{\QQl}$.
+ \end{enumerate}
+\end{remark}
 
 \begin{lemma} % {{{-2
  \label{abelian-motive-centre-inclusion}
@@ -1148,13 +1216,13 @@ We conclude that $\Zentrum(\Glc(A)) \subset \Zentrum(\GB(A))_{\QQl}$.
     \Glc(M) \ar[d,hook,"c"] \\
     \Zentrum(\GB(A))_{\QQl} \ar[r,hook] &
     \GB(A)_{\QQl} \ar[r,two heads] &
-    \GB(M)_{\QQl} \\
+    \GB(M)_{\QQl}
    \end{tikzcd}
   \]
   where $b$ and~$c$ exist by \cref{hodge-is-motivated},
-  and $a$ exists by the final remark in~\cref{abmot-remarks}.
+  and $a$ exists by the final remark in~\cref{abvar-Zlc-in-ZB}.
 
-  Since $\Glc(A)$ and~$\Glc(M)$ are reductive (see~\cref{abmot-remarks}),
+  Since $\Glc(A)$ and~$\Glc(M)$ are reductive (see~\cref{GlcM-reductive}),
   we find that the image of $\Zentrum(\Glc(A))$
   under the quotient map to~$\Glc(M)$
   is exactly~$\Zentrum(\Glc(M))$.
@@ -1210,7 +1278,8 @@ where $A$ is a \cm~abelian variety over~$K$ (\emph{cf.}~\cref{cm-hs-cat}).
   By \cref{hodge-is-motivated} and the Tannakian formalism,
   we may view $N$ as a complex motive.
   Note that $N$ is an abelian \cm~motive, by construction.
-  After replacing $K$ by a finitely generated extension
+  After replacing $K$ by a finitely generated extension%
+  ---which is harmless by \cref{ext-base-field}---%
   we may assume that $N$ is defined over~$K$.
   Since the Mumford--Tate conjecture holds for \cm~motives (\cref{mtc-cm})
   we find $\Glc(N) = \GB(N)_{\QQl} = \GB(M)^\ab_{\QQl}$.
@@ -1240,12 +1309,12 @@ where $A$ is a \cm~abelian variety over~$K$ (\emph{cf.}~\cref{cm-hs-cat}).
     \Zentrum(\GB(M)) \otimes \QQl \ar[r,hook] &
     \GB(M) \otimes \QQl \ar[r,two heads] &
     \GB(M^\ha) \otimes \QQl \ar[r] &
-    0 \\
+    0
    \end{tikzcd}
   \]
   where the inclusions $b$ and $c$ exist by \cref{hodge-is-motivated},
   and $a$ exists by \cref{abelian-motive-centre-inclusion}.
-  Moreover, $a$ is an isomorphism on connected components,
+  Moreover, $a$ is an isomorphism on identity components,
   by \cref{centre-mtc-abelian-motive}.
   The bottom row is exact by
   the definition of hyperadjoint objects (\cref{ha-obj})
@@ -1261,16 +1330,17 @@ where $A$ is a \cm~abelian variety over~$K$ (\emph{cf.}~\cref{cm-hs-cat}).
 
 \section{Quasi-compatible systems of Galois representations} % {{{-1
 
-\readme % {{{-2
-In general it is expected that the $\ell$-adic realisations~$\Hl(M)$
-of a motive~$M$ over a finitely generated field~$K$ of characteristic~$0$
-form a compatible system of Galois representations in the sense of Serre.
+\begin{readme} % {{{-2
+ In general it is expected that the $\ell$-adic realisations~$\Hl(M)$
+ of a motive~$M$ over a finitely generated field~$K$ of characteristic~$0$
+ form a compatible system of Galois representations in the sense of Serre.
 
-The main result of~\cite{Co17} shows that if $M$~is an abelian motive
-a slightly weaker version is satisfied;
-and this is good enough for our purposes.
-The weaker condition is called \emph{quasi-compatibility}
-and in this section we recall the necessary definitions and results.
+ The main result of~\cite{Co17} shows that if $M$~is an abelian motive
+ a slightly weaker version is satisfied;
+ and this is good enough for our purposes.
+ The weaker condition is called quasi-compatibility
+ and in this section we recall the necessary definitions and results.
+\end{readme}
 
 \begin{definition} % {{{-2
  \label{frobenius-element-number-field}
@@ -1340,8 +1410,13 @@ and in this section we recall the necessary definitions and results.
  and let $\lambda$ be a finite place of~$E$.
  A \emph{$\lambda$-adic Galois representation} of~$K$
  is a representation of $\Gal(\bar{K}/K)$
- on a finite-dimensional $E_\lambda$-vector space
+ on a finite-dimensional $E_\lambda$-vector space~$V$
  that is continuous for the $\lambda$-adic topology.
+
+ We denote with $\Glambda(V) \subset \GL(V)$
+ for the algebraic group over~$E_\lambda$ that is
+ the Zariski closure of the image of $\Gal(\bar K/K)$ under this representation.
+ The identity component of $\Glambda(V)$ is denoted with $\Glambdac(V)$.
 \end{definition}
 
 \begin{definition} % {{{-2
@@ -1547,55 +1622,206 @@ obtained from~$\rho_\Lambda$ by restricting to $\QQ \subset E$;
 \end{proposition}
 
 \section{Deligne--Dynkin diagrams} % {{{-1
+\label{DeligneDynkin}
 
-\readme % {{{-2
-This section is an attempt to axiomatise parts of~\cite{Del_ShimVar}
-(notably \S1.3 and~\S2.3)
-in order to streamline the discussion of Deligne's construction
-(\cref{delignes-construction}) and the proof of the main theorem
-in the final two sections.
+\begin{readme} % {{{-2
+ In order to streamline the discussion of Deligne's construction
+ (\cref{delignes-construction}) and the proof of the main theorem
+ in the final two sections,
+ this section attempts to axiomatise parts of~\cite{Del_ShimVar}
+ (notably \S1.3 and~\S2.3).
 
-We introduce Deligne--Dynkin diagrams:
-they are Dynkin diagrams with extra structure
-that capture important information about hyperadjoint abelian motives.
-The main result of this section is \cref{deldyn-local-global},
-a local-global result for
-irreducible symplectic populated Deligne--Dynkin diagrams over~$\QQ$.
+ We introduce Deligne--Dynkin diagrams:
+ they are Dynkin diagrams with extra structure
+ that capture important information about hyperadjoint abelian motives.
+ The main result of this section is \cref{deldyn-local-global},
+ a local-global result for
+ irreducible symplectic populated Deligne--Dynkin diagrams over~$\QQ$.
+\end{readme}
+
+\paragraph{} % {{{-2
+Let $\Delta$ be a connected Dynkin diagram, and
+let $\Delta^+$ be the extended (or affine)
+Dynkin diagram associated with~$\Delta$.
+Then $\Delta^+ = \Delta \sqcup \{\alpha_0\}$.
+Below we depict the connected extended Dynkin diagrams,
+in which $\alpha_0$ is depicted by a grey node
+\tikz[Dynkin] \node[a0] {};.
+ \[
+ \begin{tikzpicture}[Dynkin] % {{{-3
+  \node[diagramlabel] (A1text) [label=left:{\normalsize$A_1^+$:}] at (-.2,0) {};
+  \node[a0] (A10) at (0,0) {};
+  \node (A11) at (1,0) {};
+		\draw[double distance=2pt,
+		decoration={markings,
+			mark=at position 0.9 with {\arrow[semithick]{Straight Barb[length=5pt]}},
+			mark=at position 0.1 with {\arrowreversed[semithick]{Straight Barb[length=5pt]}}
+		},
+		postaction=decorate] (A10) -- (A11);
+
+  \begin{scope}[xshift=6.5cm]
+   \node[diagramlabel] (Antext) [label=left:{\normalsize$A_n^+$ ($n \ge 2$):}] at (-.2,0) {};
+   \node[a0] (An0) at (2,-0.7) {};
+   \node (An1) at (0,0) {};
+   \node (An2) at (1,0) {};
+   \node (Annm1) at (3,0) {};
+   \node (Ann) at (4,0) {};
+   \draw (Annm1) -- (Ann) -- (An0);
+			\draw[thick] (An0) -- (An1);
+			\draw (An1) -- (An2);
+   \draw[dashed] (An2) -- (Annm1);
+  \end{scope}
+
+  \begin{scope}[yshift=-2cm]
+			\node[diagramlabel] (Btext) [label=left:{\normalsize$B_n^+$:}] at (-.2,0) {};
+   \node[a0] (B0) at (0,-.5) {};
+   \node (B1) at (0,.5) {};
+   \node (B2) at (1,0) {};
+   \node (Bnm1) at (3,0) {};
+   \node (Bn) at (4,0) {};
+   \draw (B0) -- (B2);
+			\draw[thick] (B2) -- (B1);
+   \draw[dashed] (B2) -- (Bnm1);
+   \draw[doubledynkin] (Bnm1) -- (Bn);
+  \end{scope}
+
+  \begin{scope}[xshift=6.5cm,yshift=-2cm]
+			\node[diagramlabel] (Ctext) [label=left:{\normalsize$C_n^+$:}] at (-.2,0) {};
+   \node[a0] (C0) at (0,0) {};
+   \node (C1) at (1,0) {};
+   \node (Cnm1) at (3,0) {};
+   \node (Cn) at (4,0) {};
+   \draw[doubledynkin] (C0) -- (C1);
+   \draw[dashed] (C1) -- (Cnm1);
+   \draw[doubledynkin] (Cn) -- (Cnm1);
+  \end{scope}
+
+  \begin{scope}[yshift=-4cm]
+			\node[diagramlabel] (Dtext) [label=left:{\normalsize$D_n^+$:}] at (-.2,0) {};
+   \node[a0] (D0) at (0,-.5) {};
+   \node (D1) at (0,.5) {};
+   \node (D2) at (1,0) {};
+   \node (Dnm2) at (3,0) {};
+   \node (Dnm1) at (4,-.5) {};
+   \node (Dn) at (4,.5) {};
+   \draw (D0) -- (D2);
+			\draw[thick] (D2) -- (D1);
+   \draw[dashed] (D2) -- (Dnm2);
+   \draw[thick] (Dnm1) -- (Dnm2);
+			\draw (Dnm2) -- (Dn);
+		\end{scope}
+
+  \begin{scope}[xshift=6.5cm,yshift=-4cm]
+			\node[diagramlabel] (E6text) [label=left:{\normalsize$E_6^+$:}] at (-.2,0) {};
+   \node[a0] (E60) at (2,1.4) {};
+   \node (E61) at (0,0) {};
+   \node (E62) at (1,0) {};
+   \node (E63) at (2,0) {};
+   \node (E64) at (2,.7) {};
+   \node (E65) at (3,0) {};
+   \node (E66) at (4,0) {};
+   \draw (E61) -- (E62) -- (E63) -- (E64) -- (E60);
+   \draw (E63) -- (E65) -- (E66);
+  \end{scope}
+ \end{tikzpicture}
+\]
+\[
+ \begin{tikzpicture}[Dynkin]
+  \begin{scope}[xshift=6.0cm,yshift=0cm]
+   \node[diagramlabel] (E7text) [label=left:{\normalsize$E_7^+$:}] at (-.2,0) {};
+   \node[a0] (E70) at (0,0) {};
+   \node (E71) at (1,0) {};
+   \node (E72) at (2,0) {};
+   \node (E73) at (3,0) {};
+   \node (E74) at (3,.7) {};
+   \node (E75) at (4,0) {};
+   \node (E76) at (5,0) {};
+   \node (E77) at (6,0) {};
+   \draw (E70) -- (E71) -- (E72) -- (E73) -- (E74);
+   \draw (E73) -- (E75) -- (E76) -- (E77);
+  \end{scope}
+
+  \begin{scope}[xshift=5cm,yshift=-2cm]
+   \node[diagramlabel] (E8text) [label=left:{\normalsize$E_8^+$:}] at (-.2,0) {};
+   \node[a0] (E80) at (0,0) {};
+   \node (E81) at (1,0) {};
+   \node (E82) at (2,0) {};
+   \node (E83) at (3,0) {};
+   \node (E84) at (4,0) {};
+   \node (E85) at (5,0) {};
+   \node (E86) at (5,.7) {};
+   \node (E87) at (6,0) {};
+   \node (E88) at (7,0) {};
+   \draw (E80) -- (E81) -- (E82) -- (E83) -- (E84) -- (E85) -- (E86);
+   \draw (E85) -- (E87) -- (E88);
+  \end{scope}
+
+  \begin{scope}[xshift=0cm,yshift=0cm]
+   \node[diagramlabel] (F4text) [label=left:{\normalsize$F_4^+$:}] at (-.2,0) {};
+   \node[a0] (F40) at (0,0) {};
+   \node (F41) at (1,0) {};
+   \node (F42) at (2,0) {};
+   \node (F43) at (3,0) {};
+   \node (F44) at (4,0) {};
+   \draw (F40) -- (F41) -- (F42);
+   \draw[doubledynkin] (F42) -- (F43);
+   \draw (F43) -- (F44);
+  \end{scope}
+
+  \begin{scope}[xshift=0cm,yshift=-2cm]
+   \node[diagramlabel] (F4text) [label=left:{\normalsize$G_2^+$:}] at (-.2,0) {};
+   \node[a0] (G20) at (0,0) {};
+   \node (G21) at (1,0) {};
+   \node (G22) at (2,0) {};
+   \draw[doubledynkin] (G21) -- (G22);
+   \draw (G20) -- (G21) -- (G22);
+  \end{scope}
+ \end{tikzpicture} % -}}}3
+\]
 
 \begin{definition} % {{{-2
  \label{special-node}
  Let $\Delta$ be a connected Dynkin diagram, and
- let $\Delta^+$ be the extended Dynkin diagram associated with~$\Delta$.
- Then $\Delta^+ = \Delta \sqcup \{\alpha_0\}$.
+ let $\Delta^+ = \Delta \sqcup \{\alpha_0\}$ be the extended (or affine)
+ Dynkin diagram associated with~$\Delta$.
  A node of $\Delta$ is \emph{special}
  if it is in the $\Aut(\Delta^+)$-orbit of~$\alpha_0$.
  See~\cref{table-deligne-dynkin-diagrams}
  for diagrams that depict which nodes are special.
 \end{definition}
 
+\begin{example} % {{{-2
+ \label{eg-special-nodes}
+ If $\Delta$ is a connected Dynkin diagram of type~$A_n$,
+ then all nodes of~$\Delta$ are special.
+ If $\Delta$ is of type~$D_n$, then all extremal nodes are special.
+ If~$\Delta$ is of type~$E_8$,~$F_4$, or~$G_2$,
+ then $\Delta$ has no special nodes.
+\end{example}
+
 \begin{definition} % {{{-2
  \label{deligne-dynkin-diagram}
- Let $Q$ be a field.
- A \emph{Deligne--Dynkin diagram} over~$Q$
- is a pair $\Delta^\mu = (\Delta, \mu)$, where
+ A \emph{Deligne--Dynkin diagram} over a field~$Q$
+ is a pair $(\Delta,\mu)$, where
  $\Delta$ is a Dynkin diagram equipped with an action of~$\Gal(\bar Q/Q)$,
- and $\mu$ is a subset of the special nodes the connected components of~$\Delta$
- that meets each connected component in at most $1$~node.
- (Note: $\mu$ is not required to be $\Gal(\bar Q/Q)$-stable.)
- The Deligne--Dynkin diagram $\Delta^\mu$ is called \emph{irreducible}
+ and $\mu$ is a subset of the special nodes
+ of the connected components of~$\Delta$
+ meeting each connected component in at most $1$~node.
+ (Note: $\mu$~is not required to be $\Gal(\bar Q/Q)$-stable.)
+ The Deligne--Dynkin diagram $(\Delta,\mu)$ is called \emph{irreducible}
  if $\pi_0(\Delta)$ is irreducible as $\Gal(\bar Q/Q)$-set,
- and $\Delta^\mu$ is \emph{populated} if $\mu$ meets every
- irreducible component of~$\Delta^\mu$.
+ and $(\Delta,\mu)$ is \emph{populated} if $\mu$ meets every
+ irreducible component of~$(\Delta,\mu)$.
 \end{definition}
 
 \begin{remark} % {{{-2
  There is a risk of confusing terminology:
- a \emph{connected component} of~$\Delta$ (or~$\Delta^\mu$)
+ a \emph{connected component} of~$\Delta$ (or~$(\Delta,\mu)$)
  will always mean a connected component of the Dynkin diagram~$\Delta$
- (disregarding the $\Gal(\bar Q/Q)$-action);
- whereas an \emph{irreducible component} $\Delta_1^{\mu_1} \subset \Delta^\mu$
- is an irreducible $\Gal(\bar Q/Q)$-subset $\Delta_1$
- of connected components of~$\Delta$ and $\mu_1 = \Delta_1 \cap \mu$.
+ disregarding the $\Gal(\bar Q/Q)$-action;
+ whereas an \emph{irreducible component} $(\Delta',\mu') \subset (\Delta,\mu)$
+ is an irreducible $\Gal(\bar Q/Q)$-subset $\Delta'$
+ of connected components of~$\Delta$ and $\mu' = \Delta' \cap \mu$.
 \end{remark}
 
 \paragraph{} % {{{-2
@@ -1603,76 +1829,87 @@ irreducible symplectic populated Deligne--Dynkin diagrams over~$\QQ$.
 The reason we study Deligne--Dynkin diagrams
 is that we may naturally attach such a diagram to
 any hyperadjoint abelian motive~$M$ over a field $K \subset \CC$.
-Let $\Delta$ be the Dynkin diagram
-of the adjoint linear algebraic group~$\GB(M)$ over~$\QQ$.
-Note that $\Delta$ is naturally equipped with an action of $\Gal(\QQbar/\QQ)$.
+The assumptions on $M$ imply that
+the linear algebraic group~$\GB(M)$ over~$\QQ$ is an adjoint group.
+Let $\Delta$ be the Dynkin diagram of~$\GB(M)$, and
+note that $\Delta$ is naturally equipped with an action of $\Gal(\QQbar/\QQ)$.
 Let $\mu \colon \Gm \to \GB(M)_\CC$ be the Hodge cocharacter
+of the Hodge structure~$\HB(M)$
 (see~\cref{hodge-cocharacter}).
-By \S1.2.5 of~\cite{Del_ShimVar} this cocharacter may be identified
-with a (non-empty) subset of special nodes $\mu \subset \Delta$.
-In particular $\Delta^{\mu}$ is a populated Deligne--Dynkin diagram over~$\QQ$,
-and we call it the \emph{Deligne--Dynkin diagram associated with $M$}.
-% By \cref{deldyn-symplectic} below, $\Delta^\mu$ is also symplectic.
+This cocharacter may be identified with a subset of nodes $\mu \subset \Delta$.
+Since $M$ is hyperadjoint and abelian,
+the computation in \S1.2.5 of~\cite{Del_ShimVar} shows
+that the nodes in~$\mu$ are special
+and $(\Delta,\mu)$ is a populated Deligne--Dynkin diagram over~$\QQ$.
+We call it the \emph{Deligne--Dynkin diagram of $M$}.
 
 \paragraph{} % {{{-2
 \label{table-deligne-dynkin-diagrams}
 Table~1.3.9 of~\cite{Del_ShimVar}:
-the irreducible populated Deligne--Dynkin diagrams over~$Q = \bar Q$.
+the isomorphism classes of connected Dynkin diagrams
+equipped with a special node~$\alpha$.
+In other words, these are
+the irreducible populated Deligne--Dynkin diagrams over
+an algebraically closed field~$Q = \bar Q$.
+
+As explained in \cref{eg-special-nodes},
+if the Dynkin diagram has type~$D_n$, then all extremal nodes are special.
+This leads to two different isomorphism classes%
+---listed in the table below---%
+that are labelled with $D_n^\RR$ and~$D_n^\HQ$.
+The reader that has never seen these labels before
+should not currently worry about the meaning of the superscripts~$(\_)^\RR$
+and~$(\_)^\HQ$,
+but the curious reader is referred to
+remarques~1.3.10(ii) of~\cite{Del_ShimVar}.
 
 \nobreak
 \noindent
-\begin{minipage}{.55\textwidth} % {{{-3
+\begin{minipage}{.50\textwidth} % {{{-3
 \[
- \begin{tikzpicture}[
-  yscale=-1.3,
-  every node/.style={draw,circle,inner sep=2pt},
-  special/.style={double},
-  symplectic/.style={forbidden sign},
-  every label/.append style={rectangle,font=\footnotesize,
-   inner sep=1ex,text depth=1pt},
-  decoration={markings,mark=at position 0.7 with {\arrow{>}}},
-  doubledynkin/.style={double distance=2pt,postaction=decorate}
-  ]
-  \node[draw=none] (Atext) [label=right:{\normalsize$A_{p+q-1}$:}] at (-1.25,0) {};
+ \begin{tikzpicture}[Dynkin,yscale=-1]
+  \node[diagramlabel] (Atext) [label=right:{\normalsize$A_{p+q-1}$:}] at (-1.25,0) {};
   \node[symplectic] (A1) [label={$q/(p+q)$}] at (1,0) {};
   \node[special] (Ap) [label={$pq/(p+q)$}] at (3,0) {};
   \node[symplectic] (Ak) [label={$p/(p+q)$}] at (5,0) {};
   \draw[dashed] (A1) -- (Ap);
   \draw[dashed] (Ap) -- (Ak);
 
-  \node[draw=none] (Btext) [label=right:{\normalsize$B_{l}$:}] at (-1.25,1) {};
+  \node[diagramlabel] (Btext) [label=right:{\normalsize$B_{l}$:}] at (-1.25,1) {};
   \node[special] (B1) [label={$1$}] at (1,1) {};
   \node (Blm1) [label={$1$}] at (4,1) {};
   \node[symplectic] (Bl) [label={$1/2$}] at (5,1) {};
   \draw[dashed] (B1) -- (Blm1);
   \draw[doubledynkin] (Blm1) -- (Bl);
 
-  \node[draw=none] (Ctext) [label=right:{\normalsize$C_{l}$:}] at (-1.25,2) {};
+  \node[diagramlabel] (Ctext) [label=right:{\normalsize$C_{l}$:}] at (-1.25,2) {};
   \node[symplectic] (C1) [label={$1/2$}] at (1,2) {};
   \node (Clm1) at (4,2) {};
   \node[special] (Cl) [label={$l/2$}] at (5,2) {};
   \draw[dashed] (C1) -- (Clm1);
   \draw[doubledynkin] (Cl) -- (Clm1);
 
-  \node[draw=none] (DRtext) [label=right:{\normalsize$D_{l}^{\RR}$:}] at (-1.25,3) {};
+  \node[diagramlabel] (DRtext) [label=right:{\normalsize$D_{l}^{\RR}$:}] at (-1.25,3) {};
   \node[special] (DR1) [label={$1$}] at (1,3) {};
   \node (DRlm2) [label={$1$}] at (4,3) {};
   \node[symplectic] (DRlm1) [label=right:{$1/2$}] at (5,2.5) {};
   \node[symplectic] (DRl) [label=right:{$1/2$}] at (5,3.5) {};
   \draw[dashed] (DR1) -- (DRlm2);
-  \draw (DRlm1) -- (DRlm2) -- (DRl);
+  \draw (DRlm1) -- (DRlm2);
+  \draw[thick] (DRlm2) -- (DRl);
 
   \begin{scope}[yshift=0.5cm]
-   \node[draw=none] (DRtext) [label=right:{\normalsize$D_{k+2}^{\HQ}$:}] at (-1.25,4) {};
-   \node[symplectic] (DR1) [label={$1/2$}] at (1,4) {};
-   \node (DRlm2) [label={$k/2$}] at (4,4) {};
-   \node[special] (DRlm1) [label=right:{$k/4$}] at (5,3.5) {};
-   \node (DRl) [label=right:{$k/4+1/2$}] at (5,4.5) {};
-   \draw[dashed] (DR1) -- (DRlm2);
-   \draw (DRlm1) -- (DRlm2) -- (DRl);
+   \node[diagramlabel] (DHtext) [label=right:{\normalsize$D_{k+2}^{\HQ}$:}] at (-1.25,4) {};
+   \node[symplectic] (DH1) [label={$1/2$}] at (1,4) {};
+   \node (DHlm2) [label={$k/2$}] at (4,4) {};
+   \node[special] (DHlm1) [label=right:{$k/4$}] at (5,3.5) {};
+   \node (DHl) [label=right:{$k/4+1/2$}] at (5,4.5) {};
+   \draw[dashed] (DH1) -- (DHlm2);
+   \draw (DHlm1) -- (DHlm2);
+   \draw[thick] (DHlm2) -- (DHl);
   \end{scope}
 
-  \node[draw=none] (DRtext) [label=right:{\normalsize$E_6$:}] at (-1.25,6) {};
+  \node[diagramlabel] (E6text) [label=right:{\normalsize$E_6$:}] at (-1.25,6) {};
   \node (E61) [label={$2/3$}] at (1,6) {};
   \node (E62) [label={$4/3$}] at (2,6) {};
   \node (E63) [label={\hbox{\hss\quad$2$}}] at (3,6) {};
@@ -1683,7 +1920,7 @@ the irreducible populated Deligne--Dynkin diagrams over~$Q = \bar Q$.
   \draw (E63) -- (E65) -- (E66);
 
   \begin{scope}[yshift=0.5cm]
-   \node[draw=none] (DRtext) [label=right:{\normalsize$E_7$:}] at (-1.25,7) {};
+   \node[diagramlabel] (E7text) [label=right:{\normalsize$E_7$:}] at (-1.25,7) {};
    \node (E71) [label={$1$}] at (1,7) {};
    \node (E72) [label={$2$}] at (2,7) {};
    \node (E73) [label={\hbox{\hss\quad$3$}}] at (3,7) {};
@@ -1699,28 +1936,25 @@ the irreducible populated Deligne--Dynkin diagrams over~$Q = \bar Q$.
 \end{minipage}\hfill% -}}}3
 \newdimen\curparindent
 \curparindent=\parindent
-\begin{minipage}{.41\textwidth} % {{{-3
+\begin{minipage}{.44\textwidth} % {{{-3
  \parindent=\curparindent
  \divide\parindent by 3
  \multiply\parindent by 2
  \noindent
  \small
 Legend (and comparison with \cite{Del_ShimVar}):
-\begin{itemize}[leftmargin=\parindent]
- \item nodes are represented by circles~%
-  \tikz \node[draw,circle,inner sep=2pt] {};
-  (bars in \cite{Del_ShimVar});
- \item special nodes are represented by double circles~%
-  \tikz \node[draw,circle,inner sep=2pt,double] {};
-  (circled nodes in \cite{Del_ShimVar});
- \item symplectic nodes (defined below) are represented by slashed circles~%
-  \tikz \node[draw,circle,inner sep=2pt,forbidden sign] {};
-  (underlined nodes in \cite{Del_ShimVar}).
+\begin{itemize}[leftmargin=12pt]
+ \item[{\tikz[Dynkin] \node {};}]
+  a node (bar in \cite{Del_ShimVar});
+ \item[{\tikz[Dynkin] \node[special] {};}]
+  the special node~$\alpha$ (circled node in \cite{Del_ShimVar});
+ \item[{\tikz[Dynkin] \node[symplectic] {};}]
+  an $\alpha$-symplectic node (underlined node in \cite{Del_ShimVar});
+  see \cref{symplectic-node}.
 \end{itemize}
-
-The number next to a node $\omega$ is $\langle \mu,\omega \rangle$,
-where $\mu$ is the cocharacter corresponding to the special node,
-and $\omega$ is identified with the appropriate character.
+The number next to a node $\omega$ is $\langle \alpha,\omega \rangle$,
+where the special node~$\alpha$ and the node~$\omega$
+are identified with the appropriate (co)characters.
 
 In diagram~$A_{p+q-1}$ it is the $p$-th node that is special.
 The diagram~$D_{k+2}^{\HQ}$ is required to satisfy $k + 2 \ge 5$.
@@ -1742,56 +1976,56 @@ let $w_0$ be the longest element of the Weyl group (with respect to~$\Delta$).
 Then $w_0(\Delta) = -\Delta$
 and $-w_0$ defines an element~$\tau$ of $\Aut(\Delta)$:
 the \emph{opposition involution}.
-This involution is non-trivial if and only if
+It is non-trivial if and only if
 $\Delta$ has type $A_k$ with $k \ne 1$, $D_k$ with $k$~odd, or $E_6$.
+In these cases, $\tau$ is the unique non-trivial automorphism of~$\Delta$.
+In particular, the opposition involution depends only on the type of~$\Delta$.
 
-For Dynkin diagrams with multiple connected components
-the opposition involution is defined as the disjoint union
-of the componentwise opposition involutions.
+For non-connected Dynkin diagrams
+the opposition involution is defined componentwise.
 
 \begin{definition} % {{{-2
  \label{symplectic-node}
 	Let $\Delta$ be a connected Dynkin diagram with opposition involution~$\tau$,
- and let $\mu \in \Delta$ be a special node.
- A node $\omega \in \Delta$ is called a \emph{symplectic} node
- (with respect to~$\mu$)
- if $\langle \mu, \omega + \tau(\omega) \rangle = 1$.
+ and let $\alpha \in \Delta$ be a special node.
+ A node $\omega \in \Delta$ is called \emph{$\alpha$-symplectic}
+ if $\langle \alpha, \omega + \tau(\omega) \rangle = 1$.
 \end{definition}
 
-\paragraph{} % {{{-2
-The reasoning behind this terminology is best understood
-in terms of Deligne's construction
-(\cref{delignes-construction}, see also \S1.3 and~\S2.3 of~\cite{Del_ShimVar}):
-the symplectic nodes correspond precisely to
-the highest weights of symplectic representations~$V$
-such that $\mu$ defines a $\{-1,0,1\}$-grading on~$V$.
+\begin{remark} % {{{-2
+ The reasoning behind this terminology is best understood
+ in terms of Deligne's construction
+ (\cref{delignes-construction}, see also \S1.3 of~\cite{Del_ShimVar}):
+ the $\alpha$-symplectic nodes of~$\Delta$ correspond precisely to
+ the highest weights of certain symplectic representations.
+\end{remark}
 
 \begin{definition} % {{{-2
  \label{symplectic-nodes-deligne-dynkin-diagram}
- Let $\Delta^{\mu}$ be a Deligne--Dynkin diagram over a field~$Q$.
- The \emph{subset of symplectic nodes} attached to $\Delta^{\mu}$
- is the maximal subset $S \subset \Delta$ defined by the following conditions:
+ Let $(\Delta,\mu)$ be a Deligne--Dynkin diagram over a field~$Q$.
+ The \emph{subset of $\mu$-symplectic nodes} attached to $(\Delta,\mu)$
+ is the maximal subset $S \subset \Delta$ satisfying the following conditions:
  \begin{enumerate}
   \item For every special node $\alpha \in \mu \subset \Delta$,
    let $\Delta_\alpha$ denote the connected component of~$\Delta$
    that contains~$\alpha$.
    Then $S \cap \Delta_\alpha$ consists only of
-   symplectic nodes of~$\Delta_\alpha$ with respect to~$\alpha$.
+   $\alpha$-symplectic nodes of~$\Delta_\alpha$.
    (See also \cref{table-deligne-dynkin-diagrams}.)
   \item The set $S$ is stable under the action of $\Gal(\bar Q/Q)$.
  \end{enumerate}
 \end{definition}
 
 \begin{definition} % {{{-2
- A Deligne--Dynkin diagram $\Delta^{\mu}$ over~$Q$ is \emph{symplectic}
- if for every irreducible component of $\Delta^{\mu}$
- its subset of symplectic nodes is non-empty.
+ A Deligne--Dynkin diagram $(\Delta,\mu)$ over~$Q$ is \emph{symplectic}
+ if its subset of $\mu$-symplectic nodes has non-empty intersection
+ with every irreducible component of $(\Delta,\mu)$.
 \end{definition}
 
 \begin{theorem} % {{{-2
  \label{deldyn-symplectic}
  If $M$ is a hyperadjoint abelian motive over a field $K \subset \CC$,
- then the Deligne--Dynkin diagram $\Delta^{\mu}$
+ then the Deligne--Dynkin diagram $(\Delta,\mu)$
  associated with~$M$ is symplectic.
  \begin{proof}
   Since $M$ is an abelian motive,
@@ -1803,20 +2037,67 @@ such that $\mu$ defines a $\{-1,0,1\}$-grading on~$V$.
   The representation $\GB(A) \to \GL(\HB^1(A))$ is symplectic,
   and thus its restriction to $\tilde\GG_{\mathrm{B}}(M)$ is symplectic.
   In \S1.3 and~\S2.3.7 of~\cite{Del_ShimVar}, Deligne shows that this means
-  that $\Delta^{\mu}$ is symplectic.
+  that $(\Delta,\mu)$ is symplectic.
  \end{proof}
 \end{theorem}
 
-\paragraph{The type of $\Delta^\mu$} % {{{-2
-Let $\Delta^{\mu}$ be an irreducible populated Deligne--Dynkin diagram over~$Q$.
-If $\Delta^{\mu}$ is symplectic,
+\begin{example} % {{{-2
+ \label{eg-D4}
+ We will now look in some detail at Deligne--Dynkin diagrams
+ whose underlying Dynkin diagrams have connected components of type~$D_4$.
+ Let $(\Delta,\mu)$ be such a Deligne--Dynkin diagram over some field~$Q$,
+ and assume that it is irreducible.
+ Recall that this means that we have the following:
+ \begin{itemize}
+  \item a diagram~$\Delta$ consisting of a number of copies of~$D_4$,
+  \item an action of $\Gal(\bar Q/Q)$ on~$\Delta$
+   that is transitive on the set~$\pi_0(\Delta)$ of connected components,
+  \item a subset $\mu \subset \Delta$ of the extremal nodes
+   (\emph{cf}.~\cref{eg-special-nodes}),
+   such that $\mu$ meets every connected component of~$\Delta$
+   in at most $1$~node.
+ \end{itemize}
+ Several properties of~$(\Delta,\mu)$ depend on how
+ the action of $\Gal(\bar Q/Q)$ and the subset $\mu \subset \Delta$
+ play together:
+ let $\bar\mu$ denote the closure of~$\mu$
+ under the action of~$\Gal(\bar Q/Q)$.
+ Then $d = \deg_{\pi_0(\Delta)}(\bar\mu)$ takes values in $\{0,1,2,3\}$.
+
+ The cases $d = 0$ and $d = 3$ are somewhat degenerate.
+ To see this, let $S \subset \Delta$ be the subset of $\mu$-symplectic nodes.
+ If $d = 0$, then $\mu = \varnothing$ and $S = \Delta$:
+ in this case $(\Delta,\mu)$ is not populated.
+ On the other hand, if $(\Delta,\mu)$ is populated
+ then \cref{table-deligne-dynkin-diagrams} shows that
+ $S$ is contained in the set~$V$ of extremal nodes of~$\Delta$.
+ In fact, we have $V = \bar\mu \sqcup S$, by the maximality of~$S$.
+ Hence, if $d = 3$, then $S = \varnothing$
+ and $(\Delta,\mu)$ is not symplectic.
+ \Cref{deldyn-symplectic,abmotdeldyn} explain why we are not interested
+ in these degenerate cases.
+
+ If $d = 1$, then $\deg(S) = 2$,
+ and we say that $(\Delta,\mu)$ has type~$D_4^\RR$.
+ If $d = 2$, then $\deg(S) = 1$,
+ and we say that $(\Delta,\mu)$ has type~$D_4^\HQ$.
+ We will not say more about these diagrams in this example,
+ apart from mentioning that the distinction
+ between diagrams of type~$D_4^\RR$ and~$D_4^\HQ$
+ will play an important r\^ole in the proofs in the remainder of this section
+ (notably the proof of \cref{deldyn-local-global}).
+\end{example}
+
+\paragraph{The type of $(\Delta,\mu)$} % {{{-2
+Let $(\Delta,\mu)$ be an irreducible populated Deligne--Dynkin diagram over~$Q$.
+If $(\Delta,\mu)$ is symplectic,
 the type of its connected components is classical:
 $A_n$,~$B_n$, $C_n$, or~$D_n$.
-Conversely, if the connected components of~$\Delta$
+On the other hand, if the connected components of~$\Delta$
 are of type $A_n$ (resp.~$B_n$, or~$C_n$),
-then $\Delta^{\mu}$ is symplectic.
-In this case we say that the \emph{type} of~$\Delta$
-is $A_n$ (resp.~$B_n$ or~$C_n$).
+then $(\Delta,\mu)$ is symplectic.
+In this case we say that the \emph{type} of~$(\Delta,\mu)$
+is $A_n$ (resp.~$B_n$, or~$C_n$).
 The case where the connected components of~$\Delta$
 are of type~$D_n$ requires more attention.
 
@@ -1827,7 +2108,7 @@ let $\Delta_\alpha$ be the connected component of~$\Delta$
 that contains~$\alpha$.
 The pair $(\Delta_\alpha, \alpha)$ is of type~$D_n^\RR$ or~$D_n^\HQ$
 according to the diagrams listed in \cref{table-deligne-dynkin-diagrams}.
-One readily verifies that $\Delta^{\mu}$ is symplectic if and only if
+One readily verifies that $(\Delta,\mu)$ is symplectic if and only if
 one of the following conditions holds:
 \begin{itemize}
  \item for every special node~$\alpha$, the pair $(\Delta_\alpha, \alpha)$
@@ -1835,63 +2116,78 @@ one of the following conditions holds:
  \item for every special node~$\alpha$, the pair $(\Delta_\alpha, \alpha)$
   is of type $D_n^\HQ$.
 \end{itemize}
-We say that $\Delta^\mu$ is of \emph{type}~$D_n^\RR$ (resp.~$D_n^\HQ$)
+We say that $(\Delta,\mu)$ is of \emph{type}~$D_n^\RR$ (resp.~$D_n^\HQ$)
 if the former (resp.~the latter) condition holds.
 
-Now assume that the connected components of~$\Delta$ are of type~$D_4$.
-Let $V$ be the subset of extremal nodes of~$\Delta$,
-let $\bar\mu$ be the $\Gal(\bar Q/Q)$-closure of~$\mu$,
-and let $S$ be the subset of symplectic nodes of $\Delta^{\mu}$.
-Observe that $S \subset V$,
-and $S$ meets every compontent of~$\Delta$ in $0$,~$1$, or~$2$ nodes.
-(In other words, the degree of~$S$ over $\pi_0(\Delta)$ is at most~$2$.)
-In the first case, $S$ is empty, and $\Delta^{\mu}$ is not symplectic.
-In the latter two cases $V = \bar\mu \sqcup S$, by the maximality of~$S$.
-We say that $\Delta^{\mu}$ has \emph{type} $D_4^\RR$
-if $\deg(\bar\mu) = 1$ and $\deg(S) = 2$,
-while $\Delta^{\mu}$ has \emph{type} $D_4^\HQ$
-if $\deg(\bar\mu) = 2$ and $\deg(S) = 1$.
+Finally, if the connected components of~$\Delta$ have type~$D_4$,
+then the type of $(\Delta,\mu)$ was explained in \cref{eg-D4},
+as follows:
+Let $\bar\mu$ be the $\Gal(\bar Q/Q)$-closure of~$\mu$.
+and write $d = \deg_{\pi_0(\Delta)}(\bar\mu)$.
+Recall that $d \in \{1,2,3\}$,
+and if $d = 3$, then $(\Delta,\mu)$ is not symplectic.
+We say that $(\Delta,\mu)$ has \emph{type}~$D_4^\RR$ (resp.~$D_4^\HQ$)
+if $d = 1$ (resp.~$d = 2$).
+
+We conclude with two observations:
+\begin{itemize}
+ \item The definitions of type~$D_n^\RR$ and~$D_n^\HQ$
+  distinguish between the cases $n = 4$ and $n \ge 5$,
+  but these cases unify in the following way:
+  if $(\Delta,\mu)$ is of type~$D_n^\RR$ (resp.~$D_n^\HQ$),
+  then the subset of $\mu$-symplectic nodes of~$\Delta$
+  has degree~$2$ (resp.~$1$) over~$\pi_0(\Delta)$.
+ \item An irreducible symplectic populated Deligne--Dynkin diagram
+  always has one of the following types:
+  $A_n$~($n \ge 1$), $B_n$ ($n \ge 2$), $C_n$ ($n \ge 3$),
+  $D_n^\RR$ ($n \ge 4$), or~$D_n^\HQ$ ($n \ge 4$);
+  and all these types occur.
+\end{itemize}
 
 \begin{remark} % {{{-2
- \label{type-remarks}
+ \label{restriction-remarks}
  Let $Q'/Q$ be a field extension,
- and let $\Delta^{\mu}$ be a Deligne--Dynkin diagram over~$Q$.
+ and let $(\Delta,\mu)$ be a Deligne--Dynkin diagram over~$Q$.
  By restricting the Galois action,
- one obtains a Deligne--Dynkin diagram $\Delta^{\mu}_{Q'}$ over~$Q'$.
+ one obtains a Deligne--Dynkin diagram $(\Delta,\mu)_{Q'}$ over~$Q'$.
  We make the following observations:
  \begin{enumerate}
-  \item If $\Delta^{\mu}$ is irreducible or populated
-   then this need not be true for $\Delta^{\mu}_{Q'}$.
-   (Of course $\Delta^\mu_{Q'}$ will have
+  \item If $(\Delta,\mu)$ is irreducible or populated
+   then this need not be true for $(\Delta,\mu)_{Q'}$.
+   (Of course $(\Delta,\mu)_{Q'}$ will have
    irreducible components that are populated.)
   \item Related to the preceding point:
-   the subset of symplectic nodes of $\Delta^{\mu}_{Q'}$
-   may be strictly larger than the subset of symplectic nodes of $\Delta^{\mu}$.
-  \item If $\Delta^{\mu}$ is irreducible of type~$D_4^\HQ$
-   then $\Delta^{\mu}_{Q'}$ may have irreducible components of type~$D_4^\RR$.
-   On the other hand, if $\Delta^{\mu}$ is populated and symplectic,
+   the subset of $\mu$-symplectic nodes of $(\Delta,\mu)_{Q'}$
+   may be strictly larger than
+   the subset of $\mu$-symplectic nodes of $(\Delta,\mu)$.
+  \item \label[remark]{restriction-remarks-type}
+   If $(\Delta,\mu)$ is irreducible of type~$D_4^\HQ$
+   then $(\Delta,\mu)_{Q'}$ may have irreducible components of type~$D_4^\RR$.
+   On the other hand, if $(\Delta,\mu)$ is populated and symplectic,
    but not of type~$D_4^\HQ$,
-   then every irreducible component of $\Delta^{\mu}_{Q'}$ that is populated
-   must have the same type as $\Delta^{\mu}$.
+   then every irreducible component of $(\Delta,\mu)_{Q'}$ that is populated
+   must have the same type as $(\Delta,\mu)$.
  \end{enumerate}
 \end{remark}
 
 \begin{lemma} % {{{-2
  \label{locally-same-type}
- Let $\Delta^{\mu}$ be
+ Let $(\Delta,\mu)$ be
  an irreducible symplectic populated Deligne--Dynkin diagram over~$\QQ$.
  Then there exists a prime number~$\ell$,
- and an irreducible component of $\Delta^{\mu}_{\QQl}$
- that has the same type as $\Delta^{\mu}$.
+ and an irreducible component of $(\Delta,\mu)_{\QQl}$
+ that has the same type as $(\Delta,\mu)$.
  \begin{proof}
-  This is trivial, unless $\Delta^{\mu}$ has type~$D_4^\HQ$.
+  By what was said in \cref{restriction-remarks-type} this is trivial,
+  unless $(\Delta,\mu)$ has type~$D_4^\HQ$.
   In that case, let $\alpha \in \mu$ be a special node,
   and let $\Delta_\alpha$ be
   the connected component of~$\Delta$ that contains~$\alpha$.
-  By assumption, the subset of symplectic nodes of $\Delta^{\mu}$
+  By assumption, the subset of $\mu$-symplectic nodes of $(\Delta,\mu)$
   meets $\Delta_\alpha$ in exactly one node~$s$.
-  Label the remaining extremal node of~$\Delta_\alpha$ with $\beta$.
-  By assumption we have $\bar\mu \cap \Delta_\alpha = \{\alpha,\beta\}$.
+  Label the remaining extremal node of~$\Delta_\alpha$ with $\beta$,
+  so that $\{\alpha,\beta,s\}$ is the set of extremal nodes of~$\Delta_\alpha$.
+  Note that $\bar\mu \cap \Delta_\alpha = \{\alpha,\beta\}$.
   By Chebotarev's density theorem
   there exists a prime number~$\ell$
   and an element $g \in \Gal(\QQlbar/\QQl)$ such that $g\alpha = \beta$.
@@ -1903,244 +2199,374 @@ if $\deg(\bar\mu) = 2$ and $\deg(S) = 1$.
 
 \paragraph{} % {{{-2
 An \emph{isomorphism of Deligne--Dynkin diagrams}
-$\phi \colon \Delta_1^{\mu_1} \to \Delta_2^{\mu_2}$ over a field~$Q$
+$\phi \colon (\Delta_1,\mu_1) \to (\Delta_2,\mu_2)$ over a field~$Q$
 is a $\Gal(\bar Q/Q)$-equivariant isomorphism
 $\phi \colon \Delta_1 \to \Delta_2$ that maps $\mu_1$ onto~$\mu_2$.
+We denote the set of isomorphisms from~$(\Delta_1,\mu_1)$ to~$(\Delta_2,\mu_2)$
+by $\Isom((\Delta_1,\mu_1),(\Delta_2,\mu_2))$.
 
 Observe that there is a natural map
-$\Isom(\Delta_1^{\mu_1},\Delta_2^{\mu_2})
-\to \Isom(\pi_0(\Delta_1),\pi_0(\Delta_2))$,
-and if $f \in \Isom(\pi_0(\Delta_1),\pi_0(\Delta_2))$,
-then we write $\Isom_f(\Delta_1^{\mu_1},\Delta_2^{\mu_2})$
-for the set of $\phi \in \Isom(\Delta_1^{\mu_1},\Delta_2^{\mu_2})$
+$\Isom((\Delta_1,\mu_1),(\Delta_2,\mu_2))
+\to \Isom_{\Gal(\bar Q/Q)}(\pi_0(\Delta_1),\pi_0(\Delta_2))$,
+and if $f \in \Isom_{\Gal(\bar Q/Q)}(\pi_0(\Delta_1),\pi_0(\Delta_2))$,
+then we write $\Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))$
+for the set of $\phi \in \Isom((\Delta_1,\mu_1),(\Delta_2,\mu_2))$
 such that $\pi_0(\phi) = f$.
 
 \begin{lemma} % {{{-2
- Let $\Delta^{\mu}$ be
+ \label{AutDeltamu}
+ Let $(\Delta,\mu)$ be
  an irreducible symplectic populated Deligne--Dynkin diagram over~$Q$.
  Let $\tau$ denote the opposition involution on~$\Delta$.
  Then
  \[
-  \#\Aut_\id(\Delta^\mu) =
+  \#\Aut_\id(\Delta,\mu) =
   \begin{cases}
-   1 &\text{if $\Delta^\mu$ has type $A_1$,~$B_n$, $C_n$, $D_n^\HQ$,
+   1 &\text{if $(\Delta,\mu)$ has type $A_1$,~$B_n$, $C_n$, $D_n^\HQ$,
    or $A_n$ and $\mu$ is not fixed by~$\tau$,}\\
-   2 &\text{if $\Delta^\mu$ has type $D_n^\RR$, or $A_n$ ($n \ge 2$)
+   2 &\text{if $(\Delta,\mu)$ has type $D_n^\RR$, or $A_n$ ($n \ge 2$)
     and $\mu$ is fixed by~$\tau$.}
   \end{cases}
  \]
+ \begin{proof}
+  If $\Delta$ has only one connected component,
+  then the result may be deduced from the tables
+  in~\cref{table-deligne-dynkin-diagrams}.
+  If $\Delta$ has multiple components,
+  then the result follows from the fact that
+  a non-trivial element of $\Aut_\id(\Delta,\mu)$
+  must act non-trivially on every connected component of~$\Delta$.
+ \end{proof}
 \end{lemma}
 
 \begin{lemma} % {{{-2
  \label{locally-same-aut}
- Let $\Delta^{\mu}$ be
+ Let $(\Delta,\mu)$ be
  an irreducible symplectic populated Deligne--Dynkin diagram over~$\QQ$.
  Then there exists
- an irreducible component $\Delta_\lambda^{\mu_\lambda}$ of $\Delta^{\mu}_{\QQl}$
+ an irreducible component $(\Delta_\lambda,\mu_\lambda)$ of $(\Delta,\mu)_{\QQl}$
  such that the natural map
- $\Aut_\id(\Delta^\mu) \to \Aut_\id(\Delta_\lambda^{\mu_\lambda})$
+ $\Aut_\id(\Delta,\mu) \to \Aut_\id(\Delta_\lambda,\mu_\lambda)$
  is an isomorphism.
  \begin{proof}
-  This follows immediately from \cref{locally-same-type}.
+  This follows immediately from \cref{locally-same-type,AutDeltamu}.
  \end{proof}
 \end{lemma}
 
 \paragraph{} % {{{-2
 \label{deg2-set}
-Let $\Delta^{\mu}$ be
+As explained in the readme at the beginning of this \namecref{DeligneDynkin},
+our aim is a local-global result for
+irreducible symplectic populated Deligne--Dynkin diagrams over~$\QQ$
+(\cref{deldyn-local-global}).
+Now recall that a quadratic extension~$F$ of a number field~$E$
+is completely determined by the set of primes of~$E$ that split in~$F$.
+This fact inspires the following remark.
+
+Let $(\Delta,\mu)$ be
 an irreducible symplectic populated Deligne--Dynkin diagram over~$Q$.
 The action of $\Gal(\bar Q/Q)$ on~$\Delta$
 is determined by the action on
-a $\Gal(\bar Q/Q)$-closed subset $U(\Delta^\mu)$ of~$\Delta$.
-Let $S$ be the subset of symplectic nodes of~$\Delta^\mu$.
+a $\Gal(\bar Q/Q)$-closed subset $U(\Delta,\mu)$ of~$\Delta$
+with $\deg_{\pi_0(\Delta)}(U(\Delta,\mu)) \in \{1,2\}$.
+Indeed, let $S$ be the subset of $\mu$-symplectic nodes of~$(\Delta,\mu)$.
 \begin{itemize}
- \item If $\Delta^\mu$ is of type~$A_n$, we take~$U(\Delta^\mu) = S$.
- \item If $\Delta^\mu$ is of type~$B_n$, we take $U(\Delta^\mu) = S$.
- \item If $\Delta^\mu$ is of type~$C_n$, we take $U(\Delta^\mu) = \bar\mu$.
- \item If $\Delta^\mu$ is of type~$D_n^\RR$, we take $U(\Delta^\mu) = S$.
- \item If $\Delta^\mu$ is of type~$D_n^\HQ$,
-  we take $U(\Delta^\mu) = \bar\mu$.
+ \item If $(\Delta,\mu)$ has type~$A_n$, we take~$U(\Delta,\mu) = S$,
+  which has degree~$1$ if $n = 1$ and degree~$2$ otherwise.
+ \item If $(\Delta,\mu)$ has type~$B_n$, we take $U(\Delta,\mu) = S$,
+  which has degree~$1$.
+ \item If $(\Delta,\mu)$ has type~$C_n$, we take $U(\Delta,\mu) = \bar\mu$,
+  which has degree~$1$.
+ \item If $(\Delta,\mu)$ has type~$D_n^\RR$, we take $U(\Delta,\mu) = S$,
+  which has degree~$2$.
+ \item If $(\Delta,\mu)$ has type~$D_n^\HQ$,
+  we take $U(\Delta,\mu) = \bar\mu$,
+  which has degree~$1$ or~$2$.
 \end{itemize}
-Note that the degree of $U(\Delta^\mu)$ over~$\pi_0(\Delta)$ is at most~$2$.
 
 \paragraph{} % {{{-2
-Let $\Delta_1^{\mu_1}$ and~$\Delta_2^{\mu_2}$ be two
-irreducible symplectic populated Deligne--Dynkin diagrams over~$\QQ$.
-Suppose there is a $\phi \in \Isom_f(\Delta_1^{\mu_1},\Delta_2^{\mu_2})$,
-where $f$ is some $\Gal(\QQbar/\QQ)$-equivariant isomorphism
-$\pi_0(\Delta_1) \to \pi_0(\Delta_2)$.
-Let $\ell$ be a prime number.
-Identify $\pi_0(\Delta_1)$ with $\Hom(E,\QQbar)$
-for some number field~$E$.
+Let $E$ be a number field, and
+let $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$ be two
+irreducible symplectic populated Deligne--Dynkin diagrams over~$\QQ$
+such that $\pi_0(\Delta_1)$ and $\pi_0(\Delta_2)$ are
+both isomorphic to $\Hom(E,\QQbar)$ as $\Gal(\QQbar/\QQ)$-sets.
+Fix $\Gal(\QQbar/\QQ)$-equivariant isomorphisms
+$\pi_0(\Delta_1) \cong \Hom(E,\QQbar) \cong \pi_0(\Delta_2)$
+and write $f$ for the composite map $\pi_0(\Delta_1) \to \pi_0(\Delta_2)$.
+Suppose that there is a $\phi \in \Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))$.
 
-We restrict the Galois action to $\Gal(\QQlbar/\QQl)$.
-The irreducible components of~$(\Delta_1^{\mu_1})_{\QQl}$
+We restrict the Galois action to $\Gal(\QQlbar/\QQl)$,
+for some prime number~$\ell$.
+The irreducible components of~$(\Delta_1,\mu_1)_{\QQl}$
 are in a natural way indexed by the places~$\lambda$ of~$E$
-that lie above~$\ell$.
+that lie above~$\ell$, so that
+$(\Delta_1,\mu_1)_{\QQl} = \sqcup_{\lambda|\ell} (\Delta_1,\mu_1)_\lambda$.
 In a similar manner, the maps~$f_\ell$ and~$\phi_\ell$
 are the disjoint union of local components~$f_\lambda$ and~$\phi_\lambda$.
 We will use this notation below.
 
 \begin{proposition} % {{{-2
  \label{deldyn-local-global}
- Let $\Delta_1^{\mu_1}$ and~$\Delta_2^{\mu_2}$ be two
- irreducible symplectic populated Deligne--Dynkin diagrams over~$\QQ$.
- Suppose that there is an isomorphism
- $f \colon \pi_0(\Delta_1) \to \pi_0(\Delta_2)$
- and for each prime number~$\ell$ an element
- $\psi_\ell \in \Isom_f(\Delta_{1,\QQl}^{\mu_1},\Delta_{2,\QQl}^{\mu_2})$.
- Let $E$ be a number field such that $\Hom(E,\QQbar) = \pi_0(\Delta_1)$.
-
- Then there exists a $\phi \in \Isom_f(\Delta_1^{\mu_1},\Delta_2^{\mu_2})$
+ Let $E$ be a number field, and
+ let $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$ be two
+ irreducible symplectic populated Deligne--Dynkin diagrams over~$\QQ$
+ such that $\pi_0(\Delta_1)$ and $\pi_0(\Delta_2)$ are
+ both isomorphic to $\Hom(E,\QQbar)$ as $\Gal(\QQbar/\QQ)$-sets.
+ Fix $\Gal(\QQbar/\QQ)$-equivariant isomorphisms
+ $\pi_0(\Delta_1) \cong \Hom(E,\QQbar) \cong \pi_0(\Delta_2)$
+ and write $f$ for the composite map $\pi_0(\Delta_1) \to \pi_0(\Delta_2)$.
+ Suppose that for each prime number~$\ell$ there is an element
+ $\psi_\ell \in \Isom_f((\Delta_1,\mu_1)_{\QQl},(\Delta_2,\mu_2)_{\QQl})$.
+ Then there exists a $\phi \in \Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))$
  and a finite place~$\lambda$ of~$E$
  such that $\phi_\lambda = \psi_\lambda$.
  \begin{proof}
   It suffices to prove the existence of~$\phi$;
   the second claim will follow automatically from \cref{locally-same-aut}.
-  First of all, observe that $\Delta_1^{\mu_1}$ and~$\Delta_2^{\mu_2}$
-  must have the same type, by \cref{type-remarks} and \cref{locally-same-type}.
-  Next, we claim that there is an element in
-  $\Isom_f(U(\Delta_1^{\mu_1}),U(\Delta_2^{\mu_2}))$.
-  Indeed, since the degree of~$U(\Delta_i^{\mu_i})$ over~$\pi_0(\Delta_i)$
-  is at most~$2$,
-  it suffices (by Chebotarev's density theorem)
-  to prove that these sets are locally isomorphic.
-  If the type is not~$D_4^\HQ$,
-  such local isomorphisms are obtained
-  by restricting the~$\psi_\ell$ to~$U(\Delta_1^{\mu_1})$.
-  If the type is~$D_4^\HQ$,
-  all $\psi_\ell$ will map $\mu_1$ to~$\mu_2$,
-  but they need not all map $\Gal(\QQbar/\QQ)\cdot\mu_1$
-  to~$\Gal(\QQbar/\QQ)\cdot\mu_2$.
-  Suppose that $\psi_\lambda$ is a component of some~$\psi_\ell$
-  that does not map $(\Gal(\QQbar/\QQ)\cdot\mu_1) \cap \Delta_{1,\lambda}$
-  to $(\Gal(\QQbar/\QQ)\cdot\mu_2) \cap \Delta_{2,\lambda}$.
-  In that case the vertices of $\Delta_{i,\lambda}$
-  form $4$~orbits under $\Gal(\QQlbar/\QQl)$
-  and in particular there is an element in
-  $\Isom_{f_\lambda}(U(\Delta_1^{\mu_1})_{\lambda},
-  U(\Delta_2^{\mu_2})_{\lambda})$.
-  This proves the claim that
-  $\Isom_f(U(\Delta_1^{\mu_1}),U(\Delta_2^{\mu_2}))$ is non-empty.
-  As a consequence there is an element
-  $\phi \in \Isom_f(\Delta_1, \Delta_2)$ (see~\cref{deg2-set}).
+  First of all, observe
+  that $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$ have the same type,
+  by \cref{restriction-remarks-type} and \cref{locally-same-type}.
+  If this type is $B_n$ or~$C_n$,
+  then the topology of the diagrams
+  and the map $f \colon \pi_0(\Delta_1) \to \pi_0(\Delta_2)$
+  determine a unique $\Gal(\QQbar/\QQ)$-equivariant map
+  $\phi \in \Isom_f(\Delta_1,\Delta_2)$.
+  Note that $\phi$ maps $\mu_1$ to~$\mu_2$,
+  because it does so locally.
 
+  The other types require more bookkeeping,
+  although the strategy remains the same.
+  We begin by proving that
+  there is an element $\phi \in \Isom_f(\Delta_1,\Delta_2)$,
+  that may or may not map $\mu_1$ to~$\mu_2$.
+  By \cref{deg2-set}, a $\Gal(\QQbar/\QQ)$-equivariant isomorphism
+  $U(\Delta_1,\mu_1) \to U(\Delta_2,\mu_2)$ lying above~$f$
+  will extend to a $\Gal(\QQbar/\QQ)$-equivariant isomorphism
+  $\Delta_1 \to \Delta_2$.
+  Since the degree of~$U(\Delta_i,\mu_i)$ over~$\pi_0(\Delta_i)$
+  is at most~$2$,
+  the existence of global isomorphism
+  $U(\Delta_1,\mu_1) \to U(\Delta_2,\mu_2)$
+  will follow from Chebotarev's density theorem
+  if we prove that these sets are locally isomorphic.
+  \begin{itemize}
+   \item If $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$ have type~$A_n$,
+    or~$D_n^\RR$ with $n \ge 5$,
+    then the topology of the diagrams
+    forces that $\psi_\ell(U(\Delta_1,\mu_1))$ equals $U(\Delta_2,\mu_2)$
+    for all prime numbers~$\ell$.
+   \item Now assume that $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$
+    have type~$D_4^\RR$ or~$D_4^\HQ$.
+    Let $\lambda$ be a finite place of~$E$.
+    There are two possibilities:
+    either the extremal nodes of
+    $(\Delta_1,\mu_1)_\lambda$ and $(\Delta_2,\mu_2)_\lambda$
+    form $2$ orbits under the action of $\Gal(\QQlbar/\QQl)$,
+    or the extremal nodes form $3$ orbits.
+    For both possibilities it is clear that
+    $U(\Delta_1,\mu_1)_\lambda$
+    is isomorphic to
+    $U(\Delta_2,\mu_2)_\lambda$.
+   \item Finally, assume that $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$
+    have type $D_n^\HQ$ with $n \ge 5$.
+    Recall that $U(\Delta_i,\mu_i) = \bar\mu_i$ has degree~$1$ or~$2$.
+    If these degrees are equal, then we are done.
+    Now suppose that the degree of $\bar\mu_1$ is~$2$.
+    Let $\{\alpha,\beta\} \subset \bar\mu_1$
+    be two nodes that lie in the same connected component of~$\Delta_1$.
+    Without loss of generality we may and do assume $\alpha \in \mu_1$.
+    By Chebotarev's density theorem,
+    there exists a prime number~$\ell$ and $g \in \Gal(\QQlbar/\QQl)$
+    such that $g\alpha = \beta$.
+    By assumption, we have $\psi_\ell(\alpha) \in \mu_2$
+    and $\psi_\ell(\beta) = g\psi_\ell(\alpha) \in \bar\mu_2$.
+    We conclude that $\bar\mu_1$ and~$\bar\mu_2$ have the same degree.
+  \end{itemize}
+  We have now proven that there exists a $\Gal(\QQbar/\QQ)$-equivariant
+  isomorphism $\phi \colon \Delta_1 \to \Delta_2$ lying over~$f$.
   It remains to prove that we can choose~$\phi$
   in such a way that it maps $\mu_1$ to~$\mu_2$.
-  If $\Delta_1^{\mu_1}$ and $\Delta_2^{\mu_2}$
-  are of type $A_1$,~$B_n$, $C_n$, or~$D_n^\RR$ ($n \ge 5$),
-  then the topology of the diagram forces $\phi(\mu_1) = \mu_2$,
-  hence there is nothing left to do.
-  Now suppose that the type is $A_n$, with $n \ge 2$.
-  If $\mu_1$ (and therefore $\mu_2$) is fixed
-  under the opposition involution,
-  then there is again nothing to do.
-  If the type is $D_4^\RR$,
-  recall that $U(\Delta_i^{\mu_i}) = S_i$,
-  so we can choose $\phi$ such that $\phi(S_1) = S_2$.
-  This means that $\phi(\bar\mu_1) = \bar\mu_2$,
-  and we conclude that $\phi(\mu_1) = \mu_2$.
 
-  Finally, suppose that the type is $D_n^\HQ$,
+  At the beginning of this proof, we already dealt with the cases where
+  $(\Delta_1,\mu_1)$ and $(\Delta_2,\mu_2)$ have type~$B_n$ or~$C_n$.
+  We continue with some other easy cases.
+  \begin{itemize}
+   \item If $(\Delta_1,\mu_1)$ and $(\Delta_2,\mu_2)$
+    are of type $A_1$, or~$D_n^\RR$ with $n \ge 5$,
+    then the topology of the diagrams force $\phi(\mu_1) = \mu_2$,
+    hence there is nothing left to do.
+   \item If the type is $D_4^\RR$,
+    recall that $\bar\mu_i$ has degree~$1$ over~$\pi_0(\Delta_i)$.
+    Hence it is clear that we can choose~$\phi$
+    such that $\phi(\mu_1) = \mu_2$.
+   \item Now suppose that the type is $A_n$ with $n \ge 2$,
+    and assume that $\mu_1$ (and therefore $\mu_2$) is fixed
+    under the opposition involution.
+    Once again, the topology of the diagrams force $\phi(\mu_1) = \mu_2$.
+  \end{itemize}
+  The remaining cases require a bit more work:
+  so far we have not needed to change our choice of~$\phi$,
+  but with the remaining cases this might be necessary.
+
+  We save the case~$D_4^\HQ$ for the \emph{coup de gr\^ace} of this proof.
+  Suppose that the type is $D_n^\HQ$ with $n \ge 5$,
   or the type is $A_n$ and $\mu_i$ is not fixed by the opposition involution.
-  Let $S_i$ be the subset of symplectic nodes of~$\Delta_i^{\mu_i}$,
-  and observe that $\phi(S_1) = S_2$.
-  There is a unique non-trivial involution~$\tau_i \in \Aut_\id(\Delta_i)$
-  such that $\tau_i(S_i) = S_i$.
-  Now remark that $\phi \circ \tau_1 = \tau_2 \circ \phi$.
+  There is a unique non-trivial $\Gal(\QQbar/\QQ)$-equivariant
+  involution~$\tau_i \in \Aut_\id(\Delta_i)$.
+  Observe that $\phi \circ \tau_1 = \tau_2 \circ \phi$.
   Let $\alpha \in \mu_1$ be a special node that is not fixed under~$\tau_1$.
   We may assume that $\phi(\alpha) \in \mu_2$,
   by replacing $\phi$ with $\phi \circ \tau_1$ if necessary.
-  
+
   We claim that $\phi(\mu_1) = \mu_2$.
   Indeed, suppose that $\alpha' \in \mu_1$ is a special node, and
   let $\Delta_{\alpha'}$ be the component of~$\Delta_1$ containing~$\alpha'$.
-  There exists a $g \in \Gal(\QQbar/\QQ)$ such that
-  \[
-   \begin{cases}
-    g\alpha = \alpha' &\text{if the type is~$D_4^\HQ$}\\
-    g\alpha \in \Delta_{\alpha'} &\text{otherwise.}
-   \end{cases}
-  \]
+  There exists a $g \in \Gal(\QQbar/\QQ)$
+  such that $g\alpha \in \Delta_{\alpha'}$.
   By Chebotarev's density theorem,
   we may assume that $g \in \Gal(\QQlbar/\QQl)$
   for some prime number~$\ell$.
+  Now we argue as follows:
+  Let $(\Delta_1,\mu_1)_\lambda$
+  (resp.~$(\Delta_2,\mu_2)_\lambda$)
+  be the irreducible component of~$(\Delta_1,\mu_1)_{\QQl}$
+  (resp.\ $(\Delta_2,\mu_2)_{\QQl}$)
+  that contains~$\alpha$ (resp.~$\phi(\alpha)$).
+  Since $\phi(\alpha) \in \mu_2$, we have $\phi(\alpha) = \psi_\ell(\alpha)$
+  and therefore $\phi_\lambda = \psi_\lambda$.
+  This implies $\phi(\alpha') \in \mu_2$, which concludes the proof.
 
-  If the type is $D_4^\HQ$, then
+  Finally, assume the type is $D_4^\HQ$.
+  Recall that $\bar\mu_i$ has degree~$2$.
+  Thus there is a unique non-trivial $\Gal(\QQbar/\QQ)$-equivariant
+  involution~$\tau_i \in \Aut_\id(\Delta_i)$
+  such that $\tau_i(\bar\mu_i) = \bar\mu_i$.
+  Once again, we have $\phi \circ \tau_1 = \tau_2 \circ \phi$.
+  Let $\alpha \in \mu_1$ be a special node that is not fixed under~$\tau_1$.
+  We may assume that $\phi(\alpha) \in \mu_2$,
+  by replacing $\phi$ with $\phi \circ \tau_1$ if necessary.
+
+  As before, we claim that $\phi(\mu_1) = \mu_2$.
+  Indeed, let $\alpha' \in \mu_1$ be a special node.
+  There exists a $g \in \Gal(\QQbar/\QQ)$
+  such that $g\alpha = \alpha'$.
+  By Chebotarev's density theorem,
+  we may assume that $g \in \Gal(\QQlbar/\QQl)$
+  for some prime number~$\ell$.
+  Since $\phi(\alpha) \in \mu_2$, we have $\phi(\alpha) = \psi_\ell(\alpha)$,
+  and we compute
   \[
    \phi(\alpha') = \phi(g\alpha) = g\phi(\alpha) = g\psi_\ell(\alpha)
    = \psi_\ell(g\alpha) = \psi_\ell(\alpha') \in \mu_2.
   \]
-  Finally, if the type is not~$D_4^\HQ$, then we argue as follows:
-  Let $\Delta_{1,\lambda}^{\mu_{1,\lambda}}$
-  (resp.~$\Delta_{2,\lambda}^{\mu_{2,\lambda}}$)
-  be the irreducible component of~$\Delta_{1,\QQl}^{\mu_1}$
-  (resp.\ $\Delta_{2,\QQl}^{\mu_2}$)
-  that contains~$\alpha$ (resp.~$\phi(\alpha)$).
-  It is clear that $\phi_\lambda = \psi_\lambda$,
-  and hence $\phi(\alpha') \in \mu_2$.
-  This concludes the proof.
+  This completes the proof.
  \end{proof}
 \end{proposition}
 
 \paragraph{} % {{{-2
 Let $M$ be a hyperadjoint abelian motive
 over a finitely generated field $K \subset \CC$.
-Let $\Delta^\mu$ be the Deligne--Dynkin diagram associated with~$M$.
+Let $(\Delta,\mu)$ be the Deligne--Dynkin diagram associated with~$M$.
 Choose an embedding of $K$ into a $p$-adic field~$K_v$.
-Let $C_v$ be the completion of an algebraic closure of~$K_v$.
+Let $C_v$ be the completion of an algebraic closure of~$K_v$,
+let $C_v(i)$ denote the invertible $C_v$-module $C_v \otimes_{\QQp} \QQp(i)$,
+and let $\BHT{v}$ denote the Hodge--Tate ring $\bigoplus_{i \in \ZZ} C_v(i)$.
 By $p$-adic Hodge theory,
-we know that there is a grading on $\Hp(M) \otimes_{\QQp} C_v$.
-This determines a cocharacter~$\mu_{\HT}$ of
-$\Gpc(M) \otimes_{\QQp} C_v \subset \GB(M) \otimes_\QQ C_v$,
-the \emph{Hodge--Tate} cocharacter.
+we know that there is a grading on $\Hp(M) \otimes_{\QQp} \BHT{v}$.
+This determines a cocharacter~$\mu_\HT$ of
+$\Gpc(M) \otimes_{\QQp} \BHT{v} \subset \GB(M) \otimes_\QQ \BHT{v}$
+that is called the \emph{Hodge--Tate} cocharacter.
 
 \begin{lemma} % {{{-2
  \label{hodge-tate-cochar-deldyn}
  Retain the notation of the preceding paragraph.
  The conjugacy class of the cocharacter
- $\mu_{\HT} \colon \Gm[C_v] \to \GB(M) \otimes_\QQ C_v$
- is defined over~$\QQbar$ and coincides with the
- conjugacy class of the Hodge cocharacter
- $\mu \colon \Gm[\CC] \to \GB(M) \otimes_\QQ \CC$.
- In particular, $\mu_{\HT}$ determines the subset $\mu \subset \Delta$.
+ $\mu_\HT \in X_*(\GB(M) \otimes_\QQ \BHT{v})$
+ and
+ the conjugacy class of the Hodge cocharacter
+ $\mu \in X_*(\GB(M) \otimes_\QQ \CC)$
+ correspond to the same conjugacy class of
+ cocharacters $X_*(\GB(M) \otimes_\QQ \QQbar)$.
+ In particular, $\mu_\HT$ determines the subset $\mu \subset \Delta$.
  \begin{proof}
-  This follows from the comparison theorems
-  between Betti cohomology, algebraic de~Rham cohomology,
-  and $p$-adic \'etale cohomology.
+  By the Tannakian formalism,
+  the cocharacters $\mu_\HT$ and~$\mu$ correspond to a tensor functors
+  \[
+   \begin{aligned}
+    \Hp \otimes \BHT{v} \colon \Tangen{M} &\to \grVect_{\BHT{v}} \\
+    N &\mapsto \Hp(N) \otimes_{\QQp} \BHT{v}
+   \end{aligned}
+   \qquad\text{respectively}\qquad
+   \begin{aligned}
+    \HB \otimes \CC \colon \Tangen{M} &\to \grVect_{\CC} \\
+    N &\mapsto \HB(N) \otimes_\QQ \CC.
+   \end{aligned}
+  \]
+  There is also another tensor functor
+  \begin{align*}
+   \gr\HdR \colon \Tangen{M} &\to \grVect_{K} \\
+   N &\mapsto \gr\HdR(N)
+  \end{align*}
+  that maps a motive to the associated graded
+  of its algebraic de~Rham realisation.
+  If $\GdR(M)/K$ denotes the algebraic group $\Aut^\otimes(\HdR)$
+  that corresponds to~$\Tangen{M}$ via the fibre functor~$\HdR$,
+  then $\gr\HdR$ corresponds to a cocharacter $\mu_\dR \in X_*(\GdR(M))$.
+
+  Recall that $\GG(M)/\QQ$ is the algebraic group $\Aut^\otimes(\HB)$
+  that corresponds to~$\Tangen{M}$ via the fibre functor~$\HB$.
+  The groups $\GdR(M)$ and $\GG(M) \otimes_\QQ K$ are inner forms of each other.
+  In \cref{GB-id-comp} we explained that,
+  the Mumford--Tate group $\GB(M)$ is the identity component of~$\GG(M)$
+  since $M$ is an abelian motive.
+
+  The comparison theorem between
+  the Betti realisation
+  and
+  the algebraic de~Rham realisation
+  gives a natural transformation $\HB \otimes \CC \to \gr\HdR \otimes \CC$.
+  This yields an injection $\GB(M) \otimes_\QQ \CC \into \GdR(M) \otimes_K \CC$
+  that maps $\mu$ to~$\mu_\dR$.
+
+  On the other hand, $p$-adic Hodge theory compares
+  the $p$-adic \'etale realisation with the algebraic de~Rham realisation,
+  and gives a natural transformation
+  $\Hp \otimes \BHT{v} \to \gr\HdR \otimes \BHT{v}$.
+  This yields an inclusion
+  $\GB(M) \otimes_\QQ \BHT{v} \into \GdR(M) \otimes_K \CC$
+  that maps $\mu_\HT$ to~$\mu_\dR$.
+  This finishes the proof.
  \end{proof}
 \end{lemma}
 
 \section{Deligne's construction} % {{{-1
 \label{delignes-construction}
 
-\readme % {{{-2
-Let $M$ be an irreducible hyperadjoint abelian motive over~$\CC$.
-Proposition~2.3.10 of~\cite{Del_ShimVar} provides a recipe
-to construct a complex abelian variety~$A$ (up to isogeny)
-such that $M \cong \HH^1(A)^\ha$.
-Deligne uses the language of Shimura data and Hodge theory.
-We recall this construction,
-using the terminology of abelian motives and Deligne--Dynkin diagrams.
+\begin{readme} % {{{-2
+ Let $M$ be an irreducible hyperadjoint abelian motive over~$\CC$.
+ Proposition~2.3.10 of~\cite{Del_ShimVar} provides a recipe
+ to construct a complex abelian variety~$A$ (up to isogeny)
+ such that $M \cong \HH^1(A)^\ha$.
+ Deligne uses the language of Shimura data and Hodge theory.
+ We recall this construction,
+ using the terminology of abelian motives and Deligne--Dynkin diagrams.
+\end{readme}
 
 \paragraph{Preparations} % {{{-2
-Let $M$ be an irreducible hyperadjoint abelian motive over~$\CC$.
-Let $E$ denote $\End(M)$,
-and let $\Delta^{\mu}$ be the Deligne--Dynkin diagram associated with~$M$.
-Recall that $E$ is a totally real field
-(see the discussion in~\S1.2.1 of~\cite{Del_ShimVar}),
-and note that $\Hom(E,\QQbar) \cong \pi_0(\Delta)$.
-We also recall that $\Delta^{\mu}$ is symplectic (\cref{deldyn-symplectic}).
-Let $S$ be the subset of symplectic nodes of~$\Delta^{\mu}$.
+Let $M$ be an irreducible hyperadjoint abelian motive over~$\CC$,
+and let $(\Delta,\mu)$ be the Deligne--Dynkin diagram associated with~$M$.
+The endomorphism algebra $E = \End(M)$ is a totally real field
+(see the discussion in~\S2.3.4(a) of~\cite{Del_ShimVar}).
+Note that $\Hom(E,\QQbar) \cong \pi_0(\Delta)$.
+We also recall that $(\Delta,\mu)$ is symplectic (\cref{deldyn-symplectic}).
+Let $S$ be the subset of $\mu$-symplectic nodes of~$(\Delta,\mu)$.
 
 Write $G$ for the $\QQ$-simple adjoint group $\GB(M)$,
 and let $\tilde G$ be the simply-connected cover of~$G$.
 For $s \in S$, let $V(s)$ be the representation of~$\tilde G_\CC$
 whose highest weight corresponds to~$s$.
-The isomorphism class of $\bigoplus_{s \in S} V(s)$
-is defined over~$\QQ$,
-since $S$ is closed under the action of~$\Gal(\QQbar/\QQ)$.
-Therefore, there exists a representation~$V$ of~$\tilde G$ over~$\QQ$
+Since $S$ is closed under the action of~$\Gal(\QQbar/\QQ)$,
+there exists a representation~$V$ of~$\tilde G$ over~$\QQ$
 such that $V_\CC \cong \bigoplus_{s \in S} V(s)^{\oplus n}$
 for suitable~$n$.
 
@@ -2149,7 +2575,7 @@ for suitable~$n$.
 Now we fix three choices:
 \begin{enumerate}
  \item Choose a totally imaginary quadratic extension $F/E$.
- \item Choose a partial \cm~type~$\Phi$ for~$F$ relative to $\Delta^\mu$:
+ \item Choose a partial \cm~type~$\Phi$ for~$F$ relative to $(\Delta,\mu)$:
   a subset $\Phi \subset \Hom(F,\CC) = \Hom(F,\QQbar)$
   that maps 1-to-1 onto the complement of the image of~$\mu$
   in $\Hom(E,\QQbar) = \pi_0(\Delta)$.
@@ -2194,7 +2620,7 @@ the component $\CC^\phi$ of $F \otimes \CC \cong \CC^{\Hom(F,\CC)}$
 is placed in bi-degree
 \[
  \begin{cases}
-  (1,0) &\text{if $\phi \in \Phi$}\\ %TODO is this the right convention?
+  (1,0) &\text{if $\phi \in \Phi$}\\
   (0,1) &\text{if $\bar\phi \in \Phi$}\\
   (0,0) &\text{otherwise.}
  \end{cases}
@@ -2266,9 +2692,10 @@ and so is the natural map $\GB(W_F) \to T$.
 
 \section{The main proposition} % {{{-1
 
-\readme % {{{-2
-In this section we prove the main technical result of this paper.
-Its proof uses results of the preceding three sections.
+\begin{readme} % {{{-2
+ In this section we prove the main technical result of this paper.
+ Its proof uses results of the preceding three sections.
+\end{readme}
 
 \begin{proposition} % {{{-2
  \label{mtc-product-abelian-motives}
@@ -2314,42 +2741,58 @@ We first make some observations about~$M_1$ and~$M_2$.
 For $i \in \{1,2\}$,
 write $E_i$ for $\End(M_i)$, and
 write $\Lambda_i$ for the set of finite places of~$E_i$.
-For a prime number~$\ell$, let $\Lambda_{i,\ell}$
-denote the set of places~$\lambda \in \Lambda_i$ that lie above~$\ell$.
-Since $\MTC(M_i)$ holds, we know that
-$\Glc(M_i) = \prod_{\lambda \in \Lambda_{i,\ell}}
-\Res_{E_{i,\lambda}/\QQl} \Glambdac(M_i)$.
-By assumption $\Gl(M_i) = \Glc(M_i)$,
-and hence $\Glambda(M_i) = \Glambdac(M_i)$.
-We also know that
-$\Glambda(M_i)$ is a simple adjoint group over~$E_{i,\lambda}$,
-once again, because $\MTC(M_i)$ holds.
-Finally, observe that $\HH_{\Lambda_i}(M_i)$ is a
+Observe that $\HH_{\Lambda_i}(M_i)$ is a
 quasi-compatible system of representations,
 by \cref{abelian-motive-quasi-compatible-realisations}.
+
+For a prime number~$\ell$, let $\Lambda_{i,\ell}$
+denote the set of places~$\lambda \in \Lambda_i$ that lie above~$\ell$.
+Recall that $\GB(M) = \Res_{E/\QQ}(G)$,
+for some absolutely simple adjoint group~$G$ over~$E$.
+Since $\MTC(M_i)$ holds
+and Weil restriction of scalars commutes with base change,
+we find that
+\[
+\Glc(M_i) = \GB(M) \otimes_\QQ \QQl
+= \prod_{\lambda \in \Lambda_{i,\ell}}
+\Res_{E_{i,\lambda}/\QQl} (G \otimes_E E_\lambda).
+\]
+In particular we have
+$\Gl(\Hlambda(M_i)) = \Res_{E_{i,\lambda}/\QQl} (G \otimes_E E_\lambda)$
+for every $\lambda \in \Lambda_{i,\ell}$.
+If we write $\Glambda(M_i)$ for $\Glambda(\Hlambda(M_i))$
+then the above computation implies that
+$\Glambda(M_i)$ is equal to $G \otimes_E E_\lambda$,
+an absolutely simple adjoint group over~$E_{i,\lambda}$.
 
 Let $\ell$ be a prime number
 such that $\Gl(M_1 \oplus M_2) \subsetneq \Gl(M_1) \times \Gl(M_2)$.
 By Goursat's lemma this implies that there are
-places $\lambda_1 \in \Lambda_{1,\ell}$
-and $\lambda_2 \in \Lambda_{2,\ell}$
+places $\lambda_1 \in \Lambda_{1,\ell}$ and $\lambda_2 \in \Lambda_{2,\ell}$
 such that the projection of $\Gl(M_1 \oplus M_2)$ in
-$\Res_{E_{1,\lambda_1}} \GG_{\lambda_1}(M_1) \times
-\Res_{E_{2,\lambda_2}} \GG_{\lambda_2}(M_2)$
+$\Res_{E_{1,\lambda_1}/\QQl} \GG_{\lambda_1}(M_1) \times
+\Res_{E_{2,\lambda_2}/\QQl} \GG_{\lambda_2}(M_2)$
 is the graph of an isomorphism of algebraic groups over~$\QQl$.
-Hence there is a $\QQl$-linear isomorphism
+The derivative of this isomorphism at the identity element
+is a $\QQl$-linear isomorphism
 $\psi \colon \HH_{\lambda_1}(M_1) \to \HH_{\lambda_2}(M_2)$
 of Galois representations of~$K$.
+(Recall that $\HH_{\lambda_i}(M_i)$ is the adjoint representation
+$\Lie(\Res_{E_{i,\lambda_i}/\QQl} \GG_{\lambda_i}(M_i))$.)
 
 Note that $\psi$ induces an isomorphism
 $f \colon \End_{\Gal(\bar{K}/K)}(\HH_{\lambda_1}(M_1)) \to
-\End_{\Gal(\bar{K}/K)}(\HH_{\lambda_2}(M_2))$,
-and since these endomorphism algebras are commutative,
+\End_{\Gal(\bar{K}/K)}(\HH_{\lambda_2}(M_2))$.
+Since these endomorphism algebras are commutative,
 the isomorphism~$f$ does not depend on~$\psi$.
 By \cref{recover-endomorphisms} we recover
 $\lambda_i \colon E_i \into E_{i,\lambda_i} =
-\End_{\Gal(\bar{K}/K)}(\HH_{\lambda_i}(M_i))$,
-and therefore $\psi$ gives a canonical isomorphism
+\End_{\Gal(\bar{K}/K)}(\HH_{\lambda_i}(M_i))$
+as the subfield generated by coefficients of
+characteristic polynomials of Frobenius elements
+acting $E_{i,\lambda_i}$-linearly on~$\HH_{\lambda_i}(M_i)$.
+Because $\psi$ commutes with the action of these Frobenius elements
+the map~$f$ restricts to a canonical isomorphism
 $f \colon E_1 \to E_2$ that identifies $\lambda_1$ with~$\lambda_2$.
 Write $E$ for $E_1 = E_2$,
 and write $\lambda$ for $\lambda_1 = \lambda_2$.
@@ -2368,7 +2811,7 @@ We have now completed the first two steps of the strategy
 outlined in \cref{prp-strategy}.
 
 \paragraph{} % {{{-2
-For $i = 1,2$, let $\Delta_i^{\mu_i}$
+For $i = 1,2$, let $(\Delta_i,\mu_i)$
 be the Deligne--Dynkin diagram associated with~$M_i$,
 as in \cref{abmotdeldyn}.
 Let $f \colon \pi_0(\Delta_1) \to \pi_0(\Delta_2)$ be the map,
@@ -2377,21 +2820,21 @@ $\pi_0(\Delta_i) \cong \Hom(E,\QQbar)$.
 Since $\HLambda(M_1)$ and $\HLambda(M_2)$ are isomorphic
 as $E$-linear quasi-compatible systems of representations,
 we get local isomorphisms
-$\psi_\ell \in \Hom_f(\Delta_{1,\QQl},\Delta_{2,\QQl})$.
+$\psi_\ell \in \Isom_f(\Delta_{1,\QQl},\Delta_{2,\QQl})$.
 By \cref{hodge-tate-cochar-deldyn} we have
 $\psi_\ell(\mu_1) = \mu_2$ for all~$\ell$.
 Thus we may apply \cref{deldyn-local-global}
-to obtain an isomorphism $\phi \in \Hom_f(\Delta_1^{\mu_1},\Delta_2^{\mu_2})$,
+to obtain an isomorphism $\phi \in \Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))$,
 such that $\psi_\lambda = \phi_\lambda$ for some finite place~$\lambda$ of~$E$.
 
-Let $S_i$ be the subset of symplectic nodes of~$\Delta_i^{\mu_i}$.
+Let $S_i$ be the subset of $\mu_i$-symplectic nodes of~$(\Delta_i,\mu_i)$.
 We will now apply Deligne's construction (see \cref{delignes-construction})
 to the motives~$M_1$ and~$M_2$.
 To do so, we have to make three choices, as in \cref{choices}:
 \begin{enumerate*}[label=(\textit{\roman*})]
 \item choose a totally imaginary quadratic extension $F/E$, and
 \item endow it with a partial \cm~type
- relative to $\Delta_1^{\mu_1} \stackrel{\phi}{=} \Delta_2^{\mu_2}$;
+ relative to $(\Delta_1,\mu_1) \stackrel{\phi}{=} (\Delta_2,\mu_2)$;
  finally,
 \item choose the representations~$V_1$ and~$V_2$
  in such a way that they have the same dimension.
@@ -2507,7 +2950,7 @@ This concludes the proof of \cref{mtc-product-abelian-motives}.
 
 \begin{lemma} % {{{-2
  \label{subgroup-surjective-projection-binary-products}
- Let $K$ be a field.
+ Let $K$ be a field of characteristic~$0$.
  For $i = 1, \dots, n$, let $G_i$ be a simple linear algebraic group over~$K$.
  Let $G$ be a subgroup of $G_1 \times \cdots \times G_n$,
  such that $G$ surjects onto $G_i$ for $1 \le i \le n$
@@ -2552,7 +2995,7 @@ This concludes the proof of \cref{mtc-product-abelian-motives}.
 	Fix a finitely generated field $K \subset \CC$.
 	Let $\mathcal{M}_K \subset \Mot_K$ be the full subcategory
 	of abelian motives for which the Mumford--Tate conjecture is true.
-	Then the category~$M_K$ is a Tannakian subcategory of $\Mot_K$.
+	Then the category~$\mathcal{M}_K$ is a Tannakian subcategory of $\Mot_K$.
 	\begin{proof}
 		The category~$\Mot_K$ is semisimple,
 		so subquotients are direct summands.
@@ -2575,10 +3018,29 @@ This concludes the proof of \cref{mtc-product-abelian-motives}.
 	\end{proof}
 \end{theorem}
 
+\begin{remark} % {{{-2
+ We give a short and incomplete list of examples of varieties
+ for which it is known that their motives
+ are objects of the category~$\mathcal{M}_K$
+ of the preceding \namecref{mtc-abelian-motives-tannakian-subcategory}.
+ \begin{enumerate}
+  \item Simple abelian varieties of prime dimension (). %TODO give ref
+  \item Abelian varieties of dimension~$g$ with trivial endomorphism ring
+   such that $2g$ is neither a $k$-th power for some odd $k > 1$,
+   nor of the form $\binom{2k}{k}$ for some odd $k > 1$
+   (theorem~5.14 of~\cite{Pi98}).
+  \item K3~surfaces (\cite{MTCK3I} and~\cite{MTCK3II}).
+  \item Cubic fourfolds (theorem~1.6.1 of~\cite{An96}).
+ \end{enumerate}
+ We remind the reader that the Mumford--Tate conjecture
+ for an abelian fourfold~$A$ with $\End(A) = \ZZ$
+ is still an open problem.
+\end{remark}
+
 \begin{theorem} % {{{-2
  \label{mtcaxa}
  Let $K$ be a finitely generated subfield of~$\CC$.
- Let $A_i$, $i \in I$, be a finite collection of abelian varieries over~$K$,
+ Let $A_i$, $i \in I$, be a finite collection of abelian varieties over~$K$,
 	and write $A = \prod_{i \in I} A_i$.
  Assume that $\MTC(A_i)$ is true for all $i \in I$.
  Then $\MTC(A)$ is also true.
@@ -2591,5 +3053,6 @@ This concludes the proof of \cref{mtc-product-abelian-motives}.
 
 % {{{-1 Footer
 \printbibliography
+%TODO Ser13 should by Ser81 or something like that
 
 \end{document}
