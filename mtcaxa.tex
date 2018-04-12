@@ -2212,14 +2212,15 @@ $\phi \colon (\Delta_1,\mu_1) \to (\Delta_2,\mu_2)$ over a field~$Q$
 is a $\Gal(\bar Q/Q)$-equivariant isomorphism
 $\phi \colon \Delta_1 \to \Delta_2$ that maps $\mu_1$ onto~$\mu_2$.
 We denote the set of isomorphisms from~$(\Delta_1,\mu_1)$ to~$(\Delta_2,\mu_2)$
-by $\Isom((\Delta_1,\mu_1),(\Delta_2,\mu_2))$.
+by $\Isom((\Delta_1,\mu_1),(\Delta_2,\mu_2))^{\Gal(\bar Q/Q)}$.
 
 Observe that there is a natural map
-$\Isom((\Delta_1,\mu_1),(\Delta_2,\mu_2))
-\to \Isom_{\Gal(\bar Q/Q)}(\pi_0(\Delta_1),\pi_0(\Delta_2))$,
-and if $f \in \Isom_{\Gal(\bar Q/Q)}(\pi_0(\Delta_1),\pi_0(\Delta_2))$,
-then we write $\Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))$
-for the set of $\phi \in \Isom((\Delta_1,\mu_1),(\Delta_2,\mu_2))$
+$\Isom((\Delta_1,\mu_1),(\Delta_2,\mu_2))^{\Gal(\bar Q/Q)}
+\to \Isom(\pi_0(\Delta_1),\pi_0(\Delta_2))^{\Gal(\bar Q/Q)}$,
+and if $f \in \Isom(\pi_0(\Delta_1),\pi_0(\Delta_2))^{\Gal(\bar Q/Q)}$,
+then we write $\Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))^{\Gal(\bar Q/Q)}$
+for the set of
+$\phi \in \Isom((\Delta_1,\mu_1),(\Delta_2,\mu_2))^{\Gal(\bar Q/Q)}$
 such that $\pi_0(\phi) = f$.
 
 \begin{lemma} % {{{-2
@@ -2302,7 +2303,8 @@ both isomorphic to $\Hom(E,\QQbar)$ as $\Gal(\QQbar/\QQ)$-sets.
 Fix $\Gal(\QQbar/\QQ)$-equivariant isomorphisms
 $\pi_0(\Delta_1) \cong \Hom(E,\QQbar) \cong \pi_0(\Delta_2)$
 and write $f$ for the composite map $\pi_0(\Delta_1) \to \pi_0(\Delta_2)$.
-Suppose that there is a $\phi \in \Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))$.
+Suppose that there is a
+$\phi \in \Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))^{\Gal(\QQbar/\QQ)}$.
 
 We restrict the Galois action to $\Gal(\QQlbar/\QQl)$,
 for some prime number~$\ell$.
@@ -2325,8 +2327,10 @@ We will use this notation below.
  $\pi_0(\Delta_1) \cong \Hom(E,\QQbar) \cong \pi_0(\Delta_2)$
  and write $f$ for the composite map $\pi_0(\Delta_1) \to \pi_0(\Delta_2)$.
  Suppose that for each prime number~$\ell$ there is an element
- $\psi_\ell \in \Isom_f((\Delta_1,\mu_1)_{\QQl},(\Delta_2,\mu_2)_{\QQl})$.
- Then there exists a $\phi \in \Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))$
+ $\psi_\ell \in
+ \Isom_f((\Delta_1,\mu_1)_{\QQl},(\Delta_2,\mu_2)_{\QQl})^{\Gal(\QQlbar/\QQl)}$.
+ Then there exists a
+ $\phi \in \Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))^{\Gal(\QQbar/\QQ)}$
  and a finite place~$\lambda$ of~$E$
  such that $\phi_\lambda = \psi_\lambda$.
  \begin{proof}
@@ -2339,14 +2343,14 @@ We will use this notation below.
   then the topology of the diagrams
   and the map $f \colon \pi_0(\Delta_1) \to \pi_0(\Delta_2)$
   determine a unique $\Gal(\QQbar/\QQ)$-equivariant map
-  $\phi \in \Isom_f(\Delta_1,\Delta_2)$.
+  $\phi \in \Isom_f(\Delta_1,\Delta_2)^{\Gal(\QQbar/\QQ)}$.
   Note that $\phi$ maps $\mu_1$ to~$\mu_2$,
   because it does so locally.
 
   The other types require more bookkeeping,
   although the strategy remains the same.
   We begin by proving that
-  there is an element $\phi \in \Isom_f(\Delta_1,\Delta_2)$,
+  there is an element $\phi \in \Isom_f(\Delta_1,\Delta_2)^{\Gal(\QQbar/\QQ)}$,
   that may or may not map $\mu_1$ to~$\mu_2$.
   By \cref{deg2-set}, a $\Gal(\QQbar/\QQ)$-equivariant isomorphism
   $U(\Delta_1,\mu_1) \to U(\Delta_2,\mu_2)$ lying above~$f$
@@ -2829,11 +2833,12 @@ $\pi_0(\Delta_i) \cong \Hom(E,\QQbar)$.
 Since $\HLambda(M_1)$ and $\HLambda(M_2)$ are isomorphic
 as $E$-linear quasi-compatible systems of representations,
 we get local isomorphisms
-$\psi_\ell \in \Isom_f(\Delta_{1,\QQl},\Delta_{2,\QQl})$.
+$\psi_\ell \in \Isom_f(\Delta_{1,\QQl},\Delta_{2,\QQl})^{\Gal(\QQlbar/\QQl)}$.
 By \cref{hodge-tate-cochar-deldyn} we have
 $\psi_\ell(\mu_1) = \mu_2$ for all~$\ell$.
 Thus we may apply \cref{deldyn-local-global}
-to obtain an isomorphism $\phi \in \Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))$,
+to obtain an isomorphism
+$\phi \in \Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))^{\Gal(\QQbar/\QQ)}$,
 such that $\psi_\lambda = \phi_\lambda$ for some finite place~$\lambda$ of~$E$.
 
 Let $S_i$ be the subset of $\mu_i$-symplectic nodes of~$(\Delta_i,\mu_i)$.
