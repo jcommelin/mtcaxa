@@ -1095,7 +1095,7 @@ to the category of Hodge structures over~$\QQ$.
 There is a natural isomorphism $\Hl(\_) \cong \HB(\_) \otimes \QQl$
 of functors to $\QQl$-vector spaces.
 
-\begin{definition}
+\begin{definition} % {{{-2
  Let $K$ be a subfield of~$\CC$.
  The \emph{motivic Galois group} $\GG(\Mot_K)$
  is the affine group scheme $\iAut^\otimes(\HB)$
@@ -2711,36 +2711,6 @@ has a finite kernel.
 In other words, the natural map
 $\GB(W_F) \times \tilde G \to \GB(A)$ is an isogeny,
 and so is the natural map $\GB(W_F) \to T$.
-
-% \paragraph{} % {{{-2
-% We end this section with a picture of the $\ell$-adic side of this story.
-% Let $K \subset \CC$ be a finitely generated field
-% such that the motive~$M$ and the abelian variety~$A$ are defined over~$K$.
-% We have the following diagram:
-% \[
-%  \begin{tikzpicture}[commutative diagrams/every diagram]
-%   \node (Gal) at (-4,-1.75) {$\Gamma_K$};
-%   \node (GlA) at (0,0) {$\Gl(A)$};
-%   \node (GlMt) at (90:1.7) {$\widetilde{\Gl(M)}$};
-%   \node (GlN) at (55:-1.7) {$\Gl(N)$};
-%   \node (GlM) at (110:-2) {$\Gl(M)$};
-%   \node (HlA) at ($(0,0) +(5,0)$) {$\GL(\Hl(A))$};
-%   \node (HlN) at ($(55:-1.7) +(5,0)$) {\GL($\Hl(N))$};
-%   \node (HlM) at ($(110:-2) +(5,0)$) {$\GL(\Hl(M))$};
-%   \path[commutative diagrams/.cd, every arrow, every label]
-%   (GlM) edge (HlM)
-%   (GlN) edge (HlN)
-%   (GlA) edge (HlA)
-%   (GlMt) edge (GlA)
-%   (GlA) edge [commutative diagrams/crossing over] (GlM)
-%   (GlA) edge (GlN)
-%   (Gal) edge (GlA)
-%   (Gal) edge (GlN)
-%   (Gal) edge (GlM);
-%  \end{tikzpicture}
-% \]
-% Indeed, the map from $\Gamma_K$ to $\Gl(A)$
-% exists by our assumption that $A$ is defined over~$K$.
 
 \section{The main proposition} % {{{-1
 
