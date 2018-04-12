@@ -90,11 +90,25 @@ safeinputenc,style=quasialphabetic,citestyle=alphabetic]{biblatex}
  \@afterheading%
 } 
 \renewcommand{\paragraph}[1]{\par\bigskip\refstepcounter{subsection}%
- {\normalfont\normalsize\scshape\noindent\thesubsection%
- \ifthenelse{\equal{#1}{}}%
- {}%
- {\ \textls{#1.}}%
- \ ---}%
+ \global\setbox\@labels\hbox{%
+  \mbox{\normalfont\normalsize\scshape\noindent\thesubsection%
+   \ifthenelse{\equal{#1}{}}%
+   {}%
+   {\ \textls{#1.}}%
+   \ ---}%
+ }%
+ \global\@inlabeltrue
+ \everypar{%
+  \if@inlabel
+  \global\@inlabelfalse
+  {\setbox\z@ \lastbox}%
+  \unhbox\@labels
+  \spacefactor \sfcode `.\relax
+  \space
+  \penalty\z@
+  \fi
+ }
+ \ignorespaces
 }
 \newcommand{\readmetitle}{\par\vskip\baselineskip%
  {\normalfont\normalsize\scshape\noindent%
@@ -610,8 +624,6 @@ direct sums, tensor products, duals, and taking direct summands.
 \end{remark}
 
 \paragraph{Strategy of the proof} % {{{-2
-%TODO This is ugly. Make sure that the first step is typeset
-% on the same line as the paragraph head.
 \label{strategy}
 \begin{enumerate}
  \item As a first step, we linearise the category of abelian varieties,
