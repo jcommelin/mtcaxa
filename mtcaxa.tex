@@ -165,21 +165,21 @@ preheadhook={\bigskip}]{definition}
 \declaretheorem[style=definition,sibling=subsection]{notation}
 \declaretheorem[style=definition,sibling=subsection]{construction}
 
+\def\qedsquare{\ \boxvoid}
+
 \declaretheoremstyle[headpunct={\!.},headfont=\itshape,bodyfont=\normalfont,%
-qed=\ensuremath{\square},spaceabove=0pt,spacebelow=0pt]{proof}
+qed=\ensuremath{\qedsquare},spaceabove=0pt,spacebelow=0pt]{proof}
 \declaretheoremstyle[headpunct={\!.},headfont=\itshape,bodyfont=\normalfont,%
-qed=\ensuremath{\square},spaceabove=0pt,spacebelow=0pt]{nonumberproof}
+% qed=\fbox{\phantom{\rule{.3ex}{.3ex}}},spaceabove=0pt,spacebelow=0pt]{nonumberproof}
+qed=\ensuremath{\qedsquare},spaceabove=0pt,spacebelow=0pt]{nonumberproof}
 \declaretheorem[style=proof,numbered=no]{proof}
 
 \declaretheoremstyle[headformat=swapnumber,headpunct={.\ ---},%
-headfont=\itshape,bodyfont=\normalfont,qed=\ensuremath{\square},%
+headfont=\itshape,bodyfont=\normalfont,qed=\ensuremath{\qedsquare},%
 spaceabove=0pt,spacebelow=0pt,%
 preheadhook={\bigskip}]{nproof}
 \declaretheorem[style=nproof,sibling=subsection,name=Proof]{nproof}
 
-% \let\qed\relax
-% \usepackage{pf2}
-% \pfkeywords{jmc}
 
 \usepackage{cleveref}
 \crefname{condition}{condition}{conditions}
