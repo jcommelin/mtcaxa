@@ -659,6 +659,14 @@ direct sums, tensor products, duals, and taking direct summands.
   Hence we win!
 \end{enumerate}
 
+\paragraph{Notation} % {{{-2
+For any field~$K$,
+we denote with~$\Gamma_K$ the absolute Galois group~$\Gal(\bar K/K)$ of~$K$.
+In what follows,
+we strive to denote ``ground fields'' with~$K$ or~$L$,
+while we denote ``fields of coefficients'' with~$E$ or~$F$,
+and occasionally~$Q$.
+
 
 \paragraph{Acknowledgements} % {{{-2
 My warmest thanks go to my supervisor Ben Moonen.
@@ -1067,7 +1075,7 @@ the category of motives that we use is designed to have realisation functors
 for all the classical cohomology theories.
 For each prime number~$\ell$
 we obtain an $\ell$-adic realisation functor
-$\Hl \colon \Mot_K \to \Rep_{\QQl}(\Gal(\bar K/K))$
+$\Hl \colon \Mot_K \to \Rep_{\QQl}(\Gamma_K)$
 to $\ell$-adic Galois representations of~$K$,
 and we obtain a Betti-realisation functor
 $\HB \colon \Mot_K \to \HS_\QQ$
@@ -1101,7 +1109,7 @@ It is not known whether $\GG(\Mot_{\bar K})$ is connected.
 \begin{notation} % {{{-2
  Let $M$ be a motive over a field~$K \subset \CC$.
  We denote with $\Gl(M)$ the Zariski closure of the image of
- the Galois representation $\Gal(\bar K/K) \to \GL(\Hl(M))$,
+ the Galois representation $\Gamma_K \to \GL(\Hl(M))$,
  and with $\Glc(M)$ the identity component of~$\Gl(M)$.
  With $\GB(M)$ we denote the Mumford--Tate group of~$\HB(M)$.
  There are natural injective morphisms 
@@ -1380,11 +1388,11 @@ where $A$ is a \cm~abelian variety over~$K$ (\emph{cf.}~\cref{cm-hs-cat}).
  corresponding with $\bar{K}_v/K_v$.
  The inertia group, denoted~$I_v$,
  is the kernel of the natural surjection
- $\Gal(\bar{K}_v/K_v) \onto \Gal(\bar{\kappa}/\kappa)$.
+ $\Gamma_{K_v} \onto \Gamma_\kappa$.
  The inverse image of $F_{\bar{\kappa}/\kappa}$
- in $\Gal(\bar{K}_v/K_v)$
+ in $\Gamma_{K_v}$
  is called the \emph{Frobenius coset} of~$v$.
- An element $\alpha \in \Gal(\bar{K}/K)$ is called a
+ An element $\alpha \in \Gamma_K$ is called a
  \emph{Frobenius element with respect to~$v$}
  if there exists an embedding $\bar{K} \into \bar{K}_v$
  such that $\alpha$ is the restriction
@@ -1417,15 +1425,15 @@ where $A$ is a \cm~abelian variety over~$K$ (\emph{cf.}~\cref{cm-hs-cat}).
  let $K_x$ be the function field of the Henselisation of $X$ at~$x$,
  and let $\kappa(x)$ be the residue field at~$x$.
  We denote with $I_x$ the kernel of
- $\Gal(\bar{K}_x/K_x) \onto \Gal(\bar{\kappa}(x)/\kappa(x))$.
+ $\Gamma_{K_x} \onto \Gamma_{\kappa(x)}$.
  Every embedding $\bar{K} \into \bar{K}_x$
- induces an inclusion $\Gal(\bar{K}_x/K_x) \into \Gal(\bar{K}/K)$.
+ induces an inclusion $\Gamma_{K_x} \into \Gamma_K$.
  
  Like in \cref{frobenius-element-number-field},
  the inverse image of $F_{\bar{\kappa}(x)/\kappa(x)}$
- in $\Gal(\bar{K}_x/K_x)$
+ in $\Gamma_{K_x}$
  is called the Frobenius coset of~$x$.
- An element $\alpha \in \Gal(\bar{K}/K)$ is called a
+ An element $\alpha \in \Gamma_K$ is called a
  \emph{Frobenius element with respect to~$x$}
  if there exists an embedding $\bar{K} \into \bar{K}_x$
  such that $\alpha$ is the restriction
@@ -1437,13 +1445,13 @@ where $A$ is a \cm~abelian variety over~$K$ (\emph{cf.}~\cref{cm-hs-cat}).
  Let $K$ be a field, let $E$ be a number field
  and let $\lambda$ be a finite place of~$E$.
  A \emph{$\lambda$-adic Galois representation} of~$K$
- is a representation of $\Gal(\bar{K}/K)$
+ is a representation of $\Gamma_K$
  on a finite-dimensional $E_\lambda$-vector space~$V$
  that is continuous for the $\lambda$-adic topology.
 
  We denote with $\Glambda(V) \subset \GL(V)$
  for the algebraic group over~$E_\lambda$ that is
- the Zariski closure of the image of $\Gal(\bar K/K)$ under this representation.
+ the Zariski closure of the image of $\Gamma_K$ under this representation.
  The identity component of $\Glambda(V)$ is denoted with $\Glambdac(V)$.
 \end{definition}
 
@@ -1456,7 +1464,7 @@ where $A$ is a \cm~abelian variety over~$K$ (\emph{cf.}~\cref{cm-hs-cat}).
  if there is an embedding $\bar{K} \into \bar{K}_x$
  for which $\rho(I_x) = \{1\}$,
  where $I_x$ is the kernel of the projection
- $\Gal(\bar{K}_x/K_x) \onto \Gal(\bar{\kappa}(x)/\kappa(x))$,
+ $\Gamma_{K_x} \onto \Gamma_{\kappa(x)}$,
  as in \cref{frobenius-element-model}.
  (Remark:
  If this condition is satisfied by one embedding,
@@ -1613,7 +1621,7 @@ obtained from~$\rho_\Lambda$ by restricting to $\QQ \subset E$;
 
  \noindent
  Let $\ell$ be a prime number that splits completely in~$E/\QQ$.
- If $\End_{\Gal(\bar{K}/K),\QQl}(\rho_\ell) \cong E \otimes \QQl$,
+ If $\End_{\Gamma_K,\QQl}(\rho_\ell) \cong E \otimes \QQl$,
  then $E = E'$.
  \begin{proof}
   We restrict our attention to a finite subset of~$\Lambda$,
@@ -1643,7 +1651,7 @@ obtained from~$\rho_\Lambda$ by restricting to $\QQ \subset E$;
   Let $\rho_{\lambda'}$ be the $\lambda'$-adic Galois representation
   $\bigoplus_{\lambda | \lambda'} \rho_\lambda$.
   We conclude that
-  $\End_{\Gal(\bar{K}/K),E'_{\lambda'}}(\rho_{\lambda'})
+  $\End_{\Gamma_K,E'_{\lambda'}}(\rho_{\lambda'})
    \cong \Mat_{[E:E']}(E'_{\lambda'})$,
   which implies $[E:E'] = 1$.
  \end{proof}
@@ -1831,13 +1839,13 @@ in which $\alpha_0$ is depicted by a grey node
  \label{deligne-dynkin-diagram}
  A \emph{Deligne--Dynkin diagram} over a field~$Q$
  is a pair $(\Delta,\mu)$, where
- $\Delta$ is a Dynkin diagram equipped with an action of~$\Gal(\bar Q/Q)$,
+ $\Delta$ is a Dynkin diagram equipped with an action of~$\Gamma_Q$,
  and $\mu$ is a subset of the special nodes
  of the connected components of~$\Delta$
  meeting each connected component in at most $1$~node.
- (Note: $\mu$~is not required to be $\Gal(\bar Q/Q)$-stable.)
+ (Note: $\mu$~is not required to be $\Gamma_Q$-stable.)
  The Deligne--Dynkin diagram $(\Delta,\mu)$ is called \emph{irreducible}
- if $\pi_0(\Delta)$ is irreducible as $\Gal(\bar Q/Q)$-set,
+ if $\pi_0(\Delta)$ is irreducible as $\Gamma_Q$-set,
  and $(\Delta,\mu)$ is \emph{populated} if $\mu$ meets every
  irreducible component of~$(\Delta,\mu)$.
 \end{definition}
@@ -1846,9 +1854,9 @@ in which $\alpha_0$ is depicted by a grey node
  There is a risk of confusing terminology:
  a \emph{connected component} of~$\Delta$ (or~$(\Delta,\mu)$)
  will always mean a connected component of the Dynkin diagram~$\Delta$
- disregarding the $\Gal(\bar Q/Q)$-action;
+ disregarding the $\Gamma_Q$-action;
  whereas an \emph{irreducible component} $(\Delta',\mu') \subset (\Delta,\mu)$
- is an irreducible $\Gal(\bar Q/Q)$-subset $\Delta'$
+ is an irreducible $\Gamma_Q$-subset $\Delta'$
  of connected components of~$\Delta$ and $\mu' = \Delta' \cap \mu$.
 \end{remark}
 
@@ -1860,7 +1868,7 @@ any hyperadjoint abelian motive~$M$ over a field $K \subset \CC$.
 The assumptions on $M$ imply that
 the linear algebraic group~$\GB(M)$ over~$\QQ$ is an adjoint group.
 Let $\Delta$ be the Dynkin diagram of~$\GB(M)$, and
-note that $\Delta$ is naturally equipped with an action of $\Gal(\QQbar/\QQ)$.
+note that $\Delta$ is naturally equipped with an action of $\Gamma_\QQ$.
 Let $\mu \colon \Gm \to \GB(M)_\CC$ be the Hodge cocharacter
 of the Hodge structure~$\HB(M)$
 (see~\cref{hodge-cocharacter}).
@@ -2040,7 +2048,7 @@ the opposition involution is defined componentwise.
    Then $S \cap \Delta_\alpha$ consists only of
    $\alpha$-symplectic nodes of~$\Delta_\alpha$.
    (See also \cref{table-deligne-dynkin-diagrams}.)
-  \item The set $S$ is stable under the action of $\Gal(\bar Q/Q)$.
+  \item The set $S$ is stable under the action of $\Gamma_Q$.
  \end{enumerate}
 \end{definition}
 
@@ -2078,7 +2086,7 @@ the opposition involution is defined componentwise.
  Recall that this means that we have the following:
  \begin{itemize}
   \item a diagram~$\Delta$ consisting of a number of copies of~$\DtD_4$,
-  \item an action of $\Gal(\bar Q/Q)$ on~$\Delta$
+  \item an action of $\Gamma_Q$ on~$\Delta$
    that is transitive on the set~$\pi_0(\Delta)$ of connected components,
   \item a subset $\mu \subset \Delta$ of the extremal nodes
    (\emph{cf}.~\cref{eg-special-nodes}),
@@ -2086,10 +2094,10 @@ the opposition involution is defined componentwise.
    in at most $1$~node.
  \end{itemize}
  Several properties of~$(\Delta,\mu)$ depend on how
- the action of $\Gal(\bar Q/Q)$ and the subset $\mu \subset \Delta$
+ the action of $\Gamma_Q$ and the subset $\mu \subset \Delta$
  play together:
  let $\bar\mu$ denote the closure of~$\mu$
- under the action of~$\Gal(\bar Q/Q)$.
+ under the action of~$\Gamma_Q$.
  Then $d = \deg_{\pi_0(\Delta)}(\bar\mu)$ takes values in $\{0,1,2,3\}$.
 
  The cases $d = 0$ and $d = 3$ are somewhat degenerate.
@@ -2150,7 +2158,7 @@ if the former (resp.~the latter) condition holds.
 Finally, if the connected components of~$\Delta$ have type~$\DtD_4$,
 then the type of $(\Delta,\mu)$ was explained in \cref{eg-D4},
 as follows:
-Let $\bar\mu$ be the $\Gal(\bar Q/Q)$-closure of~$\mu$.
+Let $\bar\mu$ be the $\Gamma_Q$-closure of~$\mu$.
 and write $d = \deg_{\pi_0(\Delta)}(\bar\mu)$.
 Recall that $d \in \{1,2,3\}$,
 and if $d = 3$, then $(\Delta,\mu)$ is not symplectic.
@@ -2218,8 +2226,8 @@ We conclude with two observations:
   Note that $\bar\mu \cap \Delta_\alpha = \{\alpha,\beta\}$.
   By Chebotarev's density theorem
   there exists a prime number~$\ell$
-  and an element $g \in \Gal(\QQlbar/\QQl)$ such that $g\alpha = \beta$.
-  Let $\Delta'$ be the $\Gal(\QQlbar/\QQl)$-closure of $\Delta_\alpha$,
+  and an element $g \in \Gamma_{\QQl}$ such that $g\alpha = \beta$.
+  Let $\Delta'$ be the $\Gamma_{\QQl}$-closure of $\Delta_\alpha$,
   and take $\mu' = \Delta' \cap \mu$.
   Then $(\Delta', \mu')$ has type~$\DtD_4^\HQ$.
  \end{proof}
@@ -2228,18 +2236,18 @@ We conclude with two observations:
 \paragraph{} % {{{-2
 An \emph{isomorphism of Deligne--Dynkin diagrams}
 $\phi \colon (\Delta_1,\mu_1) \to (\Delta_2,\mu_2)$ over a field~$Q$
-is a $\Gal(\bar Q/Q)$-equivariant isomorphism
+is a $\Gamma_Q$-equivariant isomorphism
 $\phi \colon \Delta_1 \to \Delta_2$ that maps $\mu_1$ onto~$\mu_2$.
 We denote the set of isomorphisms from~$(\Delta_1,\mu_1)$ to~$(\Delta_2,\mu_2)$
-by $\Isom((\Delta_1,\mu_1),(\Delta_2,\mu_2))^{\Gal(\bar Q/Q)}$.
+by $\Isom((\Delta_1,\mu_1),(\Delta_2,\mu_2))^{\Gamma_Q}$.
 
 Observe that there is a natural map
-$\Isom((\Delta_1,\mu_1),(\Delta_2,\mu_2))^{\Gal(\bar Q/Q)}
-\to \Isom(\pi_0(\Delta_1),\pi_0(\Delta_2))^{\Gal(\bar Q/Q)}$,
-and if $f \in \Isom(\pi_0(\Delta_1),\pi_0(\Delta_2))^{\Gal(\bar Q/Q)}$,
-then we write $\Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))^{\Gal(\bar Q/Q)}$
+$\Isom((\Delta_1,\mu_1),(\Delta_2,\mu_2))^{\Gamma_Q}
+\to \Isom(\pi_0(\Delta_1),\pi_0(\Delta_2))^{\Gamma_Q}$,
+and if $f \in \Isom(\pi_0(\Delta_1),\pi_0(\Delta_2))^{\Gamma_Q}$,
+then we write $\Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))^{\Gamma_Q}$
 for the set of
-$\phi \in \Isom((\Delta_1,\mu_1),(\Delta_2,\mu_2))^{\Gal(\bar Q/Q)}$
+$\phi \in \Isom((\Delta_1,\mu_1),(\Delta_2,\mu_2))^{\Gamma_Q}$
 such that $\pi_0(\phi) = f$.
 
 \begin{lemma} % {{{-2
@@ -2294,9 +2302,9 @@ This fact inspires the following remark.
 
 Let $(\Delta,\mu)$ be
 an irreducible symplectic populated Deligne--Dynkin diagram over~$Q$.
-The action of $\Gal(\bar Q/Q)$ on~$\Delta$
+The action of $\Gamma_Q$ on~$\Delta$
 is determined by the action on
-a $\Gal(\bar Q/Q)$-closed subset $U(\Delta,\mu)$ of~$\Delta$
+a $\Gamma_Q$-closed subset $U(\Delta,\mu)$ of~$\Delta$
 with $\deg_{\pi_0(\Delta)}(U(\Delta,\mu)) \in \{1,2\}$.
 Indeed, let $S$ be the subset of $\mu$-symplectic nodes of~$(\Delta,\mu)$.
 \begin{itemize}
@@ -2318,14 +2326,14 @@ Let $E$ be a number field, and
 let $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$ be two
 irreducible symplectic populated Deligne--Dynkin diagrams over~$\QQ$
 such that $\pi_0(\Delta_1)$ and $\pi_0(\Delta_2)$ are
-both isomorphic to $\Hom(E,\QQbar)$ as $\Gal(\QQbar/\QQ)$-sets.
-Fix $\Gal(\QQbar/\QQ)$-equivariant isomorphisms
+both isomorphic to $\Hom(E,\QQbar)$ as $\Gamma_\QQ$-sets.
+Fix $\Gamma_\QQ$-equivariant isomorphisms
 $\pi_0(\Delta_1) \cong \Hom(E,\QQbar) \cong \pi_0(\Delta_2)$
 and write $f$ for the composite map $\pi_0(\Delta_1) \to \pi_0(\Delta_2)$.
 Suppose that there is a
-$\phi \in \Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))^{\Gal(\QQbar/\QQ)}$.
+$\phi \in \Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))^{\Gamma_\QQ}$.
 
-We restrict the Galois action to $\Gal(\QQlbar/\QQl)$,
+We restrict the Galois action to $\Gamma_{\QQl}$,
 for some prime number~$\ell$.
 The irreducible components of~$(\Delta_1,\mu_1)_{\QQl}$
 are in a natural way indexed by the places~$\lambda$ of~$E$
@@ -2341,15 +2349,15 @@ We will use this notation below.
  let $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$ be two
  irreducible symplectic populated Deligne--Dynkin diagrams over~$\QQ$
  such that $\pi_0(\Delta_1)$ and $\pi_0(\Delta_2)$ are
- both isomorphic to $\Hom(E,\QQbar)$ as $\Gal(\QQbar/\QQ)$-sets.
- Fix $\Gal(\QQbar/\QQ)$-equivariant isomorphisms
+ both isomorphic to $\Hom(E,\QQbar)$ as $\Gamma_\QQ$-sets.
+ Fix $\Gamma_\QQ$-equivariant isomorphisms
  $\pi_0(\Delta_1) \cong \Hom(E,\QQbar) \cong \pi_0(\Delta_2)$
  and write $f$ for the composite map $\pi_0(\Delta_1) \to \pi_0(\Delta_2)$.
  Suppose that for each prime number~$\ell$ there is an element
  $\psi_\ell \in
- \Isom_f((\Delta_1,\mu_1)_{\QQl},(\Delta_2,\mu_2)_{\QQl})^{\Gal(\QQlbar/\QQl)}$.
+ \Isom_f((\Delta_1,\mu_1)_{\QQl},(\Delta_2,\mu_2)_{\QQl})^{\Gamma_{\QQl}}$.
  Then there exists a
- $\phi \in \Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))^{\Gal(\QQbar/\QQ)}$
+ $\phi \in \Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))^{\Gamma_\QQ}$
  and a finite place~$\lambda$ of~$E$
  such that $\phi_\lambda = \psi_\lambda$.
  \begin{proof}
@@ -2361,19 +2369,19 @@ We will use this notation below.
   If this type is $\DtB_n$ or~$\DtC_n$,
   then the topology of the diagrams
   and the map $f \colon \pi_0(\Delta_1) \to \pi_0(\Delta_2)$
-  determine a unique $\Gal(\QQbar/\QQ)$-equivariant map
-  $\phi \in \Isom_f(\Delta_1,\Delta_2)^{\Gal(\QQbar/\QQ)}$.
+  determine a unique $\Gamma_\QQ$-equivariant map
+  $\phi \in \Isom_f(\Delta_1,\Delta_2)^{\Gamma_\QQ}$.
   Note that $\phi$ maps $\mu_1$ to~$\mu_2$,
   because it does so locally.
 
   The other types require more bookkeeping,
   although the strategy remains the same.
   We begin by proving that
-  there is an element $\phi \in \Isom_f(\Delta_1,\Delta_2)^{\Gal(\QQbar/\QQ)}$,
+  there is an element $\phi \in \Isom_f(\Delta_1,\Delta_2)^{\Gamma_\QQ}$,
   that may or may not map $\mu_1$ to~$\mu_2$.
-  By \cref{deg2-set}, a $\Gal(\QQbar/\QQ)$-equivariant isomorphism
+  By \cref{deg2-set}, a $\Gamma_\QQ$-equivariant isomorphism
   $U(\Delta_1,\mu_1) \to U(\Delta_2,\mu_2)$ lying above~$f$
-  will extend to a $\Gal(\QQbar/\QQ)$-equivariant isomorphism
+  will extend to a $\Gamma_\QQ$-equivariant isomorphism
   $\Delta_1 \to \Delta_2$.
   Since the degree of~$U(\Delta_i,\mu_i)$ over~$\pi_0(\Delta_i)$
   is at most~$2$,
@@ -2393,7 +2401,7 @@ We will use this notation below.
     There are two possibilities:
     either the extremal nodes of
     $(\Delta_1,\mu_1)_\lambda$ and $(\Delta_2,\mu_2)_\lambda$
-    form $2$ orbits under the action of $\Gal(\QQlbar/\QQl)$,
+    form $2$ orbits under the action of $\Gamma_{\QQl}$,
     or the extremal nodes form $3$ orbits.
     For both possibilities it is clear that
     $U(\Delta_1,\mu_1)_\lambda$
@@ -2408,13 +2416,13 @@ We will use this notation below.
     be two nodes that lie in the same connected component of~$\Delta_1$.
     Without loss of generality we may and do assume $\alpha \in \mu_1$.
     By Chebotarev's density theorem,
-    there exists a prime number~$\ell$ and $g \in \Gal(\QQlbar/\QQl)$
+    there exists a prime number~$\ell$ and $g \in \Gamma_{\QQl}$
     such that $g\alpha = \beta$.
     By assumption, we have $\psi_\ell(\alpha) \in \mu_2$
     and $\psi_\ell(\beta) = g\psi_\ell(\alpha) \in \bar\mu_2$.
     We conclude that $\bar\mu_1$ and~$\bar\mu_2$ have the same degree.
   \end{itemize}
-  We have now proven that there exists a $\Gal(\QQbar/\QQ)$-equivariant
+  We have now proven that there exists a $\Gamma_\QQ$-equivariant
   isomorphism $\phi \colon \Delta_1 \to \Delta_2$ lying over~$f$.
   It remains to prove that we can choose~$\phi$
   in such a way that it maps $\mu_1$ to~$\mu_2$.
@@ -2443,7 +2451,7 @@ We will use this notation below.
   We save the case~$\DtD_4^\HQ$ for the \emph{coup de gr\^ace} of this proof.
   Suppose that the type is $\DtD_n^\HQ$ with $n \ge 5$,
   or the type is $\DtA_n$ and $\mu_i$ is not fixed by the opposition involution.
-  There is a unique non-trivial $\Gal(\QQbar/\QQ)$-equivariant
+  There is a unique non-trivial $\Gamma_\QQ$-equivariant
   involution~$\tau_i \in \Aut_\id(\Delta_i)$.
   Observe that $\phi \circ \tau_1 = \tau_2 \circ \phi$.
   Let $\alpha \in \mu_1$ be a special node that is not fixed under~$\tau_1$.
@@ -2453,10 +2461,10 @@ We will use this notation below.
   We claim that $\phi(\mu_1) = \mu_2$.
   Indeed, suppose that $\alpha' \in \mu_1$ is a special node, and
   let $\Delta_{\alpha'}$ be the component of~$\Delta_1$ containing~$\alpha'$.
-  There exists a $g \in \Gal(\QQbar/\QQ)$
+  There exists a $g \in \Gamma_\QQ$
   such that $g\alpha \in \Delta_{\alpha'}$.
   By Chebotarev's density theorem,
-  we may assume that $g \in \Gal(\QQlbar/\QQl)$
+  we may assume that $g \in \Gamma_{\QQl}$
   for some prime number~$\ell$.
   Now we argue as follows:
   Let $(\Delta_1,\mu_1)_\lambda$
@@ -2470,7 +2478,7 @@ We will use this notation below.
 
   Finally, assume the type is $\DtD_4^\HQ$.
   Recall that $\bar\mu_i$ has degree~$2$.
-  Thus there is a unique non-trivial $\Gal(\QQbar/\QQ)$-equivariant
+  Thus there is a unique non-trivial $\Gamma_\QQ$-equivariant
   involution~$\tau_i \in \Aut_\id(\Delta_i)$
   such that $\tau_i(\bar\mu_i) = \bar\mu_i$.
   Once again, we have $\phi \circ \tau_1 = \tau_2 \circ \phi$.
@@ -2480,10 +2488,10 @@ We will use this notation below.
 
   As before, we claim that $\phi(\mu_1) = \mu_2$.
   Indeed, let $\alpha' \in \mu_1$ be a special node.
-  There exists a $g \in \Gal(\QQbar/\QQ)$
+  There exists a $g \in \Gamma_\QQ$
   such that $g\alpha = \alpha'$.
   By Chebotarev's density theorem,
-  we may assume that $g \in \Gal(\QQlbar/\QQl)$
+  we may assume that $g \in \Gamma_{\QQl}$
   for some prime number~$\ell$.
   Since $\phi(\alpha) \in \mu_2$, we have $\phi(\alpha) = \psi_\ell(\alpha)$,
   and we compute
@@ -2597,7 +2605,7 @@ Write $G$ for the $\QQ$-simple adjoint group $\GB(M)$,
 and let $\tilde G$ be the simply-connected cover of~$G$.
 For $s \in S$, let $V(s)$ be the representation of~$\tilde G_\CC$
 whose highest weight corresponds to~$s$.
-Since $S$ is closed under the action of~$\Gal(\QQbar/\QQ)$,
+Since $S$ is closed under the action of~$\Gamma_\QQ$,
 there exists a representation~$V$ of~$\tilde G$ over~$\QQ$
 such that $V_\CC \cong \bigoplus_{s \in S} V(s)^{\oplus n}$
 for suitable~$n$.
@@ -2631,7 +2639,7 @@ in the appropriate diagram in~\cref{table-deligne-dynkin-diagrams}.
 
 \paragraph{} % {{{-2
 Let $F_S$ denote the \'etale $E$-algebra
-such that $\Hom(F_S, \QQbar) \cong S$ as $\Gal(\QQbar/\QQ)$-sets.
+such that $\Hom(F_S, \QQbar) \cong S$ as $\Gamma_\QQ$-sets.
 Observe that the fractional Hodge structure~$V$
 is canonically an $F_S$-module:
 the algebra~$F_S$ acts on~$V(s)$
@@ -2699,7 +2707,7 @@ and so is the natural map $\GB(W_F) \to T$.
 % We have the following diagram:
 % \[
 %  \begin{tikzpicture}[commutative diagrams/every diagram]
-%   \node (Gal) at (-4,-1.75) {$\Gal(\bar K/K)$};
+%   \node (Gal) at (-4,-1.75) {$\Gamma_K$};
 %   \node (GlA) at (0,0) {$\Gl(A)$};
 %   \node (GlMt) at (90:1.7) {$\widetilde{\Gl(M)}$};
 %   \node (GlN) at (55:-1.7) {$\Gl(N)$};
@@ -2719,7 +2727,7 @@ and so is the natural map $\GB(W_F) \to T$.
 %   (Gal) edge (GlM);
 %  \end{tikzpicture}
 % \]
-% Indeed, the map from $\Gal(\bar K/K)$ to $\Gl(A)$
+% Indeed, the map from $\Gamma_K$ to $\Gl(A)$
 % exists by our assumption that $A$ is defined over~$K$.
 
 \section{The main proposition} % {{{-1
@@ -2813,13 +2821,13 @@ of Galois representations of~$K$.
 $\Lie(\Res_{E_{i,\lambda_i}/\QQl} \GG_{\lambda_i}(M_i))$.)
 
 Note that $\psi$ induces an isomorphism
-$f \colon \End_{\Gal(\bar{K}/K)}(\HH_{\lambda_1}(M_1)) \to
-\End_{\Gal(\bar{K}/K)}(\HH_{\lambda_2}(M_2))$.
+$f \colon \End_{\Gamma_K}(\HH_{\lambda_1}(M_1)) \to
+\End_{\Gamma_K}(\HH_{\lambda_2}(M_2))$.
 Since these endomorphism algebras are commutative,
 the isomorphism~$f$ does not depend on~$\psi$.
 By \cref{recover-endomorphisms} we recover
 $\lambda_i \colon E_i \into E_{i,\lambda_i} =
-\End_{\Gal(\bar{K}/K)}(\HH_{\lambda_i}(M_i))$
+\End_{\Gamma_K}(\HH_{\lambda_i}(M_i))$
 as the subfield generated by coefficients of
 characteristic polynomials of Frobenius elements
 acting $E_{i,\lambda_i}$-linearly on~$\HH_{\lambda_i}(M_i)$.
@@ -2852,12 +2860,12 @@ $\pi_0(\Delta_i) \cong \Hom(E,\QQbar)$.
 Since $\HLambda(M_1)$ and $\HLambda(M_2)$ are isomorphic
 as $E$-linear quasi-compatible systems of representations,
 we get local isomorphisms
-$\psi_\ell \in \Isom_f(\Delta_{1,\QQl},\Delta_{2,\QQl})^{\Gal(\QQlbar/\QQl)}$.
+$\psi_\ell \in \Isom_f(\Delta_{1,\QQl},\Delta_{2,\QQl})^{\Gamma_{\QQl}}$.
 By \cref{hodge-tate-cochar-deldyn} we have
 $\psi_\ell(\mu_1) = \mu_2$ for all~$\ell$.
 Thus we may apply \cref{deldyn-local-global}
 to obtain an isomorphism
-$\phi \in \Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))^{\Gal(\QQbar/\QQ)}$,
+$\phi \in \Isom_f((\Delta_1,\mu_1),(\Delta_2,\mu_2))^{\Gamma_\QQ}$,
 such that $\psi_\lambda = \phi_\lambda$ for some finite place~$\lambda$ of~$E$.
 
 Let $S_i$ be the subset of $\mu_i$-symplectic nodes of~$(\Delta_i,\mu_i)$.
@@ -2902,7 +2910,7 @@ Let $\lambda$ be a finite place of~$E$ such that $\psi_\lambda = \phi_\lambda$,
 and let $\ell$ be the residue characteristic of~$\lambda$.
 Observe that $E$ acts on $M_i$,~$V_i$, $W_{F,i}$, and~$A_i$.
 Let $\rho_i$ denote the Galois representation
-$\Gal(\bar K/K) \to \Gl(A_i)(\QQl) \subset \GL(\Hl(A_i))(\QQl)$.
+$\Gamma_K \to \Gl(A_i)(\QQl) \subset \GL(\Hl(A_i))(\QQl)$.
 We make a table of all the data that is canonically identified
 by $\phi_\lambda = \psi_\lambda$.
 \begin{align*}
@@ -2961,7 +2969,7 @@ Recall that $T'$ is a quotient of~$(\Res_{E_\lambda/\QQl}G')^\ab$
 by a finite group.
 Hence the group $\alpha = \ker(\pi^\ad) \cap \ker(\pi^\ab)$ is
 a finite abelian subgroup of $G'(E_\lambda) = (\Res_{E_\lambda/\QQl}G')(\QQl)$.
-Define $\xi \colon \Gal(\bar K/K) \to G'(E_\lambda)$
+Define $\xi \colon \Gamma_K \to G'(E_\lambda)$
 via $\xi(g) = \rho_{1,\lambda}(g) \cdot \rho_{2,\lambda}(g)^{-1}$.
 This map $\xi$ takes values in~$\alpha$,
 and is a homomorphism since $\alpha$ is commutative.
