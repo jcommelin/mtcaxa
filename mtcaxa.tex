@@ -551,33 +551,51 @@ is a subcategory that is closed under
 direct sums, tensor products, duals, and taking direct summands.
 
 \begin{remark} % {{{-2
- Observe that the conclusion of the theorem
- is not a formal consequence of the assumption:
- Suppose that $G'$ is a group, with two representations
- $\rho_1 \colon G' \to \GL(V_1)$
- and
- $\rho_2 \colon G' \to \GL(V_2)$.
- Let $G_1$ (resp.~$G_2$) be the image of~$\rho_1$ (resp.~$\rho_2$).
- Write $\rho$ for $\rho_1 \oplus \rho_2$,
- and let $G$ be the image of~$\rho$.
- Then $G$ is a subgroup of $G_1 \times G_2$,
- and the projection of~$G$ onto $G_1$ (and~$G_2$)
- is surjective.
- However, $G \subset G_1 \times G_2$
- may be anything, ranging from the diagonal
- (\emph{e.g.}, if $V_1 \cong V_2$)
- to the full product
- (\emph{e.g.}, if $G_1$ and $G_2$ are simple and non-isomorphic).
- 
- In the context of the main theorem we have
- \[
-  \Glc(A_1 \times A_2) \subset \Glc(A_1) \times \Glc(A_2)
-  \cong (\GB(A_1) \times \GB(A_2)) \otimes \QQl
-  \supset \GB(A_1 \times A_2) \otimes \QQl,
- \]
- and there is no \emph{a priori} formal reason why
- $\Glc(A_1 \times A_2)$ should be the same subgroup as
- $\GB(A_1 \times A_2) \otimes \QQl$.
+ \begin{enumerate}
+  \item Observe that the conclusion of the theorem
+   is not a formal consequence of the assumption:
+   Suppose that $G'$ is a group, with two representations
+   $\rho_1 \colon G' \to \GL(V_1)$
+   and
+   $\rho_2 \colon G' \to \GL(V_2)$.
+   Let $G_1$ (resp.~$G_2$) be the image of~$\rho_1$ (resp.~$\rho_2$).
+   Write $\rho$ for $\rho_1 \oplus \rho_2$,
+   and let $G$ be the image of~$\rho$.
+   Then $G$ is a subgroup of $G_1 \times G_2$,
+   and the projection of~$G$ onto $G_1$ (and~$G_2$)
+   is surjective.
+   However, $G \subset G_1 \times G_2$
+   may be anything, ranging from the diagonal
+   (\emph{e.g.}, if $V_1 \cong V_2$)
+   to the full product
+   (\emph{e.g.}, if $G_1$ and $G_2$ are simple and non-isomorphic).
+
+   In the context of the main theorem we have
+   \[
+    \Glc(A_1 \times A_2) \subset \Glc(A_1) \times \Glc(A_2)
+    \cong (\GB(A_1) \times \GB(A_2)) \otimes \QQl
+    \supset \GB(A_1 \times A_2) \otimes \QQl,
+   \]
+   and there is no \emph{a priori} formal reason why
+   $\Glc(A_1 \times A_2)$ should be the same subgroup as
+   $\GB(A_1 \times A_2) \otimes \QQl$.
+  \item \label[remark]{Goursat}
+   The situation above is exactly the setup where Goursat's lemma applies:
+   we have two groups~$G_1$ and~$G_2$
+   and a subgroup $G' \subset G_1 \times G_2$
+   such that the projections $\pi_i \colon G \to G_i$
+   are surjective ($i = 1,2$).
+   Let $N_1$ be the kernel of~$\pi_2$,
+   and $N_2$ the kernel of $\pi_1$.
+   Goursat's lemma is the observation that
+   one may identify $N_i$ with a normal subgroup of~$G_i$,
+   and the image of~$G'$ in $G_1/N_1 \times G_2/N_2$
+   is the graph of an isomorphism $G_1/N_1 \to G_2/N_2$.
+
+   This lemma is also true in the context of algebraic groups;
+   a fact that we will need later on.
+   We leave the proofs of these statements as an exercixe to the reader.
+ \end{enumerate}
 \end{remark}
 
 \begin{remark}
@@ -621,8 +639,9 @@ direct sums, tensor products, duals, and taking direct summands.
   are $\QQ$-simple adjoint groups.
   In addition, we assume that
   $\Glc(M_1 \oplus M_2) \subsetneq \Glc(M_1) \times \Glc(M_2)$.
- \item Using results from~\cite{Co17} we show that $\Hl(M_1) \cong \Hl(M_2)$,
-  for all prime numbers~$\ell$,
+ \item We use Goursat's lemma (see \cref{Goursat} and
+  results from~\cite{Co17} to show that $\Hl(M_1) \cong \Hl(M_2)$,
+  for all prime numbers~$\ell$;
   and we deduce that there is a canonical isomorphism
   $\End(M_1) \cong \End(M_2)$.
  \item The remainder of the proof consists of applying
@@ -849,7 +868,7 @@ this sequence stabilises at an object $V^{(\infty)}$.
    \item If $V$ is hyperadjoint, then $G$ is semisimple and thus reductive.
     The general case---where $V$ is a direct sum of hyperadjoint objects---%
     follows from Goursat's lemma in the context of algebraic groups
-    (which is completely analogous to the version for discrete groups).
+    (see also \cref{Goursat}).
    \item Both $G$ and $H$ are adjoint semisimple, and $H$ is a quotient of~$G$.
     Thus $H$ is a factor of~$G$.
   \end{enumerate}
@@ -2780,7 +2799,7 @@ an absolutely simple adjoint group over~$E_{i,\lambda}$.
 
 Let $\ell$ be a prime number
 such that $\Gl(M_1 \oplus M_2) \subsetneq \Gl(M_1) \times \Gl(M_2)$.
-By Goursat's lemma this implies that there are
+By Goursat's lemma (see \cref{Goursat}) this implies that there are
 places $\lambda_1 \in \Lambda_{1,\ell}$ and $\lambda_2 \in \Lambda_{2,\ell}$
 such that the projection of $\Gl(M_1 \oplus M_2)$ in
 $\Res_{E_{1,\lambda_1}/\QQl} \GG_{\lambda_1}(M_1) \times
