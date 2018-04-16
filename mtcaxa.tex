@@ -180,6 +180,7 @@ spaceabove=0pt,spacebelow=0pt,%
 preheadhook={\bigskip}]{nproof}
 \declaretheorem[style=nproof,sibling=subsection,name=Proof]{nproof}
 
+\usepackage{hyperref}
 
 \usepackage{cleveref}
 \crefname{condition}{condition}{conditions}
@@ -491,14 +492,15 @@ preheadhook={\bigskip}]{nproof}
  \small
  \centerline{\textsc{Abstract}}
  \medskip\noindent
- Let $X$ be a smooth projective variety over a finitely generated field $K$
+ Let $X$ be a smooth projective variety
+ over a finitely generated field $K$ of characteristic~$0$
  and fix an embedding $K \subset \CC$.
  The Mumford--Tate conjecture is a precise way of saying that
- the extra structure on the $\ell$-adic \'etale cohomology groups of~$X$
- (a Galois representation)
+ certain extra structure on the $\ell$-adic \'etale cohomology groups of~$X$
+ (namely, a Galois representation)
  and
- the extra structure on the singular cohomology groups of~$X$
- (a Hodge structure)
+ certain extra structure on the singular cohomology groups of~$X$
+ (namely, a Hodge structure)
  convey the same information.
 
  The main result of this paper says that if $A_1$ and~$A_2$ are
@@ -515,30 +517,31 @@ preheadhook={\bigskip}]{nproof}
 \section{Introduction} % {{{-1
 
 \paragraph{} % {{{-2
-Let $A$~be an abelian variety over a finitely generated field $K$
-and fix an embedding $K \subset \CC$.
+Let $A$~be an abelian variety over a finitely generated field $K \subset \CC$.
 Denote with $\bar K$ the algebraic closure of $K$ in~$\CC$.
 If $\ell$ is a prime number,
 we write $\Hl^1(A)$ for the $\ell$-adic cohomology group
 $\HH_{\et}^1(A_{\bar K}, \QQl)$.
 Similarly, we write $\HB^1(A)$
 for the singular cohomology group $\HH_{\sing}^1(A(\CC), \QQ)$.
-There is a natural isomorphism $\Hl^1(A) \cong \HB^1(A) \otimes \QQl$.
+There is a natural isomorphism $\Hl^1(A) \cong \HB^1(A) \otimes \QQl$
+of vector spaces.
 
 The vector space $\Hl^1(A)$ carries a Galois representation
 $\rho_\ell \colon \Gal(\bar K/K) \to \GL(\Hl^1(A))$,
-while the Hodge structure on $\HB^1(A)$ may be described
+while $\HB^1(A)$ carries a Hodge structure.
+This Hodge strucutre may be described
 by a representation $\rho \colon \GB(A) \to \GL(\HB^1(A))$,
-where $\GB(A)$ is the so called \emph{Mumford--Tate group} of~$A$.
-(See \cref{HS} for the definition.)
+where $\GB(A)$ is the \emph{Mumford--Tate group} of~$A$
+(see \cref{HS}).
 
 Write $\Gl(A)$ for the Zariski closure of the image of~$\rho_\ell$,
 and $\Glc(A)$ for the identity component of~$\Gl(A)$.
 The \emph{Mumford--Tate conjecture} expresses the expectation that
 the comparison isomorphism $\Hl^1(A) \cong \HB^1(A) \otimes \QQl$
 identifies $\Glc(A)$ with~$\GB(A) \otimes \QQl$.
-This conjecture is still wide open,
-but see \cite{Mo17} for a recent overview of the state of the art.
+This conjecture is still wide open.
+\looseness=-1
 
 \paragraph{Main theorem} % {{{-2
 The goal of this article is \cref{mtcaxa}:
@@ -552,7 +555,7 @@ The goal of this article is \cref{mtcaxa}:
  then it is true for $A_1 \times A_2$.
  \par}
 
-\smallskip
+\medskip
 
 \nobreak
 \noindent
@@ -626,7 +629,7 @@ direct sums, tensor products, duals, and taking direct summands.
 \paragraph{Strategy of the proof} % {{{-2
 \label{strategy}
 \begin{enumerate}
- \item As a first step, we linearise the category of abelian varieties,
+ \item As a first step, we linearise the category of abelian varieties
   into so called \emph{abelian motives} (in the sense of Andr\'e~\cite{An95},
   or motives for absolute Hodge cycles).
   We obtain a semisimple Tannakian category,
@@ -638,9 +641,9 @@ direct sums, tensor products, duals, and taking direct summands.
   and we have an inclusion $\Glc(M) \subset \GB(M) \otimes \QQl$.
  \item We then prove that the connected component of the centre of~$\Glc(A)$ is
   isomorphic to the connected component of the centre of~$\GB(A) \otimes \QQl$.
-  For this we employ \emph{\cm~motives},
-  and reduce the claim to the Mumford--Tate conjecture for \cm~abelian varieties,
-  for which the statement is known by work of Pohlmann~\cite{Pohl68}.
+  For this we employ \emph{\cm~motives}, and
+  reduce the claim to the Mumford--Tate conjecture for \cm~abelian varieties,
+  which is known by work of Pohlmann~\cite{Pohl68}.
  \item The next step consists of replacing the abelian variety~$A_i$ ($i = 1,2$)
   by the motive~$M_i$ that corresponds---via the Tannakian formalism---with
   the adjoint representation of $\GB(A_i)^\ad$.
@@ -651,20 +654,21 @@ direct sums, tensor products, duals, and taking direct summands.
   are $\QQ$-simple adjoint groups.
   In addition, we assume that
   $\Glc(M_1 \oplus M_2) \subsetneq \Glc(M_1) \times \Glc(M_2)$.
- \item We use Goursat's lemma (see \cref{Goursat} and
+ \item We use Goursat's lemma (see \cref{Goursat}) and
   results from~\cite{Co17} to show that $\Hl(M_1) \cong \Hl(M_2)$,
   for all prime numbers~$\ell$;
   and we deduce that there is a canonical isomorphism
   $\End(M_1) \cong \End(M_2)$.
  \item The remainder of the proof consists of applying
   a construction of Deligne to~$M_1$ and~$M_2$
-  that is reminiscent of the Kuga--Satake construction.
+  that is reminiscent of the Kuga--Satake construction for K3~surfaces.
   As a result we acquire two abelian varieties~$\tilde A_1$ and~$\tilde A_2$,
   and our job is to show that the isomorphism $\Hl(M_1) \cong \Hl(M_2)$
   lifts to an isomorphism $\Hl^1(\tilde A_1) \cong \Hl^1(\tilde A_2)$.
   Once that is done,
-  we apply Faltings's theorem, to deduce $\tilde A_1 \sim \tilde A_2$
-  which implies $\GB(\tilde A_1) \cong \GB(\tilde A_2)$.
+  we apply Faltings's theorem, to deduce that $\tilde A_1$ and~$\tilde A_2$
+  are isogenous abelian varieties.
+  This in turn implies $\GB(\tilde A_1) \cong \GB(\tilde A_2)$.
   In particular $\GB(M_1 \oplus M_2) \subset \GB(M_1) \times \GB(M_2)$
   is the diagonal,
   and therefore $\Glc(M_1 \oplus M_2) \cong \GB(M_1 \oplus M_2) \otimes \QQl$.
@@ -673,12 +677,7 @@ direct sums, tensor products, duals, and taking direct summands.
 
 \paragraph{Notation} % {{{-2
 For any field~$K$,
-we denote with~$\Gamma_K$ the absolute Galois group~$\Gal(\bar K/K)$ of~$K$.
-In what follows,
-we strive to denote ``ground fields'' with~$K$ or~$L$,
-while we denote ``fields of coefficients'' with~$E$ or~$F$,
-and occasionally~$Q$.
-
+we denote with~$\Gamma_K$ the absolute Galois group~$\Gal(\bar K/K)$.
 
 \paragraph{Acknowledgements} % {{{-2
 My warmest thanks go to my supervisor Ben Moonen.
@@ -695,14 +694,16 @@ and Frans Oort for their interest and useful comments.
 
 \begin{readme} % {{{-2
  In representation theory the adjoint representation is very important.
- Tannakian categories behave like
- the category of representations of an affine group scheme.
- For a good overview of the Tannakian formalism, see~\cite{Breen_TanCats}.
- For details we refer to~\cite{Deligne_CatTan} and~\cite{DMOS}.
+ Via the Tannakian formalism
+ we port adjoint representations to Tannakian categories---%
+ which are categories that behave like
+ the category of representations of a linear algebraic group.
+ (For a good overview of the Tannakian formalism, see~\cite{Breen_TanCats}.
+ For details we refer to~\cite{Deligne_CatTan} and~\cite{DMOS}.)
 
- We define hyperadjoint objects in Tannakian categories
- and study some of their properties (\cref{ha-props}).
- This ties into the proof of the main theorem
+ This leads to the definition of hyperadjoint objects in Tannakian categories.
+ We study some of their properties in \cref{ha-props}.
+ This section ties into the proof of the main theorem
  because we will replace abelian varieties~$A$ by the motive
  that corresponds to the adjoint representation of the
  motivic Galois group of~$A$.
@@ -718,8 +719,9 @@ finitely generated projective $R$-modules.
 An \emph{$R$-valued fibre functor} of~$T$
 is a $Q$-linear monoidal functor $T \to \Proj_R$
 that is faithful and exact.
-We denote with $\Fib(T)_R$ be the groupoid of
-fibre functors $T \to \Proj_R$.
+We denote
+the groupoid of fibre functors $T \to \Proj_R$
+with $\Fib(T)_R$.
 
 \paragraph{} % {{{-2
 Let $Q$ be a field of characteristic~$0$.
@@ -763,18 +765,19 @@ that is functorial in~$R$.
 The category of representations of~$\Fib(T)$ is denoted $\Rep(\Fib(T))$,
 and the evaluation functor $T \to \Rep(\Fib(T))$,
 given by $V \mapsto (\omega \mapsto \omega(V))$ is an equivalence.
-(This is one half of the statement of Tannaka duality.
+This is one half of the statement of Tannaka duality.
 The other half is the converse statement:
 if $G$ is an affine gerbe over~$Q$,
-then $G$ is naturally isomorphic to $\Fib(\Rep(G))$.)
+then $G$ is naturally isomorphic to $\Fib(\Rep(G))$.
 
 \begin{definition} % {{{-2
  Let $T$ be a Tannakian category over a field~$Q$ of characteristic~$0$.
  Assume that $T$ is finitely generated (hence generated by one object).
  The \emph{adjoint object} in~$T$ is the object
  (well-defined up to isomorphism)
- corresponding with the collection of functors
- $\Fib(T)_R \to \Proj_R$ given by $\omega \mapsto \Lie(\iAut^\otimes(\omega))$.
+ that corresponds with the collection of functors
+ $\Fib(T)_R \to \Proj_R$ given by $\omega \mapsto \Lie(\iAut^\otimes(\omega))$
+ via the Tannakian formalism described above.
  
  Note: Since $T$ is finitely generated,
  the group scheme $\iAut^\otimes(\omega)$ is of finite type,
@@ -888,7 +891,7 @@ this sequence stabilises at an object $V^{(\infty)}$.
    \item If $V$ is hyperadjoint, then $G$ is semisimple and thus reductive.
     The general case---where $V$ is a direct sum of hyperadjoint objects---%
     follows from Goursat's lemma in the context of algebraic groups
-    (see also \cref{Goursat}).
+    (see \cref{Goursat}).
    \item Both $G$ and $H$ are adjoint semisimple, and $H$ is a quotient of~$G$.
     Thus $H$ is a factor of~$G$.
   \end{enumerate}
@@ -952,10 +955,11 @@ amounts to relabeling $V^{p,q}$ as~$V^{kp,kq}$.
 
 Put $\tilde \DelS = \lim_\NN \DelS$,
 where $\NN$ is ordered by divisibility,
-and for $m | n$ we take the transition map $\DelS \to \DelS$
+and for $m \divides n$ we take the transition map $\DelS \to \DelS$
 given by $x \mapsto x^{n/m}$.
-A fractional pre-Hodge structure is then described by a representation
-$h \colon \tilde \DelS \to \GL(V)_\RR$.
+Then $\tilde\DelS$ is a pro-algebraic group scheme,
+and the category of fractional pre-Hodge structures over~$\RR$
+is equivalent to $\Rep(\tilde\DelS)$.
 
 \begin{definition} % {{{-2
  Let $V$ be a fractional pre-Hodge structure over a ring $R \subset \RR$.
@@ -1098,10 +1102,10 @@ of functors to $\QQl$-vector spaces.
 \begin{definition} % {{{-2
  Let $K$ be a subfield of~$\CC$.
  The \emph{motivic Galois group} $\GG(\Mot_K)$
- is the affine group scheme $\iAut^\otimes(\HB)$
+ is the pro-algebraic affine group scheme $\iAut^\otimes(\HB)$ over~$\QQ$
  associated with~$\Mot_K$ via the Tannakian formalism.
- If $M$ is a motive over~$K$, then we denote with $\GG(M)$
- the affine group scheme associated with $\Tangen{M} \subset \Mot_K$,
+ If~$M$ is a motive over~$K$, then we denote with $\GG(M)$
+ the affine group scheme associated with $\Tangen{M} \subset \Mot_K$;
  it is the image of $\GG(\Mot_K)$ in~$\GL(\HB(M))$.
 \end{definition}
 
@@ -1142,8 +1146,8 @@ It is not known whether $\GG(\Mot_{\bar K})$ is connected.
  by the invariant subspace in the tensor algebra on $\Hl(M)$.
  If the invariants of $\Gl(M)$ and $\GG(M)_{\QQl}$ agree,
  then the two groups are isomorphic.
- (In fact, we do not need to assume that $\Gl(M)$ is reductive.
- See~\cite{Moonen_remark}.)
+ (In fact, we do not need to assume that $\Gl(M)$ is reductive,
+ by the result of~\cite{Moonen_remark}.)
 
  Now assume that $K = \CC$.
  The Hodge conjecture predicts that
@@ -1178,14 +1182,14 @@ It is not known whether $\GG(\Mot_{\bar K})$ is connected.
 
 \begin{remark} % {{{-2
  \begin{enumerate}
-  \item Let $M$ be a motive over a field~$K$ of characteristic~$0$.
+  \item Let $M$ be a motive over a field~$K \subset \CC$.
    By definition there is a smooth projective variety~$X$
    such that $M \in \Tangen{\HH(X)}$.
    By work of Serre~\cite{Serre_letter_to_Ribet}, %\cite{SerreIV}
    there is a finite extension $L/K$
-   such that $\Gl(\Hl(X_L))$ is connected for all~$\ell$.
+   such that $\Gl(\HH(X_L))$ is connected for all~$\ell$.
    Since $M \in \Tangen{\HH(X)}$,
-   there is a quotient map $\Gl(\Hl(X_L)) \onto \Gl(M_L)$,
+   there is a quotient map $\Gl(\HH(X_L)) \onto \Gl(M_L)$,
    and therefore $\Gl(M_L)$ is connected for all~$\ell$.
   \item \label[remark]{ext-base-field}
    If $L/K$ is a finitely generated extension field,
@@ -1200,7 +1204,7 @@ It is not known whether $\GG(\Mot_{\bar K})$ is connected.
 
 \begin{definition} % {{{-2
  \begin{enumerate}
-  \item An \emph{Artin} motive over a field~$K$
+  \item An \emph{Artin} motive over a field~$K \subset \CC$
    is an object in the Tannakian subcategory of~$\Mot_K$
    generated by motives of the form~$\HH(\Spec(L))$,
    where $L$ is a finite field extension of~$K$.
@@ -1213,7 +1217,7 @@ It is not known whether $\GG(\Mot_{\bar K})$ is connected.
 
 \begin{remark} % {{{-2
  \label{ignore-Artin-motives}
- In practice, in this paper we can ignore Artin motives.
+ In practice, we can ignore Artin motives in this paper.
  The Mumford--Tate conjecture is trivially true for them:
  if~$M$ is an Artin motive, then both $\GB(M)$ and~$\Glc(M)$ are trivial.
  (Note that $\Gl(M)$ can be a non-trivial finite group.)
@@ -1244,7 +1248,8 @@ It is not known whether $\GG(\Mot_{\bar K})$ is connected.
    is that $\GB(M)$ is the identity component of~$\GG(M)$.
    In particular, we obtain the inclusion $\Glc(M) \subset \GB(M) \otimes \QQl$.
   \item \label[remark]{GlcM-reductive}
-   Let $A$ be an abelian variety over~$K$.
+   Let $A$ be an abelian variety over~$K$, and
+   assume that $K$ is finitely generated.
    Then $\Glc(A)$ is a reductive group
    by Satz~3 in~\S5 of~\cite{Fal83}.
    (See also~\cite{Fal84}, for the case where $K$ is not a number field.)
@@ -1255,11 +1260,14 @@ It is not known whether $\GG(\Mot_{\bar K})$ is connected.
    We also know that
    $\End_{\Glc(A)}(\Hl^1(A)) \cong \End_{\GB(A)}(\HB^1(A))_{\QQl}$,
    by Satz~4 in~\S5 of~\cite{Fal83} (see also~\cite{Fal84}).
-   Now observe that $\Zentrum(\Glc(A)) = \Glc(A) \cap \End_{\Glc(A)}(\Hl^1(A))$
-   where the intersection takes place inside $\End_{\Vect}(\Hl^1(A))$;
-   and similarly $\Zentrum(\GB(A))_{\QQl} =
+   Now observe that $\Glc(A)$ embeds into $\End_{\Vect}(\Hl^1(A))$,
+   and by definition of the centre we have
+   $\Zentrum(\Glc(A)) = \Glc(A) \cap \End_{\Glc(A)}(\Hl^1(A))$,
+   where the intersection takes place inside $\End_{\Vect}(\Hl^1(A))$.
+   Similarly we have $\Zentrum(\GB(A))_{\QQl} =
    \GB(A)_{\QQl} \cap \End_{\GB(A)}(\HB^1(A))_{\QQl}$.
-   We conclude that $\Zentrum(\Glc(A)) \subset \Zentrum(\GB(A))_{\QQl}$.
+   With the preceding two points in mind,
+   we conclude that $\Zentrum(\Glc(A)) \subset \Zentrum(\GB(A))_{\QQl}$.
  \end{enumerate}
 \end{remark}
 
@@ -1290,8 +1298,10 @@ It is not known whether $\GG(\Mot_{\bar K})$ is connected.
     \GB(M)_{\QQl}
    \end{tikzcd}
   \]
-  where $b$ and~$c$ exist by \cref{hodge-is-motivated},
-  and $a$ exists by the final remark in~\cref{abvar-Zlc-in-ZB}.
+  where $b$ and~$c$ exist by \cref{hodge-is-motivated}
+  (see \cref{GB-id-comp}),
+  and $a$ exists by \cref{abvar-Zlc-in-ZB}.
+  (Note: we do not claim that the rows are exact.)
 
   Since $\Glc(A)$ and~$\Glc(M)$ are reductive (see~\cref{GlcM-reductive}),
   we find that the image of $\Zentrum(\Glc(A))$
@@ -1341,7 +1351,7 @@ where $A$ is a \cm~abelian variety over~$K$ (\emph{cf.}~\cref{cm-hs-cat}).
  \begin{proof}
   (This result is proven in theorem~1.3.1 of~\cite{Va08}
   and corollary~2.11 of~\cite{UY13} using different methods.)
-  The first claim follows from \cref{abelian-motive-centre-inclusion}.
+  The first claim is \cref{abelian-motive-centre-inclusion}.
   Therefore it suffices to show that the composition
   of the natural maps
   $\Glc(M) \into \GB(M)_{\QQl} \onto \GB(M)^\ab_{\QQl}$
@@ -1368,7 +1378,9 @@ where $A$ is a \cm~abelian variety over~$K$ (\emph{cf.}~\cref{cm-hs-cat}).
  a finitely generated field $K \subset \CC$.
  Fix a prime number~$\ell$.
  Then $\MTC_\ell(M)$
- is equivalent to $\MTC_\ell(M^\ha)$.
+ is equivalent to $\MTC_\ell(M^\ha)$,
+ where $M^\ha$ is the hyperadjoint object associated with $M \in \Mot_K$,
+ see \cref{ha-obj}.
  \begin{proof}
   Consider the following commutative diagram
   \[
@@ -1385,7 +1397,8 @@ where $A$ is a \cm~abelian variety over~$K$ (\emph{cf.}~\cref{cm-hs-cat}).
     0
    \end{tikzcd}
   \]
-  where the inclusions $b$ and $c$ exist by \cref{hodge-is-motivated},
+  where the inclusions $b$ and $c$ exist by \cref{hodge-is-motivated}
+  (see \cref{GB-id-comp}),
   and $a$ exists by \cref{abelian-motive-centre-inclusion}.
   Moreover, $a$ is an isomorphism on identity components,
   by \cref{centre-mtc-abelian-motive}.
@@ -1408,12 +1421,18 @@ where $A$ is a \cm~abelian variety over~$K$ (\emph{cf.}~\cref{cm-hs-cat}).
  of a motive~$M$ over a finitely generated field~$K$ of characteristic~$0$
  form a compatible system of Galois representations in the sense of Serre.
 
- The main result of~\cite{Co17} shows that if $M$~is an abelian motive
- a slightly weaker version is satisfied;
+ The main theorem of~\cite{Co17} shows that if $M$~is an abelian motive
+ a slightly weaker result is true;
  and this is good enough for our purposes.
  The weaker condition is called quasi-compatibility
  and in this section we recall the necessary definitions and results.
 \end{readme}
+
+\paragraph{} % {{{-2
+Let $\kappa$ be a finite field with $q$ elements.
+We denote with $F_\kappa \in \Gamma_\kappa$
+the geometric Frobenius automorphism:
+\emph{i.e.,} the inverse of $x \mapsto x^q$.
 
 \begin{definition} % {{{-2
  \label{frobenius-element-number-field}
@@ -1426,8 +1445,7 @@ where $A$ is a \cm~abelian variety over~$K$ (\emph{cf.}~\cref{cm-hs-cat}).
  The inertia group, denoted~$I_v$,
  is the kernel of the natural surjection
  $\Gamma_{K_v} \onto \Gamma_\kappa$.
- The inverse image of $F_{\bar{\kappa}/\kappa}$
- in $\Gamma_{K_v}$
+ The inverse image of $F_\kappa$ in $\Gamma_{K_v}$
  is called the \emph{Frobenius coset} of~$v$.
  An element $\alpha \in \Gamma_K$ is called a
  \emph{Frobenius element with respect to~$v$}
@@ -1467,7 +1485,7 @@ where $A$ is a \cm~abelian variety over~$K$ (\emph{cf.}~\cref{cm-hs-cat}).
  induces an inclusion $\Gamma_{K_x} \into \Gamma_K$.
  
  Like in \cref{frobenius-element-number-field},
- the inverse image of $F_{\bar{\kappa}(x)/\kappa(x)}$
+ the inverse image of $F_{\kappa(x)}$
  in $\Gamma_{K_x}$
  is called the Frobenius coset of~$x$.
  An element $\alpha \in \Gamma_K$ is called a
@@ -1487,16 +1505,17 @@ where $A$ is a \cm~abelian variety over~$K$ (\emph{cf.}~\cref{cm-hs-cat}).
  that is continuous for the $\lambda$-adic topology.
 
  We denote with $\Glambda(V) \subset \GL(V)$
- for the algebraic group over~$E_\lambda$ that is
+ the algebraic group over~$E_\lambda$ that is
  the Zariski closure of the image of $\Gamma_K$ under this representation.
  The identity component of $\Glambda(V)$ is denoted with $\Glambdac(V)$.
 \end{definition}
 
 \begin{definition} % {{{-2
  \label{unramified-representation}
-	Let $K$ be a finitely generated field.
- Let $X$ be a model of~$K$, and let $x \in X^\cl$ be a closed point.
+ Let $K$ be a field, let $E$ be a number field
+ and let $\lambda$ be a finite place of~$E$.
  Let $\rho$ be a $\lambda$-adic Galois representation of~$K$.
+ Let $X$ be a model of~$K$, and let $x \in X^\cl$ be a closed point.
  We say that $\rho$ is \emph{unramified at~$x$}
  if there is an embedding $\bar{K} \into \bar{K}_x$
  for which $\rho(I_x) = \{1\}$,
@@ -1522,7 +1541,8 @@ where $A$ is a \cm~abelian variety over~$K$ (\emph{cf.}~\cref{cm-hs-cat}).
  so that the element $F_{x,\rho} = \rho(F_x)$ is well-defined up to conjugation.
  For $n \in \ZZ$, we write $\Frobcharpol_{x,\rho,n}(t)$
  for the characteristic polynomial of~$F_{x,\rho}^n$.
- Note that $\Frobcharpol_{x,\rho,n}(t)$ is well-defined,
+ Note that $\Frobcharpol_{x,\rho,n}(t)$
+ does not depend on the choice of~$F_x$,
  since conjugate endomorphisms have the same characteristic polynomial.
 \end{notation}
 
@@ -1576,8 +1596,8 @@ where $A$ is a \cm~abelian variety over~$K$ (\emph{cf.}~\cref{cm-hs-cat}).
  With a \emph{system of Galois representations} of~$K$ we mean a triple
  $(E, \Lambda, (\rho_{\lambda})_{\lambda \in \Lambda})$,
  where
- $E$ is a number field;
- $\Lambda$ is a set of finite places of~$E$; and
+ $E$ is a number field,
+ $\Lambda$ is a set of finite places of~$E$, and
  $\rho_{\lambda}$ ($\lambda \in \Lambda$)
  is a $\lambda$-adic Galois representation of~$K$.
 \end{definition}
@@ -1618,10 +1638,9 @@ where $A$ is a \cm~abelian variety over~$K$ (\emph{cf.}~\cref{cm-hs-cat}).
 \begin{proposition} % {{{-2
  \label{quasi-compatible-semisimple-isomorphic}
  Let $K$ be a finitely generated field.
- Let $E$ be a number field; and
+ Let $E$ be a number field, and
  let $\lambda$ be a finite place of~$E$.
- For $i = 1,2$,
- let $\rho_i$ be a $\lambda$-adic Galois representation of~$K$.
+ Let $\rho_1$ and~$\rho_2$ be $\lambda$-adic Galois representations of~$K$.
  If $\rho_1$ and~$\rho_2$ are semisimple, quasi-compatible,
  and $\Glambda(\rho_1 \oplus \rho_2)$ is connected,
  then $\rho_1 \cong \rho_2$.
@@ -1641,7 +1660,7 @@ where $A$ is a \cm~abelian variety over~$K$ (\emph{cf.}~\cref{cm-hs-cat}).
  Let $\rho_\Lambda$ be a quasi-compatible system of representations of~$K$.
  Let $\rho_\primes$ be the quasi-compatible system of representations
 obtained from~$\rho_\Lambda$ by restricting to $\QQ \subset E$;
- in other words, $\rho_\ell = \bigoplus_{\lambda | \ell} \rho_\lambda$.
+ in other words, $\rho_\ell = \bigoplus_{\lambda \divides \ell} \rho_\lambda$.
  Assume that $\Gl(\rho_\ell)$ is connected for all $\ell \in \primes$.
  Fix $\lambda_0 \in \Lambda$.
  Define the field $E' \subset E$ to be the
@@ -1662,7 +1681,7 @@ obtained from~$\rho_\Lambda$ by restricting to $\QQ \subset E$;
  then $E = E'$.
  \begin{proof}
   We restrict our attention to a finite subset of~$\Lambda$,
-  namely $\Lambda_0 = \{\lambda_0\} \cup \{ \lambda | \ell \}$.
+  namely $\Lambda_0 = \{\lambda_0\} \cup \{ \lambda \divides \ell \}$.
   Let $U \subset X$ be a non-empty open subset such that
   for all $\lambda_1, \lambda_2 \in \Lambda_0$
   the representations
@@ -1686,7 +1705,7 @@ obtained from~$\rho_\Lambda$ by restricting to $\QQ \subset E$;
   are quasi-compatible $\lambda'$-adic Galois representations;
   hence they are isomorphic by \cref{quasi-compatible-semisimple-isomorphic}.
   Let $\rho_{\lambda'}$ be the $\lambda'$-adic Galois representation
-  $\bigoplus_{\lambda | \lambda'} \rho_\lambda$.
+  $\bigoplus_{\lambda \divides \lambda'} \rho_\lambda$.
   We conclude that
   $\End_{\Gamma_K,E'_{\lambda'}}(\rho_{\lambda'})
    \cong \Mat_{[E:E']}(E'_{\lambda'})$,
@@ -1889,7 +1908,7 @@ in which $\alpha_0$ is depicted by a grey node
 
 \begin{remark} % {{{-2
  There is a risk of confusing terminology:
- a \emph{connected component} of~$\Delta$ (or~$(\Delta,\mu)$)
+ a \emph{connected component} of~$\Delta$ or~$(\Delta,\mu)$
  will always mean a connected component of the Dynkin diagram~$\Delta$
  disregarding the $\Gamma_Q$-action;
  whereas an \emph{irreducible component} $(\Delta',\mu') \subset (\Delta,\mu)$
@@ -1902,7 +1921,7 @@ in which $\alpha_0$ is depicted by a grey node
 The reason we study Deligne--Dynkin diagrams
 is that we may naturally attach such a diagram to
 any hyperadjoint abelian motive~$M$ over a field $K \subset \CC$.
-The assumptions on $M$ imply that
+These assumptions on~$M$ imply that
 the linear algebraic group~$\GB(M)$ over~$\QQ$ is an adjoint group.
 Let $\Delta$ be the Dynkin diagram of~$\GB(M)$, and
 note that $\Delta$ is naturally equipped with an action of $\Gamma_\QQ$.
@@ -1918,7 +1937,7 @@ We call it the \emph{Deligne--Dynkin diagram of $M$}.
 
 \paragraph{} % {{{-2
 \label{table-deligne-dynkin-diagrams}
-Table~1.3.9 of~\cite{Del_ShimVar}:
+Table~1.3.9 of~\cite{Del_ShimVar} lists
 the isomorphism classes of connected Dynkin diagrams
 equipped with a special node~$\alpha$.
 In other words, these are
@@ -1934,7 +1953,7 @@ The reader that has never seen these labels before
 should not currently worry about the meaning of the superscripts~$(\_)^\RR$
 and~$(\_)^\HQ$,
 but the curious reader is referred to
-remarques~1.3.10(ii) of~\cite{Del_ShimVar}.
+remarque~1.3.10(ii) of~\cite{Del_ShimVar}.
 
 \nobreak
 \noindent
@@ -2032,9 +2051,9 @@ are identified with the appropriate (co)characters.
 In diagram~$\DtA_{p+q-1}$ it is the $p$-th node that is special.
 The diagram~$\DtD_{k+2}^{\HQ}$ is required to satisfy $k + 2 \ge 5$.
 
+The diagrams of type~$\DtE_6$ and~$\DtE_7$ do not have symplectic nodes.
 The diagrams of type~$\DtE_8$, $\DtF_4$, and~$\DtG_2$ do not occur:
 they do not have special nodes.
-The diagrams of type~$\DtE_6$ and~$\DtE_7$ do not have symplectic nodes.
 \end{minipage} % -}}}3
 
 \paragraph{} % {{{-2
@@ -2077,16 +2096,14 @@ the opposition involution is defined componentwise.
  \label{symplectic-nodes-deligne-dynkin-diagram}
  Let $(\Delta,\mu)$ be a Deligne--Dynkin diagram over a field~$Q$.
  The \emph{subset of $\mu$-symplectic nodes} attached to $(\Delta,\mu)$
- is the maximal subset $S \subset \Delta$ satisfying the following conditions:
- \begin{enumerate}
-  \item For every special node $\alpha \in \mu \subset \Delta$,
-   let $\Delta_\alpha$ denote the connected component of~$\Delta$
-   that contains~$\alpha$.
-   Then $S \cap \Delta_\alpha$ consists only of
-   $\alpha$-symplectic nodes of~$\Delta_\alpha$.
-   (See also \cref{table-deligne-dynkin-diagrams}.)
-  \item The set $S$ is stable under the action of $\Gamma_Q$.
- \end{enumerate}
+ is the maximal $\Gamma_Q$-stable subset $S \subset \Delta$
+ satisfying the following condition:
+  For every special node $\alpha \in \mu \subset \Delta$,
+  let $\Delta_\alpha$ denote the connected component of~$\Delta$
+  that contains~$\alpha$.
+  Then $S \cap \Delta_\alpha$ consists only of
+  $\alpha$-symplectic nodes of~$\Delta_\alpha$.
+  (See also \cref{table-deligne-dynkin-diagrams}.)
 \end{definition}
 
 \begin{definition} % {{{-2
@@ -2101,12 +2118,10 @@ the opposition involution is defined componentwise.
  then the Deligne--Dynkin diagram $(\Delta,\mu)$
  associated with~$M$ is symplectic.
  \begin{proof}
-  After replacing $K$ with a finite field extension~$L/K$
-  there is an abelian variety~$A/L$
-  such that $M_L \in \Tangen{\HH^1(A)}$ (see \cref{ignore-Artin-motives}).
-  Since $\HB(M_L) = \HB(M)$, we may and do assume $L = K$.
-  Because $M \in \Tangen{\HH^1(A)}$,
-  there is a quotient map $\GB(A) \onto \GB(M)$.
+  Since $(\Delta,\mu)$ depends only on~$\HB(M)$ we assume $K = \CC$.
+  Because $A$ is an abelian motive,
+  there is a complex abelian variety such that $M \in \Tangen{\HH^1(A)}$,
+  and thus a quotient map $\GB(A) \onto \GB(M)$.
   Hence there is a map $\tilde\GG_{\mathrm{B}}(M) \to \GB(A)^{\der}$,
   where $\tilde\GG_{\mathrm{B}}(M)$ denotes
   the simply-connected cover of~$\GB(M)$.
@@ -2167,12 +2182,12 @@ the opposition involution is defined componentwise.
 \paragraph{The type of $(\Delta,\mu)$} % {{{-2
 Let $(\Delta,\mu)$ be an irreducible populated Deligne--Dynkin diagram over~$Q$.
 If $(\Delta,\mu)$ is symplectic,
-the type of its connected components is classical:
+then the type of its connected components is classical:
 $\DtA_n$,~$\DtB_n$, $\DtC_n$, or~$\DtD_n$.
 On the other hand, if the connected components of~$\Delta$
 are of type $\DtA_n$ (resp.~$\DtB_n$, or~$\DtC_n$),
 then $(\Delta,\mu)$ is symplectic.
-In this case we say that the \emph{type} of~$(\Delta,\mu)$
+In this case the \emph{type} of~$(\Delta,\mu)$
 is $\DtA_n$ (resp.~$\DtB_n$, or~$\DtC_n$).
 The case where the connected components of~$\Delta$
 are of type~$\DtD_n$ requires more attention.
@@ -2198,7 +2213,7 @@ if the former (resp.~the latter) condition holds.
 Finally, if the connected components of~$\Delta$ have type~$\DtD_4$,
 then the type of $(\Delta,\mu)$ was explained in \cref{eg-D4},
 as follows:
-Let $\bar\mu$ be the $\Gamma_Q$-closure of~$\mu$.
+Let $\bar\mu \subset \Delta$ be the $\Gamma_Q$-closure of~$\mu$
 and write $d = \deg_{\pi_0(\Delta)}(\bar\mu)$.
 Recall that $d \in \{1,2,3\}$,
 and if $d = 3$, then $(\Delta,\mu)$ is not symplectic.
@@ -2214,7 +2229,7 @@ We conclude with two observations:
   then the subset of $\mu$-symplectic nodes of~$\Delta$
   has degree~$2$ (resp.~$1$) over~$\pi_0(\Delta)$.
  \item An irreducible symplectic populated Deligne--Dynkin diagram
-  always has one of the following types:
+  has one of the following types:
   $\DtA_n$~($n \ge 1$), $\DtB_n$ ($n \ge 2$), $\DtC_n$ ($n \ge 3$),
   $\DtD_n^\RR$ ($n \ge 4$), or~$\DtD_n^\HQ$ ($n \ge 4$);
   and all these types occur.
@@ -2264,9 +2279,11 @@ We conclude with two observations:
   Label the remaining extremal node of~$\Delta_\alpha$ with $\beta$,
   so that $\{\alpha,\beta,s\}$ is the set of extremal nodes of~$\Delta_\alpha$.
   Note that $\bar\mu \cap \Delta_\alpha = \{\alpha,\beta\}$.
+  Since $(\Delta,\mu)$ has type~$\DtD_4^\HQ$,
+  there exists a special node $\alpha' \in \mu$
+  and an element $g \in \Gamma_\QQ$ such that $g\alpha' = \beta$.
   By Chebotarev's density theorem
-  there exists a prime number~$\ell$
-  and an element $g \in \Gamma_{\QQl}$ such that $g\alpha = \beta$.
+  we may assume that $g \in \Gamma_{\QQl}$ for some prime number~$\ell$.
   Let $\Delta'$ be the $\Gamma_{\QQl}$-closure of $\Delta_\alpha$,
   and take $\mu' = \Delta' \cap \mu$.
   Then $(\Delta', \mu')$ has type~$\DtD_4^\HQ$.
@@ -2284,7 +2301,7 @@ by $\Isom\big((\Delta_1,\mu_1),(\Delta_2,\mu_2)\big)^{\Gamma_Q}$.
 Observe that there is a natural map
 $\Isom\big((\Delta_1,\mu_1),(\Delta_2,\mu_2)\big)^{\Gamma_Q}
 \to \Isom\big(\pi_0(\Delta_1),\pi_0(\Delta_2)\big)^{\Gamma_Q}$,
-and if $f \in \Isom\big(\pi_0(\Delta_1),\pi_0(\Delta_2)\big)^{\Gamma_Q}$,
+and if $f \in \Isom\big(\pi_0(\Delta_1),\pi_0(\Delta_2)\big)^{\Gamma_Q}$
 then we write $\Isom_f\big((\Delta_1,\mu_1),(\Delta_2,\mu_2)\big)^{\Gamma_Q}$
 for the set of
 $\phi \in \Isom\big((\Delta_1,\mu_1),(\Delta_2,\mu_2)\big)^{\Gamma_Q}$
@@ -2297,10 +2314,10 @@ such that $\pi_0(\phi) = f$.
  Let $\tau$ denote the opposition involution on~$\Delta$.
  Then
  \[
-  \#\Aut_\id(\Delta,\mu) =
+  \#\Aut_\id(\Delta,\mu)^{\Gamma_Q} =
   \begin{cases}
-   1 &\text{if $(\Delta,\mu)$ has type $\DtA_1$,~$\DtB_n$, $\DtC_n$, $\DtD_n^\HQ$,
-   or $\DtA_n$ and $\mu$ is not fixed by~$\tau$,}\\
+   1 &\text{if $(\Delta,\mu)$ has type $\DtA_1$,~$\DtB_n$, $\DtC_n$,
+    $\DtD_n^\HQ$, or $\DtA_n$ and $\mu$ is not fixed by~$\tau$,}\\
    2 &\text{if $(\Delta,\mu)$ has type $\DtD_n^\RR$, or $\DtA_n$ ($n \ge 2$)
     and $\mu$ is fixed by~$\tau$.}
   \end{cases}
@@ -2311,7 +2328,7 @@ such that $\pi_0(\phi) = f$.
   in~\cref{table-deligne-dynkin-diagrams}.
   If $\Delta$ has multiple components,
   then the result follows from the fact that
-  a non-trivial element of $\Aut_\id(\Delta,\mu)$
+  a non-trivial element of $\Aut_\id(\Delta,\mu)^{\Gamma_Q}$
   must act non-trivially on every connected component of~$\Delta$.
  \end{proof}
 \end{lemma}
@@ -2323,23 +2340,27 @@ such that $\pi_0(\phi) = f$.
  Then there exists
  an irreducible component $(\Delta_\lambda,\mu_\lambda)$ of $(\Delta,\mu)_{\QQl}$
  such that the natural map
- $\Aut_\id(\Delta,\mu) \to \Aut_\id(\Delta_\lambda,\mu_\lambda)$
+ $\Aut_\id(\Delta,\mu)^{\Gamma_Q} \to
+ \Aut_\id(\Delta_\lambda,\mu_\lambda)^{\Gamma_Q}$
  is an isomorphism.
  \begin{proof}
   This follows immediately from \cref{locally-same-type,AutDeltamu}.
  \end{proof}
 \end{lemma}
 
+\begin{remark} % {{{-2
+ \label{quadratic-remark}
+ As explained in the readme at the beginning of this \namecref{DeligneDynkin},
+ our aim is a local-global result for
+ irreducible symplectic populated Deligne--Dynkin diagrams over~$\QQ$
+ (\cref{deldyn-local-global}).
+ Now recall that a quadratic extension~$F$ of a number field~$E$
+ is completely determined by the set of primes of~$E$ that split in~$F$.
+ This fact inspires the following notation.
+\end{remark}
+
 \paragraph{} % {{{-2
 \label{deg2-set}
-As explained in the readme at the beginning of this \namecref{DeligneDynkin},
-our aim is a local-global result for
-irreducible symplectic populated Deligne--Dynkin diagrams over~$\QQ$
-(\cref{deldyn-local-global}).
-Now recall that a quadratic extension~$F$ of a number field~$E$
-is completely determined by the set of primes of~$E$ that split in~$F$.
-This fact inspires the following remark.
-
 Let $(\Delta,\mu)$ be
 an irreducible symplectic populated Deligne--Dynkin diagram over~$Q$.
 The action of $\Gamma_Q$ on~$\Delta$
@@ -2370,7 +2391,7 @@ both isomorphic to $\Hom(E,\QQbar)$ as $\Gamma_\QQ$-sets.
 Fix $\Gamma_\QQ$-equivariant isomorphisms
 $\pi_0(\Delta_1) \cong \Hom(E,\QQbar) \cong \pi_0(\Delta_2)$
 and write $f$ for the composite map $\pi_0(\Delta_1) \to \pi_0(\Delta_2)$.
-Suppose that there is a
+Suppose that there is an isomorphism
 $\phi \in \Isom_f\big((\Delta_1,\mu_1),(\Delta_2,\mu_2)\big)^{\Gamma_\QQ}$.
 
 We restrict the Galois action to $\Gamma_{\QQl}$,
@@ -2378,7 +2399,7 @@ for some prime number~$\ell$.
 The irreducible components of~$(\Delta_1,\mu_1)_{\QQl}$
 are in a natural way indexed by the places~$\lambda$ of~$E$
 that lie above~$\ell$, so that
-$(\Delta_1,\mu_1)_{\QQl} = \sqcup_{\lambda|\ell} (\Delta_1,\mu_1)_\lambda$.
+$(\Delta_1,\mu_1)_{\QQl} = \sqcup_{\lambda\divides\ell} (\Delta_1,\mu_1)_\lambda$.
 In a similar manner, the maps~$f_\ell$ and~$\phi_\ell$
 are the disjoint union of local components~$f_\lambda$ and~$\phi_\lambda$.
 We will use this notation below.
@@ -2396,7 +2417,7 @@ We will use this notation below.
  Suppose that for each prime number~$\ell$ there is an element
  $\psi_\ell \in
  \Isom_f\big((\Delta_1,\mu_1)_{\QQl},(\Delta_2,\mu_2)_{\QQl}\big)^{\Gamma_{\QQl}}$.
- Then there exists a
+ Then there exists an isomorphism
  $\phi \in \Isom_f\big((\Delta_1,\mu_1),(\Delta_2,\mu_2)\big)^{\Gamma_\QQ}$
  and a finite place~$\lambda$ of~$E$
  such that $\phi_\lambda = \psi_\lambda$.
@@ -2428,7 +2449,8 @@ We will use this notation below.
   the existence of global isomorphism
   $U(\Delta_1,\mu_1) \to U(\Delta_2,\mu_2)$
   will follow from Chebotarev's density theorem
-  if we prove that these sets are locally isomorphic.
+  if we prove that these sets are locally isomorphic
+  (\emph{cf.,} \cref{quadratic-remark}).
   \begin{itemize}
    \item If $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$ have type~$\DtA_n$,
     or~$\DtD_n^\RR$ with $n \ge 5$,
@@ -2469,36 +2491,96 @@ We will use this notation below.
 
   At the beginning of this proof, we already dealt with the cases where
   $(\Delta_1,\mu_1)$ and $(\Delta_2,\mu_2)$ have type~$\DtB_n$ or~$\DtC_n$.
-  We continue with some other easy cases.
+  We continue with some other easy cases,
+  where the topology of the diagrams forces $\phi(\mu_1) = \mu_2$.
+  This happens:
   \begin{itemize}
-   \item If $(\Delta_1,\mu_1)$ and $(\Delta_2,\mu_2)$
-    are of type $\DtA_1$, or~$\DtD_n^\RR$ with $n \ge 5$,
-    then the topology of the diagrams force $\phi(\mu_1) = \mu_2$,
-    hence there is nothing left to do.
-   \item If the type is $\DtD_4^\RR$,
-    recall that $\bar\mu_i$ has degree~$1$ over~$\pi_0(\Delta_i)$.
-    Hence it is clear that we can choose~$\phi$
-    such that $\phi(\mu_1) = \mu_2$.
-   \item Now suppose that the type is $\DtA_n$ with $n \ge 2$,
-    and assume that $\mu_1$ (and therefore $\mu_2$) is fixed
+   \item if $(\Delta_1,\mu_1)$ and $(\Delta_2,\mu_2)$
+    are of type $\DtA_1$, or~$\DtD_n^\RR$ with $n \ge 5$;
+   \item if the type is $\DtD_4^\RR$,
+    since $\phi$ maps $U(\Delta_1,\mu_1) = S_1$
+    to $U(\Delta_2,\mu_2) = S_2$ by construction;
+   \item if the type is $\DtA_n$ with $n \ge 2$,
+    and $\mu_1$ (and therefore $\mu_2$) is fixed
     under the opposition involution.
-    Once again, the topology of the diagrams force $\phi(\mu_1) = \mu_2$.
   \end{itemize}
   The remaining cases require a bit more work:
   so far we have not needed to change our choice of~$\phi$,
   but with the remaining cases this might be necessary.
 
-  We save the case~$\DtD_4^\HQ$ for the \emph{coup de gr\^ace} of this proof.
-  Suppose that the type is $\DtD_n^\HQ$ with $n \ge 5$,
-  or the type is $\DtA_n$ and $\mu_i$ is not fixed by the opposition involution.
-  There is a unique non-trivial $\Gamma_\QQ$-equivariant
-  involution~$\tau_i \in \Aut_\id(\Delta_i)$.
+  First consider the case~$\DtD_4^\HQ$.
+  Recall that $\bar\mu_i$ has degree~$2$.
+  Thus there is a unique non-trivial $\Gamma_\QQ$-equivariant
+  involution~$\tau_i \in \Aut_\id(\Delta_i)$
+  such that $\tau_i(\bar\mu_i) = \bar\mu_i$.
   Observe that $\phi \circ \tau_1 = \tau_2 \circ \phi$.
-  Let $\alpha \in \mu_1$ be a special node that is not fixed under~$\tau_1$.
+  Let $\alpha \in \mu_1$ be a special node.
   We may assume that $\phi(\alpha) \in \mu_2$,
-  by replacing $\phi$ with $\phi \circ \tau_1$ if necessary.
+  by replacing $\phi$ with $\tau_2 \circ \phi$ if necessary.
 
   We claim that $\phi(\mu_1) = \mu_2$.
+  Indeed, let $\alpha' \in \mu_1$ be a special node.
+  Recall from \cref{eg-D4} that $\deg(\bar\mu_i) = 2$.
+  Now there are two cases:
+  either $\alpha$ and~$\alpha'$ are in the same~$\Gamma_\QQ$-orbit,
+  or they are in different orbits.
+  Assume that $\alpha$ and~$\alpha'$ are in the same orbit.
+  The proof of this case contains the essential idea
+  that will also be applied in all the remaining cases:
+  There exists a $g \in \Gamma_\QQ$
+  such that $g\alpha = \alpha'$.
+  By Chebotarev's density theorem,
+  we may assume that $g \in \Gamma_{\QQl}$
+  for some prime number~$\ell$.
+  Since $\phi(\alpha) \in \mu_2$, we have $\phi(\alpha) = \psi_\ell(\alpha)$,
+  and we compute
+  \[
+   \phi(\alpha') = \phi(g\alpha) = g\phi(\alpha) = g\psi_\ell(\alpha)
+   = \psi_\ell(g\alpha) = \psi_\ell(\alpha') \in \mu_2.
+  \]
+  Now suppose that $\alpha$ and~$\alpha'$ are in different orbits.
+  Let $\Delta_\alpha$ and~$\Delta_{\alpha'}$
+  be the connected components of~$\Delta$
+  that contain $\alpha$ and~$\alpha'$ respectively.
+  Let $s$ and~$s'$ be the $\mu$-symplectic nodes
+  in~$\Delta_\alpha$ and~$\Delta_{\alpha'}$ respectively.
+  Finally, let $\beta \in \Delta_\alpha$
+  and~$\beta' \in \Delta_{\alpha'}$ be such that
+  $\{\alpha,\beta,s\}$ is the set of extremal nodes of~$\Delta_\alpha$, and
+  $\{\alpha',\beta',s'\}$ is the set of extremal nodes of~$\Delta_{\alpha'}$.
+  There exists a $g \in \Gamma_\QQ$
+  such that $g\alpha = \beta'$.
+  By Chebotarev's density theorem,
+  we may assume that $g \in \Gamma_{\QQl}$
+  for some prime number~$\ell$.
+  Let $\lambda \divides \ell$ be the finite place of~$E$
+  that corresponds with the $\Gamma_{\QQl}$-closure of~$\Delta_\alpha$.
+
+  By construction $\phi$ maps
+  $U(\Delta_1,\mu_1) = \bar\mu_1$ to $U(\Delta_2,\mu_2) = \bar\mu_2$.
+  On the other hand, $\psi_\lambda(\bar\mu_{1,\lambda}) = \bar\mu_{2,\lambda}$
+  by assumption.
+  Hence $\phi(s) = \phi_\lambda(s)$.
+  Since $\phi(\alpha) \in \mu_2$, we have $\phi(\alpha) = \psi_\lambda(\alpha)$,
+  and therefore $\phi(\beta) = \psi_\lambda(\beta)$.
+  We compute
+  \[
+   \phi(\alpha') = \phi(g\beta) = g\phi(\beta) = g\psi_\lambda(\beta)
+   = \psi_\lambda(g\beta) = \psi_\lambda(\alpha') \in \mu_2.
+  \]
+  This finishes the proof in the case~$\DtD_4^\HQ$.
+
+  Finally, suppose that the type is $\DtD_n^\HQ$ with $n \ge 5$,
+  or the type is $\DtA_n$ and $\mu_i$ is not fixed by the opposition involution.
+  The proof is similar to the case~$\DtD_4^\HQ$.
+  There is a unique non-trivial $\Gamma_\QQ$-equivariant
+  involution~$\tau_i \in \Aut_\id(\Delta_i)$.
+  Once again, we have $\phi \circ \tau_1 = \tau_2 \circ \phi$.
+  Let $\alpha \in \mu_1$ be a special node that is not fixed under~$\tau_1$.
+  We may assume that $\phi(\alpha) \in \mu_2$,
+  by replacing $\phi$ with $\tau_2 \circ \phi$ if necessary.
+
+  As before, we claim that $\phi(\mu_1) = \mu_2$.
   Indeed, suppose that $\alpha' \in \mu_1$ is a special node, and
   let $\Delta_{\alpha'}$ be the component of~$\Delta_1$ containing~$\alpha'$.
   There exists a $g \in \Gamma_\QQ$
@@ -2514,32 +2596,9 @@ We will use this notation below.
   that contains~$\alpha$ (resp.~$\phi(\alpha)$).
   Since $\phi(\alpha) \in \mu_2$, we have $\phi(\alpha) = \psi_\ell(\alpha)$
   and therefore $\phi_\lambda = \psi_\lambda$.
-  This implies $\phi(\alpha') \in \mu_2$, which concludes the proof.
-
-  Finally, assume the type is $\DtD_4^\HQ$.
-  Recall that $\bar\mu_i$ has degree~$2$.
-  Thus there is a unique non-trivial $\Gamma_\QQ$-equivariant
-  involution~$\tau_i \in \Aut_\id(\Delta_i)$
-  such that $\tau_i(\bar\mu_i) = \bar\mu_i$.
-  Once again, we have $\phi \circ \tau_1 = \tau_2 \circ \phi$.
-  Let $\alpha \in \mu_1$ be a special node that is not fixed under~$\tau_1$.
-  We may assume that $\phi(\alpha) \in \mu_2$,
-  by replacing $\phi$ with $\phi \circ \tau_1$ if necessary.
-
-  As before, we claim that $\phi(\mu_1) = \mu_2$.
-  Indeed, let $\alpha' \in \mu_1$ be a special node.
-  There exists a $g \in \Gamma_\QQ$
-  such that $g\alpha = \alpha'$.
-  By Chebotarev's density theorem,
-  we may assume that $g \in \Gamma_{\QQl}$
-  for some prime number~$\ell$.
-  Since $\phi(\alpha) \in \mu_2$, we have $\phi(\alpha) = \psi_\ell(\alpha)$,
-  and we compute
-  \[
-   \phi(\alpha') = \phi(g\alpha) = g\phi(\alpha) = g\psi_\ell(\alpha)
-   = \psi_\ell(g\alpha) = \psi_\ell(\alpha') \in \mu_2.
-  \]
-  This completes the proof.
+  This implies $\phi(\alpha') \in \mu_2$,
+  by a computation similar to the one above above.
+  This completes the proof of \cref{deldyn-local-global}.
  \end{proof}
 \end{proposition}
 
@@ -2570,7 +2629,7 @@ that is called the \emph{Hodge--Tate} cocharacter.
  In particular, $\mu_\HT$ determines the subset $\mu \subset \Delta$.
  \begin{proof}
   By the Tannakian formalism,
-  the cocharacters $\mu_\HT$ and~$\mu$ correspond to a tensor functors
+  the cocharacters $\mu_\HT$ and~$\mu$ correspond to tensor functors
   \[
    \begin{aligned}
     \Hp \otimes \BHT{v} \colon \Tangen{M} &\to \grVect_{\BHT{v}} \\
@@ -2589,11 +2648,11 @@ that is called the \emph{Hodge--Tate} cocharacter.
   \end{align*}
   that maps a motive to the associated graded
   of its algebraic de~Rham realisation.
-  If $\GdR(M)/K$ denotes the algebraic group $\iAut^\otimes(\HdR)$
+  If $\GdR(M)/K$ denotes the algebraic group $\iAut^\otimes(\HdR)$,
   that corresponds to~$\Tangen{M}$ via the fibre functor~$\HdR$,
   then $\gr\HdR$ corresponds to a cocharacter $\mu_\dR \in X_*(\GdR(M))$.
 
-  Recall that $\GG(M)/\QQ$ is the algebraic group $\iAut^\otimes(\HB)$
+  Recall that $\GG(M)/\QQ$ is the algebraic group $\iAut^\otimes(\HB)$,
   that corresponds to~$\Tangen{M}$ via the fibre functor~$\HB$.
   The groups $\GdR(M)$ and $\GG(M) \otimes_\QQ K$ are inner forms of each other.
   In \cref{GB-id-comp} we explained that,
@@ -2637,7 +2696,7 @@ Let $M$ be an irreducible hyperadjoint abelian motive over~$\CC$,
 and let $(\Delta,\mu)$ be the Deligne--Dynkin diagram associated with~$M$.
 The endomorphism algebra $E = \End(M)$ is a totally real field
 (see the discussion in~\S2.3.4(a) of~\cite{Del_ShimVar}).
-Note that $\Hom(E,\QQbar) \cong \pi_0(\Delta)$.
+Note that $\Hom(E,\QQbar) \cong \pi_0(\Delta)$ as $\Gamma_\QQ$-sets.
 We also recall that $(\Delta,\mu)$ is symplectic (\cref{deldyn-symplectic}).
 Let $S$ be the subset of $\mu$-symplectic nodes of~$(\Delta,\mu)$.
 
@@ -2667,7 +2726,7 @@ The Hodge cocharacter $h \colon \DelS \to G_\RR$ lifts to a map
 $\tilde h \colon \tilde \DelS \to \tilde G_\RR$,
 endowing~$V$ with a fractional Hodge structure.
 The Hodge decomposition of~$V$ may be read off from
-the diagrams in~\cref{table-deligne-dynkin-diagrams}.
+the diagrams in~\cref{table-deligne-dynkin-diagrams}:
 If $s \in S$ lies in a component of~$\Delta$ that does not meet~$\mu$,
 then the type of~$V(s)$ is $\{(0,0)\}$.
 If $s$ lies in a component of~$\Delta$
@@ -2739,6 +2798,7 @@ has a finite kernel.
 In other words, the natural map
 $\GB(W_F) \times \tilde G \to \GB(A)$ is an isogeny,
 and so is the natural map $\GB(W_F) \to T$.
+We will need this fact in~\cref{same-ab-quot}.
 
 \section{The main proposition} % {{{-1
 
@@ -2762,8 +2822,8 @@ and so is the natural map $\GB(W_F) \to T$.
 \paragraph{} % {{{-2
 \label{prp-strategy}
 The proof of this \namecref{mtc-product-abelian-motives}
-will take the rest of this section.
-The strategy is as follows:
+will take the remainder of this section.
+Roughly speaking, the strategy is as follows:
 \begin{enumerate}
  \item First we prove that $\End(M_1) = \End(M_2)$.
  \item Next we show that $\Hl(M_1) \cong \Hl(M_2)$ for all primes~$\ell$.
@@ -2778,8 +2838,9 @@ The strategy is as follows:
   such that $A_1$ and~$A_2$ are defined over~$K$.
  \item By carefully tracing the $\ell$-adic counterpart of the construction
   we show that $A_1$ and~$A_2$ have isomorphic $\ell$-adic Tate modules.
- \item Finally, we apply Faltings's results to deduce that $A_1$ and~$A_2$
-  are isogenous, which implies $\HB(M_1) \cong \HB(M_2)$.
+ \item Finally, we apply Faltings's results
+  to deduce that $A_1$ and~$A_2$ are isogenous abelian varieties,
+  which implies $\HB(M_1) \cong \HB(M_2)$.
 \end{enumerate}
 Sadly however, this strategy is slightly too optimistic.
 It is not possible to work with the entire $\ell$-adic Galois representations:
@@ -2798,22 +2859,22 @@ by \cref{abelian-motive-quasi-compatible-realisations}.
 
 For a prime number~$\ell$, let $\Lambda_{i,\ell}$
 denote the set of places~$\lambda \in \Lambda_i$ that lie above~$\ell$.
-Recall that $\GB(M) = \Res_{E/\QQ}(G)$,
-for some absolutely simple adjoint group~$G$ over~$E$.
+Recall that $\GB(M) = \Res_{E/\QQ}(G_i)$,
+for some absolutely simple adjoint group~$G_i$ over~$E$.
 Since $\MTC(M_i)$ holds
 and Weil restriction of scalars commutes with base change,
 we find that
 \[
 \Glc(M_i) = \GB(M) \otimes_\QQ \QQl
 = \prod_{\lambda \in \Lambda_{i,\ell}}
-\Res_{E_{i,\lambda}/\QQl} (G \otimes_E E_\lambda).
+\Res_{E_{i,\lambda}/\QQl} (G_i \otimes_E E_\lambda).
 \]
 In particular we have
-$\Gl(\Hlambda(M_i)) = \Res_{E_{i,\lambda}/\QQl} (G \otimes_E E_\lambda)$
+$\Gl(\Hlambda(M_i)) = \Res_{E_{i,\lambda}/\QQl} (G_i \otimes_E E_\lambda)$
 for every $\lambda \in \Lambda_{i,\ell}$.
 If we write $\Glambda(M_i)$ for $\Glambda(\Hlambda(M_i))$
 then the above computation implies that
-$\Glambda(M_i)$ is equal to $G \otimes_E E_\lambda$,
+$\Glambda(M_i)$ is equal to $G_i \otimes_E E_\lambda$,
 an absolutely simple adjoint group over~$E_{i,\lambda}$.
 
 Let $\ell$ be a prime number
@@ -2832,17 +2893,17 @@ of Galois representations of~$K$.
 $\Lie(\Res_{E_{i,\lambda_i}/\QQl} \GG_{\lambda_i}(M_i))$.)
 
 Note that $\psi$ induces an isomorphism
-$f \colon \End_{\Gamma_K}(\HH_{\lambda_1}(M_1)) \to
-\End_{\Gamma_K}(\HH_{\lambda_2}(M_2))$.
+$f \colon \End_{\QQl}(\HH_{\lambda_1}(M_1))^{\Gamma_K} \to
+\End_{\QQl}(\HH_{\lambda_2}(M_2))^{\Gamma_K}$.
 Since these endomorphism algebras are commutative,
 the isomorphism~$f$ does not depend on~$\psi$.
 By \cref{recover-endomorphisms} we recover
 $\lambda_i \colon E_i \into E_{i,\lambda_i} =
-\End_{\Gamma_K}(\HH_{\lambda_i}(M_i))$
+\End_{\QQl}(\HH_{\lambda_i}(M_i))^{\Gamma_K}$
 as the subfield generated by coefficients of
 characteristic polynomials of Frobenius elements
 acting $E_{i,\lambda_i}$-linearly on~$\HH_{\lambda_i}(M_i)$.
-Because $\psi$ commutes with the action of these Frobenius elements
+Because $\psi$ commutes with the action of these Frobenius elements,
 the map~$f$ restricts to a canonical isomorphism
 $f \colon E_1 \to E_2$ that identifies $\lambda_1$ with~$\lambda_2$.
 Write $E$ for $E_1 = E_2$,
@@ -2866,9 +2927,9 @@ outlined in \cref{prp-strategy}.
 For $i = 1,2$, let $(\Delta_i,\mu_i)$
 be the Deligne--Dynkin diagram associated with~$M_i$,
 as in \cref{abmotdeldyn}.
-Let $f \colon \pi_0(\Delta_1) \to \pi_0(\Delta_2)$ be the map,
+Let $f \colon \pi_0(\Delta_1) \to \pi_0(\Delta_2)$ be the map
 that is defined by the canonical identifications
-$\pi_0(\Delta_i) \cong \Hom(E,\QQbar)$.
+$\pi_0(\Delta_i) \cong \Hom(E,\QQbar)$ of $\Gamma_\QQ$-sets.
 Since $\HLambda(M_1)$ and $\HLambda(M_2)$ are isomorphic
 as $E$-linear quasi-compatible systems of representations,
 we get local isomorphisms
@@ -2878,7 +2939,7 @@ $\psi_\ell(\mu_1) = \mu_2$ for all~$\ell$.
 Thus we may apply \cref{deldyn-local-global}
 to obtain an isomorphism
 $\phi \in \Isom_f\big((\Delta_1,\mu_1),(\Delta_2,\mu_2)\big)^{\Gamma_\QQ}$,
-such that $\psi_\lambda = \phi_\lambda$ for some finite place~$\lambda$ of~$E$.
+such that $\phi_\lambda = \psi_\lambda$ for some finite place~$\lambda$ of~$E$.
 
 \paragraph{} % {{{-2
 \label{run-del-constr}
@@ -2994,6 +3055,7 @@ at least after replacing $K$ by a finite field extension of~$K$.
 In actually executing this strategy, we play a minor variation.
 
 \paragraph{} % {{{-2
+\label{same-ab-quot}
 Recall from \cref{tori-isog}
 that for $i = 1,2$,
 the natural map $p_i \colon \GB(W_F) \to \GB(A_i)^\ab$ is an isogeny.
@@ -3078,11 +3140,13 @@ are isomorphic as $\lambda$-adic Galois representations.
 Another application of \cref{quasi-compatible-semisimple-isomorphic}
 shows that $\HLambda(A_1)$ and~$\HLambda(A_2)$
 are isomorphic $E$-rational quasi-compatible systems of representations.
+In particulare $\Hl(A_1)$ and~$\Hl(A_2)$ are isomorphic Galois representations.
 Finally, Faltings's theorem
 (Korollar~2 in~\S5 of~\cite{Fal83}, see also~\cite{Fal84})
-implies that $A_1$ and~$A_2$ are isogenous.
-Therefore $\HB(M_1) \cong \HB(M_2)$.
-This concludes the proof of \cref{mtc-product-abelian-motives}.
+implies that $A_1$ and~$A_2$ are isogenous abelian varieties.
+Since $M_i = \HH(A_i)^\ha$,
+we conclude that $\HB(M_1)$ and~$\HB(M_2)$ are isomorphic Hodge structures.
+This completes the proof of \cref{mtc-product-abelian-motives}.
 
 \section{The main theorem} % {{{-1
 
@@ -3151,7 +3215,8 @@ This concludes the proof of \cref{mtc-product-abelian-motives}.
   into a sum of irreducible motives.
   Note that for every $i \in I$, the motive~$M'_i$ is hyperadjoint,
   and $\MTC(M'_i)$ holds
-  since $M'_i$ is a summand of $M_1^\ha$ or~$M_2^\ha$ by \cref{ha-props}.
+  since the irreducible motive~$M'_i$ is a summand of $M_1^\ha$ or~$M_2^\ha$
+  by \cref{ha-summands}.
 		Now the result follows from \cref{mtc-finite-product-abelian-motives}.
 	\end{proof}
 \end{theorem}
@@ -3161,6 +3226,7 @@ This concludes the proof of \cref{mtc-product-abelian-motives}.
  for which it is known that their motives
  are objects of the category~$\mathcal{M}_K$
  of the preceding \namecref{mtc-abelian-motives-tannakian-subcategory}.
+ (See \cite{Mo17} for a recent overview of the state of the art.)
  \begin{enumerate}
   \item Simple abelian varieties of prime dimension (\cite{Ta83}).
   \item Abelian varieties of dimension~$g$ with trivial endomorphism ring
@@ -3171,7 +3237,7 @@ This concludes the proof of \cref{mtc-product-abelian-motives}.
   \item Cubic fourfolds (theorem~1.6.1 of~\cite{An96}).
  \end{enumerate}
  We remind the reader that the Mumford--Tate conjecture
- for an abelian fourfold~$A$ with $\End(A) = \ZZ$
+ for an abelian fourfold~$A$ with trivial endomorphism ring
  is still an open problem.
 \end{remark}
 
