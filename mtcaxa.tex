@@ -486,6 +486,8 @@ preheadhook={\bigskip}]{nproof}
 % \tableofcontents
 % -}}}1
 
+\vfill
+
 % {{{-1 Abstract
 {\narrower
  \small
@@ -507,11 +509,10 @@ preheadhook={\bigskip}]{nproof}
  and the Mumford--Tate conjecture holds for
  both~$A_1$ and~$A_2$, then it holds for $A_1 \times A_2$.
  These results do not depend on the embedding $K \subset \CC$.
- 
- We use techniques from Hodge theory, representation theory, and number theory.
- A crucial ingredient is a construction of~Deligne~\cite{Del_ShimVar}.
  \par}
 % -}}}1
+
+\vfill
 
 \section{Introduction} % {{{-1
 
@@ -566,6 +567,8 @@ Mumford--Tate conjecture holds
 is a subcategory that is closed under
 direct sums, tensor products, duals, and taking direct summands.
 
+\newpage
+
 \begin{remark} % {{{-2
  \begin{enumerate}
   \item Observe that the conclusion of the theorem
@@ -584,7 +587,7 @@ direct sums, tensor products, duals, and taking direct summands.
    may be anything, ranging from the diagonal
    (\emph{e.g.}, if $V_1 \cong V_2$)
    to the full product
-   (\emph{e.g.}, if $G_1$ and $G_2$ are simple and non-isomorphic).
+   (\emph{e.g.}, if $G_1 \not\cong G_2$ and both groups are simple).
 
    In the context of the main theorem we have
    \[
@@ -593,8 +596,8 @@ direct sums, tensor products, duals, and taking direct summands.
     \supset \GB(A_1 \times A_2) \otimes \QQl,
    \]
    and there is no \emph{a priori} formal reason why
-   $\Glc(A_1 \times A_2)$ should be the same subgroup as
-   $\GB(A_1 \times A_2) \otimes \QQl$.
+   $\Glc(A_1 \times A_2)$ and $\GB(A_1 \times A_2) \otimes \QQl$
+   should be the same subgroup.
   \item \label[remark]{Goursat}
    The situation above is exactly the setup where Goursat's lemma applies:
    we have two groups~$G_1$ and~$G_2$
@@ -654,9 +657,9 @@ direct sums, tensor products, duals, and taking direct summands.
   In addition, we assume that
   $\Glc(M_1 \oplus M_2) \subsetneq \Glc(M_1) \times \Glc(M_2)$.
  \item We use Goursat's lemma (see \cref{Goursat}) and
-  results from~\cite{Co17} to show that $\Hl(M_1) \cong \Hl(M_2)$,
-  for all prime numbers~$\ell$;
-  and we deduce that there is a canonical isomorphism
+  results from~\cite{Co17} to show that
+  for all prime numbers~$\ell$ we have $\Hl(M_1) \cong \Hl(M_2)$.
+  From this we deduce that there is a canonical isomorphism
   $\End(M_1) \cong \End(M_2)$.
  \item The remainder of the proof consists of applying
   a construction of Deligne to~$M_1$ and~$M_2$
@@ -664,7 +667,7 @@ direct sums, tensor products, duals, and taking direct summands.
   As a result we acquire two abelian varieties~$\tilde A_1$ and~$\tilde A_2$,
   and our job is to show that the isomorphism $\Hl(M_1) \cong \Hl(M_2)$
   lifts to an isomorphism $\Hl^1(\tilde A_1) \cong \Hl^1(\tilde A_2)$.
-  Once that is done,
+ \item Once that is done,
   we apply Faltings's theorem, to deduce that $\tilde A_1$ and~$\tilde A_2$
   are isogenous abelian varieties.
   This in turn implies $\GB(\tilde A_1) \cong \GB(\tilde A_2)$.
@@ -728,19 +731,17 @@ A Tannakian category over~$Q$
 is a $Q$-linear rigid abelian symmetric monoidal category
 with an isomorphism $Q \stackrel\sim\to \End(1)$ such that
 for every object $V \in T$ the following equivalent conditions hold:
-\begin{enumerate}
- \item there exists an integer~$n$ such that $\bigwedge^n V = 0$;
+\begin{enumerate*}[label=(\textit{\roman*})]
+ \item there exists an integer~$n$ such that $\bigwedge^n V = 0$; or
  \item $\dim(V)$ is an integer.
-\end{enumerate}
+\end{enumerate*}
 (See \S1.2 and th\'eor\`eme~7.1 of~\cite{Deligne_CatTan}.)
 The exterior power $\bigwedge^n V$ is defined in the usual way
 in terms of $\bigotimes^n V$ and antisymmetrisation.
 The dimension of~$V$ is defined as the trace of the identity morphism on~$V$,
 in other words, $\dim(V)$ is the composition of the natural morphisms
 $\delta$ (unit) and $\ev$ (counit):
-\[
- 1 \stackrel\delta\longto V^\star \otimes V \stackrel\ev\longto 1.
-\]
+$1 \stackrel\delta\longto V^\star \otimes V \stackrel\ev\longto 1$.
 Th\'eor\`eme~7.1 of~\cite{Deligne_CatTan}
 shows that the two conditions listed above are equivalent to the existence of
 a $Q$-algebra~$R$ and a fibre functor $T \to \Proj_R$.
@@ -864,8 +865,7 @@ this sequence stabilises at an object $V^{(\infty)}$.
   \item We have $W^\ad \in \Tangen{V^\ad}$, and $W^\ha \in \Tangen{V^\ha}$.
   \item If $V$ is a direct sum of hyperadjoint objects,
    then $\Tangen{V}$ is semisimple.
-  \item If $V$ is a direct sum of hyperadjoint objects
-   and~$W$ is hyperadjoint, then $W$ is a direct summand of~$V$.
+  \item If in addition $W$ is hyperadjoint, then $W$ is a direct summand of~$V$.
  \end{enumerate}
   Suppose that $V = V_1 \oplus V_2$, with $V_1,V_2 \in T$.
  \begin{enumerate}[resume]
@@ -873,7 +873,7 @@ this sequence stabilises at an object $V^{(\infty)}$.
    and in particular an object of $\Tangen{V_1^\ad \oplus V_2^\ad}$.
   \item For all $i \in \ZZ_{\ge0}$,
    we have $V^{(i+1)} \in \Tangen{(V_1^{(i)} \oplus V_2^{(i)})^\ad}
-   \subset \Tangen{V_1^{(i+1)} \oplus V_2^{(i+1)}}$
+   \subset \Tangen{V_1^{(i+1)} \oplus V_2^{(i+1)}}$.
   \item The object $V^\ha$ is a direct summand of $V_1^\ha \oplus V_2^\ha$.
    \label[lemma]{ha-summands}
  \end{enumerate}
@@ -885,8 +885,8 @@ this sequence stabilises at an object $V^{(\infty)}$.
   By assumption there is a surjective map $G \onto H$.
   \begin{enumerate}
    \item Since $G$ and~$H$ are groups over the field~$Q$ of characteristic~$0$,
-    the natural map $\Lie(G) \onto \Lie(H)$ is also surjective.
-    This proves the first claim, and the second claim follows by induction.
+    the map $G \onto H$ induces a surjection $\Lie(G) \onto \Lie(H)$.
+    This proves the first claim; the second follows by induction.
    \item If $V$ is hyperadjoint, then $G$ is semisimple and thus reductive.
     The general case---where $V$ is a direct sum of hyperadjoint objects---%
     follows from Goursat's lemma in the context of algebraic groups
@@ -921,9 +921,9 @@ this sequence stabilises at an object $V^{(\infty)}$.
  A \emph{fractional pre-Hodge structure} over~$R$
  consists of a free $R$-module~$V$ of finite rank,
  and a decomposition
- \[
+ $
   V \otimes \CC \cong \bigoplus_{p,q \in \QQ} V^{p,q}
- \]
+$
  over~$\CC$, such that $V^{p,q} = \overline{V^{q,p}}$.
 
  We denote the category of fractional pre-Hodge structures over~$R$
@@ -1038,9 +1038,10 @@ If there is no confusion, we will write $\mu$ for~$\mu_h$.
 \paragraph{} % {{{-2
 The category of (pure) motives developed by Andr\'e~\cite{An95}
 is very suitable for the problems at hand.
-Alternatively, we could have used motives for absolute Hodge cycles;
-this would not have had any influence on the statements of results or proofs.
+Alternatively, we could use motives for absolute Hodge cycles;
+this would not influence the statements of results or proofs.
 In the next paragraph we recall the definition of Andr\'e.
+\looseness=-1
 
 \paragraph{} % {{{-2
 Let $K$ be a subfield of~$\CC$,
@@ -1074,7 +1075,7 @@ Observe that $\HH(X) = \bigoplus_i \HH^i(X)$.
 This gives contravariant functors $\HH(\_)$ and $\HH^i(\_)$
 from the category of smooth projective varieties over~$K$ to~$\Mot_K$.
 
-\begin{theorem}
+\begin{theorem} % {{{-2
  The category $\Mot_K$ is Tannakian over~$\QQ$,
  semisimple, graded, and polarised.
  Every classical cohomology theory of smooth projective varieties over~$K$
@@ -1096,7 +1097,7 @@ and we obtain a Betti-realisation functor
 $\HB \colon \Mot_K \to \HS_\QQ$
 to the category of Hodge structures over~$\QQ$.
 There is a natural isomorphism $\Hl(\_) \cong \HB(\_) \otimes \QQl$
-of functors to $\QQl$-vector spaces.
+of functors from $\Mot_K$ to $\QQl$-vector spaces.
 
 \begin{definition} % {{{-2
  Let $K$ be a subfield of~$\CC$.
@@ -1125,9 +1126,10 @@ It is not known whether $\GG(\Mot_{\bar K})$ is connected.
  Let $M$ be a motive over a field~$K \subset \CC$.
  We denote with $\Gl(M)$ the Zariski closure of the image of
  the Galois representation $\Gamma_K \to \GL(\Hl(M))$,
- and with $\Glc(M)$ the identity component of~$\Gl(M)$.
- With $\GB(M)$ we denote the Mumford--Tate group of~$\HB(M)$.
- There are natural injective morphisms 
+ and we write $\Glc(M)$ for the identity component of~$\Gl(M)$.
+ With $\GB(M)$ we denote the Mumford--Tate group
+ of the Hodge structure~$\HB(M)$.
+ The realisation functors induce natural injective morphisms 
  $\Gl(M) \to \GG(M)_{\QQl}$ (via the comparison isomorphism)
  and $\GB(M) \to \GG(M)$.
 \end{notation}
@@ -1750,7 +1752,7 @@ in which $\alpha_0$ is depicted by a grey node
 		},
 		postaction=decorate] (A10) -- (A11);
 
-  \begin{scope}[xshift=6.5cm]
+  \begin{scope}[xshift=7cm]
    \node[diagramlabel] (Antext) [label=left:{\normalsize$\DtA_n^+$ ($n \ge 2$):}] at (-.2,0) {};
    \node[a0] (An0) at (2,-0.7) {};
    \node (An1) at (0,0) {};
@@ -1776,7 +1778,7 @@ in which $\alpha_0$ is depicted by a grey node
    \draw[doubledynkin] (Bnm1) -- (Bn);
   \end{scope}
 
-  \begin{scope}[xshift=6.5cm,yshift=-2cm]
+  \begin{scope}[xshift=7cm,yshift=-2cm]
 			\node[diagramlabel] (Ctext) [label=left:{\normalsize$\DtC_n^+$:}] at (-.2,0) {};
    \node[a0] (C0) at (0,0) {};
    \node (C1) at (1,0) {};
@@ -1802,7 +1804,7 @@ in which $\alpha_0$ is depicted by a grey node
 			\draw (Dnm2) -- (Dn);
 		\end{scope}
 
-  \begin{scope}[xshift=6.5cm,yshift=-4cm]
+  \begin{scope}[xshift=7cm,yshift=-4cm]
 			\node[diagramlabel] (E6text) [label=left:{\normalsize$\DtE_6^+$:}] at (-.2,0) {};
    \node[a0] (E60) at (2,1.4) {};
    \node (E61) at (0,0) {};
@@ -1814,11 +1816,7 @@ in which $\alpha_0$ is depicted by a grey node
    \draw (E61) -- (E62) -- (E63) -- (E64) -- (E60);
    \draw (E63) -- (E65) -- (E66);
   \end{scope}
- \end{tikzpicture}
-\]
-\[
- \begin{tikzpicture}[Dynkin]
-  \begin{scope}[xshift=6.0cm,yshift=0cm]
+  \begin{scope}[xshift=6.0cm,yshift=-6cm]
    \node[diagramlabel] (E7text) [label=left:{\normalsize$\DtE_7^+$:}] at (-.2,0) {};
    \node[a0] (E70) at (0,0) {};
    \node (E71) at (1,0) {};
@@ -1832,7 +1830,7 @@ in which $\alpha_0$ is depicted by a grey node
    \draw (E73) -- (E75) -- (E76) -- (E77);
   \end{scope}
 
-  \begin{scope}[xshift=5cm,yshift=-2cm]
+  \begin{scope}[xshift=5cm,yshift=-8cm]
    \node[diagramlabel] (E8text) [label=left:{\normalsize$\DtE_8^+$:}] at (-.2,0) {};
    \node[a0] (E80) at (0,0) {};
    \node (E81) at (1,0) {};
@@ -1847,7 +1845,7 @@ in which $\alpha_0$ is depicted by a grey node
    \draw (E85) -- (E87) -- (E88);
   \end{scope}
 
-  \begin{scope}[xshift=0cm,yshift=0cm]
+  \begin{scope}[xshift=0cm,yshift=-6cm]
    \node[diagramlabel] (F4text) [label=left:{\normalsize$\DtF_4^+$:}] at (-.2,0) {};
    \node[a0] (F40) at (0,0) {};
    \node (F41) at (1,0) {};
@@ -1859,7 +1857,7 @@ in which $\alpha_0$ is depicted by a grey node
    \draw (F43) -- (F44);
   \end{scope}
 
-  \begin{scope}[xshift=0cm,yshift=-2cm]
+  \begin{scope}[xshift=0cm,yshift=-8cm]
    \node[diagramlabel] (F4text) [label=left:{\normalsize$\DtG_2^+$:}] at (-.2,0) {};
    \node[a0] (G20) at (0,0) {};
    \node (G21) at (1,0) {};
@@ -1876,7 +1874,7 @@ in which $\alpha_0$ is depicted by a grey node
  let $\Delta^+ = \Delta \sqcup \{\alpha_0\}$ be the extended (or affine)
  Dynkin diagram associated with~$\Delta$.
  A node of $\Delta$ is \emph{special}
- if it is in the $\Aut(\Delta^+)$-orbit of~$\alpha_0$.
+ if it is contained in the $\Aut(\Delta^+)$-orbit of~$\alpha_0$.
  See~\cref{table-deligne-dynkin-diagrams}
  for diagrams that depict which nodes are special.
 \end{definition}
@@ -1933,6 +1931,42 @@ the computation in \S1.2.5 of~\cite{Del_ShimVar} shows
 that the nodes in~$\mu$ are special
 and $(\Delta,\mu)$ is a populated Deligne--Dynkin diagram over~$\QQ$.
 We call it the \emph{Deligne--Dynkin diagram of $M$}.
+
+\paragraph{} % {{{-2
+\label{opposition-involution}
+We recall the definition of the opposition involution on a Dynkin diagram.
+Let $(R,\Phi)$ be an irreducible root system, and
+let $\Delta \subset \Phi$ be a choice of positive simple roots.
+Then $\Delta$ may be identified with
+the vertices of the Dynkin diagram of~$(R,\Phi)$.
+Let $W$ be the Weyl group of~$(R,\Phi)$, and
+let $w_0$ be the longest element of the Weyl group (with respect to~$\Delta$).
+Then $w_0(\Delta) = -\Delta$
+and $-w_0$ defines an element~$\tau$ of $\Aut(\Delta)$:
+the \emph{opposition involution}.
+It is non-trivial if and only if
+$\Delta$ has type $\DtA_k$ with $k \ne 1$, $\DtD_k$ with $k$~odd, or $\DtE_6$.
+In these cases, $\tau$ is the unique non-trivial automorphism of~$\Delta$.
+In particular, the opposition involution depends only on the type of~$\Delta$.
+
+For non-connected Dynkin diagrams
+the opposition involution is defined componentwise.
+
+\begin{definition} % {{{-2
+ \label{symplectic-node}
+	Let $\Delta$ be a connected Dynkin diagram with opposition involution~$\tau$,
+ and let $\alpha \in \Delta$ be a special node.
+ A node $\omega \in \Delta$ is called \emph{$\alpha$-symplectic}
+ if $\langle \alpha, \omega + \tau(\omega) \rangle = 1$.
+\end{definition}
+
+\begin{remark} % {{{-2
+ The reasoning behind this terminology is best understood
+ in terms of Deligne's construction
+ (\cref{delignes-construction}, see also \S1.3 of~\cite{Del_ShimVar}):
+ the $\alpha$-symplectic nodes of~$\Delta$ correspond precisely to
+ the highest weights of certain symplectic representations.
+\end{remark}
 
 \paragraph{} % {{{-2
 \label{table-deligne-dynkin-diagrams}
@@ -2054,42 +2088,6 @@ The diagrams of type~$\DtE_6$ and~$\DtE_7$ do not have symplectic nodes.
 The diagrams of type~$\DtE_8$, $\DtF_4$, and~$\DtG_2$ do not occur:
 they do not have special nodes.
 \end{minipage} % -}}}3
-
-\paragraph{} % {{{-2
-\label{opposition-involution}
-We recall the definition of the opposition involution on a Dynkin diagram.
-Let $(R,\Phi)$ be an irreducible root system, and
-let $\Delta \subset \Phi$ be a choice of positive simple roots.
-Then $\Delta$ may be identified with
-the vertices of the Dynkin diagram of~$(R,\Phi)$.
-Let $W$ be the Weyl group of~$(R,\Phi)$, and
-let $w_0$ be the longest element of the Weyl group (with respect to~$\Delta$).
-Then $w_0(\Delta) = -\Delta$
-and $-w_0$ defines an element~$\tau$ of $\Aut(\Delta)$:
-the \emph{opposition involution}.
-It is non-trivial if and only if
-$\Delta$ has type $\DtA_k$ with $k \ne 1$, $\DtD_k$ with $k$~odd, or $\DtE_6$.
-In these cases, $\tau$ is the unique non-trivial automorphism of~$\Delta$.
-In particular, the opposition involution depends only on the type of~$\Delta$.
-
-For non-connected Dynkin diagrams
-the opposition involution is defined componentwise.
-
-\begin{definition} % {{{-2
- \label{symplectic-node}
-	Let $\Delta$ be a connected Dynkin diagram with opposition involution~$\tau$,
- and let $\alpha \in \Delta$ be a special node.
- A node $\omega \in \Delta$ is called \emph{$\alpha$-symplectic}
- if $\langle \alpha, \omega + \tau(\omega) \rangle = 1$.
-\end{definition}
-
-\begin{remark} % {{{-2
- The reasoning behind this terminology is best understood
- in terms of Deligne's construction
- (\cref{delignes-construction}, see also \S1.3 of~\cite{Del_ShimVar}):
- the $\alpha$-symplectic nodes of~$\Delta$ correspond precisely to
- the highest weights of certain symplectic representations.
-\end{remark}
 
 \begin{definition} % {{{-2
  \label{symplectic-nodes-deligne-dynkin-diagram}
@@ -2470,8 +2468,9 @@ We will use this notation below.
     $U(\Delta_2,\mu_2)_\lambda$.
    \item Finally, assume that $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$
     have type $\DtD_n^\HQ$ with $n \ge 5$.
-    Recall that $U(\Delta_i,\mu_i) = \bar\mu_i$ has degree~$1$ or~$2$.
-    If these degrees are equal, then we are done.
+    Recall that the subset $U(\Delta_i,\mu_i) = \bar\mu_i$
+    has degree~$1$ or~$2$.
+    If these degrees are equal, for $i = 1,2$, then we are done.
     Now suppose that the degree of $\bar\mu_1$ is~$2$.
     Let $\{\alpha,\beta\} \subset \bar\mu_1$
     be two nodes that lie in the same connected component of~$\Delta_1$.
@@ -2500,7 +2499,7 @@ We will use this notation below.
     since $\phi$ maps $U(\Delta_1,\mu_1) = S_1$
     to $U(\Delta_2,\mu_2) = S_2$ by construction;
    \item if the type is $\DtA_n$ with $n \ge 2$,
-    and $\mu_1$ (and therefore $\mu_2$) is fixed
+    and $\mu_1$ (and thus $\mu_2$) is fixed
     under the opposition involution.
   \end{itemize}
   The remaining cases require a bit more work:
@@ -2557,16 +2556,15 @@ We will use this notation below.
 
   By construction $\phi$ maps
   $U(\Delta_1,\mu_1) = \bar\mu_1$ to $U(\Delta_2,\mu_2) = \bar\mu_2$.
-  On the other hand, $\psi_\lambda(\bar\mu_{1,\lambda}) = \bar\mu_{2,\lambda}$
-  by assumption.
-  Hence $\phi(s) = \phi_\lambda(s)$.
+  On the other hand,
+  we have $\psi_\lambda(\bar\mu_{1,\lambda}) = \bar\mu_{2,\lambda}$
+  by assumption;
+  thus $\phi(s) = \phi_\lambda(s)$.
   Since $\phi(\alpha) \in \mu_2$, we have $\phi(\alpha) = \psi_\lambda(\alpha)$,
   and therefore $\phi(\beta) = \psi_\lambda(\beta)$.
   We compute
-  \[
-   \phi(\alpha') = \phi(g\beta) = g\phi(\beta) = g\psi_\lambda(\beta)
-   = \psi_\lambda(g\beta) = \psi_\lambda(\alpha') \in \mu_2.
-  \]
+  $\phi(\alpha') = \phi(g\beta) = g\phi(\beta) = g\psi_\lambda(\beta)
+   = \psi_\lambda(g\beta) = \psi_\lambda(\alpha') \in \mu_2$.
   This finishes the proof in the case~$\DtD_4^\HQ$.
 
   Finally, suppose that the type is $\DtD_n^\HQ$ with $n \ge 5$,
@@ -2634,7 +2632,7 @@ that is called the \emph{Hodge--Tate} cocharacter.
     \Hp \otimes \BHT{v} \colon \Tangen{M} &\to \grVect_{\BHT{v}} \\
     N &\mapsto \Hp(N) \otimes_{\QQp} \BHT{v}
    \end{aligned}
-   \qquad\text{respectively}\qquad
+   \qquad\text{and}\qquad
    \begin{aligned}
     \HB \otimes \CC \colon \Tangen{M} &\to \grVect_{\CC} \\
     N &\mapsto \HB(N) \otimes_\QQ \CC.
@@ -2651,29 +2649,37 @@ that is called the \emph{Hodge--Tate} cocharacter.
   that corresponds to~$\Tangen{M}$ via the fibre functor~$\HdR$,
   then $\gr\HdR$ corresponds to a cocharacter $\mu_\dR \in X_*(\GdR(M))$.
 
-  Recall that $\GG(M)/\QQ$ is the algebraic group $\iAut^\otimes(\HB)$,
-  that corresponds to~$\Tangen{M}$ via the fibre functor~$\HB$.
   The groups $\GdR(M)$ and $\GG(M) \otimes_\QQ K$ are inner forms of each other.
-  In \cref{GB-id-comp} we explained that,
-  the Mumford--Tate group $\GB(M)$ is the identity component of~$\GG(M)$
-  since $M$ is an abelian motive.
+  As a reminder:
+  Recall that $\GG(M)/\QQ$ is the algebraic group $\iAut^\otimes(\HB)$,
+  that corresponds to~$\Tangen{M}$ via the fibre functor~$\HB$,
+  and recall from \cref{GB-id-comp} that the identity component of~$\GG(M)$
+  is the Mumford--Tate group $\GB(M)$, since $M$ is an abelian motive.
 
   The comparison theorem between
   the Betti realisation
   and
   the algebraic de~Rham realisation
   gives a natural transformation $\HB \otimes \CC \to \gr\HdR \otimes \CC$.
-  This yields an injection $\GB(M) \otimes_\QQ \CC \into \GdR(M) \otimes_K \CC$
+  This yields an injective homomorphism of complex algebraic groups
+  $\GB(M) \otimes_\QQ \CC \into \GdR(M) \otimes_K \CC$
   that maps $\mu$ to~$\mu_\dR$.
 
   On the other hand, $p$-adic Hodge theory compares
   the $p$-adic \'etale realisation with the algebraic de~Rham realisation,
   and gives a natural transformation
   $\Hp \otimes \BHT{v} \to \gr\HdR \otimes \BHT{v}$.
-  This yields an inclusion
+  This yields an injection
   $\GB(M) \otimes_\QQ \BHT{v} \into \GdR(M) \otimes_K \CC$
   that maps $\mu_\HT$ to~$\mu_\dR$.
-  This finishes the proof.
+
+  The proof concludes by an application of the following remark:
+  Let $\bar Q \subset \bar Q'$ be an extension of algebraically closed fields,
+  and let $G$ be an algebraic group over~$\bar Q$.
+  Then the natural map $X_*(G) \to X_*(G_{\bar Q'})$ obtained by base change
+  induces a bijection
+  between the conjugacy classes of cocharacters of~$G$
+  and the conjugacy classes of cocharacters of~$G_{\bar Q'}$.
  \end{proof}
 \end{lemma}
 
@@ -2971,7 +2977,7 @@ We are now ready for the two final steps in~\cref{prp-strategy}.
 Let $\lambda$ be a finite place of~$E$ such that $\psi_\lambda = \phi_\lambda$,
 and let $\ell$ be the residue characteristic of~$\lambda$.
 Observe that $E$ acts on $M_i$,~$V_i$, $W_{F,i}$, and~$A_i$.
-We have the following diagram
+We have the following diagram:
 \[
  \begin{tikzcd}
   && (W_{F_i} \otimes_E E_\lambda)^* \ar[d] \\
@@ -2983,9 +2989,19 @@ We have the following diagram
   && \Glambda(M_i)(E_\lambda) \ar[r,hook] & \GL(\Hlambda(M_i))
  \end{tikzcd}
 \]
-If we forget the dashed arrow $\tilde\rho_{i,\lambda}$,
+If we temporarily forget the dashed arrow $\tilde\rho_{i,\lambda}$,
 then we can identify the two diagrams for $i = 1$ and $i = 2$,
-as follows:
+to obtain a diagram:
+\[
+ \begin{tikzcd}
+  && W_{F,\lambda}^* \ar[d] \\
+  && \Glambda'(E_\lambda) \ar[r,hook] \ar[dd,two heads] & \GL(\Hlambda') \\
+  \Gamma_K \ar[drr,bend right,"\rho_\lambda"] &
+  \widetilde{\Glambda}(E_\lambda) \ar[dr,two heads] \ar[ur] \\
+  && \Glambda(E_\lambda) \ar[r,hook] & \GL(\Hlambda)
+ \end{tikzcd}
+\]
+These identifications are justified as follows:
 \begin{itemize}
  \item In \cref{isom-qcsr} we showed that there is an
   isomorphism $\Hlambda(M_1) \to \Hlambda(M_2)$
@@ -3019,16 +3035,6 @@ as follows:
   Thus we may identify $\Glambda(A_1)$ with $\Glambda(A_2)$
   and call the resulting group $\Glambda'$.
 \end{itemize}
-We get the following diagram:
-\[
- \begin{tikzcd}
-  && W_{F,\lambda}^* \ar[d] \\
-  && \Glambda'(E_\lambda) \ar[r,hook] \ar[dd,two heads] & \GL(\Hlambda') \\
-  \Gamma_K \ar[drr,bend right,"\rho_\lambda"] &
-  \widetilde{\Glambda}(E_\lambda) \ar[dr,two heads] \ar[ur] \\
-  && \Glambda(E_\lambda) \ar[r,hook] & \GL(\Hlambda)
- \end{tikzcd}
-\]
 The dashed arrows $\tilde\rho_{1,\lambda}$
 and~$\tilde\rho_{2,\lambda}$ in the original diagrams
 can be identified with maps $\Gamma_K \to \Glambda'(\QQl)$
