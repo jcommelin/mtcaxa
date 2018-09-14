@@ -75,11 +75,12 @@ safeinputenc,style=quasialphabetic,citestyle=alphabetic]{biblatex}
  \refstepcounter{section}%
  \vbox{\normalfont\fontsize{12pt}{15pt}\selectfont%
   \centering\scshape\noindent\textls*{\thesection\quad#1}%
-  \par}
- \nobreak
+  \par}%
  \addcontentsline{toc}{section}{\protect\numberline{\thesection} #1}%
+ \nobreak%
  \@afterindentfalse%
  \@afterheading%
+ \nobreak%
 } 
 \newcommand{\sectionstar}[1]{%
  \vskip2\baselineskip\penalty-250
@@ -111,11 +112,11 @@ safeinputenc,style=quasialphabetic,citestyle=alphabetic]{biblatex}
  }
  \ignorespaces
 }
-\newcommand{\readmetitle}{\par\vskip\baselineskip%
- {\normalfont\normalsize\scshape\noindent%
-  \textls{Readme.}\ ---}
-}
-\newenvironment{readme}{\readmetitle\itshape}{\normalfont}
+\newcommand{\readmetitle}{{\normalfont\normalsize\scshape\noindent%
+  \textls{Readme.}\ ---}}
+\newenvironment{readme}{\par\vskip\baselineskip%
+ % \readmetitle
+ \itshape}{\normalfont}
 \renewcommand\tableofcontents{%
  \sectionstar{\contentsname}%
  \@starttoc{toc}%
@@ -291,6 +292,7 @@ preheadhook={\bigskip}]{nproof}
 \newcommand{\BdR}[1]{\textnormal{B}_{\dR,#1}}
 \newcommand{\HT}{\textnormal{HT}}
 \newcommand{\BHT}[1]{\textnormal{B}_{\HT,#1}}
+\newcommand{\FHT}[1]{\textnormal{F}_{\HT,#1}}
 \newcommand{\gr}{\textnormal{gr}}
 \newcommand{\GdR}{\GG_{\dR}}
 
@@ -332,6 +334,8 @@ preheadhook={\bigskip}]{nproof}
 
 \newcommand{\Char}{\textnormal{X}^{*}}
 \newcommand{\Cochar}{\textnormal{X}_{*}}
+
+\newcommand{\Fund}{\textnormal{Fund}}
 
 \newcommand{\Dyn}{\textnormal{Dyn}}
 
@@ -419,36 +423,36 @@ preheadhook={\bigskip}]{nproof}
 
 \usepackage{tikz}
 \usetikzlibrary{calc,
-	arrows.meta,
-	cd,
-	decorations.markings,
-	decorations.pathmorphing,
-	positioning,
-	positioning,
-	shadows,
-	shapes,
-	shapes.geometric
+ arrows.meta,
+ cd,
+ decorations.markings,
+ decorations.pathmorphing,
+ positioning,
+ positioning,
+ shadows,
+ shapes,
+ shapes.geometric
 }
 \tikzset{Dynkin/.style = {
-		every node/.style = {circle, draw, semithick, inner sep=2pt, fill=white,
-			copy shadow={fill=black, shadow xshift=0.3pt, shadow yshift=-0.1pt},
-		},
-		every label/.append style = {label distance=-2.5pt,
+  every node/.style = {circle, draw, semithick, inner sep=2pt, fill=white,
+   copy shadow={fill=black, shadow xshift=0.3pt, shadow yshift=-0.1pt},
+  },
+  every label/.append style = {label distance=-2.5pt,
    rectangle,draw=none,font=\footnotesize,
    inner sep=1ex,text depth=1pt,
-			every shadow/.style={opacity=0}
-		},
+   every shadow/.style={opacity=0}
+  },
   special/.style={rectangle, inner sep=2.4pt},
   symplectic/.style={correct forbidden sign},
-		a0/.style = {fill=gray!50},
+  a0/.style = {fill=gray!50},
   diagramlabel/.style = {draw=none,opacity=0},
-		doubledynkin/.style={double distance=2pt,
-			decoration={markings,
-				mark=at position 0.6 with {\arrow[semithick]{Straight Barb[length=5pt]}},
-			},
-			postaction={decorate},
-		}
-	}% end of Dynkin style
+  doubledynkin/.style={double distance=2pt,
+   decoration={markings,
+    mark=at position 0.6 with {\arrow[semithick]{Straight Barb[length=5pt]}},
+   },
+   postaction={decorate},
+  }
+ }% end of Dynkin style
 }% end of tikzset
 
 %%%%%%%%%%%%%%%%%% GET UPRIGHT BRACES
@@ -462,7 +466,7 @@ preheadhook={\bigskip}]{nproof}
 
 \renewcommand{\mkbibbrackets}[1]{\textup{[}#1\textup{]}}
 %%%%%%%%%%%%%%%%%%%%%%%%5
-
+\def\tops{\texorpdfstring}
 
 \def\title{The Mumford--Tate conjecture for products of abelian varieties}
 \def\author{Johan Commelin}
@@ -626,8 +630,9 @@ direct sums, tensor products, duals, and taking direct summands.
  \end{enumerate}
 \end{remark}
 
-\begin{remark}
- Vasiu~\cite{Va08} proves a similar result to \cref{mtcaxa}
+\begin{remark} % {{{-2
+ This paper extends work of Lombardo~\cite{Lo14} and Vasiu~\cite{Va08}.
+ In particular, Vasiu proves a similar result to \cref{mtcaxa}
  although he has to exclude the case where $A_1$ or~$A_2$
  has a Mumford--Tate group with a simple factor of type~$\DtD_4^\HQ$.
  His proof is long and very technical,
@@ -655,6 +660,8 @@ direct sums, tensor products, duals, and taking direct summands.
   For this we employ \emph{\cm~motives}, and
   reduce the claim to the Mumford--Tate conjecture for \cm~abelian varieties,
   which is known by work of Pohlmann~\cite{Pohl68}.
+  (This result is proven in theorem~1.3.1 of~\cite{Va08}
+  and corollary~2.11 of~\cite{UY13} using different methods.)
  \item The next step consists of replacing the abelian variety~$A_i$ ($i = 1,2$)
   by the motive~$M_i$ that corresponds---via the Tannakian formalism---with
   the adjoint representation of $\GB(A_i)^\ad$.
@@ -686,9 +693,10 @@ direct sums, tensor products, duals, and taking direct summands.
   Hence we win!
 \end{enumerate}
 
-\paragraph{Notation} % {{{-2
-For any field~$K$,
-we denote with~$\Gamma_K$ the absolute Galois group~$\Gal(\bar K/K)$.
+\begin{notation} % {{{-2
+ For any field~$K$,
+ we denote with~$\Gamma_K$ the absolute Galois group~$\Gal(\bar K/K)$.
+\end{notation}
 
 \paragraph{Acknowledgements} % {{{-2
 My warmest thanks go to my supervisor Ben Moonen.
@@ -698,8 +706,13 @@ I also thank Rutger Noot for a very inspiring discussion of this subject.
 This article also benefited from the extensive feedback on my PhD~thesis
 that I received from Anna Cadoret, Pierre Deligne, Bas Edixhoven,
 Milan Lopuha\"a, Rutger Noot, and Lenny Taelman.
-I thank Netan Dogra, Carel Faber, Salvatore Floccari, Joost Nuiten,
-and Frans Oort for their interest and useful comments.
+I thank Netan Dogra, Brad Drew, Carel Faber, Salvatore Floccari,
+Martin Gallauer, Joost Nuiten, and Frans Oort
+for their interest and useful comments.
+I express my gratitude to an anonymous referee
+for detailed comments and feedback,
+and for catching an error in an earlier version
+of~\cref{table-deligne-dynkin-diagrams}.
 
 This research has been financially supported by the Netherlands Organisation
 for Scientific Research~(NWO) under project no.~613.001.207
@@ -712,9 +725,7 @@ and no.~613.001.651
 \begin{readme} % {{{-2
  In representation theory the adjoint representation is very important.
  Via the Tannakian formalism
- we port adjoint representations to Tannakian categories---%
- which are categories that behave like
- the category of representations of a linear algebraic group.
+ we port adjoint representations to Tannakian categories.
  (For a good overview of the Tannakian formalism, see~\cite{Breen_TanCats}.
  For details we refer to~\cite{Deligne_CatTan} and~\cite{DMOS}.)
 
@@ -762,7 +773,8 @@ shows that the two conditions listed above are equivalent to the existence of
 a $Q$-algebra~$R$ and a fibre functor $T \to \Proj_R$.
 
 \paragraph{} % {{{-2
-Let $T$ be a Tannakian category over a field~$Q$ of characteristic~$0$.
+Throughout the rest of this section,
+$T$ will denote a Tannakian category over a field~$Q$ of characteristic~$0$.
 For a $Q$-algebra~$R$, recall that $\Fib(T)_R$ is the groupoid of
 fibre functors $T \to \Proj_R$.
 It turns out that $\Fib(T)$ is an algebraic stack over~$Q$.
@@ -786,7 +798,6 @@ if $G$ is an affine gerbe over~$Q$,
 then $G$ is naturally isomorphic to $\Fib(\Rep(G))$.
 
 \begin{definition} % {{{-2
- Let $T$ be a Tannakian category over a field~$Q$ of characteristic~$0$.
  Assume that $T$ is finitely generated (hence generated by one object).
  The \emph{adjoint object} in~$T$ is the object
  (well-defined up to isomorphism)
@@ -800,14 +811,12 @@ then $G$ is naturally isomorphic to $\Fib(\Rep(G))$.
 \end{definition}
 
 \begin{notation} % {{{-2
- Let $T$ be a Tannakian category over a field~$Q$ of characteristic~$0$.
  If $V$ is an object of~$T$,
  then $V^\ad$ denotes the adjoint object
  of the Tannakian subcategory $\Tangen{V} \subset T$ generated by~$V$.
 \end{notation}
 
 \paragraph{} % {{{-2
-Let $T$ be a Tannakian category over a field~$Q$ of characteristic~$0$.
 If $V$ is an object in~$T$,
 inductively define a sequence of objects by $V^{(0)} = V$,
 and $V^{(i+1)} = (V^{(i)})^\ad$ for $i \in \ZZ_{\ge0}$.
@@ -826,7 +835,6 @@ this sequence stabilises at an object $V^{(\infty)}$.
 \end{definition}
 
 \begin{remark} % {{{-2
- Let $T$ be a Tannakian category over a field~$Q$ of characteristic~$0$.
  The constructions $V \rightsquigarrow V^\ad$ and $V \rightsquigarrow V^\ha$
  are not functorial.
  They do not in general commute with
@@ -874,13 +882,14 @@ this sequence stabilises at an object $V^{(\infty)}$.
 
 \begin{lemma} % {{{-2
  \label{ha-props}
- Let $T$ be a Tannakian category over a field~$Q$ of characteristic~$0$.
  Let $V$ be an object of~$T$, and $W$ an object of~$\Tangen{V}$.
  \begin{enumerate}
   \item We have $W^\ad \in \Tangen{V^\ad}$, and $W^\ha \in \Tangen{V^\ha}$.
   \item If $V$ is a direct sum of hyperadjoint objects,
    then $\Tangen{V}$ is semisimple.
-  \item If in addition $W$ is hyperadjoint, then $W$ is a direct summand of~$V$.
+  \item If $V$ is a direct sum of hyperadjoint objects,
+   and in addition $W$ is hyperadjoint,
+   then $W$ is a direct summand of~$V$.
  \end{enumerate}
   Suppose that $V = V_1 \oplus V_2$, with $V_1,V_2 \in T$.
  \begin{enumerate}[resume]
@@ -1117,7 +1126,8 @@ of functors from $\Mot_K$ to $\QQl$-vector spaces.
 \begin{definition} % {{{-2
  Let $K$ be a subfield of~$\CC$.
  The \emph{motivic Galois group} $\GG(\Mot_K)$
- is the pro-algebraic affine group scheme $\iAut^\otimes(\HB)$ over~$\QQ$
+ is the pro-algebraic affine group scheme
+ $\iAut^\otimes(\HB)$ over~$\QQ$
  associated with~$\Mot_K$ via the Tannakian formalism.
  If~$M$ is a motive over~$K$, then we denote with $\GG(M)$
  the affine group scheme associated with $\Tangen{M} \subset \Mot_K$;
@@ -1248,7 +1258,7 @@ It is not known whether $\GG(\Mot_{\bar K})$ is connected.
 
 \begin{theorem} % {{{-2
  \label{hodge-is-motivated}
-	Consider the category of motives over~$\CC$.
+ Consider the category of motives over~$\CC$.
  The restriction of the Hodge realisation functor $\HB(\_)$
  to the subcategory of abelian motives is a full functor.
  \begin{proof}
@@ -1546,12 +1556,9 @@ the geometric Frobenius automorphism:
 \begin{notation} % {{{-2
  \label{frobenius-characteristic-polynomial}
  \gdef\Frobcharpol{\mathrm{P}}
- Let $K$ be a finitely generated field.
- Let $E$ be a number field
- and let $\lambda$ be a finite place of~$E$.
- Let $\rho$ be a $\lambda$-adic Galois representation of~$K$.
- Let $X$ be a model of~$K$,
- and let $x \in X^\cl$ be a closed point.
+ Let $K$,~$X$, $x$, $E$, $\lambda$, and~$\rho$
+ be as in \cref{unramified-representation}
+ and assume that $K$ is a finitely generated field.
  Let $F_x$ be a Frobenius element with respect to~$x$.
  Assume that $\rho$ is unramified at~$x$,
  so that the element $F_{x,\rho} = \rho(F_x)$ is well-defined up to conjugation.
@@ -1564,12 +1571,9 @@ the geometric Frobenius automorphism:
 
 \begin{definition} % {{{-2
  \label{rational-galois-representation}
-	Let $K$ be a finitely generated field.
- Let $E$ be a number field
- and let $\lambda$ be a finite place of~$E$.
- Let $\rho$ be a $\lambda$-adic Galois representation of~$K$.
- Let $X$ be a model of~$K$,
- and let $x \in X^\cl$ be a closed point.
+ Let $K$,~$X$, $x$, $E$, $\lambda$, and~$\rho$
+ be as in \cref{unramified-representation}
+ and assume that $K$ is a finitely generated field.
  The representation~$\rho$ is said to be \emph{$E$-rational at~$x$} if
  $\rho$~is unramified at~$x$,
  and $\Frobcharpol_{x,\rho,n}(t) \in E[t]$,
@@ -1578,7 +1582,7 @@ the geometric Frobenius automorphism:
 
 \begin{definition} % {{{-2
  \label{quasi-compatible-representations}
-	Let $K$ be a finitely generated field.
+ Let $K$ be a finitely generated field.
  Let $E$ be a number field and
  let $\lambda_{1}$ and~$\lambda_{2}$ be two finite places of~$E$.
  For $i = 1,2$, let $\rho_{i}$ be
@@ -1621,9 +1625,8 @@ the geometric Frobenius automorphism:
 \begin{definition} % {{{-2
  \label{quasi-compatible-system}
  Let $K$ be a finitely generated field.
- Let $E$ be a number field
- and let $\Lambda$ be a set of finite places of~$E$.
- Let $\rho_{\Lambda}$ be a system of Galois representations of~$K$.
+ Let $\rho_\Lambda = (E, \Lambda, (\rho_\lambda)_{\lambda \in \Lambda})$
+ be a system of Galois representations of~$K$.
  \begin{enumerate}
   \item Let $X$ be a model of~$K$.
    The system~$\rho_{\Lambda}$ is
@@ -1760,12 +1763,12 @@ in which $\alpha_0$ is depicted by a grey node
   \node[diagramlabel] (A1text) [label=left:{\normalsize$\DtA_1^+$:}] at (-.2,0) {};
   \node[a0] (A10) at (0,0) {};
   \node (A11) at (1,0) {};
-		\draw[double distance=2pt,
-		decoration={markings,
-			mark=at position 0.9 with {\arrow[semithick]{Straight Barb[length=5pt]}},
-			mark=at position 0.1 with {\arrowreversed[semithick]{Straight Barb[length=5pt]}}
-		},
-		postaction=decorate] (A10) -- (A11);
+  \draw[double distance=2pt,
+  decoration={markings,
+   mark=at position 0.9 with {\arrow[semithick]{Straight Barb[length=5pt]}},
+   mark=at position 0.1 with {\arrowreversed[semithick]{Straight Barb[length=5pt]}}
+  },
+  postaction=decorate] (A10) -- (A11);
 
   \begin{scope}[xshift=7cm]
    \node[diagramlabel] (Antext) [label=left:{\normalsize$\DtA_n^+$ ($n \ge 2$):}] at (-.2,0) {};
@@ -1775,26 +1778,26 @@ in which $\alpha_0$ is depicted by a grey node
    \node (Annm1) at (3,0) {};
    \node (Ann) at (4,0) {};
    \draw (Annm1) -- (Ann) -- (An0);
-			\draw[thick] (An0) -- (An1);
-			\draw (An1) -- (An2);
+   \draw[thick] (An0) -- (An1);
+   \draw (An1) -- (An2);
    \draw[dashed] (An2) -- (Annm1);
   \end{scope}
 
   \begin{scope}[yshift=-2cm]
-			\node[diagramlabel] (Btext) [label=left:{\normalsize$\DtB_n^+$:}] at (-.2,0) {};
+   \node[diagramlabel] (Btext) [label=left:{\normalsize$\DtB_n^+$:}] at (-.2,0) {};
    \node[a0] (B0) at (0,-.5) {};
    \node (B1) at (0,.5) {};
    \node (B2) at (1,0) {};
    \node (Bnm1) at (3,0) {};
    \node (Bn) at (4,0) {};
    \draw (B0) -- (B2);
-			\draw[thick] (B2) -- (B1);
+   \draw[thick] (B2) -- (B1);
    \draw[dashed] (B2) -- (Bnm1);
    \draw[doubledynkin] (Bnm1) -- (Bn);
   \end{scope}
 
   \begin{scope}[xshift=7cm,yshift=-2cm]
-			\node[diagramlabel] (Ctext) [label=left:{\normalsize$\DtC_n^+$:}] at (-.2,0) {};
+   \node[diagramlabel] (Ctext) [label=left:{\normalsize$\DtC_n^+$:}] at (-.2,0) {};
    \node[a0] (C0) at (0,0) {};
    \node (C1) at (1,0) {};
    \node (Cnm1) at (3,0) {};
@@ -1805,7 +1808,7 @@ in which $\alpha_0$ is depicted by a grey node
   \end{scope}
 
   \begin{scope}[yshift=-4cm]
-			\node[diagramlabel] (Dtext) [label=left:{\normalsize$\DtD_n^+$:}] at (-.2,0) {};
+   \node[diagramlabel] (Dtext) [label=left:{\normalsize$\DtD_n^+$:}] at (-.2,0) {};
    \node[a0] (D0) at (0,-.5) {};
    \node (D1) at (0,.5) {};
    \node (D2) at (1,0) {};
@@ -1813,14 +1816,14 @@ in which $\alpha_0$ is depicted by a grey node
    \node (Dnm1) at (4,-.5) {};
    \node (Dn) at (4,.5) {};
    \draw (D0) -- (D2);
-			\draw[thick] (D2) -- (D1);
+   \draw[thick] (D2) -- (D1);
    \draw[dashed] (D2) -- (Dnm2);
    \draw[thick] (Dnm1) -- (Dnm2);
-			\draw (Dnm2) -- (Dn);
-		\end{scope}
+   \draw (Dnm2) -- (Dn);
+  \end{scope}
 
   \begin{scope}[xshift=7cm,yshift=-4cm]
-			\node[diagramlabel] (E6text) [label=left:{\normalsize$\DtE_6^+$:}] at (-.2,0) {};
+   \node[diagramlabel] (E6text) [label=left:{\normalsize$\DtE_6^+$:}] at (-.2,0) {};
    \node[a0] (E60) at (2,1.4) {};
    \node (E61) at (0,0) {};
    \node (E62) at (1,0) {};
@@ -1969,7 +1972,7 @@ the opposition involution is defined componentwise.
 
 \begin{definition} % {{{-2
  \label{symplectic-node}
-	Let $\Delta$ be a connected Dynkin diagram with opposition involution~$\tau$,
+ Let $\Delta$ be a connected Dynkin diagram with opposition involution~$\tau$,
  and let $\alpha \in \Delta$ be a special node.
  A node $\omega \in \Delta$ is called \emph{$\alpha$-symplectic}
  if $\langle \alpha, \omega + \tau(\omega) \rangle = 1$.
@@ -1991,6 +1994,11 @@ equipped with a special node~$\alpha$.
 In other words, these are
 the irreducible populated Deligne--Dynkin diagrams over
 an algebraically closed field~$Q = \bar Q$.
+(Compared to table~1.3.9 of~\cite{Del_ShimVar}
+we have added a diagram~$\DtA_n$
+that depicts a special case of diagram~$\DtA_{p+q+1}$,
+for reasons of clarity.
+See also \S10 of~\cite{Mi13}, in particular footnote~34.)
 
 As explained in \cref{eg-special-nodes},
 if the Dynkin diagram has type~$\DtD_n$, then all extremal nodes are special.
@@ -2008,12 +2016,19 @@ remarque~1.3.10(ii) of~\cite{Del_ShimVar}.
 \begin{minipage}{.54\textwidth} % {{{-3
 \[
  \begin{tikzpicture}[Dynkin,yscale=-1]
-  \node[diagramlabel] (Atext) [label=right:{\normalsize$\DtA_{p+q-1}$:}] at (-1.25,0) {};
-  \node[symplectic] (A1) [label={$q/(p+q)$}] at (1,0) {};
-  \node[special] (Ap) [label={$pq/(p+q)$}] at (3,0) {};
-  \node[symplectic] (Ak) [label={$p/(p+q)$}] at (5,0) {};
+  \node[diagramlabel] (Atext) [label=right:{\normalsize$\DtA_{p+q-1}$:}] at (-1.25,-1) {};
+  \node[symplectic] (A1) [label={$q/(p+q)$}] at (1,-1) {};
+  \node[special] (Ap) [label={$pq/(p+q)$}] at (3,-1) {};
+  \node[symplectic] (Ak) [label={$p/(p+q)$}] at (5,-1) {};
   \draw[dashed] (A1) -- (Ap);
   \draw[dashed] (Ap) -- (Ak);
+
+  \node[diagramlabel] (A'text) [label=right:{\normalsize$\DtA_n$:}] at (-1.25,0) {};
+  \node[special] (A'1) [label={$n/(n+1)$}] at (1,0) {};
+  \node[symplectic] (A'2) at (2,0) {};
+  \node[symplectic] (A'k) [label={$1/(n+1)$}] at (5,0) {};
+  \draw (A'1) -- (A'2);
+  \draw[dashed] (A'2) -- (A'k);
 
   \node[diagramlabel] (Btext) [label=right:{\normalsize$\DtB_{l}$:}] at (-1.25,1) {};
   \node[special] (B1) [label={$1$}] at (1,1) {};
@@ -2097,6 +2112,8 @@ where the special node~$\alpha$ and the node~$\omega$
 are identified with the appropriate (co)characters.
 
 In diagram~$\DtA_{p+q-1}$ it is the $p$-th node that is special.
+If this special node is extremal, then all nodes are symplectic
+(diagram~$\DtA_n$); otherwise only the extremal nodes are symplectic.
 The diagram~$\DtD_{k+2}^{\HQ}$ is required to satisfy $k + 2 \ge 5$.
 
 The diagrams of type~$\DtE_6$ and~$\DtE_7$ do not have symplectic nodes.
@@ -2187,7 +2204,7 @@ they do not have special nodes.
  We will not say more about these diagrams in this example,
  apart from mentioning that the distinction
  between diagrams of type~$\DtD_4^\RR$ and~$\DtD_4^\HQ$
- will play an important r\^ole in the proofs in the remainder of this section
+ will play an important role in the proofs in the remainder of this section
  (notably the proof of \cref{deldyn-local-global}).
 \end{example}
 
@@ -2352,8 +2369,8 @@ such that $\pi_0(\phi) = f$.
  Then there exists
  an irreducible component $(\Delta_\lambda,\mu_\lambda)$ of $(\Delta,\mu)_{\QQl}$
  such that the natural map
- $\Aut_\id(\Delta,\mu)^{\Gamma_Q} \to
- \Aut_\id(\Delta_\lambda,\mu_\lambda)^{\Gamma_Q}$
+ $\Aut_\id(\Delta,\mu)^{\Gamma_\QQ} \to
+ \Aut_\id(\Delta_\lambda,\mu_\lambda)^{\Gamma_\QQ}$
  is an isomorphism.
  \begin{proof}
   This follows immediately from \cref{locally-same-type,AutDeltamu}.
@@ -2381,8 +2398,11 @@ a $\Gamma_Q$-closed subset $U(\Delta,\mu)$ of~$\Delta$
 with $\deg_{\pi_0(\Delta)}(U(\Delta,\mu)) \in \{1,2\}$.
 Indeed, let $S$ be the subset of $\mu$-symplectic nodes of~$(\Delta,\mu)$.
 \begin{itemize}
- \item If $(\Delta,\mu)$ has type~$\DtA_n$, we take~$U(\Delta,\mu) = S$,
+ \item If $(\Delta,\mu)$ has type~$\DtA_n$,
+  we let $U(\Delta,\mu)$ be the set of extremal nodes in~$\Delta$,
   which has degree~$1$ if $n = 1$ and degree~$2$ otherwise.
+  (N.b.: This set is equal to~$S$, unless all nodes in~$\mu$ are extremal,
+  \emph{cf.}, \cref{table-deligne-dynkin-diagrams}.)
  \item If $(\Delta,\mu)$ has type~$\DtB_n$, we take $U(\Delta,\mu) = S$,
   which has degree~$1$.
  \item If $(\Delta,\mu)$ has type~$\DtC_n$, we take $U(\Delta,\mu) = \bar\mu$,
@@ -2427,225 +2447,294 @@ We will use this notation below.
  $\pi_0(\Delta_1) \cong \Hom(E,\QQbar) \cong \pi_0(\Delta_2)$
  and write $f$ for the composite map $\pi_0(\Delta_1) \to \pi_0(\Delta_2)$.
  Suppose that for each prime number~$\ell$ there is an element
- $\psi_\ell \in
- \Isom_f\big((\Delta_1,\mu_1)_{\QQl},(\Delta_2,\mu_2)_{\QQl}\big)^{\Gamma_{\QQl}}$.
+ $\psi_\ell \in \Isom_f\big((\Delta_1,\mu_1)_{\QQl},
+ (\Delta_2,\mu_2)_{\QQl}\big)^{\Gamma_{\QQl}}$.
  Then there exists an isomorphism
  $\phi \in \Isom_f\big((\Delta_1,\mu_1),(\Delta_2,\mu_2)\big)^{\Gamma_\QQ}$
  and a finite place~$\lambda$ of~$E$
  such that $\phi_\lambda = \psi_\lambda$.
- \begin{proof}
-  It suffices to prove the existence of~$\phi$;
-  the second claim will follow automatically from \cref{locally-same-aut}.
-  First of all, observe
-  that $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$ have the same type,
-  by \cref{restriction-remarks-type} and \cref{locally-same-type}.
-  If this type is $\DtB_n$ or~$\DtC_n$,
-  then the topology of the diagrams
-  and the map $f \colon \pi_0(\Delta_1) \to \pi_0(\Delta_2)$
-  determine a unique $\Gamma_\QQ$-equivariant map
-  $\phi \in \Isom_f(\Delta_1,\Delta_2)^{\Gamma_\QQ}$.
-  Note that $\phi$ maps $\mu_1$ to~$\mu_2$,
-  because it does so locally.
-
-  The other types require more bookkeeping,
-  although the strategy remains the same.
-  We begin by proving that
-  there is an element $\phi \in \Isom_f(\Delta_1,\Delta_2)^{\Gamma_\QQ}$,
-  that may or may not map $\mu_1$ to~$\mu_2$.
-  By \cref{deg2-set}, a $\Gamma_\QQ$-equivariant isomorphism
-  $U(\Delta_1,\mu_1) \to U(\Delta_2,\mu_2)$ lying above~$f$
-  will extend to a $\Gamma_\QQ$-equivariant isomorphism
-  $\Delta_1 \to \Delta_2$.
-  Since the degree of~$U(\Delta_i,\mu_i)$ over~$\pi_0(\Delta_i)$
-  is at most~$2$,
-  the existence of global isomorphism
-  $U(\Delta_1,\mu_1) \to U(\Delta_2,\mu_2)$
-  will follow from Chebotarev's density theorem
-  if we prove that these sets are locally isomorphic
-  (\emph{cf.,} \cref{quadratic-remark}).
-  \begin{itemize}
-   \item If $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$ have type~$\DtA_n$,
-    or~$\DtD_n^\RR$ with $n \ge 5$,
-    then the topology of the diagrams
-    forces that $\psi_\ell(U(\Delta_1,\mu_1))$ equals $U(\Delta_2,\mu_2)$
-    for all prime numbers~$\ell$.
-   \item Now assume that $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$
-    have type~$\DtD_4^\RR$ or~$\DtD_4^\HQ$.
-    Let $\lambda$ be a finite place of~$E$.
-    There are two possibilities:
-    either the extremal nodes of
-    $(\Delta_1,\mu_1)_\lambda$ and $(\Delta_2,\mu_2)_\lambda$
-    form $2$ orbits under the action of $\Gamma_{\QQl}$,
-    or the extremal nodes form $3$ orbits.
-    For both possibilities it is clear that
-    $U(\Delta_1,\mu_1)_\lambda$
-    is isomorphic to
-    $U(\Delta_2,\mu_2)_\lambda$.
-   \item Finally, assume that $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$
-    have type $\DtD_n^\HQ$ with $n \ge 5$.
-    Recall that the subset $U(\Delta_i,\mu_i) = \bar\mu_i$
-    has degree~$1$ or~$2$.
-    If these degrees are equal, for $i = 1,2$, then we are done.
-    Now suppose that the degree of $\bar\mu_1$ is~$2$.
-    Let $\{\alpha,\beta\} \subset \bar\mu_1$
-    be two nodes that lie in the same connected component of~$\Delta_1$.
-    Without loss of generality we may and do assume $\alpha \in \mu_1$.
-    By Chebotarev's density theorem,
-    there exists a prime number~$\ell$ and $g \in \Gamma_{\QQl}$
-    such that $g\alpha = \beta$.
-    By assumption, we have $\psi_\ell(\alpha) \in \mu_2$
-    and $\psi_\ell(\beta) = g\psi_\ell(\alpha) \in \bar\mu_2$.
-    We conclude that $\bar\mu_1$ and~$\bar\mu_2$ have the same degree.
-  \end{itemize}
-  We have now proven that there exists a $\Gamma_\QQ$-equivariant
-  isomorphism $\phi \colon \Delta_1 \to \Delta_2$ lying over~$f$.
-  It remains to prove that we can choose~$\phi$
-  in such a way that it maps $\mu_1$ to~$\mu_2$.
-
-  At the beginning of this proof, we already dealt with the cases where
-  $(\Delta_1,\mu_1)$ and $(\Delta_2,\mu_2)$ have type~$\DtB_n$ or~$\DtC_n$.
-  We continue with some other easy cases,
-  where the topology of the diagrams forces $\phi(\mu_1) = \mu_2$.
-  This happens:
-  \begin{itemize}
-   \item if $(\Delta_1,\mu_1)$ and $(\Delta_2,\mu_2)$
-    are of type $\DtA_1$, or~$\DtD_n^\RR$ with $n \ge 5$;
-   \item if the type is $\DtD_4^\RR$,
-    since $\phi$ maps $U(\Delta_1,\mu_1) = S_1$
-    to $U(\Delta_2,\mu_2) = S_2$ by construction;
-   \item if the type is $\DtA_n$ with $n \ge 2$,
-    and $\mu_1$ (and thus $\mu_2$) is fixed
-    under the opposition involution.
-  \end{itemize}
-  The remaining cases require a bit more work:
-  so far we have not needed to change our choice of~$\phi$,
-  but with the remaining cases this might be necessary.
-
-  First consider the case~$\DtD_4^\HQ$.
-  Recall that $\bar\mu_i$ has degree~$2$.
-  Thus there is a unique non-trivial $\Gamma_\QQ$-equivariant
-  involution~$\tau_i \in \Aut_\id(\Delta_i)$
-  such that $\tau_i(\bar\mu_i) = \bar\mu_i$.
-  Observe that $\phi \circ \tau_1 = \tau_2 \circ \phi$.
-  Let $\alpha \in \mu_1$ be a special node.
-  We may assume that $\phi(\alpha) \in \mu_2$,
-  by replacing $\phi$ with $\tau_2 \circ \phi$ if necessary.
-
-  We claim that $\phi(\mu_1) = \mu_2$.
-  Indeed, let $\alpha' \in \mu_1$ be a special node.
-  Recall from \cref{eg-D4} that $\deg(\bar\mu_i) = 2$.
-  Now there are two cases:
-  either $\alpha$ and~$\alpha'$ are in the same~$\Gamma_\QQ$-orbit,
-  or they are in different orbits.
-  Assume that $\alpha$ and~$\alpha'$ are in the same orbit.
-  The proof of this case contains the essential idea
-  that will also be applied in all the remaining cases:
-  There exists a $g \in \Gamma_\QQ$
-  such that $g\alpha = \alpha'$.
-  By Chebotarev's density theorem,
-  we may assume that $g \in \Gamma_{\QQl}$
-  for some prime number~$\ell$.
-  Since $\phi(\alpha) \in \mu_2$, we have $\phi(\alpha) = \psi_\ell(\alpha)$,
-  and we compute
-  \[
-   \phi(\alpha') = \phi(g\alpha) = g\phi(\alpha) = g\psi_\ell(\alpha)
-   = \psi_\ell(g\alpha) = \psi_\ell(\alpha') \in \mu_2.
-  \]
-  Now suppose that $\alpha$ and~$\alpha'$ are in different orbits.
-  Let $\Delta_\alpha$ and~$\Delta_{\alpha'}$
-  be the connected components of~$\Delta$
-  that contain $\alpha$ and~$\alpha'$ respectively.
-  Let $s$ and~$s'$ be the $\mu$-symplectic nodes
-  in~$\Delta_\alpha$ and~$\Delta_{\alpha'}$ respectively.
-  Finally, let $\beta \in \Delta_\alpha$
-  and~$\beta' \in \Delta_{\alpha'}$ be such that
-  $\{\alpha,\beta,s\}$ is the set of extremal nodes of~$\Delta_\alpha$, and
-  $\{\alpha',\beta',s'\}$ is the set of extremal nodes of~$\Delta_{\alpha'}$.
-  There exists a $g \in \Gamma_\QQ$
-  such that $g\alpha = \beta'$.
-  By Chebotarev's density theorem,
-  we may assume that $g \in \Gamma_{\QQl}$
-  for some prime number~$\ell$.
-  Let $\lambda \divides \ell$ be the finite place of~$E$
-  that corresponds with the $\Gamma_{\QQl}$-closure of~$\Delta_\alpha$.
-
-  By construction $\phi$ maps
-  $U(\Delta_1,\mu_1) = \bar\mu_1$ to $U(\Delta_2,\mu_2) = \bar\mu_2$.
-  On the other hand,
-  we have $\psi_\lambda(\bar\mu_{1,\lambda}) = \bar\mu_{2,\lambda}$
-  by assumption;
-  thus $\phi(s) = \phi_\lambda(s)$.
-  Since $\phi(\alpha) \in \mu_2$, we have $\phi(\alpha) = \psi_\lambda(\alpha)$,
-  and therefore $\phi(\beta) = \psi_\lambda(\beta)$.
-  We compute
-  $\phi(\alpha') = \phi(g\beta) = g\phi(\beta) = g\psi_\lambda(\beta)
-   = \psi_\lambda(g\beta) = \psi_\lambda(\alpha') \in \mu_2$.
-  This finishes the proof in the case~$\DtD_4^\HQ$.
-
-  Finally, suppose that the type is $\DtD_n^\HQ$ with $n \ge 5$,
-  or the type is $\DtA_n$ and $\mu_i$ is not fixed by the opposition involution.
-  The proof is similar to the case~$\DtD_4^\HQ$.
-  There is a unique non-trivial $\Gamma_\QQ$-equivariant
-  involution~$\tau_i \in \Aut_\id(\Delta_i)$.
-  Once again, we have $\phi \circ \tau_1 = \tau_2 \circ \phi$.
-  Let $\alpha \in \mu_1$ be a special node that is not fixed under~$\tau_1$.
-  We may assume that $\phi(\alpha) \in \mu_2$,
-  by replacing $\phi$ with $\tau_2 \circ \phi$ if necessary.
-
-  As before, we claim that $\phi(\mu_1) = \mu_2$.
-  Indeed, suppose that $\alpha' \in \mu_1$ is a special node, and
-  let $\Delta_{\alpha'}$ be the component of~$\Delta_1$ containing~$\alpha'$.
-  There exists a $g \in \Gamma_\QQ$
-  such that $g\alpha \in \Delta_{\alpha'}$.
-  By Chebotarev's density theorem,
-  we may assume that $g \in \Gamma_{\QQl}$
-  for some prime number~$\ell$.
-  Now we argue as follows:
-  Let $(\Delta_1,\mu_1)_\lambda$
-  (resp.~$(\Delta_2,\mu_2)_\lambda$)
-  be the irreducible component of~$(\Delta_1,\mu_1)_{\QQl}$
-  (resp.\ $(\Delta_2,\mu_2)_{\QQl}$)
-  that contains~$\alpha$ (resp.~$\phi(\alpha)$).
-  Since $\phi(\alpha) \in \mu_2$, we have $\phi(\alpha) = \psi_\ell(\alpha)$
-  and therefore $\phi_\lambda = \psi_\lambda$.
-  This implies $\phi(\alpha') \in \mu_2$,
-  by a computation similar to the one above above.
-  This completes the proof of \cref{deldyn-local-global}.
- \end{proof}
 \end{proposition}
 
+\paragraph{} % {{{-2 Start proof of deldyn-local-global
+Unfortunately, the proof of this \namecref{deldyn-local-global}
+is rather long and technical.
+We will first look at some easy cases that give a good idea of the strategy.
+After that, the remaining cases are dealt with.
+The proof concludes in~\cref{deldyn-local-global-endproof}.
+
+Note that it suffices to prove the existence of~$\phi$;
+the second claim will follow automatically from \cref{locally-same-aut}.
+First of all, observe
+that $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$ have the same type,
+by \cref{restriction-remarks-type} and \cref{locally-same-type}.
+If this type is $\DtB_n$ or~$\DtC_n$,
+then the topology of the diagrams
+and the map $f \colon \pi_0(\Delta_1) \to \pi_0(\Delta_2)$
+determine a unique $\Gamma_\QQ$-equivariant map
+$\phi \in \Isom_f(\Delta_1,\Delta_2)^{\Gamma_\QQ}$.
+This map~$\phi$ sends $\mu_1$ to~$\mu_2$,
+because it does so locally.
+
 \paragraph{} % {{{-2
-Let $M$ be a hyperadjoint abelian motive
-over a finitely generated field $K \subset \CC$.
-Let $(\Delta,\mu)$ be the Deligne--Dynkin diagram associated with~$M$.
-Choose an embedding of $K$ into a $p$-adic field~$K_v$.
-Let $C_v$ be the completion of an algebraic closure of~$K_v$,
-let $C_v(i)$ denote the invertible $C_v$-module $C_v \otimes_{\QQp} \QQp(i)$,
-and let $\BHT{v}$ denote the Hodge--Tate ring $\bigoplus_{i \in \ZZ} C_v(i)$.
-By $p$-adic Hodge theory,
-we know that there is a grading on $\Hp(M) \otimes_{\QQp} \BHT{v}$.
-This determines a cocharacter~$\mu_\HT$ of
-$\Gpc(M) \otimes_{\QQp} \BHT{v} \subset \GB(M) \otimes_\QQ \BHT{v}$
+\label{using-cheb}
+The other types require more bookkeeping,
+although the strategy remains the same.
+We begin by proving that
+there is an element $\phi \in \Isom_f(\Delta_1,\Delta_2)^{\Gamma_\QQ}$,
+that may or may not map $\mu_1$ to~$\mu_2$.
+By \cref{deg2-set}, a $\Gamma_\QQ$-equivariant isomorphism
+$U(\Delta_1,\mu_1) \to U(\Delta_2,\mu_2)$ lying above~$f$
+will extend to a $\Gamma_\QQ$-equivariant isomorphism
+$\Delta_1 \to \Delta_2$.
+Since the degree of~$U(\Delta_i,\mu_i)$ over~$\pi_0(\Delta_i)$
+is at most~$2$,
+the existence of a global isomorphism
+$U(\Delta_1,\mu_1) \to U(\Delta_2,\mu_2)$
+will follow from Chebotarev's density theorem
+if we prove that these sets are locally isomorphic
+(\emph{cf.,} \cref{quadratic-remark}).
+\begin{itemize}
+ \item If $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$ have type~$\DtA_n$,
+  or~$\DtD_n^\RR$ with $n \ge 5$,
+  then the topology of the diagrams
+  forces that $\psi_\ell(U(\Delta_1,\mu_1))$ equals $U(\Delta_2,\mu_2)$
+  for all prime numbers~$\ell$.
+ \item Now assume that $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$
+  have type~$\DtD_4^\RR$ or~$\DtD_4^\HQ$.
+  Let $\lambda$ be a finite place of~$E$.
+  There are two possibilities:
+  either the extremal nodes of
+  $(\Delta_1,\mu_1)_\lambda$ and $(\Delta_2,\mu_2)_\lambda$
+  form $2$ orbits under the action of $\Gamma_{\QQl}$,
+  or the extremal nodes form $3$ orbits.
+  For both possibilities it is clear that
+  $U(\Delta_1,\mu_1)_\lambda$
+  is isomorphic to
+  $U(\Delta_2,\mu_2)_\lambda$.
+ \item Finally, assume that $(\Delta_1,\mu_1)$ and~$(\Delta_2,\mu_2)$
+  have type $\DtD_n^\HQ$ with $n \ge 5$.
+  Recall that the subset $U(\Delta_i,\mu_i) = \bar\mu_i$
+  has degree~$1$ or~$2$.
+  If these degrees are equal, for $i = 1,2$, then we are done.
+  Now suppose that the degree of $\bar\mu_1$ is~$2$.
+  Let $\{\alpha,\beta\} \subset \bar\mu_1$
+  be two nodes that lie in the same connected component of~$\Delta_1$.
+  Without loss of generality we may and do assume $\alpha \in \mu_1$.
+  By Chebotarev's density theorem,
+  there exists a prime number~$\ell$ and $g \in \Gamma_{\QQl}$
+  such that $g\alpha = \beta$.
+  By assumption, we have $\psi_\ell(\alpha) \in \mu_2$
+  and $\psi_\ell(\beta) = g\psi_\ell(\alpha) \in \bar\mu_2$.
+  We conclude that $\bar\mu_1$ and~$\bar\mu_2$ have the same degree.
+\end{itemize}
+We have now proven that there exists a $\Gamma_\QQ$-equivariant
+isomorphism $\phi \colon \Delta_1 \to \Delta_2$ lying over~$f$.
+It remains to prove that we can choose~$\phi$
+in such a way that it maps $\mu_1$ to~$\mu_2$.
+
+\paragraph{} % {{{-2
+At the beginning of this proof, we already dealt with the cases where
+$(\Delta_1,\mu_1)$ and $(\Delta_2,\mu_2)$ have type~$\DtB_n$ or~$\DtC_n$.
+We continue with some other easy cases,
+where the topology of the diagrams forces $\phi(\mu_1) = \mu_2$.
+This happens
+\begin{itemize}
+ \item if $(\Delta_1,\mu_1)$ and $(\Delta_2,\mu_2)$
+  are of type $\DtA_1$, or~$\DtD_n^\RR$ with $n \ge 5$;
+ \item if the type is $\DtD_4^\RR$,
+  since $\phi$ maps $U(\Delta_1,\mu_1) = S_1$
+  to $U(\Delta_2,\mu_2) = S_2$ by construction; and
+ \item if the type is $\DtA_n$ with $n \ge 2$,
+  and $\mu_1$ (and thus $\mu_2$) is fixed
+  under the opposition involution.
+\end{itemize}
+The remaining cases require a bit more work:
+so far we have not needed to change our choice of~$\phi$,
+but with the remaining cases this might be necessary.
+
+\paragraph{} % {{{-2
+First consider the case~$\DtD_4^\HQ$.
+Recall that $\bar\mu_i$ has degree~$2$.
+Thus there is a unique non-trivial $\Gamma_\QQ$-equivariant
+involution~$\tau_i \in \Aut_\id(\Delta_i)$
+such that $\tau_i(\bar\mu_i) = \bar\mu_i$.
+Observe that $\phi \circ \tau_1 = \tau_2 \circ \phi$.
+Let $\alpha \in \mu_1$ be a special node.
+We may assume that $\phi(\alpha) \in \mu_2$,
+by replacing $\phi$ with $\tau_2 \circ \phi$ if necessary.
+
+We claim that $\phi(\mu_1) = \mu_2$.
+Indeed, let $\alpha' \in \mu_1$ be a special node.
+Recall from \cref{eg-D4} that $\deg(\bar\mu_i) = 2$.
+Now there are two cases:
+either $\alpha$ and~$\alpha'$ are in the same~$\Gamma_\QQ$-orbit,
+or they are in different orbits.
+Assume that $\alpha$ and~$\alpha'$ are in the same orbit.
+The proof of this case contains the essential idea
+that will also be applied in all the remaining cases:
+There exists a $g \in \Gamma_\QQ$
+such that $g\alpha = \alpha'$.
+By Chebotarev's density theorem,
+we may assume that $g \in \Gamma_{\QQl}$
+for some prime number~$\ell$.
+Since $\phi(\alpha) \in \mu_2$, we have $\phi(\alpha) = \psi_\ell(\alpha)$,
+and we compute
+\[
+ \phi(\alpha') = \phi(g\alpha) = g\phi(\alpha) = g\psi_\ell(\alpha)
+ = \psi_\ell(g\alpha) = \psi_\ell(\alpha') \in \mu_2.
+\]
+Now suppose that $\alpha$ and~$\alpha'$ are in different orbits.
+Let $\Delta_\alpha$ and~$\Delta_{\alpha'}$
+be the connected components of~$\Delta$
+that contain $\alpha$ and~$\alpha'$ respectively.
+Let $s$ and~$s'$ be the $\mu$-symplectic nodes
+in~$\Delta_\alpha$ and~$\Delta_{\alpha'}$ respectively.
+Finally, let $\beta \in \Delta_\alpha$
+and~$\beta' \in \Delta_{\alpha'}$ be such that
+$\{\alpha,\beta,s\}$ is the set of extremal nodes of~$\Delta_\alpha$, and
+$\{\alpha',\beta',s'\}$ is the set of extremal nodes of~$\Delta_{\alpha'}$.
+There exists a $g \in \Gamma_\QQ$
+such that $g\alpha = \beta'$.
+By Chebotarev's density theorem,
+we may assume that $g \in \Gamma_{\QQl}$
+for some prime number~$\ell$.
+Let $\lambda \divides \ell$ be the finite place of~$E$
+that corresponds with the $\Gamma_{\QQl}$-closure of~$\Delta_\alpha$.
+
+By construction $\phi$ maps
+$U(\Delta_1,\mu_1) = \bar\mu_1$ to $U(\Delta_2,\mu_2) = \bar\mu_2$.
+On the other hand,
+we have $\psi_\lambda(\bar\mu_{1,\lambda}) = \bar\mu_{2,\lambda}$
+by assumption;
+thus $\phi(s) = \phi_\lambda(s)$.
+Since $\phi(\alpha) \in \mu_2$, we have $\phi(\alpha) = \psi_\lambda(\alpha)$,
+and therefore $\phi(\beta) = \psi_\lambda(\beta)$.
+We compute
+$\phi(\alpha') = \phi(g\beta) = g\phi(\beta) = g\psi_\lambda(\beta)
+= \psi_\lambda(g\beta) = \psi_\lambda(\alpha') \in \mu_2$.
+This finishes the proof in the case~$\DtD_4^\HQ$.
+
+\paragraph{} % {{{-2 End proof of deldyn-local-global
+\label{deldyn-local-global-endproof}
+Finally, suppose that the type is $\DtD_n^\HQ$ with $n \ge 5$,
+or the type is $\DtA_n$ and $\mu_i$ is not fixed by the opposition involution.
+The proof is similar to the case~$\DtD_4^\HQ$.
+There is a unique non-trivial $\Gamma_\QQ$-equivariant
+involution~$\tau_i \in \Aut_\id(\Delta_i)$.
+Once again, we have $\phi \circ \tau_1 = \tau_2 \circ \phi$.
+Let $\alpha \in \mu_1$ be a special node that is not fixed under~$\tau_1$.
+We may assume that $\phi(\alpha) \in \mu_2$,
+by replacing $\phi$ with $\tau_2 \circ \phi$ if necessary.
+
+As before, we claim that $\phi(\mu_1) = \mu_2$.
+Indeed, suppose that $\alpha' \in \mu_1$ is a special node, and
+let $\Delta_{\alpha'}$ be the component of~$\Delta_1$ containing~$\alpha'$.
+There exists a $g \in \Gamma_\QQ$
+such that $g\alpha \in \Delta_{\alpha'}$.
+By Chebotarev's density theorem,
+we may assume that $g \in \Gamma_{\QQl}$
+for some prime number~$\ell$.
+Now we argue as follows:
+Let $(\Delta_1,\mu_1)_\lambda$
+(resp.~$(\Delta_2,\mu_2)_\lambda$)
+be the irreducible component of~$(\Delta_1,\mu_1)_{\QQl}$
+(resp.\ $(\Delta_2,\mu_2)_{\QQl}$)
+that contains~$\alpha$ (resp.~$\phi(\alpha)$).
+Since $\phi(\alpha) \in \mu_2$, we have $\phi(\alpha) = \psi_\ell(\alpha)$
+and therefore $\phi_\lambda = \psi_\lambda$.
+This implies $\phi(\alpha') \in \mu_2$,
+by a computation similar to the one above above.
+This completes the proof of \cref{deldyn-local-global}.
+
+\begin{remark} % {{{-2
+ In the preceding \namecref{deldyn-local-global},
+ the hypothesis that $\psi_\ell$ exists for \emph{each} prime number~$\ell$,
+ may be weakened to the condition that $\psi_\ell$ exists
+ for a set of prime numbers with Dirichlet density~$1$.
+ This weaker condition is sufficient to apply Chebotarev's density theorem
+ in~\cref{using-cheb}.
+\end{remark}
+
+\section{Deligne--Dynkin diagrams and \tops{$p$}{\it p}-adic Hodge theory} % {{{-1
+
+\begin{readme} % {{{-2
+ Let $M$ be a hyperadjoint abelian motive
+ over a finitely generated field $K \subset \CC$,
+ and let $(\Delta,\mu)$ be the Deligne--Dynkin diagram of~$M$.
+ In this short section we apply $p$-adic Hodge theory
+ to determine the subset $\mu \subset \Delta$
+ from the $p$-adic realisation~$\Hp(M)$.
+\end{readme}
+
+\begin{theorem} % {{{-2
+ \label{faltings-p-adic-comparison}
+ Let $M$ be a motive over a $p$-adic field~$K_v$.
+ Let $C_v$ be the completion of an algebraic closure of~$K_v$,
+ and for $i \in \ZZ$, write $C_v(i)$ for $C_v \otimes_{\QQp} \QQp(i)$
+ with the diagonal action of~$\Gamma_{K_v}$.
+ Then there is a functorial isomorphism of $C_v$-vector spaces
+ \[
+  \Hp(M) \otimes_{\QQp} C_v \cong
+  \bigoplus_{i \in \ZZ} \gr^i \HdR(M) \otimes_{K_v} C_v(-i)
+ \]
+ that is compatible with the action of~$\Gamma_{K_v}$.
+ \begin{proof}
+  If $M = \HH^n(X)$ for some smooth projective variety~$X$ over~$K_v$,
+  then this result is theorem~4.1 of~\cite{Fa88}.
+  Since the cited theorem shows that the comparison isomorphism
+  is an isomorphism of Weil cohomology theories,
+  one deduces that the isomorphism is compatible with motivated cycles.
+  This implies that the result is true for a general motive~$M$.
+ \end{proof}
+\end{theorem}
+
+\begin{corollary} % {{{-2
+ Let $\BHT{v}$ denote the graded ring $\bigoplus_{i \in \ZZ} C_v(i)$,
+ and let $\FHT{v}$ be the field of fractions of~$\BHT{v}$.
+ Then there is a functorial isomorphism of graded $\FHT{v}$-vector spaces
+ \[
+  (\Hp(M) \otimes_{\QQp} \BHT{v}) \otimes_{\BHT{v}} \FHT{v} \cong
+  \gr\HdR(M) \otimes_{K_v} \FHT{v}
+ \]
+ that is compatible with the action of~$\Gamma_{K_v}$.
+ (The grading on the left-hand-side comes from the grading on~$\BHT{v}$.)
+\end{corollary}
+
+\paragraph{} % {{{-2
+Let $M$ be a motive over a finitely generated field $K \subset \CC$,
+and choose an embedding of~$K$ into a $p$-adic field~$K_v$.
+Let $C_v$, $C_v(i)$, $\BHT{v}$, and~$\FHT{v}$ be as above.
+The choices $K \subset K_v \subset C_v$
+determine a grading on~$\Hp(M) \otimes_{\QQp} \FHT{v}$.
+This grading induces a cocharacter~$\mu_\HT$ of
+$\Gp(M) \otimes_{\QQp} \FHT{v} \subset \GG(M) \otimes_\QQ \FHT{v}$
 that is called the \emph{Hodge--Tate} cocharacter.
+If $M$ is abelian,
+then we may view $\mu_\HT$ as cocharacter of $\GB(M) \otimes_\QQ \FHT{v}$ since
+$\Gpc(M) \subset \GB(M) \otimes_\QQ \QQp = \GG(M)^\circ \otimes_\QQ \QQp$
+by \cref{hodge-is-motivated}.
 
 \begin{lemma} % {{{-2
  \label{hodge-tate-cochar-deldyn}
- Retain the notation of the preceding paragraph.
- The conjugacy class of the cocharacter
- $\mu_\HT \in X_*(\GB(M) \otimes_\QQ \BHT{v})$
- and
- the conjugacy class of the Hodge cocharacter
- $\mu \in X_*(\GB(M) \otimes_\QQ \CC)$
- correspond to the same conjugacy class of
- cocharacters $X_*(\GB(M) \otimes_\QQ \QQbar)$.
- In particular, $\mu_\HT$ determines the subset $\mu \subset \Delta$.
+ Let $M$ be a hyperadjoint abelian motive
+ over a finitely generated field $K \subset \CC$,
+ and choose an embedding of~$K$ into a $p$-adic field~$K_v$.
+ Let $C_v$, $C_v(i)$, $\BHT{v}$, and~$\FHT{v}$ be as above.
+ Then the $\GB(M)$-conjugacy class of
+ $\mu_\HT \in \Cochar(\GB(M) \otimes_\QQ \FHT{v})$
+ and the $\GB(M)$-conjugacy class of the Hodge cocharacter
+ $\mu \in \Cochar(\GB(M) \otimes_\QQ \CC)$
+ both correspond to the same $\GB(M)$-conjugacy class of
+ cocharacters in $\Cochar(\GB(M) \otimes_\QQ \QQbar)$.
+ In particular, if $(\Delta,\mu)$ is the Deligne--Dynkin diagram of~$M$,
+ then $\mu_\HT$ determines the subset $\mu \subset \Delta$.
  \begin{proof}
   By the Tannakian formalism,
   the cocharacters $\mu_\HT$ and~$\mu$ correspond to tensor functors
   \[
    \begin{aligned}
-    \Hp \otimes \BHT{v} \colon \Tangen{M} &\to \grVect_{\BHT{v}} \\
-    N &\mapsto \Hp(N) \otimes_{\QQp} \BHT{v}
+    \Hp \otimes \FHT{v} \colon \Tangen{M} &\to \grVect_{\FHT{v}} \\
+    N &\mapsto \Hp(N) \otimes_{\QQp} \FHT{v}
    \end{aligned}
    \qquad\text{and}\qquad
    \begin{aligned}
@@ -2660,41 +2749,47 @@ that is called the \emph{Hodge--Tate} cocharacter.
   \end{align*}
   that maps a motive to the associated graded
   of its algebraic de~Rham realisation.
-  If $\GdR(M)/K$ denotes the algebraic group $\iAut^\otimes(\HdR)$,
-  that corresponds to~$\Tangen{M}$ via the fibre functor~$\HdR$,
-  then $\gr\HdR$ corresponds to a cocharacter $\mu_\dR \in X_*(\GdR(M))$.
-
-  The groups $\GdR(M)$ and $\GG(M) \otimes_\QQ K$ are inner forms of each other.
-  As a reminder:
-  Recall that $\GG(M)/\QQ$ is the algebraic group $\iAut^\otimes(\HB)$,
-  that corresponds to~$\Tangen{M}$ via the fibre functor~$\HB$,
-  and recall from \cref{GB-id-comp} that the identity component of~$\GG(M)$
-  is the Mumford--Tate group $\GB(M)$, since $M$ is an abelian motive.
+  Write $U_K$ for the forgetful functor $\grVect_K \to \Vect_K$.
+  If $\mathcal{G}(M)/K$ denotes the algebraic group
+  $\iAut^\otimes(U_K \circ \gr\HdR)$
+  that corresponds to~$\Tangen{M}$ via the fibre functor~$U_K \circ \gr\HdR$,
+  then $\gr\HdR$ corresponds to a cocharacter
+  $\mu_\dR \in \Cochar(\mathcal{G}(M))$.
 
   The comparison theorem between
-  the Betti realisation
-  and
-  the algebraic de~Rham realisation
+  the Betti realisation and the algebraic de~Rham realisation
   gives a natural transformation $\HB \otimes \CC \to \gr\HdR \otimes \CC$.
   This yields an injective homomorphism of complex algebraic groups
-  $\GB(M) \otimes_\QQ \CC \into \GdR(M) \otimes_K \CC$
+  $\GB(M) \otimes_\QQ \CC \into \mathcal{G}(M) \otimes_K \CC$
   that maps $\mu$ to~$\mu_\dR$.
 
   On the other hand, $p$-adic Hodge theory compares
   the $p$-adic \'etale realisation with the algebraic de~Rham realisation,
   and gives a natural transformation
-  $\Hp \otimes \BHT{v} \to \gr\HdR \otimes \BHT{v}$.
+  $\Hp \otimes \FHT{v} \to \gr\HdR \otimes \FHT{v}$.
   This yields an injection
-  $\GB(M) \otimes_\QQ \BHT{v} \into \GdR(M) \otimes_K \CC$
+  $\GB(M) \otimes_\QQ \FHT{v} \into \mathcal{G}(M) \otimes_K \FHT{v}$
   that maps $\mu_\HT$ to~$\mu_\dR$.
 
   The proof concludes by an application of the following remark:
-  Let $\bar Q \subset \bar Q'$ be an extension of algebraically closed fields,
+  Let $\bar Q \subset \bar Q'$ be an extension of
+  algebraically closed fields of characteristic~$0$,
   and let $G$ be an algebraic group over~$\bar Q$.
-  Then the natural map $X_*(G) \to X_*(G_{\bar Q'})$ obtained by base change
-  induces a bijection
+  Then the natural map $\Cochar(G) \to \Cochar(G_{\bar Q'})$
+  obtained by base change, induces a bijection
   between the conjugacy classes of cocharacters of~$G$
   and the conjugacy classes of cocharacters of~$G_{\bar Q'}$.
+  Indeed, let $T \subset B \subset G$ be a choice of
+  a maximal torus~$T$ and a Borel subgroup~$B$,
+  and let $\Fund(T,B) \subset \Cochar(T)$ denote the fundamental chamber.
+  Every conjugacy class of cocharacters of~$G$
+  has a unique representative in $\Fund(T,B)$,
+  and so we find a chain of isomorphisms
+  \[
+   \Cochar(G)/G \cong \Fund(T,B) \cong \Fund(T_{\bar Q'},B_{\bar Q'})
+   \cong \Cochar(G_{\bar Q'})/G_{\bar Q'}.
+  \]
+  This finishes the proof of the \namecref{hodge-tate-cochar-deldyn}.
  \end{proof}
 \end{lemma}
 
@@ -2714,8 +2809,15 @@ that is called the \emph{Hodge--Tate} cocharacter.
 \paragraph{Preparations} % {{{-2
 Let $M$ be an irreducible hyperadjoint abelian motive over~$\CC$,
 and let $(\Delta,\mu)$ be the Deligne--Dynkin diagram associated with~$M$.
-The endomorphism algebra $E = \End(M)$ is a totally real field
+Since $M$ is hyperadjoint, the group~$\GG(M)$ is adjoint;
+and because $M$ is irreducible, it is of the form $\Res_{E/\QQ}\mathcal{G}$,
+where $E$ is a number field,
+and $\mathcal{G}$ is an absolutely simple adjoint group over~$E$.
+This number field~$E$ is a totally real field
 (see the discussion in~\S2.3.4(a) of~\cite{Del_ShimVar}).
+We have $E = \End(M)$, once again because
+$M$ is hyperadjoint---and therefore corresponds to the
+adjoint representation of $\GG(M)$ under the Tannakian formalism.
 Note that $\Hom(E,\QQbar) \cong \pi_0(\Delta)$ as $\Gamma_\QQ$-sets.
 We also recall that $(\Delta,\mu)$ is symplectic (\cref{deldyn-symplectic}).
 Let $S$ be the subset of $\mu$-symplectic nodes of~$(\Delta,\mu)$.
@@ -2795,7 +2897,7 @@ Put $V' = W_F \otimes_{F_S} V$.
 A computation shows that $V'$
 is a Hodge structure of type $\{(1,0), (0,1)\}$.
 It turns out that $V'$~is a polarisable Hodge structure
-(see \cite{Del_ShimVar} for details).
+(see corollaire~2.3.3 of~\cite{Del_ShimVar} for details).
 Thus there is a complex abelian variety~$A$ (well-defined up to isogeny)
 such that $\HB^1(A) \cong V'$.
 Since $W_F$ is of \cm~type,
@@ -2879,22 +2981,22 @@ by \cref{abelian-motive-quasi-compatible-realisations}.
 
 For a prime number~$\ell$, let $\Lambda_{i,\ell}$
 denote the set of places~$\lambda \in \Lambda_i$ that lie above~$\ell$.
-Recall that $\GB(M) = \Res_{E/\QQ}(G_i)$,
-for some absolutely simple adjoint group~$G_i$ over~$E$.
+Recall that $\GB(M) = \Res_{E_i/\QQ}(G_i)$,
+for some absolutely simple adjoint group~$G_i$ over~$E_i$.
 Since $\MTC(M_i)$ holds
 and Weil restriction of scalars commutes with base change,
 we find that
 \[
 \Glc(M_i) = \GB(M) \otimes_\QQ \QQl
 = \prod_{\lambda \in \Lambda_{i,\ell}}
-\Res_{E_{i,\lambda}/\QQl} (G_i \otimes_E E_\lambda).
+\Res_{E_{i,\lambda}/\QQl} (G_i \otimes_{E_i} E_{i,\lambda}).
 \]
-In particular we have
-$\Gl(\Hlambda(M_i)) = \Res_{E_{i,\lambda}/\QQl} (G_i \otimes_E E_\lambda)$
+In particular we have $\Gl(\Hlambda(M_i))
+= \Res_{E_{i,\lambda}/\QQl} (G_i \otimes_{E,i} E_{i,\lambda})$
 for every $\lambda \in \Lambda_{i,\ell}$.
 If we write $\Glambda(M_i)$ for $\Glambda(\Hlambda(M_i))$
 then the above computation implies that
-$\Glambda(M_i)$ is equal to $G_i \otimes_E E_\lambda$,
+$\Glambda(M_i)$ is equal to $G_i \otimes_{E_i} E_{i,\lambda}$,
 an absolutely simple adjoint group over~$E_{i,\lambda}$.
 
 Let $\ell$ be a prime number
@@ -2997,11 +3099,11 @@ We have the following diagram:
  \begin{tikzcd}
   && (W_{F_i} \otimes_E E_\lambda)^* \ar[d] \\
   && \Glambda(A_i)(E_\lambda) \ar[r,hook] \ar[dd,two heads]
-  & \GL(\Hlambda(A_i)) \\
+  & \GL(\Hlambda(A_i))(E_\lambda) \\
   \Gamma_K \ar[urr,dashed,bend left,"\tilde\rho_{i,\lambda}"]
   \ar[drr,bend right,"\rho_{i,\lambda}"] &
   \widetilde{\Glambda(M_i)}(E_\lambda) \ar[dr,two heads] \ar[ur] \\
-  && \Glambda(M_i)(E_\lambda) \ar[r,hook] & \GL(\Hlambda(M_i))
+  && \Glambda(M_i)(E_\lambda) \ar[r,hook] & \GL(\Hlambda(M_i))(E_\lambda)
  \end{tikzcd}
 \]
 If we temporarily forget the dashed arrow $\tilde\rho_{i,\lambda}$,
@@ -3010,10 +3112,11 @@ to obtain a diagram:
 \[
  \begin{tikzcd}
   && W_{F,\lambda}^* \ar[d] \\
-  && \Glambda'(E_\lambda) \ar[r,hook] \ar[dd,two heads] & \GL(\Hlambda') \\
+  && \Glambda'(E_\lambda) \ar[r,hook] \ar[dd,two heads]
+  & \GL(\Hlambda')(E_\lambda) \\
   \Gamma_K \ar[drr,bend right,"\rho_\lambda"] &
   \widetilde{\Glambda}(E_\lambda) \ar[dr,two heads] \ar[ur] \\
-  && \Glambda(E_\lambda) \ar[r,hook] & \GL(\Hlambda)
+  && \Glambda(E_\lambda) \ar[r,hook] & \GL(\Hlambda)(E_\lambda)
  \end{tikzcd}
 \]
 These identifications are justified as follows:
@@ -3186,59 +3289,63 @@ This completes the proof of \cref{mtc-product-abelian-motives}.
 \end{lemma}
 
 \begin{lemma} % {{{-2
-	\label{mtc-finite-product-abelian-motives}
-	Let $K \subset \CC$ be a finitely generated field.
-	Let $M_{i}$, with $i \in I$, be a finite collection of
-	irreducible hyperadjoint abelian motives over~$K$.
-	Write $M = \bigoplus M_{i}$.
-	If $\MTC(M_{i})$ is true for all $i \in I$,
-	then $\MTC(M)$ is true.
-	\begin{proof}
-		By replacing $K$ with a finite extension,
-		we may and do assume that $M_i$ is \emph{geometrically} irreducible
-		for all $i \in I$.
-		We also may and do assume that for $i,j \in I$
-		we have $M_{i} \cong M_{j} \iff i = j$.
-		Recall that there is a natural injection
-		$\Gl(M) \into \prod_{i \in I} \Gl(M_{i})$
-		and the image projects surjectively onto the factors $\Gl(M_{i})$.
-		By \cref{mtc-product-abelian-motives},
-		we know that if $i,j \in I$ are two different indices,
-		then $\Gl(M_{i} \oplus M_{j}) \cong \Gl(M_{i}) \times \Gl(M_{j})$;
-		in other words,
-		$\Gl(M)$ surjects onto $\Gl(M_{i}) \times \Gl(M_{j})$.
-		By \cref{subgroup-surjective-projection-binary-products}
-		we conclude that $\Gl(M) \cong \prod_{i \in I} \Gl(M_{i})$.
-	\end{proof}
+ \label{mtc-finite-product-abelian-motives}
+ Let $K \subset \CC$ be a finitely generated field.
+ Let $M_{i}$, with $i \in I$, be a finite collection of
+ irreducible hyperadjoint abelian motives over~$K$.
+ Write $M = \bigoplus M_{i}$.
+ If $\MTC(M_{i})$ is true for all $i \in I$,
+ then $\MTC(M)$ is true.
+ \begin{proof}
+  By replacing $K$ with a finite extension,
+  we may and do assume that
+  $\Gl(M)$ is connected for all prime numbers~$\ell$,
+  and in addition that
+  $M_i$ is \emph{geometrically} irreducible
+  for all $i \in I$.
+  We also may and do assume that for $i,j \in I$
+  we have $M_{i} \cong M_{j} \iff i = j$.
+  Recall that there is a natural injection
+  $\Gl(M) \into \prod_{i \in I} \Gl(M_{i})$
+  and the image projects surjectively onto the factors $\Gl(M_{i})$.
+  Since $\Gl(M)$ is connected, so is $\Gl(M_i \oplus M_j)$, for all $i,j \in I$.
+  By \cref{mtc-product-abelian-motives},
+  we know that if $i,j \in I$ are two different indices,
+  then $\Gl(M_{i} \oplus M_{j}) \cong \Gl(M_{i}) \times \Gl(M_{j})$;
+  in other words,
+  $\Gl(M)$ surjects onto $\Gl(M_{i}) \times \Gl(M_{j})$.
+  By \cref{subgroup-surjective-projection-binary-products}
+  we conclude that $\Gl(M) \cong \prod_{i \in I} \Gl(M_{i})$.
+ \end{proof}
 \end{lemma}
 
 \begin{theorem} % {{{-2
-	\label{mtc-abelian-motives-tannakian-subcategory}
-	Fix a finitely generated field $K \subset \CC$.
-	Let $\mathcal{M}_K \subset \Mot_K$ be the full subcategory
-	of abelian motives for which the Mumford--Tate conjecture is true.
-	Then the category~$\mathcal{M}_K$ is a Tannakian subcategory of $\Mot_K$.
-	\begin{proof}
-		The category~$\Mot_K$ is semisimple,
-		so subquotients are direct summands.
-		It is clear that the subcategory~$\mathcal{M}_K$
-		is closed under duals, tensor powers, and direct summands.
-		Let $M_1$ and~$M_2$ be two objects in~$\mathcal{M}_K$.
-		We need to show that $M_1 \oplus M_2$
-		and $M_1 \otimes M_2$ are objects in $\mathcal{M}_K$.
-		Observe that $M_1 \otimes M_2$ is a direct summand of
-		$(M_1 \oplus M_2)^{\otimes 2}$.
-		Thus we are done if we show that the Mumford--Tate conjecture is true for
-		$M = M_1 \oplus M_2$.
-		By \cref{mtc-adjoint-motive} it suffices to prove $\MTC(M^\ha)$.
-		Decompose $M^\ha = \bigoplus_{i \in I} M'_i$
+ \label{mtc-abelian-motives-tannakian-subcategory}
+ Fix a finitely generated field $K \subset \CC$.
+ Let $\mathcal{M}_K \subset \Mot_K$ be the full subcategory
+ of abelian motives for which the Mumford--Tate conjecture is true.
+ Then the category~$\mathcal{M}_K$ is a Tannakian subcategory of $\Mot_K$.
+ \begin{proof}
+  The category~$\Mot_K$ is semisimple,
+  so subquotients are direct summands.
+  It is clear that the subcategory~$\mathcal{M}_K$
+  is closed under duals, tensor powers, and direct summands.
+  Let $M_1$ and~$M_2$ be two objects in~$\mathcal{M}_K$.
+  We need to show that $M_1 \oplus M_2$
+  and $M_1 \otimes M_2$ are objects in $\mathcal{M}_K$.
+  Observe that $M_1 \otimes M_2$ is a direct summand of
+  $(M_1 \oplus M_2)^{\otimes 2}$.
+  Thus we are done if we show that the Mumford--Tate conjecture is true for
+  $M = M_1 \oplus M_2$.
+  By \cref{mtc-adjoint-motive} it suffices to prove $\MTC(M^\ha)$.
+  Decompose $M^\ha = \bigoplus_{i \in I} M'_i$
   into a sum of irreducible motives.
   Note that for every $i \in I$, the motive~$M'_i$ is hyperadjoint,
   and $\MTC(M'_i)$ holds
   since the irreducible motive~$M'_i$ is a summand of $M_1^\ha$ or~$M_2^\ha$
   by \cref{ha-summands}.
-		Now the result follows from \cref{mtc-finite-product-abelian-motives}.
-	\end{proof}
+  Now the result follows from \cref{mtc-finite-product-abelian-motives}.
+ \end{proof}
 \end{theorem}
 
 \begin{remark} % {{{-2
@@ -3248,8 +3355,9 @@ This completes the proof of \cref{mtc-product-abelian-motives}.
  of the preceding \namecref{mtc-abelian-motives-tannakian-subcategory}.
  (See \cite{Mo17} for a recent overview of the state of the art.)
  \begin{enumerate}
-  \item Simple abelian varieties of prime dimension (\cite{Ta83}).
-  \item Abelian varieties of dimension~$g$ with trivial endomorphism ring
+  \item Geometrically simple abelian varieties of prime dimension (\cite{Ta83}).
+  \item Abelian varieties of dimension~$g$
+   with trivial endomorphism ring over~$\bar K$
    such that $2g$ is neither a $k$-th power for some odd $k > 1$,
    nor of the form $\binom{2k}{k}$ for some odd $k > 1$
    (theorem~5.14 of~\cite{Pi98}).
@@ -3265,7 +3373,7 @@ This completes the proof of \cref{mtc-product-abelian-motives}.
  \label{mtcaxa}
  Let $K$ be a finitely generated subfield of~$\CC$.
  Let $A_i$, $i \in I$, be a finite collection of abelian varieties over~$K$,
-	and write $A = \prod_{i \in I} A_i$.
+ and write $A = \prod_{i \in I} A_i$.
  Assume that $\MTC(A_i)$ is true for all $i \in I$.
  Then $\MTC(A)$ is also true.
  \begin{proof}
