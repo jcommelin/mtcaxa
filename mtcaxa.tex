@@ -1,4 +1,4 @@
-\documentclass[10pt,twoside,leqno]{article}
+\documentclass{alggeom}
 \pdfoutput=1
 % {{{-1 Preamble
 \usepackage[utf8]{inputenc}
@@ -23,21 +23,21 @@
 % \usepackage[biblatex]{embrac}
 % \linespread{1.25}  % = 1.500 * fontheight
 \linespread{1.388} % = 1.666 * fontheight
-\usepackage[
-% paper=b5paper,
-nohead,nomarginpar,
-% bindingoffset=.3cm,
-paper=a4paper,
-]{geometry}
+% \usepackage[
+% % paper=b5paper,
+% nohead,nomarginpar,
+% % bindingoffset=.3cm,
+% paper=a4paper,
+% ]{geometry}
 
 % \raggedbottom
 
-\usepackage{lastpage}
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{}
-\renewcommand{\headrulewidth}{0pt}
-\fancyfoot[LE,RO]{\thepage/\pageref*{LastPage}}
+% \usepackage{lastpage}
+% \usepackage{fancyhdr}
+% \pagestyle{fancy}
+% \fancyhf{}
+% \renewcommand{\headrulewidth}{0pt}
+% \fancyfoot[LE,RO]{\thepage/\pageref*{LastPage}}
 
 \usepackage{longtable}
 \usepackage{booktabs}
@@ -50,54 +50,74 @@ paper=a4paper,
 \setlist[enumerate,2]{label=\alph*.,ref=\theenumi.\alph*}
 % \setlist[enumerate*]{label=(\textit{\roman*}\thinspace)}
 
-\usepackage{cjhebrew}
+% \usepackage{cjhebrew}
 
 \usepackage[backend=biber,doi=false,url=false,isbn=false,%
 safeinputenc,style=quasialphabetic,citestyle=alphabetic]{biblatex}
 \bibliography{\jobname.bib}
-\defbibheading{bibliography}[\bibname]{\sectionstar{#1}}
+% \defbibheading{bibliography}[\bibname]{\sectionstar{#1}}
 
-%%% SECTION HEADINGS
-\usepackage{ifthen}
+% %%% SECTION HEADINGS
+% \usepackage{ifthen}
 \makeatletter
-\renewcommand{\part}[1]{%
- \cleardoublepage%
- \vbox{\null\vskip90pt%
- \normalfont\fontsize{20pt}{30pt}\selectfont%
- \baselineskip=30pt%
- \scshape\noindent\textls*{#1}\par}%
- \addcontentsline{toc}{part}{#1}%
- \@afterindentfalse%
- \@afterheading%
-}
-\renewcommand{\section}[1]{%
- \vskip2\baselineskip\penalty-250%
- \refstepcounter{section}%
- \vbox{\normalfont\fontsize{12pt}{15pt}\selectfont%
-  \centering\scshape\noindent\textls*{\thesection\quad#1}%
-  \par}%
- \addcontentsline{toc}{section}{\protect\numberline{\thesection} #1}%
- \nobreak%
- \@afterindentfalse%
- \@afterheading%
- \nobreak%
-} 
-\newcommand{\sectionstar}[1]{%
- \vskip2\baselineskip\penalty-250
- \vbox{\normalfont\fontsize{12pt}{15pt}\selectfont%
-  \centering\scshape\noindent\textls*{#1}%
-  \par}
- \nobreak\vskip15pt
- \@afterindentfalse%
- \@afterheading%
-} 
-\renewcommand{\paragraph}[1]{\par\bigskip\refstepcounter{subsection}%
+% \renewcommand{\part}[1]{%
+%  \cleardoublepage%
+%  \vbox{\null\vskip90pt%
+%  \normalfont\fontsize{20pt}{30pt}\selectfont%
+%  \baselineskip=30pt%
+%  \scshape\noindent\textls*{#1}\par}%
+%  \addcontentsline{toc}{part}{#1}%
+%  \@afterindentfalse%
+%  \@afterheading%
+% }
+% \renewcommand{\section}[1]{%
+%  \vskip2\baselineskip\penalty-250%
+%  \refstepcounter{section}%
+%  \vbox{\normalfont\fontsize{12pt}{15pt}\selectfont%
+%   \centering\scshape\noindent\textls*{\thesection\quad#1}%
+%   \par}%
+%  \addcontentsline{toc}{section}{\protect\numberline{\thesection} #1}%
+%  \nobreak%
+%  \@afterindentfalse%
+%  \@afterheading%
+%  \nobreak%
+% }
+% \newcommand{\sectionstar}[1]{%
+%  \vskip2\baselineskip\penalty-250
+%  \vbox{\normalfont\fontsize{12pt}{15pt}\selectfont%
+%   \centering\scshape\noindent\textls*{#1}%
+%   \par}
+%  \nobreak\vskip15pt
+%  \@afterindentfalse%
+%  \@afterheading%
+% }
+\usepackage{amsthm}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\numberwithin{equation}{subsection}
+
+
+\newtheorem{theorem}[subsection]{Theorem}
+\newtheorem{proposition}[subsection]{Proposition}
+\newtheorem{lemma}[subsection]{Lemma}
+\newtheorem{corollary}[subsection]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[subsection]{Definition}
+\newtheorem{conjecture}[subsection]{Conjecture}
+
+\theoremstyle{remark}
+\newtheorem{remark}[subsection]{Remark}
+\newtheorem{notation}[subsection]{Notation}
+\newtheorem{example}[subsection]{Example}
+
+\renewcommand{\paragraph}[1]{\par\smallskip\refstepcounter{subsection}%
  \global\setbox\@labels\hbox{%
   \mbox{\normalfont\normalsize\scshape\noindent\thesubsection%
    \ifthenelse{\equal{#1}{}}%
-   {}%
+   {.}%
    {\ \textls{#1.}}%
-   \ ---}%
+   \ }%---}%
  }%
  \global\@inlabeltrue
  \everypar{%
@@ -112,28 +132,29 @@ safeinputenc,style=quasialphabetic,citestyle=alphabetic]{biblatex}
  }
  \ignorespaces
 }
+
 \newcommand{\readmetitle}{{\normalfont\normalsize\scshape\noindent%
   \textls{Readme.}\ ---}}
-\newenvironment{readme}{\par\vskip\baselineskip%
+\newenvironment{readme}{\par%\vskip\baselineskip%
  % \readmetitle
  \itshape}{\normalfont}
-\renewcommand\tableofcontents{%
- \sectionstar{\contentsname}%
- \@starttoc{toc}%
-}
-\renewcommand*\l@part[2]{%
- \addvspace{15pt \@plus\p@}%
- \noindent{\leavevmode%
-  \scshape\textls{#1\qquad#2}%
- }\par\nobreak%
-}
-\renewcommand*\l@section[2]{%
- \setlength\@tempdima{\parindent}%
- \noindent
- {\leavevmode%
-  \hskip\parindent#1\qquad#2%
- }\par\nobreak%
-}
+% \renewcommand\tableofcontents{%
+%  \sectionstar{\contentsname}%
+%  \@starttoc{toc}%
+% }
+% \renewcommand*\l@part[2]{%
+%  \addvspace{15pt \@plus\p@}%
+%  \noindent{\leavevmode%
+%   \scshape\textls{#1\qquad#2}%
+%  }\par\nobreak%
+% }
+% \renewcommand*\l@section[2]{%
+%  \setlength\@tempdima{\parindent}%
+%  \noindent
+%  {\leavevmode%
+%   \hskip\parindent#1\qquad#2%
+%  }\par\nobreak%
+% }
 \makeatother
 
 %%% MATH PACKAGES
@@ -141,49 +162,45 @@ safeinputenc,style=quasialphabetic,citestyle=alphabetic]{biblatex}
 \usepackage{mathrsfs}         % disable when using mathdesign
 \usepackage{mathabx}
 
-\usepackage[thmmarks,amsmath]{ntheorem}
-\usepackage{hyperref}
-\usepackage{thmtools}
+% \usepackage[thmmarks,amsmath]{ntheorem}
+% \usepackage{thmtools}
 
-\numberwithin{equation}{subsection}
+% \declaretheoremstyle[headformat=swapnumber,headpunct={.\ ---},%
+% headfont=\normalfont\scshape\lsstyle,bodyfont=\itshape,%
+% spaceabove=0pt,spacebelow=0pt,%
+% preheadhook={\bigskip}]{theorem}
+% \declaretheorem[style=theorem,sibling=subsection]{theorem}
+% \declaretheorem[style=theorem,sibling=subsection]{proposition}
+% \declaretheorem[style=theorem,sibling=subsection]{lemma}
+% \declaretheorem[style=theorem,sibling=subsection]{corollary}
+% \declaretheorem[style=theorem,sibling=subsection]{conjecture}
 
-\declaretheoremstyle[headformat=swapnumber,headpunct={.\ ---},%
-headfont=\normalfont\scshape\lsstyle,bodyfont=\itshape,%
-spaceabove=0pt,spacebelow=0pt,%
-preheadhook={\bigskip}]{theorem}
-\declaretheorem[style=theorem,sibling=subsection]{theorem}
-\declaretheorem[style=theorem,sibling=subsection]{proposition}
-\declaretheorem[style=theorem,sibling=subsection]{lemma}
-\declaretheorem[style=theorem,sibling=subsection]{corollary}
-\declaretheorem[style=theorem,sibling=subsection]{conjecture}
+% \declaretheoremstyle[headformat=swapnumber,headpunct={.\ ---},%
+% headfont=\normalfont\scshape\lsstyle,bodyfont=\normalfont,%
+% spaceabove=0pt,spacebelow=0pt,%
+% preheadhook={\bigskip}]{definition}
+% \declaretheorem[style=definition,sibling=subsection]{definition}
+% \declaretheorem[style=definition,sibling=subsection]{exercise}
+% \declaretheorem[style=definition,sibling=subsection]{example}
+% \declaretheorem[style=definition,sibling=subsection]{remark}
+% \declaretheorem[style=definition,sibling=subsection]{notation}
+% \declaretheorem[style=definition,sibling=subsection]{construction}
 
-\declaretheoremstyle[headformat=swapnumber,headpunct={.\ ---},%
-headfont=\normalfont\scshape\lsstyle,bodyfont=\normalfont,%
-spaceabove=0pt,spacebelow=0pt,%
-preheadhook={\bigskip}]{definition}
-\declaretheorem[style=definition,sibling=subsection]{definition}
-\declaretheorem[style=definition,sibling=subsection]{exercise}
-\declaretheorem[style=definition,sibling=subsection]{example}
-\declaretheorem[style=definition,sibling=subsection]{remark}
-\declaretheorem[style=definition,sibling=subsection]{notation}
-\declaretheorem[style=definition,sibling=subsection]{construction}
+% \def\qedsquare{\ \boxvoid}
 
-\def\qedsquare{\ \boxvoid}
+% \declaretheoremstyle[headpunct={\!.},headfont=\itshape,bodyfont=\normalfont,%
+% qed=\ensuremath{\qedsquare},spaceabove=0pt,spacebelow=0pt]{proof}
+% \declaretheoremstyle[headpunct={\!.},headfont=\itshape,bodyfont=\normalfont,%
+% % qed=\fbox{\phantom{\rule{.3ex}{.3ex}}},spaceabove=0pt,spacebelow=0pt]{nonumberproof}
+% qed=\ensuremath{\qedsquare},spaceabove=0pt,spacebelow=0pt]{nonumberproof}
+% \declaretheorem[style=proof,numbered=no]{proof}
 
-\declaretheoremstyle[headpunct={\!.},headfont=\itshape,bodyfont=\normalfont,%
-qed=\ensuremath{\qedsquare},spaceabove=0pt,spacebelow=0pt]{proof}
-\declaretheoremstyle[headpunct={\!.},headfont=\itshape,bodyfont=\normalfont,%
-% qed=\fbox{\phantom{\rule{.3ex}{.3ex}}},spaceabove=0pt,spacebelow=0pt]{nonumberproof}
-qed=\ensuremath{\qedsquare},spaceabove=0pt,spacebelow=0pt]{nonumberproof}
-\declaretheorem[style=proof,numbered=no]{proof}
+% \declaretheoremstyle[headformat=swapnumber,headpunct={.\ ---},%
+% headfont=\itshape,bodyfont=\normalfont,qed=\ensuremath{\qedsquare},%
+% spaceabove=0pt,spacebelow=0pt,%
+% preheadhook={\bigskip}]{nproof}
+% \declaretheorem[style=nproof,sibling=subsection,name=Proof]{nproof}
 
-\declaretheoremstyle[headformat=swapnumber,headpunct={.\ ---},%
-headfont=\itshape,bodyfont=\normalfont,qed=\ensuremath{\qedsquare},%
-spaceabove=0pt,spacebelow=0pt,%
-preheadhook={\bigskip}]{nproof}
-\declaretheorem[style=nproof,sibling=subsection,name=Proof]{nproof}
-
-\usepackage{cleveref}
 \crefname{condition}{condition}{conditions}
 \crefname{conjecture}{conjecture}{conjectures}
 \crefname{construction}{construction}{constructions}
@@ -468,36 +485,32 @@ preheadhook={\bigskip}]{nproof}
 %%%%%%%%%%%%%%%%%%%%%%%%5
 \def\tops{\texorpdfstring}
 
-\def\title{The Mumford--Tate conjecture for products of abelian varieties}
-\def\author{Johan Commelin}
-
 \usepackage{datetime}
 \def\date{\dayofweekname{\day}{\month}{\year},
  the \ordinaldate{\day} of \monthname, \number\year}
 % -}}}1
+\raggedbottom
 \begin{document}
 % {{{-1 Title
-\begin{center}\Large\scshape
-\textls*{\title}
-\end{center}
+\title[MTC for products of abelian varieties]
+{The Mumford--Tate conjecture for products of abelian varieties}
+\author{Johan Commelin}
+\email{jmc@math.uni-freiburg.de}
+\address{Albert--Ludwigs-Universit\"at Freiburg\\Mathematisches Institut\\Ernst-Zermelo-Stra\ss{}e 1\\79104 Freiburg im Breisgau\\Deutschland}
 
-\medskip
+\classification{\textsc{14f20, 14k15}}
+\keywords{Mumford--Tate conjecture, motives, abelian varieties}
+\thanks{This research has been financially supported by the
+ Netherlands Organisation for Scientific Research~(NWO)
+ under project no.~613.001.207
+ \emph{(Arithmetic and motivic aspects of the Kuga--Satake construction)}
+ and no.~613.001.651
+ \emph{(The Cohomology of the Moduli Space of Curves)} and by the
+ Deutsche Forschungs Gemeinschaft~(DFG)
+ under Graduiertenkolleg~1821
+ \emph{(Cohomological Methods in Geometry)}.}
 
-\noindent\textit{by} \quad \author \hfill \date
-
-\bigskip
-\bigskip
-
-% \tableofcontents
-% -}}}1
-
-\vfill
-
-% {{{-1 Abstract
-{\narrower
- \small
- \centerline{\textsc{Abstract}}
- \medskip\noindent
+\begin{abstract} % {{{-2
  Let $X$ be a smooth projective variety
  over a finitely generated field $K$ of characteristic~$0$
  and fix an embedding $K \subset \CC$.
@@ -514,10 +527,11 @@ preheadhook={\bigskip}]{nproof}
  and the Mumford--Tate conjecture holds for
  both~$A_1$ and~$A_2$, then it holds for $A_1 \times A_2$.
  These results do not depend on the embedding $K \subset \CC$.
- \par}
-% -}}}1
+\end{abstract}
+% -}}}2
 
-\vfill
+\maketitle
+% -}}}1
 
 \section{Introduction} % {{{-1
 
@@ -546,7 +560,6 @@ The \emph{Mumford--Tate conjecture} expresses the expectation that
 the comparison isomorphism $\Hl^1(A) \cong \HB^1(A) \otimes \QQl$
 identifies $\Glc(A)$ with~$\GB(A) \otimes \QQl$.
 This conjecture is still wide open.
-\looseness=-1
 
 \paragraph{Main theorem} % {{{-2
 The goal of this article is \cref{mtcaxa}:
@@ -562,7 +575,6 @@ The goal of this article is \cref{mtcaxa}:
 
 \medskip
 
-\nobreak
 \noindent
 In fact, in \cref{mtc-abelian-motives-tannakian-subcategory}
 we prove the more general statement that
@@ -571,16 +583,6 @@ consisting of motives for which the
 Mumford--Tate conjecture holds
 is a subcategory that is closed under
 direct sums, tensor products, duals, and taking direct summands.
-
-\vfil
-
-{\noindent
- \rule{.3\textwidth}{.1pt}\\[-.5\baselineskip]
- \small\scshape
- msc2010: 14f20, 14k15.
-}
-
-\newpage
 
 \begin{remark} % {{{-2
  \begin{enumerate}
@@ -632,14 +634,15 @@ direct sums, tensor products, duals, and taking direct summands.
 
 \begin{remark} % {{{-2
  This paper extends work of Lombardo~\cite{Lo14} and Vasiu~\cite{Va08}.
- In particular, Vasiu proves a similar result to \cref{mtcaxa}
- although he has to exclude the case where $A_1$ or~$A_2$
+ The latter contains a result similar to \cref{mtcaxa}
+ although it has to exclude the case where $A_1$ or~$A_2$
  has a Mumford--Tate group with a simple factor of type~$\DtD_4^\HQ$.
- His proof is long and very technical,
- and I do not claim to fully grasp the details.
+ Its proof is long and very technical,
+ and I do not claim to grasp the details.
  His global strategy is similar to the one employed below;
  and the reason that we can now prove the stronger claim
  is mostly due to the results of~\cite{Co17} (building on~\cite{Kisin_modp}).
+ \looseness=-1
 \end{remark}
 
 \paragraph{Strategy of the proof} % {{{-2
@@ -689,8 +692,8 @@ direct sums, tensor products, duals, and taking direct summands.
   This in turn implies $\GB(\tilde A_1) \cong \GB(\tilde A_2)$.
   In particular $\GB(M_1 \oplus M_2) \subset \GB(M_1) \times \GB(M_2)$
   is the diagonal,
-  and therefore $\Glc(M_1 \oplus M_2) \cong \GB(M_1 \oplus M_2) \otimes \QQl$.
-  Hence we win!
+  hence $\Glc(M_1 \oplus M_2) \cong \GB(M_1 \oplus M_2) \otimes \QQl$,
+  and we win!
 \end{enumerate}
 
 \begin{notation} % {{{-2
@@ -698,27 +701,22 @@ direct sums, tensor products, duals, and taking direct summands.
  we denote with~$\Gamma_K$ the absolute Galois group~$\Gal(\bar K/K)$.
 \end{notation}
 
-\paragraph{Acknowledgements} % {{{-2
-My warmest thanks go to my supervisor Ben Moonen.
-Our countless discussions and his many detailed explanations and corrections
-have been of immense importance for this article.
-I also thank Rutger Noot for a very inspiring discussion of this subject.
-This article also benefited from the extensive feedback on my PhD~thesis
-that I received from Anna Cadoret, Pierre Deligne, Bas Edixhoven,
-Milan Lopuha\"a, Rutger Noot, and Lenny Taelman.
-I thank Netan Dogra, Brad Drew, Carel Faber, Salvatore Floccari,
-Martin Gallauer, Joost Nuiten, and Frans Oort
-for their interest and useful comments.
-I express my gratitude to an anonymous referee
-for detailed comments and feedback,
-and for catching an error in an earlier version
-of~\cref{table-deligne-dynkin-diagrams}.
-
-This research has been financially supported by the Netherlands Organisation
-for Scientific Research~(NWO) under project no.~613.001.207
-\emph{(Arithmetic and motivic aspects of the Kuga--Satake construction)}
-and no.~613.001.651
-\emph{(The Cohomology of the Moduli Space of Curves)}.
+\begin{acknowledgements} % {{{-2
+ My warmest thanks go to my supervisor Ben Moonen.
+ Our countless discussions and his many detailed explanations and corrections
+ have been of immense importance for this article.
+ I also thank Rutger Noot for a very inspiring discussion of this subject.
+ This article also benefited from the extensive feedback on my PhD~thesis
+ that I received from Anna Cadoret, Pierre Deligne, Bas Edixhoven,
+ Milan Lopuha\"a, Rutger Noot, and Lenny Taelman.
+ I thank Netan Dogra, Brad Drew, Carel Faber, Salvatore Floccari,
+ Martin Gallauer, Joost Nuiten, and Frans Oort
+ for their interest and useful comments.
+ I express my gratitude to an anonymous referee
+ for detailed comments and feedback,
+ and for catching an error in an earlier version
+ of~\cref{table-deligne-dynkin-diagrams}.
+\end{acknowledgements}
 
 \section{Hyperadjoint objects in Tannakian categories} % {{{-1
 
@@ -804,8 +802,7 @@ then $G$ is naturally isomorphic to $\Fib(\Rep(G))$.
  that corresponds with the collection of functors
  $\Fib(T)_R \to \Proj_R$ given by $\omega \mapsto \Lie(\iAut^\otimes(\omega))$
  via the Tannakian formalism described above.
- 
- Note: Since $T$ is finitely generated,
+ N.b.: Since $T$ is finitely generated,
  the group scheme $\iAut^\otimes(\omega)$ is of finite type,
  and therefore $\Lie(\iAut^\otimes(\omega))$ is finitely generated.
 \end{definition}
@@ -924,7 +921,7 @@ this sequence stabilises at an object $V^{(\infty)}$.
   \begin{enumerate}[resume]
    \item There is a natural map $\Lie(G) \into \Lie(G_1) \oplus \Lie(G_2)$.
    \item Inductively apply point~1 and the preceding point.
-   \item Apply the preceding point and point~3.
+   \item Apply the preceding point and point~3. \qedhere
   \end{enumerate}
  \end{proof}
 \end{lemma}
@@ -1154,7 +1151,7 @@ It is not known whether $\GG(\Mot_{\bar K})$ is connected.
  and we write $\Glc(M)$ for the identity component of~$\Gl(M)$.
  With $\GB(M)$ we denote the Mumford--Tate group
  of the Hodge structure~$\HB(M)$.
- The realisation functors induce natural injective morphisms 
+ The realisation functors induce natural injective morphisms
  $\Gl(M) \to \GG(M)_{\QQl}$ (via the comparison isomorphism)
  and $\GB(M) \to \GG(M)$.
 \end{notation}
@@ -1431,7 +1428,7 @@ where $A$ is a \cm~abelian variety over~$K$ (\emph{cf.}~\cref{cm-hs-cat}).
   The bottom row is exact by
   the definition of hyperadjoint objects (\cref{ha-obj})
   and \cref{hodge-is-motivated}.
-  
+
   Certainly, if $b$ is an isomorphism, then $c$ is also an isomorphism.
   Conversely, if $c$ is an isomorphism,
   then $\dim \Glc(M) = \dim \GB(M)$.
@@ -1446,6 +1443,7 @@ where $A$ is a \cm~abelian variety over~$K$ (\emph{cf.}~\cref{cm-hs-cat}).
  In general it is expected that the $\ell$-adic realisations~$\Hl(M)$
  of a motive~$M$ over a finitely generated field~$K$ of characteristic~$0$
  form a compatible system of Galois representations in the sense of Serre.
+ \looseness=-1
 
  The main theorem of~\cite{Co17} shows that if $M$~is an abelian motive
  a slightly weaker result is true;
@@ -1509,7 +1507,7 @@ the geometric Frobenius automorphism:
  $\Gamma_{K_x} \onto \Gamma_{\kappa(x)}$.
  Every embedding $\bar{K} \into \bar{K}_x$
  induces an inclusion $\Gamma_{K_x} \into \Gamma_K$.
- 
+
  Like in \cref{frobenius-element-number-field},
  the inverse image of $F_{\kappa(x)}$
  in $\Gamma_{K_x}$
@@ -1750,15 +1748,29 @@ obtained from~$\rho_\Lambda$ by restricting to $\QQ \subset E$;
  irreducible symplectic populated Deligne--Dynkin diagrams over~$\QQ$.
 \end{readme}
 
-\paragraph{} % {{{-2
-Let $\Delta$ be a connected Dynkin diagram, and
-let $\Delta^+$ be the extended (or affine)
-Dynkin diagram associated with~$\Delta$.
-Then $\Delta^+ = \Delta \sqcup \{\alpha_0\}$.
-Below we depict the connected extended Dynkin diagrams,
-in which $\alpha_0$ is depicted by a grey node
-\tikz[Dynkin] \node[a0] {};.
- \[
+% \paragraph{} % {{{-2
+% Let $\Delta$ be a connected Dynkin diagram, and
+% let $\Delta^+$ be the extended (or affine)
+% Dynkin diagram associated with~$\Delta$.
+% Then $\Delta^+ = \Delta \sqcup \{\alpha_0\}$.
+% Below we depict the connected extended Dynkin diagrams,
+% in which $\alpha_0$ is depicted by a grey node
+% \tikz[Dynkin] \node[a0] {};.
+
+\begin{definition} % {{{-2
+ \label{special-node}
+ Let $\Delta$ be a connected Dynkin diagram, and
+ let $\Delta^+ = \Delta \sqcup \{\alpha_0\}$ be the extended (or affine)
+ Dynkin diagram associated with~$\Delta$.
+ (See \cref{extended_dynkin_diagrams}.)
+ A node of $\Delta$ is \emph{special}
+ if it is contained in the $\Aut(\Delta^+)$-orbit of~$\alpha_0$.
+ See~\cref{table-deligne-dynkin-diagrams}
+ for diagrams that depict which nodes are special.
+\end{definition}
+
+\begin{figure} % {{{-2
+ \centering
  \begin{tikzpicture}[Dynkin] % {{{-3
   \node[diagramlabel] (A1text) [label=left:{\normalsize$\DtA_1^+$:}] at (-.2,0) {};
   \node[a0] (A10) at (0,0) {};
@@ -1884,18 +1896,11 @@ in which $\alpha_0$ is depicted by a grey node
    \draw (G20) -- (G21) -- (G22);
   \end{scope}
  \end{tikzpicture} % -}}}3
-\]
-
-\begin{definition} % {{{-2
- \label{special-node}
- Let $\Delta$ be a connected Dynkin diagram, and
- let $\Delta^+ = \Delta \sqcup \{\alpha_0\}$ be the extended (or affine)
- Dynkin diagram associated with~$\Delta$.
- A node of $\Delta$ is \emph{special}
- if it is contained in the $\Aut(\Delta^+)$-orbit of~$\alpha_0$.
- See~\cref{table-deligne-dynkin-diagrams}
- for diagrams that depict which nodes are special.
-\end{definition}
+\caption{Extended Dynkin diagrams.
+The ``extending'' node~$\alpha_0$ is depicted by a grey node
+\protect\tikz[Dynkin] \protect\node[a0] {};.}
+\label{extended_dynkin_diagrams}
+\end{figure}
 
 \begin{example} % {{{-2
  \label{eg-special-nodes}
@@ -1965,7 +1970,8 @@ the \emph{opposition involution}.
 It is non-trivial if and only if
 $\Delta$ has type $\DtA_k$ with $k \ne 1$, $\DtD_k$ with $k$~odd, or $\DtE_6$.
 In these cases, $\tau$ is the unique non-trivial automorphism of~$\Delta$.
-In particular, the opposition involution depends only on the type of~$\Delta$.
+In particular, the opposition involution depends only on the~type~of~$\Delta$.
+\looseness=1
 
 For non-connected Dynkin diagrams
 the opposition involution is defined componentwise.
@@ -1999,17 +2005,6 @@ we have added a diagram~$\DtA_n$
 that depicts a special case of diagram~$\DtA_{p+q+1}$,
 for reasons of clarity.
 See also \S10 of~\cite{Mi13}, in particular footnote~34.)
-
-As explained in \cref{eg-special-nodes},
-if the Dynkin diagram has type~$\DtD_n$, then all extremal nodes are special.
-This leads to two different isomorphism classes%
----listed in the table below---%
-that are labelled with $\DtD_n^\RR$ and~$\DtD_n^\HQ$.
-The reader that has never seen these labels before
-should not currently worry about the meaning of the superscripts~$(\_)^\RR$
-and~$(\_)^\HQ$,
-but the curious reader is referred to
-remarque~1.3.10(ii) of~\cite{Del_ShimVar}.
 
 \nobreak
 \noindent
@@ -2120,6 +2115,18 @@ The diagrams of type~$\DtE_6$ and~$\DtE_7$ do not have symplectic nodes.
 The diagrams of type~$\DtE_8$, $\DtF_4$, and~$\DtG_2$ do not occur:
 they do not have special nodes.
 \end{minipage} % -}}}3
+\bigskip
+
+As explained in \cref{eg-special-nodes},
+if the Dynkin diagram has type~$\DtD_n$, then all extremal nodes are special.
+This leads to two different isomorphism classes%
+---listed in the table above---%
+that are labelled with $\DtD_n^\RR$ and~$\DtD_n^\HQ$.
+The reader that has never seen these labels before
+should not currently worry about the meaning of the superscripts~$(\_)^\RR$
+and~$(\_)^\HQ$,
+but the curious reader is referred to
+remarque~1.3.10(ii) of~\cite{Del_ShimVar}.
 
 \begin{definition} % {{{-2
  \label{symplectic-nodes-deligne-dynkin-diagram}
@@ -2519,13 +2526,14 @@ if we prove that these sets are locally isomorphic
   Now suppose that the degree of $\bar\mu_1$ is~$2$.
   Let $\{\alpha,\beta\} \subset \bar\mu_1$
   be two nodes that lie in the same connected component of~$\Delta_1$.
-  Without loss of generality we may and do assume $\alpha \in \mu_1$.
+  Without loss of generality we may assume $\alpha \in \mu_1$.
   By Chebotarev's density theorem,
   there exists a prime number~$\ell$ and $g \in \Gamma_{\QQl}$
   such that $g\alpha = \beta$.
   By assumption, we have $\psi_\ell(\alpha) \in \mu_2$
   and $\psi_\ell(\beta) = g\psi_\ell(\alpha) \in \bar\mu_2$.
   We conclude that $\bar\mu_1$ and~$\bar\mu_2$ have the same degree.
+  \looseness=-1
 \end{itemize}
 We have now proven that there exists a $\Gamma_\QQ$-equivariant
 isomorphism $\phi \colon \Delta_1 \to \Delta_2$ lying over~$f$.
@@ -2730,7 +2738,8 @@ by \cref{hodge-is-motivated}.
  then $\mu_\HT$ determines the subset $\mu \subset \Delta$.
  \begin{proof}
   By the Tannakian formalism,
-  the cocharacters $\mu_\HT$ and~$\mu$ correspond to tensor functors
+  the two cocharacters $\mu_\HT$ and~$\mu$ correspond to two tensor functors,
+  namely the realisation functors
   \[
    \begin{aligned}
     \Hp \otimes \FHT{v} \colon \Tangen{M} &\to \grVect_{\FHT{v}} \\
@@ -2779,6 +2788,7 @@ by \cref{hodge-is-motivated}.
   obtained by base change, induces a bijection
   between the conjugacy classes of cocharacters of~$G$
   and the conjugacy classes of cocharacters of~$G_{\bar Q'}$.
+
   Indeed, let $T \subset B \subset G$ be a choice of
   a maximal torus~$T$ and a Borel subgroup~$B$,
   and let $\Fund(T,B) \subset \Cochar(T)$ denote the fundamental chamber.
@@ -3032,6 +3042,7 @@ Write $E$ for $E_1 = E_2$,
 and write $\lambda$ for $\lambda_1 = \lambda_2$.
 We conclude that $\Hlambda(M_1) \cong \Hlambda(M_2)$
 as $\lambda$-adic Galois representations.
+\looseness=1
 
 Write $\Lambda$ for the set of finite places of~$E$.
 We assumed that $\Gl(M_{1} \oplus M_{2})$
@@ -3077,6 +3088,7 @@ To do so, we have to make three choices, as in \cref{choices}:
 \item choose the representations~$V_1$ and~$V_2$
  in such a way that they have the same dimension.
 \end{enumerate*}
+
 Let $F_{S_i}$ be an \'etale $E$-algebra such that
 $\Hom(F_{S_i},\QQbar) \cong S_i$,
 and write $W_{F,i}$ for $F \otimes_E F_{S_i}$.
@@ -3085,6 +3097,7 @@ fractional Hodge structure of weight~$1$ that is of \cm~type.
 The construction produces two complex abelian varieties~$A_1$ and~$A_2$,
 such that $\HB(A_i) = W_{F,i} \otimes_{F_{S_i}} V_i$,
 and $M_{i,\CC} = \HH^1(A_i)^\ha$.
+\looseness=1
 
 Replace~$K$ with a finitely generated extension of~$K$
 such that $A_1$ and~$A_2$ are defined over~$K$.
@@ -3095,6 +3108,7 @@ Let $\lambda$ be a finite place of~$E$ such that $\psi_\lambda = \phi_\lambda$,
 and let $\ell$ be the residue characteristic of~$\lambda$.
 Observe that $E$ acts on $M_i$,~$V_i$, $W_{F,i}$, and~$A_i$.
 We have the following diagram:
+
 \[
  \begin{tikzcd}
   && (W_{F_i} \otimes_E E_\lambda)^* \ar[d] \\
@@ -3192,7 +3206,7 @@ via the Tannakian formalism.
 However, since $N$ is a representation of $\GB(A_i)$
 we know that $N$ is a (classical) Hodge structure,
 and this Hodge structure is independent of~$i$,
-because $q_1 \circ p_1 = q_2 \circ p_2$. 
+because $q_1 \circ p_1 = q_2 \circ p_2$.
 Note that $N$ is a \cm~Hodge structure, by definition.
 Finally, by \cref{hodge-is-motivated} we view $N$ as a complex \cm~motive.
 
@@ -3385,20 +3399,5 @@ This completes the proof of \cref{mtc-product-abelian-motives}.
 
 % {{{-1 Footer
 \printbibliography
-
-\vfill
-
-\hfill
-\begin{minipage}{.5\textwidth}
- \noindent
- \rule{.99\textwidth}{.1pt}\\[-.3\baselineskip]
- \obeylines%
- Albert--Ludwigs-Universit\"at Freiburg
- Mathematisches Institut
- Ernst-Zermelo-Stra\ss{}e~1
- 79104 Freiburg im Breisgau
- Deutschland
- \texttt{jmc@math.uni-freiburg.de}
-\end{minipage}
 
 \end{document}
