@@ -1,0 +1,120 @@
+Let $X/K$ be a variety over a number field $K \subset \mathbb C$.
+Let $\bar K$ denote the algebraic closure of $K$ in~$\mathbb C$.
+(In other words, we have chosen distinguished embeddings $K \subset \bar K \subset \mathbb C$.)
+
+Then the singular cohomology $H_B = H^i(X(\mathbb C), \mathbb Q)$ naturally caries a Hodge structure,
+and the $\ell$-adic \'etale cohomology $H_\ell = H_{\text{\'et}}^i(X_{\bar K}, \mathbb Q_\ell)$
+naturally caries a continuous representation of $\text{Gal}(\bar K/K)$.
+Artin's comparison isomorphism is a natural isomorphism of vector spaces
+$H_B \otimes_{\mathbb Q} \mathbb Q_\ell \cong H_\ell$.
+
+In both cases, this extra structure on the cohomology group can be described by the action of an algebraic group.
+In the case of the $\mathbb Q$-Hodge structure $H_B$,
+this is the so-called Mumford--Tate group $G_B$,
+which can be described as the largest algebraic subgroup over~$\mathbb Q$ of $\text{GL}(H_B)$
+that fixes all endomorphisms of all tensor powers of~$H_B$.
+For the $\ell$-adic Galois representation $H_\ell$,
+we let $G_\ell$ denote that Zariski closure of the image of $\text{Gal}(\bar K/K)$ in $\text{GL}(H_\ell)$.
+This is an algebraic group over $\mathbb Q_\ell$.
+Let $G_\ell^\circ \subset G_\ell$ denote the connected component of the identity.
+
+The Mumford--Tate conjecture asserts that
+Artin's comparison isomorphism induces an isomorphism of algebraic groups
+\[
+ G_B \times_{\mathbb Q} \text{Spec}(\mathbb Q_\ell) \cong G_\ell^\circ.
+\]
+
+In general, very little is known in support of this conjecture.
+If $X$ is an abelian variety, then we can say a bit more.
+In this case, the conjecture is known if $\dim(X) \le 3$,
+if $X$ is simple of prime dimension, or if $X$ has trivial endomorphism ring and odd dimension.
+In general, $G_\ell^\circ$ is contained in $G_B \times_{\mathbb Q} \text{Spec}(\mathbb Q_\ell)$.
+More can be said under further techinical conditions.
+My main contribution is the following result.
+
+\begin{thm}[Commelin, 2019]
+ Let $X_1$ and $X_2$ be abelian varieties over~$K$.
+ If the Mumford--Tate conjecture is true for $X_1$ and~$X_2$,
+ then it is also true for $X_1 \times X_2$.
+\end{thm}
+
+Let me sketch the main technical problems that the proof must overcome.
+First, let us consider the case that $H_\ell(X_1)$ is isomorphic to $H_\ell(X_2)$ as Galois representation.
+In that case, $G_\ell^\circ(X_1 \times X_2)$ is the diagonal in $G_\ell^\circ(X_1) \times G_\ell^\circ(X_2)$.
+Now one must prove that the same thing happens for the Hodge structures.
+This can be done, using Faltings's theorem that shows that $X_1$ and $X_2$ are isogenous
+if the associated $\ell$-adic Galois representations are isomorphic.
+
+But something a bit more subtle could happen:
+it might be the case that a proper summand of $H_\ell(X_1)$ is isomorphic to a proper summand of $H_\ell(X_2)$.
+And a priori these summands do not need to be defined over $\mathbb Q$ as summands of the $H_B(X_i)$.
+Indeed, if $E_i$ is the algebra $\text{End}(X_i) \otimes \mathbb Q$,
+then $E_i \otimes \mathbb Q_\ell$ can split into more factors than $E_i$.
+
+This suggests that we should try to reduce to the case that $X_1$ and~$X_2$ are simple.
+But it would be even better if we could reduce to a setting where $G_B(X_1)$ and $G_B(X_2)$ are simple.
+This can be done, by using motivic techniques.
+
+Motives are objects of cohomological nature, and the subject of a large network of conjectures.
+Briefly speaking, there should be a cohomology functor from varieties to motives,
+that is universal in the sense that every other suitable cohomology functor factors via this functor to motives.
+At the time of writing, there is no definition of motive that is known to satisfy all desiderata,
+but there are several proposed definitions that satisfy varying subsets of the desiderata.
+In my work, I use an unconditional category of motives put forward by Yves Andr\'e.
+
+I introduced the notion of \emph{adjoint motive},
+and I showed that the Mumford--Tate conjecture for an abelian variety
+is equivalent to the Mumford--Tate conjecture for the associated adjoint motive.
+Using a Goursat-lemma argument,
+we can then reduce to the case of two irreducible adjoint motives.
+
+We still have to deal with the fact that $G_\ell^\circ$ might split into a product of simple groups,
+even though the Mumford--Tate group is now simple by assumption.
+
+For abelian varieties, it is known that the Mumford--Tate conjecture is independent of~$\ell$.
+This is a consequence of the fact that
+the $\ell$-adic Galois representations $H_\ell$ (for varying $\ell$)
+form a \emph{compatible system of Galois representations};
+a concept introduced by Serre.
+So one might hope that there is always a prime~$\ell$ for which the above-mentioned problem doesn't occur.
+This is indeed the correct general strategy,
+but it requires yet again to overcome some problems:
+there exist endomorphism algebras $E$ in which every prime splits.
+
+Furthermore, the reduction step to adjoint motives comes with a cost:
+a priori, we no longer know that the Mumford--Tate conjecture for these motives is independent of~$\ell$.
+The adjoint motives that we consider are examples of so-called abelian motives,
+which means that they are constructed from the motives of abelian varieties using tensor operations, quotients, duals, and direct sums.
+
+The solution is to generalise the concept of compatible system of Galois representations.
+Instead of considering a family of $mathbb Q_\ell$-representations,
+we consider a family of $E_\lambda$-representations, where $E$ is a number field
+(e.g., the endomorphism algebra of a simple abelian variety/motive).
+We also need to relax certain other technical conditions
+about the characteristic polynomial of Frobenius elements in the Galois group.
+The resulting objects are called \emph{quasi-compatible} systems of Galois representations.
+Many of the good properties of compatible systems also hold for quasi-compatible systems.
+
+In addition, I obtained the following result,
+which allows us to conclude
+that the Mumford--Tate conjecture for abelian motives is independent of~$\ell$.
+
+Let $M$ be an abelian motive, and let $E \subset \text{End}(M)$ be a number field.
+Then the $\ell$-adic Galois representations $H_\ell(M)$
+naturally split into direct sums $\bigoplus_{\lambda \mid \ell} H_\lambda(M)$,
+where $\lambda$ runs over finite places of $E$ that divide $\ell$.
+
+\begin{thm}[Commelin, 2019]
+ The $\lambda$-adic realisations $H_\lambda(M)$
+ form a quasi-compatible system of Galois representations.
+\end{thm}
+
+The proof of this theorem relies on a technical result of Kisin
+about special lifts on integral models of certain Shimura varieties.
+
+With this result in place,
+the remainder of the proof of the first theorem
+consists of a careful analysis of representations of semisimple algebraic groups over number fields of
+classical Dynkin type.
+The most tricky case is when $G_\ell^\circ(X_1)$ and $G_\ell^\circ(X_2)$ have type~$D_4$ because of the triality automorphisms of the Dynkin diagram.
+But I will not go into further detail of this proof.
